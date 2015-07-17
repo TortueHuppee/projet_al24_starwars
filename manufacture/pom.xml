@@ -24,6 +24,7 @@
   
   <modules>
   	<module>manufactureENTITY</module>
+  	<module>manufactureDAO</module>
   </modules>
   
   
