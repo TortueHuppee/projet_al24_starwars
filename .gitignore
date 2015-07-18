@@ -1,7 +1,5 @@
-/manufacture
 /bin
-/.classpath
-/.settings
+.classpath
+.settings
 /target
 /build
-/pom.properties
