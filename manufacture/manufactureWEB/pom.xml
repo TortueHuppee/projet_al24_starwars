@@ -6,7 +6,7 @@
 		<artifactId>manufacture</artifactId>
 		<version>0.1</version>
 	</parent>
-	<groupId>fr.afcepf.al24.manufacture</groupId>
+	<groupId>fr.afcepf.al24.manufacture.web</groupId>
 	<artifactId>manufactureWEB</artifactId>
 	<packaging>war</packaging>
 </project>

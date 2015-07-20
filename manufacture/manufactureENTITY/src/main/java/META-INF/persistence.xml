@@ -1,5 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
 	<persistence-unit name="manufactureENTITY">
+		<class>manufacture.entity.Adress</class>
+		<class>manufacture.entity.Cart</class>
+		<class>manufacture.entity.CartProduct</class>
+		<class>manufacture.entity.Category</class>
+		<class>manufacture.entity.City</class>
+		<class>manufacture.entity.Civility</class>
+		<class>manufacture.entity.Color</class>
+		<class>manufacture.entity.Constructor</class>
+		<class>manufacture.entity.Country</class>
+		<class>manufacture.entity.Delivery</class>
+		<class>manufacture.entity.Material</class>
+		<class>manufacture.entity.PaymentType</class>
+		<class>manufacture.entity.Planet</class>
+		<class>manufacture.entity.Product</class>
+		<class>manufacture.entity.ProductRef</class>
+		<class>manufacture.entity.Rating</class>
+		<class>manufacture.entity.Reporting</class>
+		<class>manufacture.entity.ReportingDecision</class>
+		<class>manufacture.entity.SpaceshipProduct</class>
+		<class>manufacture.entity.SpaceshipRef</class>
+		<class>manufacture.entity.User</class>
 	</persistence-unit>
 </persistence>
