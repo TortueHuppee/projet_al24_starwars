@@ -4,45 +4,45 @@
         "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 
 <hibernate-configuration>
-    <session-factory>
-        <!-- SQL dialect -->
-        <property name="dialect">org.hibernate.dialect.MySQLDialect</property>
-        <!-- Echo all executed SQL to stdout -->
-        <property name="show_sql">true</property>
-        <!-- Drop and re-create the database schema on startup -->
-        <property name="hbm2ddl.auto">update</property>
-        
-        <mapping class="manufacture.entity.user.Address"/>
-		<mapping class="manufacture.entity.cart.Cart"/>
-		<mapping class="manufacture.entity.cart.CartProduct"/>
-		<mapping class="manufacture.entity.product.Category"/>
-		<mapping class="manufacture.entity.user.City"/>
-		<mapping class="manufacture.entity.user.Civility"/>
-		<mapping class="manufacture.entity.product.Color"/>
-		<mapping class="manufacture.entity.product.Constructor"/>
-		<mapping class="manufacture.entity.user.Country"/>
-		<mapping class="manufacture.entity.cart.Delivery"/>
-		<mapping class="manufacture.entity.product.Material"/>
-		<mapping class="manufacture.entity.cart.PaymentType"/>
-		<mapping class="manufacture.entity.user.Planet"/>
-		
-		<mapping class="manufacture.entity.product.Product"/>
-		<mapping class="manufacture.entity.product.ConstructorProduct"/>
-		<mapping class="manufacture.entity.product.ArtisanProduct"/>
-		<mapping class="manufacture.entity.product.UsedProduct"/>
-		
-		<mapping class="manufacture.entity.product.ProductRef"/>
-		<mapping class="manufacture.entity.product.Rating"/>
-		<mapping class="manufacture.entity.report.Reporting"/>
-		<mapping class="manufacture.entity.report.ReportingDecision"/>
-		<mapping class="manufacture.entity.product.SpaceshipProduct"/>
-		<mapping class="manufacture.entity.product.SpaceshipRef"/>
-		
-		<mapping class="manufacture.entity.user.User"/>
-		<mapping class="manufacture.entity.user.Artisan"/>
-		<mapping class="manufacture.entity.user.Administrator"/>
-		<mapping class="manufacture.entity.user.ProfessionalCustomer"/>
-		<mapping class="manufacture.entity.user.SpecificCustomer"/>
+	<session-factory>
+		<!-- SQL dialect -->
+		<property name="dialect">org.hibernate.dialect.MySQLDialect</property>
+		<!-- Echo all executed SQL to stdout -->
+		<property name="show_sql">true</property>
+		<!-- Drop and re-create the database schema on startup -->
+		<property name="hbm2ddl.auto">update</property>
 
-    </session-factory>
+		<mapping class="manufacture.entity.user.Address" />
+		<mapping class="manufacture.entity.cart.Cart" />
+		<mapping class="manufacture.entity.cart.CartProduct" />
+		<mapping class="manufacture.entity.product.Category" />
+		<mapping class="manufacture.entity.user.City" />
+		<mapping class="manufacture.entity.user.Civility" />
+		<mapping class="manufacture.entity.product.Color" />
+		<mapping class="manufacture.entity.product.Constructor" />
+		<mapping class="manufacture.entity.user.Country" />
+		<mapping class="manufacture.entity.cart.Delivery" />
+		<mapping class="manufacture.entity.product.Material" />
+		<mapping class="manufacture.entity.cart.PaymentType" />
+		<mapping class="manufacture.entity.user.Planet" />
+
+		<mapping class="manufacture.entity.product.Product" />
+		<mapping class="manufacture.entity.product.ConstructorProduct" />
+		<mapping class="manufacture.entity.product.ArtisanProduct" />
+		<mapping class="manufacture.entity.product.UsedProduct" />
+
+		<mapping class="manufacture.entity.product.ProductRef" />
+		<mapping class="manufacture.entity.product.Rating" />
+		<mapping class="manufacture.entity.product.SpaceshipProduct" />
+		<mapping class="manufacture.entity.product.SpaceshipRef" />
+		<mapping class="manufacture.entity.report.Reporting" />
+		<mapping class="manufacture.entity.report.ReportingDecision" />
+
+		<mapping class="manufacture.entity.user.User" />
+		<mapping class="manufacture.entity.user.Artisan" />
+		<mapping class="manufacture.entity.user.Administrator" />
+		<mapping class="manufacture.entity.user.ProfessionnalCustomer" />
+		<mapping class="manufacture.entity.user.SpecificCustomer" />
+
+	</session-factory>
 </hibernate-configuration>
