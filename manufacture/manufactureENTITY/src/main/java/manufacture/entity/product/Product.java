@@ -1,15 +1,23 @@
 package manufacture.entity.product;
 
 import java.io.Serializable;
+import java.util.List;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 import manufacture.entity.cart.CartProduct;
 import manufacture.entity.report.Reporting;
-import manufacture.entity.user.User;
-
-import java.util.Date;
-import java.util.List;
 
 
 /**
@@ -36,9 +44,6 @@ public class Product implements Serializable {
 	private double price;
 
 	private int stock;
-
-	@Column(name="type_product")
-	private String typeProduct;
 
 	//bi-directional many-to-one association to CartProduct
 	@OneToMany(mappedBy="product")
@@ -100,14 +105,6 @@ public class Product implements Serializable {
 
 	public void setStock(int stock) {
 		this.stock = stock;
-	}
-
-	public String getTypeProduct() {
-		return this.typeProduct;
-	}
-
-	public void setTypeProduct(String typeProduct) {
-		this.typeProduct = typeProduct;
 	}
 
 	public List<CartProduct> getCartProducts() {

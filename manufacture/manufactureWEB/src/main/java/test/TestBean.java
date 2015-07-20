@@ -1,5 +1,10 @@
 package test;
 
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
+
+@ManagedBean(name="toto")
+@SessionScoped
 public class TestBean {
 	private String toto;
 	public String getToto() {

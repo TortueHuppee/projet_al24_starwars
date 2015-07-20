@@ -5,8 +5,10 @@ import java.io.Serializable;
 import javax.persistence.*;
 
 import manufacture.entity.cart.Cart;
+import manufacture.entity.product.ArtisanProduct;
 import manufacture.entity.product.Product;
 import manufacture.entity.product.Rating;
+import manufacture.entity.product.UsedProduct;
 import manufacture.entity.report.Reporting;
 
 import java.util.Date;
@@ -57,16 +59,16 @@ public class User implements Serializable {
 	@Column(name="user_name")
 	private String userName;
 
-	@Column(name="user_role")
-	private String userRole;
-
 	//bi-directional many-to-one association to Cart
 	@OneToMany(mappedBy="user")
 	private List<Cart> carts;
 
 	//bi-directional many-to-one association to Product
 	@OneToMany(mappedBy="user")
-	private List<Product> products;
+	private List<ArtisanProduct> artisanProducts;
+	
+	@OneToMany(mappedBy="user")
+	private List<UsedProduct> usedProducts;
 
 	//bi-directional many-to-one association to Rating
 	@OneToMany(mappedBy="user")
@@ -91,8 +93,8 @@ public class User implements Serializable {
 
 	//bi-directional many-to-one association to Adress
 	@ManyToOne
-	@JoinColumn(name="id_adress")
-	private Adress adress;
+	@JoinColumn(name="id_address")
+	private Address address;
 
 	public User() {
 	}
@@ -177,14 +179,6 @@ public class User implements Serializable {
 		this.userName = userName;
 	}
 
-	public String getUserRole() {
-		return this.userRole;
-	}
-
-	public void setUserRole(String userRole) {
-		this.userRole = userRole;
-	}
-
 	public List<Cart> getCarts() {
 		return this.carts;
 	}
@@ -205,28 +199,6 @@ public class User implements Serializable {
 		cart.setUser(null);
 
 		return cart;
-	}
-
-	public List<Product> getProducts() {
-		return this.products;
-	}
-
-	public void setProducts(List<Product> products) {
-		this.products = products;
-	}
-
-	public Product addProduct(Product product) {
-		getProducts().add(product);
-		product.setUser(this);
-
-		return product;
-	}
-
-	public Product removeProduct(Product product) {
-		getProducts().remove(product);
-		product.setUser(null);
-
-		return product;
 	}
 
 	public List<Rating> getRatings() {
@@ -325,12 +297,28 @@ public class User implements Serializable {
 		this.civility = civility;
 	}
 
-	public Adress getAdress() {
-		return this.adress;
+	public Address getAddress() {
+		return this.address;
 	}
 
-	public void setAdress(Adress adress) {
-		this.adress = adress;
+	public void setAddress(Address address) {
+		this.address = address;
+	}
+
+	public List<ArtisanProduct> getArtisanProducts() {
+		return artisanProducts;
+	}
+
+	public void setArtisanProducts(List<ArtisanProduct> artisanProducts) {
+		this.artisanProducts = artisanProducts;
+	}
+
+	public List<UsedProduct> getUsedProducts() {
+		return usedProducts;
+	}
+
+	public void setUsedProducts(List<UsedProduct> usedProducts) {
+		this.usedProducts = usedProducts;
 	}
 
 }

@@ -6,11 +6,6 @@ import javax.persistence.*;
 
 import java.util.List;
 
-
-/**
- * The persistent class for the constructor database table.
- * 
- */
 @Entity
 @Table(name="constructor")
 public class Constructor implements Serializable {
@@ -24,9 +19,9 @@ public class Constructor implements Serializable {
 	@Column(name="constructor_name")
 	private String constructorName;
 
-	//bi-directional many-to-one association to Product
+	//bi-directional many-to-one association to ConstructorProduct
 	@OneToMany(mappedBy="constructor")
-	private List<Product> products;
+	private List<ConstructorProduct> products;
 
 	public Constructor() {
 	}
@@ -47,24 +42,22 @@ public class Constructor implements Serializable {
 		this.constructorName = constructorName;
 	}
 
-	public List<Product> getProducts() {
+	public List<ConstructorProduct> getProducts() {
 		return this.products;
 	}
 
-	public void setProducts(List<Product> products) {
+	public void setProducts(List<ConstructorProduct> products) {
 		this.products = products;
 	}
 
-	public Product addProduct(Product product) {
+	public ConstructorProduct addProduct(ConstructorProduct product) {
 		getProducts().add(product);
-		product.setConstructor(this);
 
 		return product;
 	}
 
-	public Product removeProduct(Product product) {
+	public ConstructorProduct removeProduct(ConstructorProduct product) {
 		getProducts().remove(product);
-		product.setConstructor(null);
 
 		return product;
 	}

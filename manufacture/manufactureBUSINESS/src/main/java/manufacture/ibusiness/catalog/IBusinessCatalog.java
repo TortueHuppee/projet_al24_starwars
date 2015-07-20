@@ -1,4 +1,4 @@
-package manufacture.dao.product;
+package manufacture.ibusiness.catalog;
 
 import java.util.List;
 
@@ -6,14 +6,18 @@ import manufacture.entity.cart.Cart;
 import manufacture.entity.cart.CartProduct;
 import manufacture.entity.cart.Delivery;
 import manufacture.entity.cart.PaymentType;
+import manufacture.entity.product.Category;
+import manufacture.entity.product.Color;
+import manufacture.entity.product.Constructor;
+import manufacture.entity.product.Material;
 import manufacture.entity.product.Product;
 import manufacture.entity.product.ProductRef;
 import manufacture.entity.product.SpaceshipRef;
 import manufacture.entity.user.User;
 
-public interface IDaoProductRef {
+public interface IBusinessCatalog {
 
-	//Méthodes
+	//Consultation du catalogue
 	List<ProductRef> getAllProductRef();
 	
 	List<ProductRef> getAllConstructorProductRef();
@@ -26,11 +30,16 @@ public interface IDaoProductRef {
 	
 	List<ProductRef> getConstructorProductRefBySpaceShip(SpaceshipRef spaceShipRef);
 	
-	//Gestion de base de données
-	void addProductRef(ProductRef productRef);
+	List<Category> getAllCategory();
 	
-	void deleteProductRef(ProductRef productRef);
+	List<Color> getAllColor();
 	
-	void updateProductRef(ProductRef productRef);
+	List<SpaceshipRef> getAllSpaceShipRef();
 	
+	List<Material> getAllMaterial();
+	
+	List<Constructor> getAllConstructor();
+	
+	//Consultation du détail d'un produit
+	List<Product> getAllProductByProductRef(int idProducRef);
 }

@@ -1,4 +1,4 @@
-package manufacture.dao.product;
+package manufacture.idao.product;
 
 import java.util.List;
 

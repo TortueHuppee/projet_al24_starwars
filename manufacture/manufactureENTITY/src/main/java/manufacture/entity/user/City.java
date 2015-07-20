@@ -27,7 +27,7 @@ public class City implements Serializable {
 
 	//bi-directional many-to-one association to Adress
 	@OneToMany(mappedBy="city")
-	private List<Adress> adresses;
+	private List<Address> adresses;
 
 	//bi-directional many-to-one association to Country
 	@ManyToOne
@@ -60,22 +60,22 @@ public class City implements Serializable {
 		this.postalCode = postalCode;
 	}
 
-	public List<Adress> getAdresses() {
+	public List<Address> getAdresses() {
 		return this.adresses;
 	}
 
-	public void setAdresses(List<Adress> adresses) {
+	public void setAdresses(List<Address> adresses) {
 		this.adresses = adresses;
 	}
 
-	public Adress addAdress(Adress adress) {
+	public Address addAdress(Address adress) {
 		getAdresses().add(adress);
 		adress.setCity(this);
 
 		return adress;
 	}
 
-	public Adress removeAdress(Adress adress) {
+	public Address removeAdress(Address adress) {
 		getAdresses().remove(adress);
 		adress.setCity(null);
 
