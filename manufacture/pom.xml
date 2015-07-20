@@ -97,6 +97,7 @@
 		<module>manufactureDAO</module>
 		<module>manufactureBUSINESS</module>
 		<module>manufactureWEB</module>
+		<module>manufactureFACADE</module>
 	</modules>
 
 

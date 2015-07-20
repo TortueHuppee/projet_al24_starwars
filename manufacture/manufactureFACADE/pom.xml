@@ -5,17 +5,9 @@
     <artifactId>manufacture</artifactId>
     <version>0.1</version>
   </parent>
-  <artifactId>manufactureBUSINESS</artifactId>
+  <artifactId>manufactureFACADE</artifactId>
   
-  <dependencies>
-   	<dependency>
-   		<groupId>fr.afcepf.al24.manufacture.entity</groupId>
-   		<artifactId>manufactureENTITY</artifactId>
-   		<version>0.1</version>
-   	</dependency>
-   </dependencies>
-   
-  <build>
+   <build>
   	<plugins>
   		<plugin>
   			<groupId>org.apache.maven.plugins</groupId>
@@ -28,4 +20,11 @@
   		</plugin>
   	</plugins>
   </build>
+   <dependencies>
+   	<dependency>
+   		<groupId>fr.afcepf.al24.manufacture.entity</groupId>
+   		<artifactId>manufactureENTITY</artifactId>
+   		<version>0.1</version>
+   	</dependency>
+   </dependencies>
 </project>
