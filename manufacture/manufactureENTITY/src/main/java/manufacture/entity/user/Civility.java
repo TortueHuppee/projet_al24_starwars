@@ -1,4 +1,4 @@
-package manufacture.entity;
+package manufacture.entity.user;
 
 import java.io.Serializable;
 import javax.persistence.*;
@@ -10,7 +10,7 @@ import java.util.List;
  * 
  */
 @Entity
-@NamedQuery(name="Civility.findAll", query="SELECT c FROM Civility c")
+@Table(name="civility")
 public class Civility implements Serializable {
 	private static final long serialVersionUID = 1L;
 

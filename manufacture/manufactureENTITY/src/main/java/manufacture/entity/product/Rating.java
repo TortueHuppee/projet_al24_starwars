@@ -1,7 +1,10 @@
-package manufacture.entity;
+package manufacture.entity.product;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
+
+import manufacture.entity.user.User;
 
 
 /**
@@ -9,7 +12,7 @@ import javax.persistence.*;
  * 
  */
 @Entity
-@NamedQuery(name="Rating.findAll", query="SELECT r FROM Rating r")
+@Table(name="rating")
 public class Rating implements Serializable {
 	private static final long serialVersionUID = 1L;
 

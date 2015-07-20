@@ -1,4 +1,4 @@
-package manufacture.entity;
+package manufacture.entity.product;
 
 import java.io.Serializable;
 import javax.persistence.*;
@@ -10,7 +10,6 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name="spaceship_product")
-@NamedQuery(name="SpaceshipProduct.findAll", query="SELECT s FROM SpaceshipProduct s")
 public class SpaceshipProduct implements Serializable {
 	private static final long serialVersionUID = 1L;
 

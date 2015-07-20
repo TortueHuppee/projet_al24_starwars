@@ -1,7 +1,9 @@
-package manufacture.entity;
+package manufacture.entity.product;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
+
 import java.util.List;
 
 
@@ -11,7 +13,6 @@ import java.util.List;
  */
 @Entity
 @Table(name="product_ref")
-@NamedQuery(name="ProductRef.findAll", query="SELECT p FROM ProductRef p")
 public class ProductRef implements Serializable {
 	private static final long serialVersionUID = 1L;
 

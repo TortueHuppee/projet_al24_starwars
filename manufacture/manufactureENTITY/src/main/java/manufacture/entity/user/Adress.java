@@ -1,16 +1,20 @@
-package manufacture.entity;
+package manufacture.entity.user;
 
 import java.io.Serializable;
-import javax.persistence.*;
 import java.util.List;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
-/**
- * The persistent class for the adress database table.
- * 
- */
 @Entity
-@NamedQuery(name="Adress.findAll", query="SELECT a FROM Adress a")
+@Table(name="adress")
 public class Adress implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -19,14 +23,18 @@ public class Adress implements Serializable {
 	@Column(name="id_adress")
 	private int idAdress;
 
+	//Par convention FALSE = 0 et TRUE = 1
 	@Column(name="is_billing_adress")
 	private byte isBillingAdress;
 
+	//Par convention FALSE = 0 et TRUE = 1
 	@Column(name="is_delivery_adress")
 	private byte isDeliveryAdress;
 
+	@Column(name="number")
 	private String number;
 
+	@Column(name="street")
 	private String street;
 
 	//bi-directional many-to-one association to City

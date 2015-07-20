@@ -1,4 +1,4 @@
-package manufacture.entity;
+package manufacture.entity.cart;
 
 import java.io.Serializable;
 import javax.persistence.*;
@@ -10,7 +10,7 @@ import java.util.List;
  * 
  */
 @Entity
-@NamedQuery(name="Delivery.findAll", query="SELECT d FROM Delivery d")
+@Table(name="delivery")
 public class Delivery implements Serializable {
 	private static final long serialVersionUID = 1L;
 

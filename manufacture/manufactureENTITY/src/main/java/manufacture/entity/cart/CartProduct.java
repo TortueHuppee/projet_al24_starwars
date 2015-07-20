@@ -1,7 +1,10 @@
-package manufacture.entity;
+package manufacture.entity.cart;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
+
+import manufacture.entity.product.Product;
 
 
 /**

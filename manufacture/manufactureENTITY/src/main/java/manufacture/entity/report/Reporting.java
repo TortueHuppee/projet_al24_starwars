@@ -1,7 +1,12 @@
-package manufacture.entity;
+package manufacture.entity.report;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
+
+import manufacture.entity.product.Product;
+import manufacture.entity.user.User;
+
 import java.util.Date;
 
 
@@ -10,7 +15,7 @@ import java.util.Date;
  * 
  */
 @Entity
-@NamedQuery(name="Reporting.findAll", query="SELECT r FROM Reporting r")
+@Table(name="reporting")
 public class Reporting implements Serializable {
 	private static final long serialVersionUID = 1L;
 

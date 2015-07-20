@@ -1,7 +1,14 @@
-package manufacture.entity;
+package manufacture.entity.user;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
+
+import manufacture.entity.cart.Cart;
+import manufacture.entity.product.Product;
+import manufacture.entity.product.Rating;
+import manufacture.entity.report.Reporting;
+
 import java.util.Date;
 import java.util.List;
 
@@ -11,7 +18,11 @@ import java.util.List;
  * 
  */
 @Entity
-@NamedQuery(name="User.findAll", query="SELECT u FROM User u")
+@Table(name="user")
+//Héritage :
+@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
+//Pour distinguer nos entités qui sont réunies dans une seule table :
+@DiscriminatorColumn(name="user_role")
 public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
 

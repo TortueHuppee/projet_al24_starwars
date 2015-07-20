@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+    <session-factory>
+        <!-- SQL dialect -->
+        <property name="dialect">org.hibernate.dialect.MySQLDialect</property>
+        <!-- Echo all executed SQL to stdout -->
+        <property name="show_sql">true</property>
+        <!-- Drop and re-create the database schema on startup -->
+        <property name="hbm2ddl.auto">update</property>
+        
+        <mapping class="fr.afcepf.al24.manufacture.entity.Adress"/>
+		<mapping class="fr.afcepf.al24.manufacture.entity.Cart"/>
+		<mapping class="fr.afcepf.al24.manufacture.entity.CartProduct"/>
+		<mapping class="fr.afcepf.al24.manufacture.entity.Category"/>
+		<mapping class="fr.afcepf.al24.manufacture.entity.City"/>
+		<mapping class="fr.afcepf.al24.manufacture.entity.Civility"/>
+		<mapping class="fr.afcepf.al24.manufacture.entity.Color"/>
+		<mapping class="fr.afcepf.al24.manufacture.entity.Constructor"/>
+		<mapping class="fr.afcepf.al24.manufacture.entity.Country"/>
+		<mapping class="fr.afcepf.al24.manufacture.entity.Delivery"/>
+		<mapping class="fr.afcepf.al24.manufacture.entity.Material"/>
+		<mapping class="fr.afcepf.al24.manufacture.entity.PaymentType"/>
+		<mapping class="fr.afcepf.al24.manufacture.entity.Planet"/>
+		<mapping class="fr.afcepf.al24.manufacture.entity.Product"/>
+		<mapping class="fr.afcepf.al24.manufacture.entity.ProductRef"/>
+		<mapping class="fr.afcepf.al24.manufacture.entity.Rating"/>
+		<mapping class="fr.afcepf.al24.manufacture.entity.Reporting"/>
+		<mapping class="fr.afcepf.al24.manufacture.entity.ReportingDecision"/>
+		<mapping class="fr.afcepf.al24.manufacture.entity.SpaceshipProduct"/>
+		<mapping class="fr.afcepf.al24.manufacture.entity.SpaceshipRef"/>
+		<mapping class="fr.afcepf.al24.manufacture.entity.User"/>
+
+    </session-factory>
+</hibernate-configuration>

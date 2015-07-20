@@ -1,4 +1,4 @@
-package manufacture.entity;
+package manufacture.entity.cart;
 
 import java.io.Serializable;
 import javax.persistence.*;
@@ -11,7 +11,6 @@ import java.util.List;
  */
 @Entity
 @Table(name="payment_type")
-@NamedQuery(name="PaymentType.findAll", query="SELECT p FROM PaymentType p")
 public class PaymentType implements Serializable {
 	private static final long serialVersionUID = 1L;
 

@@ -1,7 +1,13 @@
-package manufacture.entity;
+package manufacture.entity.product;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
+
+import manufacture.entity.cart.CartProduct;
+import manufacture.entity.report.Reporting;
+import manufacture.entity.user.User;
+
 import java.util.Date;
 import java.util.List;
 
@@ -11,7 +17,11 @@ import java.util.List;
  * 
  */
 @Entity
-@NamedQuery(name="Product.findAll", query="SELECT p FROM Product p")
+@Table(name="product")
+//Héritage :
+@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
+//Pour distinguer nos entités qui sont réunies dans une seule table :
+@DiscriminatorColumn(name="type_product")
 public class Product implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -20,17 +30,10 @@ public class Product implements Serializable {
 	@Column(name="id_product")
 	private int idProduct;
 
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name="date_publication")
-	private Date datePublication;
-
 	@Column(name="is_disabled")
 	private byte isDisabled;
 
 	private double price;
-
-	@Column(name="seller_comment")
-	private String sellerComment;
 
 	private int stock;
 
@@ -46,11 +49,6 @@ public class Product implements Serializable {
 	@JoinColumn(name="id_color")
 	private Color color;
 
-	//bi-directional many-to-one association to Constructor
-	@ManyToOne
-	@JoinColumn(name="id_constructor")
-	private Constructor constructor;
-
 	//bi-directional many-to-one association to Material
 	@ManyToOne
 	@JoinColumn(name="id_material")
@@ -60,11 +58,6 @@ public class Product implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="id_product_ref")
 	private ProductRef productRef;
-
-	//bi-directional many-to-one association to User
-	@ManyToOne
-	@JoinColumn(name="seller_id_user")
-	private User user;
 
 	//bi-directional many-to-one association to Rating
 	@OneToMany(mappedBy="product")
@@ -85,14 +78,6 @@ public class Product implements Serializable {
 		this.idProduct = idProduct;
 	}
 
-	public Date getDatePublication() {
-		return this.datePublication;
-	}
-
-	public void setDatePublication(Date datePublication) {
-		this.datePublication = datePublication;
-	}
-
 	public byte getIsDisabled() {
 		return this.isDisabled;
 	}
@@ -107,14 +92,6 @@ public class Product implements Serializable {
 
 	public void setPrice(double price) {
 		this.price = price;
-	}
-
-	public String getSellerComment() {
-		return this.sellerComment;
-	}
-
-	public void setSellerComment(String sellerComment) {
-		this.sellerComment = sellerComment;
 	}
 
 	public int getStock() {
@@ -163,14 +140,6 @@ public class Product implements Serializable {
 		this.color = color;
 	}
 
-	public Constructor getConstructor() {
-		return this.constructor;
-	}
-
-	public void setConstructor(Constructor constructor) {
-		this.constructor = constructor;
-	}
-
 	public Material getMaterial() {
 		return this.material;
 	}
@@ -185,14 +154,6 @@ public class Product implements Serializable {
 
 	public void setProductRef(ProductRef productRef) {
 		this.productRef = productRef;
-	}
-
-	public User getUser() {
-		return this.user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
 	}
 
 	public List<Rating> getRatings() {
