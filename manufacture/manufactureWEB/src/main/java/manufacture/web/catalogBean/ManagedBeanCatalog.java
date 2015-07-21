@@ -9,6 +9,7 @@ import javax.faces.bean.SessionScoped;
 import manufacture.entity.product.Product;
 import manufacture.entity.product.ProductRef;
 import manufacture.ifacade.catalog.ICatalog;
+import manufacture.web.util.ClassPathLoader;
 
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -17,7 +18,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 @SessionScoped
 public class ManagedBeanCatalog {
 
-	private BeanFactory bf = new ClassPathXmlApplicationContext("classpath:springFacade.xml");
+	private BeanFactory bf = ClassPathLoader.getFacadeBeanFactory();
 	private ICatalog proxyCatalog = (ICatalog) bf.getBean(ICatalog.class);
 	
 	private List<ProductRef> listeConstructorProductRef;

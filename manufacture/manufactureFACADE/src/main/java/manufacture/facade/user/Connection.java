@@ -16,6 +16,7 @@ import manufacture.entity.product.ProductRef;
 import manufacture.entity.product.SpaceshipRef;
 import manufacture.entity.user.Address;
 import manufacture.entity.user.User;
+import manufacture.facade.util.ClassPathLoader;
 import manufacture.ibusiness.catalog.IBusinessCatalog;
 import manufacture.ibusiness.user.IBusinessConnection;
 import manufacture.ibusiness.user.IBusinessInscription;
@@ -27,7 +28,7 @@ import manufacture.ifacade.user.IInscription;
 @Service
 public class Connection implements IConnection{
 
-	BeanFactory bf = new ClassPathXmlApplicationContext("classpath:springBusiness.xml");
+	BeanFactory bf = ClassPathLoader.getBusinessBeanFactory();
 	IBusinessConnection proxyConnection = (IBusinessConnection) bf.getBean(IBusinessConnection.class);
 	
 	@Override

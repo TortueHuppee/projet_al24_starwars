@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Service;
 
+import manufacture.business.util.ClassPathLoader;
 import manufacture.entity.product.Category;
 import manufacture.entity.product.Color;
 import manufacture.entity.product.Constructor;
@@ -26,7 +27,7 @@ import manufacture.idao.product.IDaoSpaceShipRef;
 @Service
 public class BusinessCatalog implements IBusinessCatalog {
 
-	BeanFactory bf = new ClassPathXmlApplicationContext("classpath:springData.xml");
+	BeanFactory bf = ClassPathLoader.getDaoBeanFactory();	
 	
 	IDaoColor proxyColor = (IDaoColor) bf.getBean(IDaoColor.class);
 	IDaoCategory proxyCategory = (IDaoCategory) bf.getBean(IDaoCategory.class);

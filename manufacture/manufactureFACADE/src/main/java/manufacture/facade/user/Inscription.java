@@ -16,6 +16,7 @@ import manufacture.entity.product.ProductRef;
 import manufacture.entity.product.SpaceshipRef;
 import manufacture.entity.user.Address;
 import manufacture.entity.user.User;
+import manufacture.facade.util.ClassPathLoader;
 import manufacture.ibusiness.catalog.IBusinessCatalog;
 import manufacture.ibusiness.user.IBusinessInscription;
 import manufacture.idao.product.IDaoColor;
@@ -25,7 +26,7 @@ import manufacture.ifacade.user.IInscription;
 @Service
 public class Inscription implements IInscription {
 
-	BeanFactory bf = new ClassPathXmlApplicationContext("classpath:springBusiness.xml");
+	BeanFactory bf = ClassPathLoader.getBusinessBeanFactory();
 	IBusinessInscription proxyInscription = (IBusinessInscription) bf.getBean(IBusinessInscription.class);
 	
 	@Override

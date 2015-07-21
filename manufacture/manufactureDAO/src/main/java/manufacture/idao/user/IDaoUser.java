@@ -33,4 +33,6 @@ public interface IDaoUser {
 	User openAccount(User user);
 
 	User getUserLogin(User user);
+
+	List<User> getUserByUserName(String userName);
 }

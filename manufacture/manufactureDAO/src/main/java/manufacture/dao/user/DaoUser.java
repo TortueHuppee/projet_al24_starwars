@@ -101,4 +101,12 @@ public class DaoUser implements IDaoUser {
 	public void setSf(SessionFactory sf) {
 		this.sf = sf;
 	}
+	@Override
+	public List<User> getUserByUserName(String userName) {
+		Session session = sf.getCurrentSession();
+		String requete = "FROM User u WHERE u.userName = :username";
+		Query hql = session.createQuery(requete).setParameter("username",userName);
+		List<User> resultat = hql.list();
+		return resultat;
+	}
 }

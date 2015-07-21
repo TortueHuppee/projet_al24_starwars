@@ -2,11 +2,6 @@ package manufacture.facade.catalog;
 
 import java.util.List;
 
-import org.springframework.beans.factory.BeanFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.stereotype.Service;
-
 import manufacture.entity.product.Category;
 import manufacture.entity.product.Color;
 import manufacture.entity.product.Constructor;
@@ -14,14 +9,18 @@ import manufacture.entity.product.Material;
 import manufacture.entity.product.Product;
 import manufacture.entity.product.ProductRef;
 import manufacture.entity.product.SpaceshipRef;
+import manufacture.facade.util.ClassPathLoader;
 import manufacture.ibusiness.catalog.IBusinessCatalog;
-import manufacture.idao.product.IDaoColor;
 import manufacture.ifacade.catalog.ICatalog;
+
+import org.springframework.beans.factory.BeanFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 @Service
 public class Catalog implements ICatalog {
 
-	BeanFactory bf = new ClassPathXmlApplicationContext("classpath:springBusiness.xml");
+	BeanFactory bf = ClassPathLoader.getBusinessBeanFactory();
 	IBusinessCatalog proxyCatalog = (IBusinessCatalog) bf.getBean(IBusinessCatalog.class);
 	
 	@Override

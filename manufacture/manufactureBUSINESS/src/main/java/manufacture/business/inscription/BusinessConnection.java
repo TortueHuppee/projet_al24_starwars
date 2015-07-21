@@ -4,6 +4,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
+import manufacture.business.util.ClassPathLoader;
 import manufacture.entity.product.Category;
 import manufacture.entity.product.Color;
 import manufacture.entity.product.Constructor;
@@ -29,7 +30,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class BusinessConnection implements IBusinessConnection {
 
-	BeanFactory bf = new ClassPathXmlApplicationContext("classpath:springData.xml");	
+	BeanFactory bf = ClassPathLoader.getDaoBeanFactory();	
 	IDaoUser proxyUser = (IDaoUser) bf.getBean(IDaoUser.class);
 	@Override
 	public User getSignInUser(String login, String password) {

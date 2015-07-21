@@ -3,8 +3,10 @@ package manufacture.web.user;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 
+import manufacture.entity.user.Address;
 import manufacture.entity.user.User;
 import manufacture.ifacade.user.IInscription;
+import manufacture.web.util.ClassPathLoader;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.BeanFactory;
@@ -17,13 +19,14 @@ import org.springframework.stereotype.Component;
 @Scope(value="session")
 public class SignUpBean {
 	private static Logger LOGGER = Logger.getLogger(SignUpBean.class);
-	private BeanFactory bf = new ClassPathXmlApplicationContext("classpath:springFacade.xml");
+	private BeanFactory bf = ClassPathLoader.getFacadeBeanFactory();
 	private User user;
 	@Autowired
 	private UserBean userBean;
 	
 	public SignUpBean(){
 		user = new User();
+//		user.setAddress(new Address());
 	}
 	
 	/**

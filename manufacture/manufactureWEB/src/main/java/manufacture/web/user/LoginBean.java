@@ -5,6 +5,7 @@ import javax.faces.context.FacesContext;
 
 import manufacture.entity.user.User;
 import manufacture.ifacade.user.IConnection;
+import manufacture.web.util.ClassPathLoader;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.BeanFactory;
@@ -17,7 +18,7 @@ import org.springframework.stereotype.Component;
 @Scope(value="session")
 public class LoginBean {
 	private static Logger LOGGER = Logger.getLogger(LoginBean.class);
-	private BeanFactory bf = new ClassPathXmlApplicationContext("classpath:springFacade.xml");
+	private BeanFactory bf = ClassPathLoader.getFacadeBeanFactory();
 	@Autowired
 	private UserBean userBean; 
 	private User user;
