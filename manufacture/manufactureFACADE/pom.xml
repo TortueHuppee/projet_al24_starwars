@@ -26,5 +26,10 @@
    		<artifactId>manufactureENTITY</artifactId>
    		<version>0.1</version>
    	</dependency>
+   	<dependency>
+   		<groupId>fr.afcepf.al24.manufacture</groupId>
+   		<artifactId>manufactureBUSINESS</artifactId>
+   		<version>0.1</version>
+   	</dependency>
    </dependencies>
 </project>

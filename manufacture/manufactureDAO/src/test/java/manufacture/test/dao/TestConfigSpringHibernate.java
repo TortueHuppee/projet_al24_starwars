@@ -1,7 +1,6 @@
 package manufacture.test.dao;
 
-import manufacture.dao.product.DaoColor;
-import manufacture.dao.product.IDaoColor;
+import manufacture.idao.product.IDaoColor;
 import manufacture.entity.product.Color;
 
 import org.springframework.beans.factory.BeanFactory;
