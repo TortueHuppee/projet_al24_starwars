@@ -20,13 +20,13 @@ public interface IDaoCart {
 	
 	void validatePayment(int idCart);
 	
-	void createNewCart(int idUser);
+	int createNewCart(int idUser);
 	
 	void sendRecall(int idUser);
 	
-	//Autres
-	List<PaymentType> getAllPaymentType();
-	
-	List<Delivery> getAllDeliveryType();
+//	//Autres
+//	List<PaymentType> getAllPaymentType();
+//	
+//	List<Delivery> getAllDeliveryType();
 	
 }
