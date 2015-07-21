@@ -1,4 +1,4 @@
-package test;
+package main.java.test;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
