@@ -13,4 +13,6 @@ public interface IConnection {
 	boolean resertPassword(String login);
 	
 	boolean getLogin(String email);
+
+	User connectUser(User user);
 }

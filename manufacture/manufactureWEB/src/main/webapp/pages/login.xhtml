@@ -1,0 +1,19 @@
+<ui:composition template="/layouts/master_layout.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<ui:define name="main-body">
+
+		<div class="login-part">
+			<h:form>
+				<h:messages></h:messages>
+				<h:inputText value="#{loginBean.user.userName}" required="true" requiredMessage="Champs obligatoire"></h:inputText>
+				<h:inputText value="#{loginBean.user.password}" required="true" requiredMessage="Champs obligatoire"></h:inputText>
+				<h:commandButton value="se connecter" action="#{loginBean.doLogin()}" />
+			</h:form>
+		</div>
+		<div class="signup-part"></div>
+	</ui:define>
+</ui:composition>

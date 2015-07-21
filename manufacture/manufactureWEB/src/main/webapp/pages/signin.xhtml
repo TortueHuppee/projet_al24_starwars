@@ -1,0 +1,14 @@
+<ui:composition template="/layouts/master_layout.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<ui:define name="main-body">
+		<h:form>
+			<h:inputText value="#{signUpBean.user.userName}" required="true" />
+			<h:inputText value="#{signUpBean.user.password}" required="true" />
+			<h:commandButton value="S'inscrire" action="#{signUpBean.createUser()}"></h:commandButton>
+		</h:form>
+</ui:define>
+</ui:composition>
