@@ -28,4 +28,6 @@ public interface IDaoProductCart {
 	
 	List<Product> getAllConstructorProductByCart(int idCart);
 	
+	double getSubTotalPrice(int idCartProduct);
+	
 }
