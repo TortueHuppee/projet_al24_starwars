@@ -1,0 +1,64 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
+</h:head>
+<h:body>
+	<div>
+		<ui:insert>
+			<ui:include src="menu.xhtml" />
+		</ui:insert>
+	</div>
+	<div>
+		<ui:insert>
+			<ui:include src="infosimpleproduit.xhtml" />
+		</ui:insert>
+	</div>
+
+	<h:form>
+		<div>
+			<div title="à repeter">
+				<p:fieldset styleClass="al24FielSet">
+					<h:panelGrid columns="9" cellpadding="5">
+						<div class="itemLignePanier">image</div>
+						<div class="itemLignePanier">titre</div>
+						<div class="itemLignePanier">texte descriptif</div>
+						<div class="itemLignePanier">bouton +/-</div>
+						<div class="itemLignePanier">modifier</div>
+						<div class="itemLignePanier">quantite</div>
+						<div class="itemLignePanier">prix unitaire</div>
+						<div class="itemLignePanier">total</div>
+						<div>
+							<p:commandButton value="effacer" id="ajax00" styleClass="bouton" />
+						</div>
+					</h:panelGrid>
+				</p:fieldset>
+			</div>
+
+			<div>
+				<div>
+					<p:fieldset styleClass="al24FielSet">
+						<h:panelGrid columns="3" cellpadding="5">
+							<div class="itemLignePanier">quantite totale</div>
+							<div class="itemLignePanier">grand total</div>
+							<div class="itemLignePanier">effacer tout le panier</div>
+						</h:panelGrid>
+					</p:fieldset>
+				</div>
+			</div>
+			</div>
+			<div>
+				<p:commandButton value="Passer Commande" id="ajax0"
+					styleClass="bouton" />
+			</div>
+		
+	</h:form>
+</h:body>
+</html>

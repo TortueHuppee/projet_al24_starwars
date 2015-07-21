@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
+</h:head>
+<h:body>
+	<h:form>
+		<ui:composition>
+
+			<div>
+				<!-- Template de RECHERCHE debut -->
+<!-- 				<h1>RECHERCHE</h1> -->
+
+				<p:fieldset legend="Basic" style="margin-bottom:20px">
+					<h:panelGrid columns="2" cellpadding="5">
+						<p:graphicImage name="demo/images/godfather/godfather1.jpg" />
+						<h:outputText value="The story begins." />
+					</h:panelGrid>
+					<div>
+						<!-- 					<h3>reference</h3> -->
+						<p:fieldset legend="reference" styleClass="al24FielSet">
+							<h:panelGrid columns="2" cellpadding="5">
+								<p:graphicImage name="demo/images/godfather/godfather1.jpg" />
+								<h:outputText value="The story ." />
+							</h:panelGrid>
+						</p:fieldset>
+					</div>
+					<div>
+						<!-- 					<h3>categorie</h3> -->
+						<p:fieldset legend="categorie" styleClass="al24FielSet">
+							<h:panelGrid columns="2" cellpadding="5">
+								<p:graphicImage name="demo/images/godfather/godfather1.jpg" />
+								<h:outputText value="The story ." />
+							</h:panelGrid>
+						</p:fieldset>
+					</div>
+					<div>
+						<!-- 					<h3>options</h3> -->
+						<p:fieldset legend="options" styleClass="al24FielSet">
+							<h:panelGrid columns="2" cellpadding="5">
+								<p:graphicImage name="demo/images/godfather/godfather1.jpg" />
+								<h:outputText value="The story ." />
+							</h:panelGrid>
+						</p:fieldset>
+					</div>
+
+				</p:fieldset>
+
+				<div>
+<!-- 					<h3>bouton</h3> -->
+
+					<div>
+						<!-- 					<h3>refresh</h3> -->
+						<p:commandButton value="refresh" id="ajax" styleClass="bouton" />
+						<!-- 				</div> -->
+						<!-- 				<div> -->
+						<!-- 					<h3>rechercher</h3> -->
+						<p:commandButton value="rechercher" id="ajax4" styleClass="bouton" />
+					</div>
+				</div>
+
+				<!-- Template de RECHERCHE fin -->
+			</div>
+		</ui:composition>
+	</h:form>
+</h:body>
+</html>

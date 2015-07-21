@@ -7,24 +7,31 @@
 	xmlns:composite="http://java.sun.com/jsf/composite"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
+
 <h:head>
 	<link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
 </h:head>
 <h:body>
-	<div>
-		<ui:insert>
-			<ui:include src="menu.xhtml" />
-		</ui:insert>
-	</div>
-	<div>
-		<ui:insert>
-			<ui:include src="recherche.xhtml" />
-		</ui:insert>
-	</div>
-	<div>
-		<ui:insert>
-			<ui:include src="articleSimple.xhtml" />
-		</ui:insert>
-	</div>
+<h:form>
+	<ui:composition>
+		<div>
+			<img src="" alt="" />
+			<div>
+
+				<p:fieldset styleClass="al24FielSet">
+					<h:panelGrid columns="3" cellpadding="5">
+						<span>Titre</span>
+						<h:outputLabel value="texte" />
+						<span>Prix</span>
+						<h:outputLabel value="texte" />
+						<span>Quantité disponible</span>
+						<h:outputLabel value="texte" />
+					</h:panelGrid>
+				</p:fieldset>
+
+			</div>
+		</div>
+	</ui:composition>
+	</h:form>
 </h:body>
 </html>
