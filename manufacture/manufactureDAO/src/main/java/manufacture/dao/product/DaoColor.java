@@ -4,6 +4,7 @@ import java.util.List;
 
 
 
+
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import manufacture.entity.product.Color;
+import manufacture.idao.product.IDaoColor;
 
 @Service
 @Transactional
