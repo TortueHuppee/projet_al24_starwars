@@ -16,15 +16,25 @@
 			<ui:include src="menu.xhtml" />
 		</ui:insert>
 	</div>
-	<div>
-		<ui:insert>
-			<ui:include src="recherche.xhtml" />
-		</ui:insert>
-	</div>
-	<div>
-		<ui:insert>
-			<ui:include src="articleSimple.xhtml" />
-		</ui:insert>
-	</div>
+	<h:form>
+		<div class="itemCommande">
+			<p:fieldset styleClass="al24FielSet">
+				<h:panelGrid columns="10" cellpadding="3">
+
+					<div class="itemLigneCommande">date de validation panier</div>
+					<div class="itemLigneCommande">
+						<p:commandLink id="aja">
+							<h:outputText value="Detail Panier" />
+						</p:commandLink>
+					</div>
+					<div class="itemLigneCommande">quantite</div>
+					<div class="itemLigneCommande">total</div>
+					<div class="itemLigneCommande">etat</div>
+					<div class="itemLigneCommande">livraison</div>
+
+				</h:panelGrid>
+			</p:fieldset>
+		</div>
+	</h:form>
 </h:body>
 </html>

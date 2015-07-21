@@ -7,24 +7,38 @@
 	xmlns:composite="http://java.sun.com/jsf/composite"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
+
 <h:head>
 	<link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
 </h:head>
 <h:body>
-	<div>
-		<ui:insert>
-			<ui:include src="menu.xhtml" />
-		</ui:insert>
-	</div>
-	<div>
-		<ui:insert>
-			<ui:include src="recherche.xhtml" />
-		</ui:insert>
-	</div>
-	<div>
-		<ui:insert>
-			<ui:include src="articleSimple.xhtml" />
-		</ui:insert>
-	</div>
+	<h:form>
+		<div>
+
+			<div>
+				<span>Connexion :</span>
+			</div>
+			<div>
+				<span>Login :</span>
+				<p:inputText />
+			</div>
+			<div>
+				<span>Password :</span>
+				<p:inputText />
+			</div>
+
+			<div>
+				<div>
+					<p:commandLink id="ajax" value="Inscription" />
+				</div>
+				<div>
+					<p:commandButton value="Valider" id="ajax0" styleClass="bouton" />
+				</div>
+				<div>
+					<p:commandButton value="Annuler" id="ajax1" styleClass="bouton" />
+				</div>
+			</div>
+		</div>
+	</h:form>
 </h:body>
 </html>

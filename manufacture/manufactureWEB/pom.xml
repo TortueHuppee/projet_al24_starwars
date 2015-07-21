@@ -9,6 +9,19 @@
 	<groupId>fr.afcepf.al24.manufacture.web</groupId>
 	<artifactId>manufactureWEB</artifactId>
 	<packaging>war</packaging>
+
+	
+	<!-- Repository pour Primefaces-->
+	<repositories>
+		<!-- For 3.5 and older -->
+		<repository>
+			<id>prime-repo</id>
+			<name>PrimeFaces Maven Repository</name>
+			<url>http://repository.primefaces.org</url>
+			<layout>default</layout>
+		</repository>
+	</repositories>
+	
 	<dependencies>
 		<dependency>
 			<groupId>fr.afcepf.al24.manufacture.entity</groupId>
@@ -30,6 +43,7 @@
 			<artifactId>manufactureDAO</artifactId>
 			<version>0.1</version>
 		</dependency>
+		
 		<!-- Spring framework --> 
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -53,17 +67,20 @@
 <!-- 			<version>3.1.2.RELEASE</version> -->
 		
 <!-- 		</dependency> -->
+
 		<!-- JSR-330 -->
 		<dependency>
 			<groupId>javax.inject</groupId>
 			<artifactId>javax.inject</artifactId>
 			<version>1</version>
 		</dependency>
+
 <!-- <dependency> -->
 <!--     <groupId>org.springframework</groupId> -->
 <!--     <artifactId>spring-beans</artifactId> -->
 <!--     <version>3.1.2.RELEASE</version> -->
 <!-- </dependency> -->
+
 		<!-- JSF -->
 		<dependency>
 			<groupId>com.sun.faces</groupId>
@@ -93,6 +110,73 @@
 			<artifactId>jsp-api</artifactId>
 			<version>2.1</version>
 		</dependency>
+		
+			<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>3.8.1</version>
+			<scope>test</scope>
+		</dependency>
 
+		<!-- PrimeFaces Debut -->
+		<!-- PrimeFaces -->
+		<dependency>
+			<groupId>org.primefaces</groupId>
+			<artifactId>primefaces</artifactId>
+			<version>5.2</version>
+		</dependency>
+
+		<!-- JSF 2 -->
+		<dependency>
+			<groupId>com.sun.faces</groupId>
+			<artifactId>jsf-api</artifactId>
+			<version>2.1.11</version>
+		</dependency>
+		<dependency>
+			<groupId>com.sun.faces</groupId>
+			<artifactId>jsf-impl</artifactId>
+			<version>2.1.11</version>
+		</dependency>
+
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
+			<version>1.2</version>
+		</dependency>
+
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+			<version>2.5</version>
+		</dependency>
+
+		<dependency>
+			<groupId>javax.servlet.jsp</groupId>
+			<artifactId>jsp-api</artifactId>
+			<version>2.1</version>
+		</dependency>
+
+		<!-- EL -->
+		<dependency>
+			<groupId>org.glassfish.web</groupId>
+			<artifactId>el-impl</artifactId>
+			<version>2.2</version>
+		</dependency>
+<!-- PrimeFaces Fin -->
 	</dependencies>
+	
+		<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.3.2</version>
+				<configuration>
+					<source>1.7</source>
+					<target>1.7</target>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
 </project>
