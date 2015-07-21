@@ -1,6 +1,7 @@
 package manufacture.test.dao;
 
 import manufacture.dao.product.DaoColor;
+import manufacture.dao.product.IDaoColor;
 import manufacture.entity.product.Color;
 
 import org.springframework.beans.factory.BeanFactory;
@@ -11,7 +12,7 @@ public class TestConfigSpringHibernate {
 	public static void main(String[] args) {
 		
 		BeanFactory bf = new ClassPathXmlApplicationContext("classpath:springData.xml");
-		DaoColor proxyColor = (DaoColor) bf.getBean("daoColor");
+		IDaoColor proxyColor = (IDaoColor) bf.getBean(IDaoColor.class);
 		
 		Color color = new Color();
 		color.setColorName("Rouge");

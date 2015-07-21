@@ -1,7 +1,9 @@
 package manufacture.entity.user;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
+
 import java.util.List;
 
 
@@ -31,6 +33,7 @@ public class City implements Serializable {
 
 	//bi-directional many-to-one association to Country
 	@ManyToOne
+	@JoinColumn(name="country_id_country")
 	private Country country;
 
 	public City() {

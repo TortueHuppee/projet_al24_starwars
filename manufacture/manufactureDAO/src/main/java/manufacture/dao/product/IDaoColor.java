@@ -2,7 +2,6 @@ package manufacture.dao.product;
 
 import java.util.List;
 
-import javax.transaction.Transactional;
 
 import manufacture.entity.product.Color;
 
