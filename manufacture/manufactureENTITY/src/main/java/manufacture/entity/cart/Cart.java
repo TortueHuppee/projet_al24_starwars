@@ -14,7 +14,7 @@ import java.util.List;
  * The persistent class for the cart database table.
  * 
  */
-@Entity
+@Entity 
 @Table(name="cart")
 public class Cart implements Serializable {
 	private static final long serialVersionUID = 1L;

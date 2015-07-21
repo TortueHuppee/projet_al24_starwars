@@ -10,13 +10,23 @@
 	<artifactId>manufactureENTITY</artifactId>
 	<packaging>jar</packaging>
 
-	<dependencyManagement>
 		<dependencies>
 		
 		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>javax.servlet-api</artifactId>
-			<version>3.1.0</version>
+			<groupId>org.hibernate.javax.persistence</groupId>
+			<artifactId>hibernate-jpa-2.0-api</artifactId>
+			<version>1.0.1.Final</version>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-core</artifactId>
+			<version>4.0.0.Final</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-entitymanager</artifactId>
+			<version>4.0.0.Final</version>
 		</dependency>
 
 <!-- 			<dependency> -->
@@ -54,8 +64,6 @@
 <!-- 				<artifactId>aspectjrt</artifactId> -->
 <!-- 			</dependency> -->
 		</dependencies>
-	</dependencyManagement>
-
 	<build>
 		<plugins>
 			<plugin>
