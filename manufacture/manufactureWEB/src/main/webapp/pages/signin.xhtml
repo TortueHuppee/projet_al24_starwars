@@ -7,8 +7,8 @@
 	<ui:define name="main-body">
 		<h:form>
 			<h:inputText value="#{signUpBean.user.userName}" required="true" />
-			<h:inputText value="#{signUpBean.user.password}" required="true" />
-			<h:commandButton value="S'inscrire" action="#{signUpBean.createUser()}"></h:commandButton>
+			<h:inputSecret value="#{signUpBean.user.password}" required="true" />
+			<h:commandButton value="S'inscrire" action="#{signUpBean.createUser()}" /> 
 		</h:form>
 </ui:define>
 </ui:composition>

@@ -5,7 +5,9 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
 	<div class="left_zone">
-		<div id="logo"></div>
+		<div id="logo">
+			<img src="" alt="logo" />
+		</div> 
 	</div>
 	<div class="right_zone">
 		<div id="membership_zone">
@@ -16,12 +18,15 @@
 					rendered="#{userBean.user == null}" /> 
 				<h:commandLink value="Se deconnecter"
 					action="#{loginBean.doLogout()}" rendered="#{userBean.user != null}" />
+				<h:commandLink value="Mon profil"
+					action="#{loginBean.doLogout()}" rendered="#{userBean.user != null}" />
+				<h:commandLink value="Mon panier"
+					action="#{loginBean.doLogout()}" rendered="#{userBean.user != null}" />
 			</h:form>
 
 		</div>
-		<div id="searchBar">
+		<div id="searchBar"> 
 			<h:form>
-
 				<h:inputText value="#{globalSearchBean.searchedTerm}" />
 				<h:commandButton action="#{globalSearchBean.doSearch()}"
 					value="Rechercher" />
