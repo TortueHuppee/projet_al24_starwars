@@ -5,7 +5,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import manufacture.entity.product.Category;
 import manufacture.entity.product.Constructor;
+import manufacture.entity.product.ProductRef;
 import manufacture.entity.product.SpaceshipProduct;
 import manufacture.entity.product.SpaceshipRef;
 import manufacture.entity.user.Planet;
@@ -639,7 +641,11 @@ public class Routine {
 				Document pageDetail = Jsoup.connect(url).get();
 
 //				EntiteASP entite = new EntiteASP();
-
+				ProductRef produit = new ProductRef();
+				Category categorie = new Category();
+				categorie.setIdCategory(4);
+				produit.setCategory(categorie);
+				
 				String titre = "";//OK
 				String sousEnsemble = "";//OK
 				String reference = "";//OK
@@ -672,6 +678,7 @@ public class Routine {
 				try
 				{
 					urlPhoto = "http://www.starwars-universe.com" + pageDetail.select(".picto img").get(0).attr("src");
+					produit.setUrlImage(urlPhoto);
 				}catch(Exception e){
 
 				}
@@ -709,8 +716,12 @@ public class Routine {
 //				entite.setCategorie("Armes et technologies");
 //				entite.setPrix(prix);
 				
-				System.out.println(titre);
 //				per.save(entite);
+				
+				produit.setProductName(titre);
+				produit.setDescription(description);
+				
+				proxyProductRef.addProductRef(produit);
 
 				Thread.sleep(30);
 			}
@@ -719,7 +730,8 @@ public class Routine {
 			log.info("========================================[ Failed ]=====================================");
 			e.printStackTrace();
 			recupDonnesArmes();
-		}		
+		}	
+		log.info("========================================[ Success ]=====================================");
 	}
 
 	//Site ASP (pièces détachées avions)
@@ -729,7 +741,7 @@ public class Routine {
 		log.info("========================================[ Init ]=====================================");
 
 		try {
-			doc = Jsoup.connect("http://www.airshopparts.com/pieces-detachees-pour-avions-c9.html").get();
+			doc = Jsoup.connect(URL_FOURNITURE_SITE_ASP).get();
 			Elements lienDetails = doc.select("#liste-produits .details a");
 
 			for (int i = ind;i<lienDetails.size();i++)
@@ -741,7 +753,12 @@ public class Routine {
 				String url = "http://www.airshopparts.com/"+el.attr("href");
 
 				Document pageDetail = Jsoup.connect(url).get();
-
+				
+				ProductRef produit = new ProductRef();
+				Category categorie = new Category();
+				categorie.setIdCategory(3);
+				produit.setCategory(categorie);
+				
 //				EntiteASP entite = new EntiteASP();
 //				System.out.println(url);
 				Elements ficheBottom = pageDetail.select(".fiche-produit-bottom p");
@@ -817,7 +834,8 @@ public class Routine {
 
 				try{
 
-					String urlPhoto = pageDetail.select("html body div#container div#body div#middle div#fiche-produit div.fiche-produit-left div#fiche-produit-photos a#img_0.display-block img").get(0).attr("src");
+					String urlPhoto = "http://www.airshopparts.com/" + pageDetail.select("html body div#container div#body div#middle div#fiche-produit div.fiche-produit-left div#fiche-produit-photos a#img_0.display-block img").get(0).attr("src");
+					produit.setUrlImage(urlPhoto);
 //					entite.setUrlPhoto(urlPhoto);
 				}catch(Exception e){
 				}
@@ -829,11 +847,13 @@ public class Routine {
 //					entite.setPrix(prix);
 				}catch(Exception e){
 				}
-				
-				System.out.println(titre);
 //				entite.setCategorie("Pièces détachées");
 //
 //				per.save(entite);
+				produit.setProductName(titre);
+				produit.setDescription(description);
+				
+				proxyProductRef.addProductRef(produit);
 
 				Thread.sleep(30);
 			}	

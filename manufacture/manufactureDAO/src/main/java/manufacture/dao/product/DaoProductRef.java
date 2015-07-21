@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import manufacture.entity.product.Color;
 import manufacture.entity.product.Product;
 import manufacture.entity.product.ProductRef;
+import manufacture.entity.product.SpaceshipProduct;
 import manufacture.entity.product.SpaceshipRef;
 import manufacture.idao.product.IDaoColor;
 import manufacture.idao.product.IDaoProductRef;
@@ -100,6 +101,12 @@ public class DaoProductRef implements IDaoProductRef {
 	public void updateProductRef(ProductRef productRef) {
 		Session session = sf.getCurrentSession();
 		session.update(productRef);
+	}
+	
+	@Override
+	public void addSpaceShipProduct(SpaceshipProduct spaceShipProduct) {
+		Session session = sf.getCurrentSession();
+		session.save(spaceShipProduct);
 	}
 	
 	//Getters et Setters
