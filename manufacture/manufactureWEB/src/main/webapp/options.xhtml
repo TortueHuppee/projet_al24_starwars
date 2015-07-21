@@ -1,0 +1,97 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
+</h:head>
+<h:body>
+	<h:form>
+		<div>
+			<h3>options</h3>
+			<p:fieldset legend="Basic" style="margin-bottom:20px">
+				<div>
+					<!-- 					<h3>5</h3> -->
+					<p:outputLabel for="planete" value="Planete" />
+					<p:selectOneMenu id="planete" value="#{selectOneMenuView.planete}"
+						style="width:125px">
+						<f:selectItem itemLabel="Terre" itemValue="" />
+						<f:selectItem itemLabel="Mars" itemValue="Xbox One" />
+						<f:selectItem itemLabel="Aldebaran" itemValue="PS4" />
+						<f:selectItem itemLabel="Pluton" itemValue="Wii U" />
+					</p:selectOneMenu>
+				</div>
+				<div>
+					<!-- 					<h3>5</h3> -->
+					<p:outputLabel for="planete2" value="Planete" />
+					<p:selectOneMenu id="planete2"
+						value="#{selectOneMenuView.planete2}" style="width:125px">
+						<f:selectItem itemLabel="Terre" itemValue="" />
+						<f:selectItem itemLabel="Mars" itemValue="Xbox One" />
+						<f:selectItem itemLabel="Aldebaran" itemValue="PS4" />
+						<f:selectItem itemLabel="Pluton" itemValue="Wii U" />
+					</p:selectOneMenu>
+				</div>
+				<div>
+					<!-- 					<h3>5</h3> -->
+					<p:outputLabel for="planete3" value="Planete" />
+					<p:selectOneMenu id="planete3"
+						value="#{selectOneMenuView.planete3}" style="width:125px">
+						<f:selectItem itemLabel="Terre" itemValue="" />
+						<f:selectItem itemLabel="Mars" itemValue="Xbox One" />
+						<f:selectItem itemLabel="Aldebaran" itemValue="PS4" />
+						<f:selectItem itemLabel="Pluton" itemValue="Wii U" />
+					</p:selectOneMenu>
+				</div>
+				<div>
+					<!-- 					<h3>5</h3> -->
+					<p:outputLabel for="planete4" value="Planete" />
+					<p:selectOneMenu id="planete4"
+						value="#{selectOneMenuView.planete4}" style="width:125px">
+						<f:selectItem itemLabel="Terre" itemValue="" />
+						<f:selectItem itemLabel="Mars" itemValue="Xbox One" />
+						<f:selectItem itemLabel="Aldebaran" itemValue="PS4" />
+						<f:selectItem itemLabel="Pluton" itemValue="Wii U" />
+					</p:selectOneMenu>
+				</div>
+				<div>
+					<!-- 					<h3>5</h3> -->
+					<p:outputLabel for="planete5" value="Planete" />
+					<p:selectOneMenu id="planete5"
+						value="#{selectOneMenuView.planete5}" style="width:125px">
+						<f:selectItem itemLabel="Terre" itemValue="" />
+						<f:selectItem itemLabel="Mars" itemValue="Xbox One" />
+						<f:selectItem itemLabel="Aldebaran" itemValue="PS4" />
+						<f:selectItem itemLabel="Pluton" itemValue="Wii U" />
+					</p:selectOneMenu>
+				</div>
+				<div>
+					<!-- 					<h3>5</h3> -->
+					<p:outputLabel for="planete6" value="Planete" />
+					<p:selectOneMenu id="planete6"
+						value="#{selectOneMenuView.planete6}" style="width:125px">
+						<f:selectItem itemLabel="Terre" itemValue="" />
+						<f:selectItem itemLabel="Mars" itemValue="Xbox One" />
+						<f:selectItem itemLabel="Aldebaran" itemValue="PS4" />
+						<f:selectItem itemLabel="Pluton" itemValue="Wii U" />
+					</p:selectOneMenu>
+				</div>
+			</p:fieldset>
+		</div>
+		<div>
+			<div>
+				<p:commandButton value="Valider" id="ajax0" styleClass="bouton" />
+			</div>
+			<div>
+				<p:commandButton value="Annuler" id="ajax1" styleClass="bouton" />
+			</div>
+		</div>
+	</h:form>
+</h:body>
+</html>

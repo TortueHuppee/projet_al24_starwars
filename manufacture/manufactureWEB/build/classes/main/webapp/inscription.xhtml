@@ -1,0 +1,91 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
+</h:head>
+<h:body>
+	<h:form>
+		<div>
+			<div>
+				<h3>1</h3>
+				<h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
+					<p:outputLabel for="console" value="Choisir : " />
+					<p:selectOneRadio id="console" value="#{radioView.console}">
+						<f:selectItem itemLabel="Professionnel" itemValue="Xbox One" />
+						<f:selectItem itemLabel="Particulier" itemValue="PS4" />
+						<f:selectItem itemLabel="Artisan" itemValue="Wii U" />
+					</p:selectOneRadio>
+				</h:panelGrid>
+			</div>
+
+			<div>
+				<h3>2</h3>
+				<span>Email :</span>
+				<p:inputText />
+				<p:inputText />
+			</div>
+			<div>
+				<h3>3</h3>
+				<span>Login :</span>
+				<p:inputText />
+				<p:inputText />
+			</div>
+			<div>
+				<h3>4</h3>
+				<span>Password :</span>
+				<p:inputText />
+				<p:inputText />
+			</div>
+			<div>
+				<h3>5</h3>
+				<p:outputLabel for="planete" value="Planete" />
+				<p:selectOneMenu id="planete" value="#{selectOneMenuView.planete}"
+					style="width:125px">
+					<f:selectItem itemLabel="Terre" itemValue="" />
+					<f:selectItem itemLabel="Mars" itemValue="Xbox One" />
+					<f:selectItem itemLabel="Aldebaran" itemValue="PS4" />
+					<f:selectItem itemLabel="Pluton" itemValue="Wii U" />
+				</p:selectOneMenu>
+			</div>
+			<div>
+				<h3>6</h3>
+				<p:outputLabel for="ville" value="Ville" />
+				<p:selectOneMenu id="ville" value="#{selectOneMenuView.ville}"
+					style="width:125px">
+					<f:selectItem itemLabel="Paris" itemValue="" />
+					<f:selectItem itemLabel="Lyon" itemValue="Xbox One" />
+					<f:selectItem itemLabel="Marseille" itemValue="PS4" />
+					<f:selectItem itemLabel="Bordeaux" itemValue="Wii U" />
+				</p:selectOneMenu>
+			</div>
+			<div>
+				<h3>7</h3>
+				<p:outputLabel value="Code Postal " />
+				<p:outputLabel value="affichage automatique" />
+			</div>
+			<div>
+				<h3>8</h3>
+				<span>adresse :</span>
+				<p:inputText />
+			</div>
+			<div>
+				<h3>9</h3>
+			</div>
+			<div>
+				<p:commandButton value="Valider" id="ajax0" styleClass="bouton" />
+			</div>
+			<div>
+				<p:commandButton value="Annuler" id="ajax1" styleClass="bouton" />
+			</div>
+		</div>
+	</h:form>
+</h:body>
+</html>

@@ -1,0 +1,94 @@
+.logo {
+	float: left !important;
+	background-color: #FE2E2A;
+}
+
+.itemCommande{
+	clear:both !important;
+	background-color: #FE2E2A;
+}
+
+.itemLigneCommande {
+	float: left !important;
+	background-color: #FE2E2A;
+}
+
+.itemLignePanier {
+	float: left !important;
+	background-color: #FE2E2A;
+}
+
+#divPanierConnexion{
+	float: left !important;
+	background-color: #FE2E2E;
+}
+#divPanier{
+	float: left !important;
+	background-color: #FE2E2E;
+}
+#divConnexion{
+	float: left !important;
+	background-color: #FE2E2E;
+}
+menuitem{
+	float: left !important;
+	background-color: #FE2E2E;
+}
+
+#divLogo {
+	float: left !important;
+}
+
+#divMenuBtn {
+	
+	float: left !important;
+}
+#divMenu {
+	float: left !important;
+}
+
+.bouton {
+	color: #FOOOOO;
+	background-color: #58FA82;
+	background: none !important;
+	border-radius: 2px !important;
+}
+
+div {
+	color: #AAA;
+	background-color: #FFF;
+}
+
+.al24InputText {
+	clear: both !important;
+	color: #FE2E2E;
+}
+
+.al24Combox {
+	color: #FE2E2E;
+}
+
+.al24RadioBouton {
+	color: #FE2E2E;
+}
+
+.al24FielSet {
+	float: left;
+	width: auto;
+	height: auto;
+	color: #FE2E2E;
+}
+
+.ui-fieldset,.ui-fieldset .ui-fieldset-legend {
+	padding: 5px 5px;
+	background-color: #FFFFFF;
+}
+
+.al24TabMenu {
+	color: #FE2E2E;
+}
+
+
+.al24OutLabel {
+	color: #FE2E2E;
+}
