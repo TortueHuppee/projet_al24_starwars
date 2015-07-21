@@ -22,86 +22,75 @@ import manufacture.ifacade.catalog.ICatalog;
 public class Catalog implements ICatalog {
 
 	BeanFactory bf = new ClassPathXmlApplicationContext("classpath:springBusiness.xml");
-	IBusinessCatalog proxyColor = (IBusinessCatalog) bf.getBean(IBusinessCatalog.class);
+	IBusinessCatalog proxyCatalog = (IBusinessCatalog) bf.getBean(IBusinessCatalog.class);
 	
 	@Override
 	public List<ProductRef> getAllProductRef() {
-		// TODO Auto-generated method stub
-		return null;
+		return proxyCatalog.getAllProductRef();
 	}
 
 	@Override
 	public List<ProductRef> getAllConstructorProductRef() {
-		// TODO Auto-generated method stub
-		return null;
+		return proxyCatalog.getAllConstructorProductRef();
 	}
 
 	@Override
 	public List<ProductRef> getAllUsedProductRef() {
-		// TODO Auto-generated method stub
-		return null;
+		return proxyCatalog.getAllUsedProductRef();
 	}
 
 	@Override
 	public List<ProductRef> getAllArtisanProductRef() {
-		// TODO Auto-generated method stub
-		return null;
+		return proxyCatalog.getAllArtisanProductRef();
 	}
 
 	@Override
 	public List<ProductRef> getProductRefByName(String name) {
-		// TODO Auto-generated method stub
-		return null;
+		return proxyCatalog.getProductRefByName(name);
 	}
 
 	@Override
 	public List<ProductRef> getConstructorProductRefBySpaceShip(
 			SpaceshipRef spaceShipRef) {
-		// TODO Auto-generated method stub
-		return null;
+		return proxyCatalog.getConstructorProductRefBySpaceShip(spaceShipRef);
 	}
 
 	@Override
 	public List<Category> getAllCategory() {
-		// TODO Auto-generated method stub
-		return null;
+		return proxyCatalog.getAllCategory();
 	}
 
 	@Override
 	public List<Color> getAllColor() {
-		return proxyColor.getAllColor();
+		return proxyCatalog.getAllColor();
 	}
 
 	@Override
 	public List<SpaceshipRef> getAllSpaceShipRef() {
-		// TODO Auto-generated method stub
-		return null;
+		return proxyCatalog.getAllSpaceShipRef();
 	}
 
 	@Override
 	public List<Material> getAllMaterial() {
-		// TODO Auto-generated method stub
-		return null;
+		return proxyCatalog.getAllMaterial();
 	}
 
 	@Override
 	public List<Constructor> getAllConstructor() {
-		// TODO Auto-generated method stub
-		return null;
+		return proxyCatalog.getAllConstructor();
 	}
 
 	@Override
 	public List<Product> getAllProductByProductRef(int idProducRef) {
-		// TODO Auto-generated method stub
-		return null;
+		return proxyCatalog.getAllProductByProductRef(idProducRef);
 	}
 
 	public IBusinessCatalog getProxyColor() {
-		return proxyColor;
+		return proxyCatalog;
 	}
 
 	@Autowired
 	public void setProxyColor(IBusinessCatalog proxyColor) {
-		this.proxyColor = proxyColor;
+		this.proxyCatalog = proxyColor;
 	}
 }

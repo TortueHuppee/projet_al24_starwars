@@ -1,0 +1,24 @@
+body
+{
+    margin:0px;
+}
+
+.header
+{
+    background-color:#1c1d21;
+    color:white;
+    height:120px;
+}
+
+.menu
+{
+    background-color:#37648c;
+    color:white;
+    height:100px;
+}
+
+.body
+{
+    padding-left:30%;
+    padding-right:30%;
+}

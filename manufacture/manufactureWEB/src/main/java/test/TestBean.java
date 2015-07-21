@@ -16,7 +16,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 public class TestBean {
 	private String toto;
 	
-private List<Color> listeCouleur;	
+	private List<Color> listeCouleur;	
 	
 	private BeanFactory bf = new ClassPathXmlApplicationContext("classpath:springFacade.xml");
 	

@@ -4,8 +4,20 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"> 
 
-<h:head></h:head> 
-<body> 
-	<h:outputLabel value="#{toto.getToto()}" />
-</body> 
+
+<h:body>
+		<h:outputLabel value="#{toto.toto}" />
+		<table>
+			<tr>
+				<td>ID</td>
+				<td>ColorName</td>
+			</tr>
+			<ui:repeat var="color" value="#{toto.listeCouleur}">
+				<tr>
+					<td>#{color.idColor}</td>
+					<td>#{color.colorName}</td>
+				</tr>
+			</ui:repeat>
+		</table>
+</h:body>
 </html>
