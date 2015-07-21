@@ -23,12 +23,12 @@ public class SignUpBean {
 	private User user;
 	@Autowired
 	private UserBean userBean;
-	
+
 	public SignUpBean(){
 		user = new User();
-//		user.setAddress(new Address());
+		//		user.setAddress(new Address());
 	}
-	
+
 	/**
 	 * Verifie que l'utilisateur et unique et l'enregistre automatiquement si non
 	 * Connecte automatiquement l'utilisateur si la création se fait
@@ -42,10 +42,11 @@ public class SignUpBean {
 			return "index.xhtml?faces-redirect=true"; 
 		}else{
 			//Affiche un message d'erreur a l'utilisateur
-            FacesMessage message = new FacesMessage("L'utilisateur existe déjà");
-            FacesContext context = FacesContext.getCurrentInstance();
-            context.addMessage(null, message);		
-        }
+			FacesContext.getCurrentInstance(). 
+			addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_WARN,
+							"Warning message...", null));        
+		}
 		//Si il y a un probleme on retourne sur la page d'inscription
 		return "signin.xhtml?faces-redirect=true"; 
 	} 

@@ -33,6 +33,8 @@ public class Inscription implements IInscription {
 	public User createAccount(User user) {
 		if(!proxyInscription.userExists(user)){
 			proxyInscription.createAccount(user);
+		}else{
+			user.setIdUser(null);
 		}
 		return user;
 	}
