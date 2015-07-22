@@ -85,6 +85,11 @@ public class Catalog implements ICatalog {
 		return proxyCatalog.getAllProductByProductRef(idProducRef);
 	}
 
+	@Override
+	public List<Product> getAllProduct() {
+		return proxyCatalog.getAllProductByProductRef();
+	}
+
 	public IBusinessCatalog getProxyColor() {
 		return proxyCatalog;
 	}

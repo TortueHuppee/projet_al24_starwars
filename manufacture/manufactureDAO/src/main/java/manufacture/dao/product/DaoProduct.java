@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import manufacture.entity.product.Category;
 import manufacture.entity.product.Color;
 import manufacture.entity.product.Product;
 import manufacture.idao.product.IDaoColor;
@@ -62,6 +63,15 @@ public class DaoProduct implements IDaoProduct {
 	public void updateProduct(Product product) {
 		Session session = sf.getCurrentSession();
 		session.update(product);
+	}
+	
+	@Override
+	public List<Product> getAllProduct() {
+		Session session = sf.getCurrentSession();
+		String requete = "FROM Product a";
+		Query hql = session.createQuery(requete);
+		List<Product> resultat = hql.list();
+		return resultat;
 	}
 
 	//Getters et Setters
