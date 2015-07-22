@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import manufacture.entity.cart.Cart;
 import manufacture.entity.product.Category;
 import manufacture.entity.product.Color;
 import manufacture.entity.product.ConstructorProduct;
@@ -25,6 +26,16 @@ public class DaoProduct implements IDaoProduct {
 	private Logger log = Logger.getLogger(DaoProduct.class);
 	private SessionFactory sf;
 	
+
+	@Override
+	public Product getProductByIdProduct(int idProduct) {
+		Session session = sf.getCurrentSession();
+		String requete = "SELECT p FROM Product p WHERE p.idProduct = :idProduct";
+		Query hql = session.createQuery(requete);
+		hql.setParameter("idProduct", idProduct);
+		return (Product) hql.list().get(0);
+	}
+	
 	@Override
 	public List<ConstructorProduct> getAllProductByProductRef(int idProducRef) {
 		Session session = sf.getCurrentSession();
@@ -37,16 +48,20 @@ public class DaoProduct implements IDaoProduct {
 
 	@Override
 	public void updateProductStock(int idProduct, int quantitySend) {
-		// TODO Auto-generated method stub
 		//IMEN
-		
+		Session session = sf.getCurrentSession();
+		Product product = getProductByIdProduct(idProduct);
+		product.setStock(product.getStock() - quantitySend);
+		session.save(product);
 	}
 
 	@Override
 	public void checkProductStock(int idProduct) {
 		// TODO Auto-generated method stub
 		//IMEN
-		
+		Session session = sf.getCurrentSession();
+		Product product = getProductByIdProduct(idProduct);
+		product.getStock();
 	}
 
 	@Override
@@ -96,4 +111,5 @@ public class DaoProduct implements IDaoProduct {
 	public void setSf(SessionFactory sf) {
 		this.sf = sf;
 	}
+
 }

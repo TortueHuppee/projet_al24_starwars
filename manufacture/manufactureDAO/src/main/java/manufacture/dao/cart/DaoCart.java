@@ -10,7 +10,6 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -104,6 +103,12 @@ public class DaoCart implements IDaoCart {
 		Query hql = session.createQuery(requestGetCartByIdCart);
 		hql.setParameter("idCart", idCart);
 		return (Cart) hql.list().get(0);
+	}
+
+	@Override
+	public void updateCart(Cart cart) {
+		Session session = sf.getCurrentSession();
+		session.update(cart);
 	}
 
 

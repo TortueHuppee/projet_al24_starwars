@@ -7,19 +7,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import manufacture.entity.cart.CartProduct;
-import manufacture.entity.cart.Delivery;
-import manufacture.entity.cart.PaymentType;
 import manufacture.entity.product.Product;
 import manufacture.facade.util.ClassPathLoader;
 import manufacture.ibusiness.cart.IBusinessCart;
-import manufacture.ifacade.cart.ICartSpecificCustomer;
+import manufacture.ifacade.cart.ICartProfessionalCustomer;
 
 @Service
-public class CartSpecificCustomer implements ICartSpecificCustomer {
-
+public class CartProfessionalCustomer implements ICartProfessionalCustomer {
+	
 	BeanFactory bf = ClassPathLoader.getBusinessBeanFactory();
 	IBusinessCart proxyCart = (IBusinessCart) bf.getBean(IBusinessCart.class);
-	
+
 	@Override
 	public void addProductToCart(CartProduct cartProduct) {
 		proxyCart.addProductToCart(cartProduct);
@@ -28,21 +26,6 @@ public class CartSpecificCustomer implements ICartSpecificCustomer {
 	@Override
 	public void deleteProductFromCart(CartProduct cartProduct) {
 		proxyCart.deleteProductFromCart(cartProduct);
-	}
-
-	@Override
-	public void cleanCart(int idCart) {
-		proxyCart.cleanCart(idCart);
-	}
-
-	@Override
-	public void updateOptionsProduct(int idCartProduct, Product newProduct) {
-		proxyCart.updateOptionsProduct(idCartProduct, newProduct);
-	}
-
-	@Override
-	public void updateQuantityProduct(int idCartProduct, int newQuantity) {
-		proxyCart.updateQuantityProduct(idCartProduct, newQuantity);
 	}
 
 	@Override
@@ -56,18 +39,13 @@ public class CartSpecificCustomer implements ICartSpecificCustomer {
 	}
 
 	@Override
-	public List<PaymentType> getAllPaymentType() {
-		return proxyCart.getAllPaymentType();
+	public void orderProfessionalCommande(int idCart) {
+		proxyCart.orderProfessionalCommande(idCart);
 	}
 
 	@Override
-	public List<Delivery> getAllDeliveryType() {
-		return proxyCart.getAllDeliveryType();
-	}
-
-	@Override
-	public void orderCommande(int idCart) {
-		proxyCart.orderSpecificCommande(idCart);
+	public void validatePayment(int idCart) {
+		proxyCart.validatePayment(idCart);
 	}
 
 	@Override
@@ -75,8 +53,15 @@ public class CartSpecificCustomer implements ICartSpecificCustomer {
 		proxyCart.createNewCart(idUser);
 	}
 
+	@Override
+	public void sendRecall(int idUser) {
+		proxyCart.sendRecall(idUser);
+	}
+
 	@Autowired
 	public void setProxyCart(IBusinessCart proxyCart) {
 		this.proxyCart = proxyCart;
 	}
+	
+
 }

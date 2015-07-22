@@ -79,6 +79,7 @@ public class BusinessCart implements IBusinessCart {
 		Cart commande = proxyCart.getCartByIdCart(idCart);
 		commande.setDateCommande(new Date());
 		commande.setIsValidated((byte) 1);
+		proxyCart.updateCart(commande);
 	}
 
 	@Override
@@ -88,6 +89,7 @@ public class BusinessCart implements IBusinessCart {
 		Cart commande = proxyCart.getCartByIdCart(idCart);
 		commande.setDateCommande(new Date());
 		commande.setIsValidated((byte) 1);
+		proxyCart.updateCart(commande);
 	}
 
 	@Override

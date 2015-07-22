@@ -30,4 +30,6 @@ public interface IDaoProduct {
 
 	List<ConstructorProduct> getAllConstructorProduct();
 	
+	Product getProductByIdProduct (int idProduct);
+	
 }
