@@ -37,12 +37,49 @@
 
 				<tr>
 					<td>
+						<!-- Filtre Catégorie -->
 						<h:selectOneMenu value="#{mbCatalog.idCategorySelected}">
-							<f:selectItems  var="categorie"
+							<f:selectItems  var="item"
 											value="#{mbCatalog.listeCatégories}"
-											itemLabel="#{categorie.categoryName}"
-											itemValue="#{categorie.idCategory}"/>
-							<f:ajax event="change" listener="#{mbCatalog.initialisationListeBrute()}" render="catalogue"/>
+											itemLabel="#{item.categoryName}"
+											itemValue="#{item.idCategory}"/>
+							<f:ajax event="change" listener="#{mbCatalog.initialisationListeAffichee()}" render="myForm"/>
+						</h:selectOneMenu>
+						
+						<!-- Filtre Couleur -->
+						<h:selectOneMenu value="#{mbCatalog.idColorSelected}">
+							<f:selectItems  var="item"
+											value="#{mbCatalog.listeCouleurs}"
+											itemLabel="#{item.colorName}"
+											itemValue="#{item.idColor}"/>
+							<f:ajax event="change" listener="#{mbCatalog.initialisationListeAffichee()}" render="myForm"/>
+						</h:selectOneMenu>
+						
+						<!-- Filtre Matériaux -->
+						<h:selectOneMenu value="#{mbCatalog.idMaterialSelected}">
+							<f:selectItems  var="item"
+											value="#{mbCatalog.listeMateriaux}"
+											itemLabel="#{item.materialName}"
+											itemValue="#{item.idMaterial}"/>
+							<f:ajax event="change" listener="#{mbCatalog.initialisationListeAffichee()}" render="myForm"/>
+						</h:selectOneMenu>
+						
+						<!-- Filtre Vaisseaux -->
+						<h:selectOneMenu value="#{mbCatalog.idSpaceShipSelected}">
+							<f:selectItems  var="item"
+											value="#{mbCatalog.listeVaisseaux}"
+											itemLabel="#{item.spaceshipName}"
+											itemValue="#{item.idSpaceshipRef}"/>
+							<f:ajax event="change" listener="#{mbCatalog.initialisationListeAffichee()}" render="myForm"/>
+						</h:selectOneMenu>
+						
+						<!-- Filtre Constructeurs -->
+						<h:selectOneMenu value="#{mbCatalog.idConstructorSelected}">
+							<f:selectItems  var="item"
+											value="#{mbCatalog.listeConstructeurs}"
+											itemLabel="#{item.constructorName}"
+											itemValue="#{item.idConstructor}"/>
+							<f:ajax event="change" listener="#{mbCatalog.initialisationListeAffichee()}" render="myForm"/>
 						</h:selectOneMenu>
 					</td>
 				</tr>

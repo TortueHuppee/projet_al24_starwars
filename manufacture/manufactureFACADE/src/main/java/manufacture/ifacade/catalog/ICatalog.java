@@ -9,9 +9,11 @@ import manufacture.entity.cart.PaymentType;
 import manufacture.entity.product.Category;
 import manufacture.entity.product.Color;
 import manufacture.entity.product.Constructor;
+import manufacture.entity.product.ConstructorProduct;
 import manufacture.entity.product.Material;
 import manufacture.entity.product.Product;
 import manufacture.entity.product.ProductRef;
+import manufacture.entity.product.SpaceshipProduct;
 import manufacture.entity.product.SpaceshipRef;
 import manufacture.entity.user.User;
 
@@ -44,4 +46,8 @@ public interface ICatalog {
 	
 	//Consultation du détail d'un produit
 	List<Product> getAllProductByProductRef(int idProducRef);
+
+	List<ConstructorProduct> getAllConstructorProduct();
+
+	List<SpaceshipProduct> getSpaceShipProductByProduct(ProductRef productRef);
 }

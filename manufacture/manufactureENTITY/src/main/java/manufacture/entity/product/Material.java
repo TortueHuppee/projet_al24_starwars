@@ -1,7 +1,9 @@
 package manufacture.entity.product;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
+
 import java.util.List;
 
 
@@ -27,6 +29,12 @@ public class Material implements Serializable {
 	private List<Product> products;
 
 	public Material() {
+	}
+
+	public Material(int idMaterial, String materialName) {
+		super();
+		this.idMaterial = idMaterial;
+		this.materialName = materialName;
 	}
 
 	public int getIdMaterial() {

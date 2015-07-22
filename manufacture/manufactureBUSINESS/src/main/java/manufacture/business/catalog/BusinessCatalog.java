@@ -11,9 +11,11 @@ import manufacture.business.util.ClassPathLoader;
 import manufacture.entity.product.Category;
 import manufacture.entity.product.Color;
 import manufacture.entity.product.Constructor;
+import manufacture.entity.product.ConstructorProduct;
 import manufacture.entity.product.Material;
 import manufacture.entity.product.Product;
 import manufacture.entity.product.ProductRef;
+import manufacture.entity.product.SpaceshipProduct;
 import manufacture.entity.product.SpaceshipRef;
 import manufacture.ibusiness.catalog.IBusinessCatalog;
 import manufacture.idao.product.IDaoCategory;
@@ -99,8 +101,19 @@ public class BusinessCatalog implements IBusinessCatalog {
 	}
 	
 	@Override
-	public List<Product> getAllProductByProductRef() {
+	public List<Product> getAllProduct() {
 		return proxyProduct.getAllProduct();
+	}
+
+	@Override
+	public List<ConstructorProduct> getAllConstructorProduct() {
+		return proxyProduct.getAllConstructorProduct();
+	}
+	
+	@Override
+	public List<SpaceshipProduct> getSpaceShipProductByProduct(
+			ProductRef productRef) {
+		return proxyProductRef.getSpaceShipProductByProduct(productRef);
 	}
 	
 	public IDaoColor getProxyColor() {

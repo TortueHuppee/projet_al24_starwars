@@ -13,7 +13,9 @@ import org.springframework.transaction.annotation.Transactional;
 import manufacture.entity.cart.Cart;
 import manufacture.entity.product.Category;
 import manufacture.entity.product.Color;
+import manufacture.entity.product.ConstructorProduct;
 import manufacture.entity.product.Product;
+import manufacture.entity.product.ProductRef;
 import manufacture.idao.product.IDaoColor;
 import manufacture.idao.product.IDaoProduct;
 
@@ -86,6 +88,17 @@ public class DaoProduct implements IDaoProduct {
 		String requete = "FROM Product a";
 		Query hql = session.createQuery(requete);
 		List<Product> resultat = hql.list();
+		return resultat;
+	}
+	
+	@Override
+	public List<ConstructorProduct> getAllConstructorProduct() {
+		Session session = sf.getCurrentSession();		
+		//Requete à partir de la valeur discriminatrice
+		//String requete = "SELECT DISTINCT p.productRef FROM Product p WHERE p.class='constructor_product'";
+		String requete = "SELECT p FROM Product p WHERE p.class='constructor_product'";
+		Query hql = session.createQuery(requete);
+		List<ConstructorProduct> resultat = hql.list();
 		return resultat;
 	}
 

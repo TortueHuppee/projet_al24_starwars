@@ -85,6 +85,17 @@ public class DaoProductRef implements IDaoProductRef {
 		List<ProductRef> resultat = hql.list();
 		return resultat;
 	}
+	
+	@Override
+	public List<SpaceshipProduct> getSpaceShipProductByProduct(
+			ProductRef productRef) {
+		Session session = sf.getCurrentSession();
+		String requete = "SELECT p FROM SpaceshipProduct p WHERE p.productRef.idProductRef =:paramId";
+		Query hql = session.createQuery(requete);
+		hql.setParameter("paramId", productRef.getIdProductRef());
+		List<SpaceshipProduct> resultat = hql.list();
+		return resultat;
+	}
 
 	@Override
 	public void addProductRef(ProductRef productRef) {

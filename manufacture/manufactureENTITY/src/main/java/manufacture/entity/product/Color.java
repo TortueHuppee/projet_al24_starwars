@@ -1,7 +1,9 @@
 package manufacture.entity.product;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
+
 import java.util.List;
 
 
@@ -28,6 +30,14 @@ public class Color implements Serializable {
 
 	public Color() {
 	}
+	
+	public Color(int idColor, String colorName) {
+		super();
+		this.idColor = idColor;
+		this.colorName = colorName;
+	}
+
+
 
 	public int getIdColor() {
 		return this.idColor;
