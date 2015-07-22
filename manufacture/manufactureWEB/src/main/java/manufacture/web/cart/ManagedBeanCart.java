@@ -12,7 +12,7 @@ import manufacture.entity.product.ConstructorProduct;
 import manufacture.entity.product.Product;
 import manufacture.ifacade.cart.ICartSpecificCustomer;
 import manufacture.ifacade.catalog.ICatalog;
-import manufacture.web.catalogBean.ManagedBeanCatalog.Produit;
+//import manufacture.web.catalogBean.ManagedBeanCatalog.Produit;
 import manufacture.web.user.UserBean;
 import manufacture.web.util.ClassPathLoader;
 
