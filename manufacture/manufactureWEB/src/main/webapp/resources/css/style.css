@@ -33,6 +33,12 @@
 	width:150px; 
 	border:1px solid black; 
 } 
+
+.article-wrapper img
+{
+	border:1px black solid;
+	width:50px;
+}
 #menu ul li{
 	float:left; 
 	display:inline-block;

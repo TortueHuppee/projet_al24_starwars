@@ -30,6 +30,8 @@ public interface ICatalog {
 	
 	List<ProductRef> getConstructorProductRefBySpaceShip(SpaceshipRef spaceShipRef);
 	
+	List<Product> getAllProduct();
+	
 	List<Category> getAllCategory();
 	
 	List<Color> getAllColor();

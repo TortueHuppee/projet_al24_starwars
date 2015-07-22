@@ -1,41 +1,65 @@
 <ui:composition template="/layouts/catalogue_layout.xhtml"
 	xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:ui="http://java.sun.com/jsf/facelets">
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
 
 	<ui:define name="main-body">
-		<div class="article-wrapper">
-			<div class="article-name">Nom</div>
-			<div class="article-description">Description</div>
-			<div class="article-description">Prix</div>
-		</div>
-		<div class="article-wrapper">
-			<div class="article-name">Nom</div>
-			<div class="article-description">Description</div>
-			<div class="article-description">Prix</div>
-		</div>
-		<div class="article-wrapper">
-			<div class="article-name">Nom</div>
-			<div class="article-description">Description</div>
-			<div class="article-description">Prix</div>
-		</div>
-		<div class="article-wrapper">
-			<div class="article-name">Nom</div>
-			<div class="article-description">Description</div>
-			<div class="article-description">Prix</div>
-		</div>
-		<div class="article-wrapper">
-			<div class="article-name">Nom</div>
-			<div class="article-description">Description</div>
-			<div class="article-description">Prix</div>
-		</div>
-		<div class="article-wrapper">
-			<div class="article-name">Nom</div>
-			<div class="article-description">Description</div>
-			<div class="article-description">Prix</div>
-		</div>
-  	</ui:define>
+
+		<h:form id="myForm">
+			<table border="1" width="100%">
+				<tr>
+					<td><h:outputLabel
+							value="Je fais un truc de très sale ici en espérant que mon coeur ne le voit pas :3" />
+					</td>
+				</tr>
+
+				<tr>
+					<td><h:commandButton value="Réinitialiser">
+							<f:ajax listener="#{mbCatalog.reinitialiseListeAffichee()}"
+								render="catalogue" event="click" />
+						</h:commandButton></td>
+				</tr>
+
+				<tr>
+					<td><h:commandButton value="Trier par prix">
+							<f:ajax listener="#{mbCatalog.trierParPrix()}" render="catalogue"
+								event="click" />
+						</h:commandButton> <h:commandButton value="Reverse">
+							<f:ajax listener="#{mbCatalog.reverseTrierParPrix()}"
+								render="catalogue" event="click" />
+						</h:commandButton></td>
+				</tr>
+
+				<tr>
+					<td>
+						<h:selectOneMenu value="#{mbCatalog.idCategorySelected}">
+							<f:selectItems  var="categorie"
+											value="#{mbCatalog.listeCatégories}"
+											itemLabel="#{categorie.categoryName}"
+											itemValue="#{categorie.idCategory}"/>
+							<f:ajax event="change" listener="#{mbCatalog.initialisationListeBrute()}" render="catalogue"/>
+						</h:selectOneMenu>
+					</td>
+				</tr>
+
+			</table>
+
+			<h:panelGroup id="catalogue">
+				<ui:repeat var="produit" value="#{mbCatalog.listeProduitAffichee}">
+					<div class="article-wrapper">
+						<div class="article-name">#{produit.nom}</div>
+						<!-- 				<img src="#{produit.urlPhoto}" /> -->
+						<div class="article-description">#{produit.prixMin} Crédits</div>
+					</div>
+				</ui:repeat>
+			</h:panelGroup>
+		</h:form>
+	</ui:define>
 
 
 </ui:composition>

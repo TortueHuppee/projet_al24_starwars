@@ -98,6 +98,11 @@ public class BusinessCatalog implements IBusinessCatalog {
 		return proxyProduct.getAllProductByProductRef(idProducRef);
 	}
 	
+	@Override
+	public List<Product> getAllProductByProductRef() {
+		return proxyProduct.getAllProduct();
+	}
+	
 	public IDaoColor getProxyColor() {
 		return proxyColor;
 	}
@@ -160,5 +165,4 @@ public class BusinessCatalog implements IBusinessCatalog {
 	public void setProxySpaceShip(IDaoSpaceShipRef proxySpaceShip) {
 		this.proxySpaceShip = proxySpaceShip;
 	}
-
 }

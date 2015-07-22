@@ -38,6 +38,7 @@ public class DaoProductRef implements IDaoProductRef {
 	public List<ProductRef> getAllConstructorProductRef() {
 		Session session = sf.getCurrentSession();		
 		//Requete à partir de la valeur discriminatrice
+		//String requete = "SELECT DISTINCT p.productRef FROM Product p WHERE p.class='constructor_product'";
 		String requete = "SELECT p.productRef FROM Product p WHERE p.class='constructor_product'";
 		Query hql = session.createQuery(requete);
 		List<ProductRef> resultat = hql.list();

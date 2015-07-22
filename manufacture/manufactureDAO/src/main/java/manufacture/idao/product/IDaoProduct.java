@@ -24,5 +24,7 @@ public interface IDaoProduct {
 	void deleteProduct(Product product);
 	
 	void updateProduct(Product product);
+
+	List<Product> getAllProduct();
 	
 }

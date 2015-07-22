@@ -42,4 +42,6 @@ public interface IBusinessCatalog {
 	
 	//Consultation du détail d'un produit
 	List<Product> getAllProductByProductRef(int idProducRef);
+
+	List<Product> getAllProductByProductRef();
 }
