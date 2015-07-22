@@ -4,5 +4,81 @@
 	xmlns:composite="http://java.sun.com/jsf/composite"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
-		Zone pour les differents filtres
+		
+	<h:form>
+		<table border="1" width="100%">
+				<tr>
+					<td><h:outputLabel
+							value="Je fais un truc de très sale ici en espérant que mon coeur ne le voit pas :3" />
+					</td>
+				</tr>
+
+				<tr>
+					<td><h:commandButton value="Réinitialiser">
+							<f:ajax listener="#{mbCatalog.reinitialiseListeAffichee()}"
+								render=":myForm" event="click" />
+						</h:commandButton></td>
+				</tr>
+
+				<tr>
+					<td><h:commandButton value="Trier par prix">
+							<f:ajax listener="#{mbCatalog.trierParPrix()}" render=":myForm"
+								event="click" />
+						</h:commandButton> <h:commandButton value="Reverse">
+							<f:ajax listener="#{mbCatalog.reverseTrierParPrix()}"
+								render=":myForm" event="click" />
+						</h:commandButton></td>
+				</tr>
+
+				<tr>
+					<td>
+						<!-- Filtre Catégorie -->
+						<h:selectOneMenu value="#{mbCatalog.idCategorySelected}">
+							<f:selectItems  var="item"
+											value="#{mbCatalog.listeCatégories}"
+											itemLabel="#{item.categoryName}"
+											itemValue="#{item.idCategory}"/>
+							<f:ajax event="change" listener="#{mbCatalog.initialisationListeAffichee()}" render=":myForm"/>
+						</h:selectOneMenu>
+						
+						<!-- Filtre Couleur -->
+						<h:selectOneMenu value="#{mbCatalog.idColorSelected}">
+							<f:selectItems  var="item"
+											value="#{mbCatalog.listeCouleurs}"
+											itemLabel="#{item.colorName}"
+											itemValue="#{item.idColor}"/>
+							<f:ajax event="change" listener="#{mbCatalog.initialisationListeAffichee()}" render=":myForm"/>
+						</h:selectOneMenu>
+						
+						<!-- Filtre Matériaux -->
+						<h:selectOneMenu value="#{mbCatalog.idMaterialSelected}">
+							<f:selectItems  var="item"
+											value="#{mbCatalog.listeMateriaux}"
+											itemLabel="#{item.materialName}"
+											itemValue="#{item.idMaterial}"/>
+							<f:ajax event="change" listener="#{mbCatalog.initialisationListeAffichee()}" render=":myForm"/>
+						</h:selectOneMenu>
+						
+						<!-- Filtre Vaisseaux -->
+						<h:selectOneMenu value="#{mbCatalog.idSpaceShipSelected}">
+							<f:selectItems  var="item"
+											value="#{mbCatalog.listeVaisseaux}"
+											itemLabel="#{item.spaceshipName}"
+											itemValue="#{item.idSpaceshipRef}"/>
+							<f:ajax event="change" listener="#{mbCatalog.initialisationListeAffichee()}" render=":myForm"/>
+						</h:selectOneMenu>
+						
+						<!-- Filtre Constructeurs -->
+						<h:selectOneMenu value="#{mbCatalog.idConstructorSelected}">
+							<f:selectItems  var="item"
+											value="#{mbCatalog.listeConstructeurs}"
+											itemLabel="#{item.constructorName}"
+											itemValue="#{item.idConstructor}"/>
+							<f:ajax event="change" listener="#{mbCatalog.initialisationListeAffichee()}" render=":myForm"/>
+						</h:selectOneMenu>
+					</td>
+				</tr>
+
+			</table>
+		</h:form>
 </ui:composition>
