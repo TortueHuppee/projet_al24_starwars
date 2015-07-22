@@ -7,26 +7,27 @@
 	xmlns:composite="http://java.sun.com/jsf/composite"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
-
 <h:head>
-	<link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
+	<title><ui:insert name="title">Star Wars Part E-Shop</ui:insert></title>
+	<ui:insert name="stylesheets"></ui:insert>
+
+	<h:outputStylesheet library="css" name="style.css" />
+	<ui:insert name="stylesheets"></ui:insert>
+	<ui:insert name="javascripts"></ui:insert>
+
 </h:head>
 <h:body>
-	<div>
-		<ui:insert>
-			<ui:include src="menu.xhtml" />
-		</ui:insert>
+	<div id="header">
+		<ui:include src="parts/header.xhtml" />
+	</div>
+	<div id="menu">
+		<ui:include src="parts/menu.xhtml" />
 	</div>
 
-	<div>
-		<ui:insert>
-			<ui:include src="recherche.xhtml" />
-		</ui:insert>
-	</div>
-	<div>
-		<ui:insert>
-			<ui:include src="articleCatalogue.xhtml" />
+	<div id="body-content">
+		<ui:insert name="main-body">
 		</ui:insert>
 	</div>
 </h:body>
 </html>
+ 

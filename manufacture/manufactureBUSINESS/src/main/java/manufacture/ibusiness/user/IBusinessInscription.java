@@ -9,21 +9,18 @@ import manufacture.entity.user.User;
 
 public interface IBusinessInscription {
 
-	//Vérification des identifiants
-	boolean loginAlreadyExisting(String login);
-	
-	boolean emailAlreadyExisting(String email);
-	
 	//Création
-	void createAccount(User user, Address adress);
+	User createAccount(User user);
 	
-	void createAdministrator(Administrator admin);
+	Administrator createAdministrator(Administrator admin);
 	
-	void createArtisan(Artisan artisan);
+	Artisan createArtisan(Artisan artisan);
 	
-	void createProfessionalCustomer(ProfessionnalCustomer professionalCustomer);
+	ProfessionnalCustomer createProfessionalCustomer(ProfessionnalCustomer professionalCustomer);
 	
-	void createSpecificCustomer(SpecificCustomer specificCustomer);
+	SpecificCustomer createSpecificCustomer(SpecificCustomer specificCustomer);
 	
-	void createAdress(Address adress);
+	Address createAdress(Address adress);
+
+	boolean userExists(User user);
 }

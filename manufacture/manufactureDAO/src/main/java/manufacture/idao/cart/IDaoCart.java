@@ -20,6 +20,7 @@ public interface IDaoCart {
 	
 	void validatePayment(int idCart);
 	
+<<<<<<< HEAD
 	int createNewCart(int idUser);
 	
 	void sendRecall(int idUser);
@@ -28,5 +29,15 @@ public interface IDaoCart {
 //	List<PaymentType> getAllPaymentType();
 //	
 //	List<Delivery> getAllDeliveryType();
+=======
+	void createNewCart(int idUser);
+	
+	void sendRecall(int idUser);
+	
+	//Autres
+	List<PaymentType> getAllPaymentType();
+	
+	List<Delivery> getAllDeliveryType();
+>>>>>>> 20fe4fcee1a78b8da24ace9cd91c1f86f6d44620
 	
 }

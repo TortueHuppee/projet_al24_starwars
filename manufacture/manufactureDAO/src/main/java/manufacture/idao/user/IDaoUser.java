@@ -30,5 +30,9 @@ public interface IDaoUser {
 	
 	void closeAccount(User user);
 	
-	void openAccoutn(User user);
+	User openAccount(User user);
+
+	User getUserLogin(User user);
+
+	List<User> getUserByUserName(String userName);
 }

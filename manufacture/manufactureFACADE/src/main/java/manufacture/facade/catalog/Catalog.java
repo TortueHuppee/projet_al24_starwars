@@ -2,11 +2,14 @@ package manufacture.facade.catalog;
 
 import java.util.List;
 
+<<<<<<< HEAD
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Service;
 
+=======
+>>>>>>> 20fe4fcee1a78b8da24ace9cd91c1f86f6d44620
 import manufacture.entity.product.Category;
 import manufacture.entity.product.Color;
 import manufacture.entity.product.Constructor;
@@ -14,6 +17,7 @@ import manufacture.entity.product.Material;
 import manufacture.entity.product.Product;
 import manufacture.entity.product.ProductRef;
 import manufacture.entity.product.SpaceshipRef;
+<<<<<<< HEAD
 import manufacture.ibusiness.catalog.IBusinessCatalog;
 import manufacture.idao.product.IDaoColor;
 import manufacture.ifacade.catalog.ICatalog;
@@ -22,6 +26,20 @@ import manufacture.ifacade.catalog.ICatalog;
 public class Catalog implements ICatalog {
 
 	BeanFactory bf = new ClassPathXmlApplicationContext("classpath:springBusiness.xml");
+=======
+import manufacture.facade.util.ClassPathLoader;
+import manufacture.ibusiness.catalog.IBusinessCatalog;
+import manufacture.ifacade.catalog.ICatalog;
+
+import org.springframework.beans.factory.BeanFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+@Service
+public class Catalog implements ICatalog {
+
+	BeanFactory bf = ClassPathLoader.getBusinessBeanFactory();
+>>>>>>> 20fe4fcee1a78b8da24ace9cd91c1f86f6d44620
 	IBusinessCatalog proxyCatalog = (IBusinessCatalog) bf.getBean(IBusinessCatalog.class);
 	
 	@Override
