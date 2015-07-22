@@ -21,10 +21,25 @@ import manufacture.entity.user.User;
 public class ProfessionnalCustomer extends User {
 
 	private static final long serialVersionUID = 1L;
+	
+	@Column(name = "number_recall")
+	private int nbRecall ;
 
 	
 	public ProfessionnalCustomer()
 	{
 		
 	}
+
+
+	public int getNbRecall() {
+		return nbRecall;
+	}
+
+
+	public void setNbRecall(int nbRecall) {
+		this.nbRecall = nbRecall;
+	}
+	
+	
 }

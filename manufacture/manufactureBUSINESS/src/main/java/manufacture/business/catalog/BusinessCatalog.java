@@ -27,7 +27,7 @@ import manufacture.idao.product.IDaoSpaceShipRef;
 @Service
 public class BusinessCatalog implements IBusinessCatalog {
 
-	BeanFactory bf = ClassPathLoader.getDaoBeanFactory();	
+	BeanFactory bf = new ClassPathXmlApplicationContext("classpath:springData.xml");
 	
 	IDaoColor proxyColor = (IDaoColor) bf.getBean(IDaoColor.class);
 	IDaoCategory proxyCategory = (IDaoCategory) bf.getBean(IDaoCategory.class);

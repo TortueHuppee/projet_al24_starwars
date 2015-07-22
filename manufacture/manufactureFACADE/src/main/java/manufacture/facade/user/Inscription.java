@@ -38,5 +38,23 @@ public class Inscription implements IInscription {
 		}
 		return user;
 	}
+
+	@Override
+	public boolean loginAlreadyExisting(String login) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean emailAlreadyExisting(String email) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void createAccount(User user, Address adress) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 }

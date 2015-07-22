@@ -109,4 +109,9 @@ public class DaoUser implements IDaoUser {
 		List<User> resultat = hql.list();
 		return resultat;
 	}
+	@Override
+	public void openAccoutn(User user) {
+		// TODO Auto-generated method stub
+		
+	}
 }

@@ -16,9 +16,9 @@ import manufacture.entity.product.Material;
 import manufacture.entity.product.Product;
 import manufacture.entity.product.SpaceshipRef;
 import manufacture.ifacade.catalog.ICatalog;
-import manufacture.web.util.ClassPathLoader;
 
 import org.apache.log4j.Logger;
+import manufacture.web.util.ClassPathLoader;
 import org.springframework.beans.factory.BeanFactory;
 
 @ManagedBean(name="mbCatalog")

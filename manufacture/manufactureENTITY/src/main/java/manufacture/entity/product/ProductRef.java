@@ -39,7 +39,7 @@ public class ProductRef implements Serializable {
 	private List<SpaceshipProduct> spaceshipProducts;
 	
 	@Column(name="url_image")
-	String urlImage;
+	private String urlImage;
 
 	public ProductRef() {
 	}
@@ -127,5 +127,4 @@ public class ProductRef implements Serializable {
 	public void setUrlImage(String urlImage) {
 		this.urlImage = urlImage;
 	}
-
 }

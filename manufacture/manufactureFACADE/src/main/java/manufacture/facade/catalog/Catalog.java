@@ -9,6 +9,7 @@ import manufacture.entity.product.Material;
 import manufacture.entity.product.Product;
 import manufacture.entity.product.ProductRef;
 import manufacture.entity.product.SpaceshipRef;
+
 import manufacture.facade.util.ClassPathLoader;
 import manufacture.ibusiness.catalog.IBusinessCatalog;
 import manufacture.ifacade.catalog.ICatalog;

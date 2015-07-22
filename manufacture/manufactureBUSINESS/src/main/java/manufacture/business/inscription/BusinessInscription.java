@@ -71,4 +71,22 @@ public class BusinessInscription implements IBusinessInscription {
 		return userFound.size() == 0 ? false:true;
 	}
 
+	@Override
+	public boolean loginAlreadyExisting(String login) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean emailAlreadyExisting(String email) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void createAccount(User user, Address adress) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

@@ -12,21 +12,16 @@ import manufacture.entity.user.User;
 public interface IDaoCart {
 
 	//Gestion de la commande
-	double getTotalPrice(int idCart);
+//	double getTotalPrice(int idCart);
 	
-	void orderProfessionalCommande(int idCart);
+	void validatePayment(int idCart); // change boolean to true
 	
-	void orderSpecificCommande(int idCart);
+	int createNewCart(int idUser);  // if user connected
 	
-	void validatePayment(int idCart);
+	void sendRecall(int idUser); // increment nb recall
 	
-	void createNewCart(int idUser);
+	List<CartProduct> getAllCartProductByCart(int idCart);
 	
-	void sendRecall(int idUser);
-	
-	//Autres
-	List<PaymentType> getAllPaymentType();
-	
-	List<Delivery> getAllDeliveryType();
+	Cart getCartByIdCart(int idCart);
 	
 }

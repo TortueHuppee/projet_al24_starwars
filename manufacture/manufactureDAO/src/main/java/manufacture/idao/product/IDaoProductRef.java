@@ -33,7 +33,7 @@ public interface IDaoProductRef {
 	void deleteProductRef(ProductRef productRef);
 	
 	void updateProductRef(ProductRef productRef);
-	
+
 	void addSpaceShipProduct(SpaceshipProduct spaceShipProduct);
 	
 }
