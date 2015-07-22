@@ -108,7 +108,7 @@ public class ManagedBeanCatalog {
 				int idProductRef = product.getProductRef().getIdProductRef();
 				String nomProduct = product.getProductRef().getProductName();
 				String urlPhoto = product.getProductRef().getUrlImage();
-				double prix = Double.parseDouble(df.format(product.getPrice()));
+				double prix = product.getPrice();
 
 				Produit produit = new Produit(idProductRef, nomProduct, urlPhoto, prix);
 				listeProduitBrute.add(produit);
