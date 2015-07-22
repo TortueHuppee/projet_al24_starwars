@@ -5,11 +5,12 @@ import java.util.List;
 import manufacture.entity.product.Category;
 import manufacture.entity.product.Color;
 import manufacture.entity.product.Constructor;
+import manufacture.entity.product.ConstructorProduct;
 import manufacture.entity.product.Material;
 import manufacture.entity.product.Product;
 import manufacture.entity.product.ProductRef;
+import manufacture.entity.product.SpaceshipProduct;
 import manufacture.entity.product.SpaceshipRef;
-
 import manufacture.facade.util.ClassPathLoader;
 import manufacture.ibusiness.catalog.IBusinessCatalog;
 import manufacture.ifacade.catalog.ICatalog;
@@ -87,7 +88,17 @@ public class Catalog implements ICatalog {
 
 	@Override
 	public List<Product> getAllProduct() {
-		return proxyCatalog.getAllProductByProductRef();
+		return proxyCatalog.getAllProduct();
+	}
+	
+	@Override
+	public List<ConstructorProduct> getAllConstructorProduct() {
+		return proxyCatalog.getAllConstructorProduct();
+	}
+	
+	@Override
+	public List<SpaceshipProduct> getSpaceShipProductByProduct(ProductRef productRef) {
+		return proxyCatalog.getSpaceShipProductByProduct(productRef);
 	}
 
 	public IBusinessCatalog getProxyColor() {

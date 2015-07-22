@@ -1,6 +1,5 @@
 package manufacture.web.catalogBean;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -12,13 +11,17 @@ import javax.faces.bean.SessionScoped;
 import manufacture.entity.product.Category;
 import manufacture.entity.product.Color;
 import manufacture.entity.product.Constructor;
+import manufacture.entity.product.ConstructorProduct;
 import manufacture.entity.product.Material;
 import manufacture.entity.product.Product;
+import manufacture.entity.product.SpaceshipProduct;
 import manufacture.entity.product.SpaceshipRef;
 import manufacture.ifacade.catalog.ICatalog;
 
 import org.apache.log4j.Logger;
+
 import manufacture.web.util.ClassPathLoader;
+
 import org.springframework.beans.factory.BeanFactory;
 
 @ManagedBean(name="mbCatalog")
@@ -30,11 +33,11 @@ public class ManagedBeanCatalog {
 	private BeanFactory bf = ClassPathLoader.getFacadeBeanFactory();
 	private ICatalog proxyCatalog = (ICatalog) bf.getBean(ICatalog.class);
 
-	private List<Product> listeProduct;
-	private List<Produit> listeProduitBrute;
+	private List<ConstructorProduct> listeProductBrute;
+	private List<ConstructorProduct> listeProductAffichee;
 	private List<Produit> listeProduitAffichee;
 
-	private List<Category> listeCatégories; // OK
+	private List<Category> listeCatégories;
 	private List<Color> listeCouleurs;
 	private List<Material> listeMateriaux;
 	private List<Constructor> listeConstructeurs;
@@ -45,76 +48,175 @@ public class ManagedBeanCatalog {
 	private int idMaterialSelected;
 	private int idConstructorSelected;
 	private int idSpaceShipSelected;
-	
-	private DecimalFormat df = new DecimalFormat("########.00");
 
 	@PostConstruct
 	void init()
 	{
-		listeProduct = proxyCatalog.getAllProduct();
+		listeProductBrute = proxyCatalog.getAllConstructorProduct();
 
 		initialisationFiltres();
-		
-		initialisationListeBrute();
+
+		initialisationListeAffichee();
 	}
 
 	//Méthodes de tri et de filtres
 
 	public void initialisationFiltres() {
-		
+
 		listeCatégories = proxyCatalog.getAllCategory();
 		listeCouleurs = proxyCatalog.getAllColor();
 		listeMateriaux = proxyCatalog.getAllMaterial();
 		listeConstructeurs = proxyCatalog.getAllConstructor();
 		listeVaisseaux = proxyCatalog.getAllSpaceShipRef();
+		
+		listeCouleurs.add(new Color(0,"Sélectionner une couleur"));
+		listeMateriaux.add(new Material(0,"Sélectionner un type de matériau"));
+		listeConstructeurs.add(new Constructor(0, "Sélectionner un constructeur"));
+		listeVaisseaux.add(new SpaceshipRef(0, "Sélectionner un modèle de vaisseau"));
 
 		idCategorySelected = 1;
-		idColorSelected = 1;
-		idMaterialSelected = 1;
-		idConstructorSelected = 1;
-		idSpaceShipSelected = 1;
+		idColorSelected = 0;
+		idMaterialSelected = 0;
+		idConstructorSelected = 0;
+		idSpaceShipSelected = 0;
 	}
 
-	public void initialisationListeBrute()
+	public void initialisationListeAffichee()
 	{
-		listeProduitBrute = new ArrayList<Produit>();
+		listeProduitAffichee = new ArrayList<Produit>();
+		listeProductAffichee = new ArrayList<ConstructorProduct>();
 
-		for (Product product : listeProduct)
+		for (ConstructorProduct product : listeProductBrute)
 		{	
 			boolean ajout = true;
 
-			if (product.getProductRef().getCategory().getIdCategory() != idCategorySelected)
-			{
-				ajout = false;
-			}
-			else
-			{
-				for (Produit pr : listeProduitBrute)
-				{
-					if (pr.getId() == product.getProductRef().getIdProductRef())
-					{
-						ajout = false;
+			ajout = filtreCategorie(product);
 
-						if (product.getPrice() < pr.getPrixMin())
-						{
-							pr.setPrixMin(product.getPrice());
-						}
-					}
-				}
+			if (idColorSelected != 0 && ajout){
+				ajout = filtreCouleur(product);
 			}
 
+			if (idMaterialSelected != 0 && ajout){
+				ajout = filtreMateriaux(product);
+			}
+
+			if (idConstructorSelected != 0 && ajout){
+				ajout = filtreConstructeur(product);
+			}
+
+			if (idSpaceShipSelected != 0 && ajout){
+				ajout = filtreModèleVaisseau(product);
+			}
+
+			if (ajout){
+				listeProductAffichee.add(product);
+				ajout = produitDejaDansLaListe(product);
+			}
+
+			//Ajout du produit à la liste s'il répond aux critères
 			if (ajout)
 			{
 				int idProductRef = product.getProductRef().getIdProductRef();
 				String nomProduct = product.getProductRef().getProductName();
 				String urlPhoto = product.getProductRef().getUrlImage();
-				double prix = Double.parseDouble(df.format(product.getPrice()));
+
+				double prix = DoubleFormat(product.getPrice());
 
 				Produit produit = new Produit(idProductRef, nomProduct, urlPhoto, prix);
-				listeProduitBrute.add(produit);
+				listeProduitAffichee.add(produit);
 			}
 		}
-		listeProduitAffichee = listeProduitBrute;
+	}
+
+	//Filtres
+	public boolean filtreCategorie(Product product)
+	{
+		if (product.getProductRef().getCategory().getIdCategory() != idCategorySelected)
+		{
+			return false;
+		}
+		else
+		{
+			return true;
+		}
+	}
+
+
+	public boolean filtreCouleur(Product product)
+	{
+		if (product.getColor().getIdColor() != idColorSelected)
+		{
+			return false;
+		}
+		else
+		{
+			return true;
+		}
+	}
+
+
+	public boolean filtreMateriaux(Product product)
+	{
+		if (product.getMaterial().getIdMaterial() != idMaterialSelected)
+		{
+			return false;
+		}
+		else
+		{
+			return true;
+		}
+	}
+
+
+	public boolean filtreConstructeur(ConstructorProduct product)
+	{
+		if (product.getConstructor().getIdConstructor() != idConstructorSelected)
+		{
+			return false;
+		}
+		else
+		{
+			return true;
+		}
+	}
+
+
+	public boolean filtreModèleVaisseau(Product product)
+	{
+		List<SpaceshipProduct> listeModèleVaisseauCompatibles = proxyCatalog.getSpaceShipProductByProduct(product.getProductRef());
+
+		boolean ajout = true;
+
+		for (SpaceshipProduct ssp : listeModèleVaisseauCompatibles)
+		{
+			if (ssp.getSpaceshipRef().getIdSpaceshipRef() != idSpaceShipSelected)
+			{
+				ajout = false;
+			}
+		}
+
+		return ajout;
+	}
+
+
+	public boolean produitDejaDansLaListe(Product product)
+	{
+		boolean ajout = true;
+
+		for (Produit pr : listeProduitAffichee)
+		{
+			if (pr.getId() == product.getProductRef().getIdProductRef())
+			{
+				ajout = false;
+
+				if (product.getPrice() < pr.getPrixMin())
+				{
+					double prix = DoubleFormat(product.getPrice());
+					pr.setPrixMin(prix);
+				}
+			}
+		}	
+		return ajout;
 	}
 
 	//Tris
@@ -123,26 +225,29 @@ public class ManagedBeanCatalog {
 		Collections.sort(listeProduitAffichee);
 	}
 
+
 	public void reverseTrierParPrix()
 	{
 		Collections.sort(listeProduitAffichee, Collections.reverseOrder());
 	}
 
+
 	//Réinitialisation de la listeAffichée
 	public void reinitialiseListeAffichee()
 	{
-		listeProduitAffichee = listeProduitBrute;
+		initialisationListeAffichee();
 	}
 
 
+	private double DoubleFormat(double number)
+	{
+		number = number*100;
+		number = (double)((int) number);
+		number = number /100;
+
+		return number;
+	}
 	//Getters et Setters	
-	public List<Produit> getListeProduitBrute() {
-		return listeProduitBrute;
-	}
-
-	public void setListeProduitBrute(List<Produit> listeProduitBrute) {
-		this.listeProduitBrute = listeProduitBrute;
-	}
 
 	public List<Produit> getListeProduitAffichee() {
 		return listeProduitAffichee;
@@ -152,12 +257,12 @@ public class ManagedBeanCatalog {
 		this.listeProduitAffichee = listeProduitAffichee;
 	}
 
-	public List<Product> getListeProduct() {
-		return listeProduct;
+	public List<ConstructorProduct> getListeProduct() {
+		return listeProductBrute;
 	}
 
-	public void setListeProduct(List<Product> listeProduct) {
-		this.listeProduct = listeProduct;
+	public void setListeProduct(List<ConstructorProduct> listeProduct) {
+		this.listeProductBrute = listeProduct;
 	}
 
 	public List<Color> getListeCouleurs() {
@@ -238,6 +343,23 @@ public class ManagedBeanCatalog {
 
 	public void setIdSpaceShipSelected(int idSpaceShipSelected) {
 		this.idSpaceShipSelected = idSpaceShipSelected;
+	}
+
+	public List<ConstructorProduct> getListeProductBrute() {
+		return listeProductBrute;
+	}
+
+	public void setListeProductBrute(List<ConstructorProduct> listeProductBrute) {
+		this.listeProductBrute = listeProductBrute;
+	}
+
+	public List<ConstructorProduct> getListeProductAffichee() {
+		return listeProductAffichee;
+	}
+
+	public void setListeProductAffichee(
+			List<ConstructorProduct> listeProductAffichee) {
+		this.listeProductAffichee = listeProductAffichee;
 	}
 
 	//Classe interne	

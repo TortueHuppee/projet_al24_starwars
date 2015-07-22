@@ -2,6 +2,8 @@ package manufacture.ibusiness.cart;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import manufacture.entity.cart.Cart;
 import manufacture.entity.cart.CartProduct;
 import manufacture.entity.cart.Delivery;

@@ -7,6 +7,8 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import manufacture.dao.product.DaoColor;
 import manufacture.entity.cart.Delivery;
@@ -14,9 +16,11 @@ import manufacture.entity.cart.PaymentType;
 import manufacture.entity.product.Product;
 import manufacture.idao.cart.IDaoPaymentAndDelivery;
 
+@Service
+@Transactional
 public class DaoPaymentAndDelivery implements IDaoPaymentAndDelivery {
 	
-	private Logger log = Logger.getLogger(DaoColor.class);
+	private Logger log = Logger.getLogger(DaoPaymentAndDelivery.class);
 	private SessionFactory sf;
 	
 	String requestGetAllPaymentType = "FROM PaymentType pt";

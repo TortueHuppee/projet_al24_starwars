@@ -82,8 +82,7 @@ public class CartSpecificCustomer implements ICartSpecificCustomer {
 		this.proxyCart = proxyCart;
 	}
 
-	
-	
-	
-
+	public IBusinessCart getProxyCart() {
+		return proxyCart;
+	}
 }

@@ -7,6 +7,8 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import manufacture.dao.product.DaoColor;
 import manufacture.entity.cart.CartProduct;
@@ -14,9 +16,11 @@ import manufacture.entity.product.ConstructorProduct;
 import manufacture.entity.product.Product;
 import manufacture.idao.cart.IDaoProductCart;
 
+@Service
+@Transactional
 public class DaoProductCart implements IDaoProductCart {
 	
-	private Logger log = Logger.getLogger(DaoColor.class);
+	private Logger log = Logger.getLogger(DaoProductCart.class);
 	private SessionFactory sf;
 	
 	private String requestUpdateOptionsProduct = "UPDATE CartProduct cp set cp.product = :newProduct where cp.idCartProduct = :idCartProduct";

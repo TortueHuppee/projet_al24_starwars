@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import manufacture.business.util.ClassPathLoader;
 import manufacture.entity.cart.Cart;
@@ -18,6 +19,7 @@ import manufacture.idao.cart.IDaoPaymentAndDelivery;
 import manufacture.idao.cart.IDaoProductCart;
 import manufacture.idao.product.IDaoProduct;
 
+@Service
 public class BusinessCart implements IBusinessCart {
 	
 //	BeanFactory bf = new ClassPathXmlApplicationContext("classpath:springBusiness.xml");

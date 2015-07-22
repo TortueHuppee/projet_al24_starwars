@@ -11,6 +11,8 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import manufacture.dao.product.DaoColor;
 import manufacture.entity.cart.Cart;
@@ -24,11 +26,11 @@ import manufacture.idao.cart.IDaoCart;
 import manufacture.idao.cart.IDaoProductCart;
 import manufacture.idao.product.IDaoColor;
 
+@Service
+@Transactional
 public class DaoCart implements IDaoCart {
 	
-	BeanFactory bf = new ClassPathXmlApplicationContext("classpath:springData.xml");
-	
-	private Logger log = Logger.getLogger(DaoColor.class);
+	private Logger log = Logger.getLogger(DaoCart.class);
 	private SessionFactory sf;
 	
 	private String requestGetCartByIdCart = "SELECT c FROM Cart c WHERE c.idCart = :idCart";

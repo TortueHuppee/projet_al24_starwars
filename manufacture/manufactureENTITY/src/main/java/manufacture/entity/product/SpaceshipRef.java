@@ -1,7 +1,9 @@
 package manufacture.entity.product;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
+
 import java.util.List;
 
 
@@ -27,6 +29,12 @@ public class SpaceshipRef implements Serializable {
 	private List<SpaceshipProduct> spaceshipProducts;
 
 	public SpaceshipRef() {
+	}
+
+	public SpaceshipRef(int idSpaceshipRef, String spaceshipName) {
+		super();
+		this.idSpaceshipRef = idSpaceshipRef;
+		this.spaceshipName = spaceshipName;
 	}
 
 	public int getIdSpaceshipRef() {
