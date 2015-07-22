@@ -45,9 +45,11 @@ public interface ICatalog {
 	List<Constructor> getAllConstructor();
 	
 	//Consultation du détail d'un produit
-	List<Product> getAllProductByProductRef(int idProducRef);
+	List<ConstructorProduct> getAllProductByProductRef(int idProducRef);
 
 	List<ConstructorProduct> getAllConstructorProduct();
 
 	List<SpaceshipProduct> getSpaceShipProductByProduct(ProductRef productRef);
+
+	ProductRef getProductRefById(int idProductRef);
 }

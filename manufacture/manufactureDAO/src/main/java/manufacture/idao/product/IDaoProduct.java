@@ -13,7 +13,7 @@ import manufacture.entity.user.User;
 public interface IDaoProduct {
 
 	//Méthodes
-	List<Product> getAllProductByProductRef(int idProducRef);
+	List<ConstructorProduct> getAllProductByProductRef(int idProducRef);
 	
 	void updateProductStock(int idProduct, int quantitySend);
 	

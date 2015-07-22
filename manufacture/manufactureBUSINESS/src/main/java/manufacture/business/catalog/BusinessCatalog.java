@@ -1,5 +1,6 @@
 package manufacture.business.catalog;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.BeanFactory;
@@ -96,7 +97,7 @@ public class BusinessCatalog implements IBusinessCatalog {
 	}
 
 	@Override
-	public List<Product> getAllProductByProductRef(int idProducRef) {
+	public List<ConstructorProduct> getAllProductByProductRef(int idProducRef) {
 		return proxyProduct.getAllProductByProductRef(idProducRef);
 	}
 	
@@ -107,13 +108,31 @@ public class BusinessCatalog implements IBusinessCatalog {
 
 	@Override
 	public List<ConstructorProduct> getAllConstructorProduct() {
-		return proxyProduct.getAllConstructorProduct();
+		//Récupère tous les produits sans exceptions
+		//return proxyProduct.getAllConstructorProduct();
+		
+		//Récupère seulement les produits en stock
+		List<ConstructorProduct> listeComplete = proxyProduct.getAllConstructorProduct();
+		List<ConstructorProduct> listeProduitsEnStock = new ArrayList<ConstructorProduct>();
+		for (ConstructorProduct product : listeComplete)
+		{
+			if (product.getStock() != 0)
+			{
+				listeProduitsEnStock.add(product);
+			}
+		}
+		return listeProduitsEnStock;
 	}
 	
 	@Override
 	public List<SpaceshipProduct> getSpaceShipProductByProduct(
 			ProductRef productRef) {
 		return proxyProductRef.getSpaceShipProductByProduct(productRef);
+	}
+	
+	@Override
+	public ProductRef getProductRefById(int idProductRef) {
+		return proxyProductRef.getProductRefById(idProductRef);
 	}
 	
 	public IDaoColor getProxyColor() {

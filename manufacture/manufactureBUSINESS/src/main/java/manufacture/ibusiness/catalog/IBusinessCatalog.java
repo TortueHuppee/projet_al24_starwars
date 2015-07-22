@@ -43,11 +43,13 @@ public interface IBusinessCatalog {
 	List<Constructor> getAllConstructor();
 	
 	//Consultation du détail d'un produit
-	List<Product> getAllProductByProductRef(int idProducRef);
+	List<ConstructorProduct> getAllProductByProductRef(int idProducRef);
 
 	List<Product> getAllProduct();
 
 	List<ConstructorProduct> getAllConstructorProduct();
 
 	List<SpaceshipProduct> getSpaceShipProductByProduct(ProductRef productRef);
+
+	ProductRef getProductRefById(int idProductRef);
 }

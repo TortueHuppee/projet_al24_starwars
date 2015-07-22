@@ -121,6 +121,16 @@ public class DaoProductRef implements IDaoProductRef {
 		session.save(spaceShipProduct);
 	}
 	
+	@Override
+	public ProductRef getProductRefById(int idProductRef) {
+		Session session = sf.getCurrentSession();
+		String requete = "SELECT p FROM ProductRef p WHERE p.idProductRef =:paramId";
+		Query hql = session.createQuery(requete);
+		hql.setParameter("paramId", idProductRef);
+		List<ProductRef> resultat = hql.list();
+		return resultat.get(0);
+	}
+	
 	//Getters et Setters
 	public SessionFactory getSf() {
 		return sf;
