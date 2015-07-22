@@ -19,12 +19,12 @@ public class DaoProductCart implements IDaoProductCart {
 	private Logger log = Logger.getLogger(DaoColor.class);
 	private SessionFactory sf;
 	
-	private String requestUpdateOptionsProduct = "update CartProduct cp set cp.product = :newProduct where cp.idCartProduct = :idCartProduct";
-	private String requestUpdateQuantityProduct = "update CartProduct cp set cp.quantity = :newQuantity where cp.idCartProduct = :idCartProduct";
-	private String requestGetAllProductByCart = "FROM CartProduct cp WHERE cp.cart.idCart = :idCart";
-	private String requestGetAllUsedProductByCart = "FROM CartProduct cp WHERE cp.cart.idCart = :idCart AND cp.cart.class = 'used_product'";
-	private String requestGetAllConstructorProductByCart = "FROM CartProduct cp WHERE cp.cart.idCart = :idCart AND cp.cart.class = 'constructor_product'";
-	private String getSubTotalPrice = "FROM CartProduct cp WHERE cp.idCartProduct = :idCartProduct";
+	private String requestUpdateOptionsProduct = "UPDATE CartProduct cp set cp.product = :newProduct where cp.idCartProduct = :idCartProduct";
+	private String requestUpdateQuantityProduct = "UPDATE CartProduct cp set cp.quantity = :newQuantity where cp.idCartProduct = :idCartProduct";
+	private String requestGetAllProductByCart = "SELECT cp.product FROM CartProduct cp WHERE cp.cart.idCart = :idCart";
+	private String requestGetAllUsedProductByCart = "SELECT cp.product FROM CartProduct cp WHERE cp.cart.idCart = :idCart AND cp.cart.class = 'used_product'";
+	private String requestGetAllConstructorProductByCart = "SELECT cp.product FROM CartProduct cp WHERE cp.cart.idCart = :idCart AND cp.cart.class = 'constructor_product'";
+	private String requestgetSubTotalPrice = "SELECT cp FROM CartProduct cp WHERE cp.idCartProduct = :idCartProduct";
 	
 	
 	@Override
@@ -44,23 +44,27 @@ public class DaoProductCart implements IDaoProductCart {
 
 	@Override
 	public void updateOptionsProduct(int idCartProduct, Product newProduct) {
-		// TODO Auto-generated method stub
+
 		Session session = sf.getCurrentSession();
+		
 //		Query hql = session.createQuery(requestUpdateOptionsProduct);
 //		hql.setParameter("newProduct", newProduct);
 //		hql.setParameter("idCartProduct", idCartProduct);
 //		hql.executeUpdate();
+		
 		session.update(newProduct); // à tester
 	}
 
 	@Override
 	public void updateQuantityProduct(int idCartProduct, int newQuantity) {
-		// TODO Auto-generated method stub
+
 		Session session = sf.getCurrentSession();
+		
 //		Query hql = session.createQuery(requestUpdateQuantityProduct);
 //		hql.setParameter("newQuantity", newQuantity);
 //		hql.setParameter("idCartProduct", idCartProduct);
 //		hql.executeUpdate();
+		
 		session.update(newQuantity);
 	}
 
@@ -114,7 +118,7 @@ public class DaoProductCart implements IDaoProductCart {
 	@Override
 	public double getSubTotalPrice(int idCartProduct) {
 		Session session = sf.getCurrentSession();
-		Query hql = session.createQuery(requestGetAllConstructorProductByCart);
+		Query hql = session.createQuery(requestgetSubTotalPrice);
 		hql.setParameter("idCartProduct", idCartProduct);
 		List<CartProduct> listResult = hql.list();
 		double result = 0;
@@ -125,8 +129,5 @@ public class DaoProductCart implements IDaoProductCart {
 		return result;
 	}
 
-
-	
-	
 
 }

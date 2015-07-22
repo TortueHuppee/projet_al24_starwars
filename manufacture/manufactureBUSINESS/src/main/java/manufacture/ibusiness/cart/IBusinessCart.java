@@ -14,7 +14,7 @@ public interface IBusinessCart {
 	//Gestion du panier
 	void addProductToCart(CartProduct cartProduct);
 	
-	void deleteProductFromCart(int idCartProduct);
+	void deleteProductFromCart(CartProduct cartProduct);
 	
 	void cleanCart(int idCart);
 	

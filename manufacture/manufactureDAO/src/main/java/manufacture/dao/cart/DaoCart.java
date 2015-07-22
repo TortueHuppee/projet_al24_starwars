@@ -8,24 +8,33 @@ import org.apache.log4j.Logger;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import manufacture.dao.product.DaoColor;
 import manufacture.entity.cart.Cart;
 import manufacture.entity.cart.CartProduct;
 import manufacture.entity.cart.Delivery;
 import manufacture.entity.cart.PaymentType;
+import manufacture.entity.product.Product;
 import manufacture.entity.user.ProfessionnalCustomer;
 import manufacture.entity.user.User;
 import manufacture.idao.cart.IDaoCart;
+import manufacture.idao.cart.IDaoProductCart;
+import manufacture.idao.product.IDaoColor;
 
 public class DaoCart implements IDaoCart {
+	
+	BeanFactory bf = new ClassPathXmlApplicationContext("classpath:springData.xml");
 	
 	private Logger log = Logger.getLogger(DaoColor.class);
 	private SessionFactory sf;
 	
-	private String requestValidatePayment = "FROM Cart c WHERE c.idCart = :idCart";
-	private String requestSendRecall = "FROM User u WHERE u.idUser = :idUser and AND u.class = 'constructor_product'";
+	private String requestGetCartByIdCart = "SELECT c FROM Cart c WHERE c.idCart = :idCart";
+	private String requestSendRecall = "SELECT u FROM User u WHERE u.idUser = :idUser and AND u.class = 'constructor_product'";
+	private String requestGetAllCartProductByCart = "SELECT cp FROM CartProduct cp WHERE cp.cart.idCart = :idCart";
+
 
 //	@Override
 //	public double getTotalPrice(int idCart) {
@@ -35,19 +44,14 @@ public class DaoCart implements IDaoCart {
 
 	@Override
 	public void validatePayment(int idCart) {
-
 		Session session = sf.getCurrentSession();
-		Query hql = session.createQuery(requestValidatePayment);
-		hql.setParameter("idCart", idCart);
-		List<Cart> listResult = hql.list();
-		for (Cart cart : listResult) {
-			cart.setDatePayment(new Date());
-			cart.setIsPaid((byte) 1);
-			Random rand = new Random();
-			int transactionNumber = rand.nextInt(999999999 - 100000000 + 1) + 100000000;
-			cart.setTransactionNumber(transactionNumber);
-			session.update(cart);
-		}
+		Cart cart = getCartByIdCart(idCart);
+		cart.setDatePayment(new Date());
+		cart.setIsPaid((byte) 1);
+		Random rand = new Random();
+		int transactionNumber = rand.nextInt(999999999 - 100000000 + 1) + 100000000;
+		cart.setTransactionNumber(transactionNumber);
+		session.update(cart);
 	}
 
 	@Override
@@ -81,6 +85,27 @@ public class DaoCart implements IDaoCart {
 		this.sf = sf;
 	}
 
+	@Override
+	public List<CartProduct> getAllCartProductByCart(int idCart) {
+		Session session = sf.getCurrentSession();
+		Query hql = session.createQuery(requestGetAllCartProductByCart);
+		double total =0;
+		hql.setParameter("idCart", idCart);
+		List<CartProduct> resultat = hql.list();
+		
+		return resultat;
+	}
+
+	@Override
+	public Cart getCartByIdCart(int idCart) {
+		Session session = sf.getCurrentSession();
+		Query hql = session.createQuery(requestGetCartByIdCart);
+		hql.setParameter("idCart", idCart);
+		return (Cart) hql.list().get(0);
+	}
 
 
+	
+	
+	
 }

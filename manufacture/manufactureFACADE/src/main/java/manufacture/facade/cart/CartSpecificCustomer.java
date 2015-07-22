@@ -1,26 +1,30 @@
-package manufacture.business.catalog;
+package manufacture.facade.cart;
 
 import java.util.List;
 
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.stereotype.Service;
 
 import manufacture.entity.cart.CartProduct;
 import manufacture.entity.cart.Delivery;
 import manufacture.entity.cart.PaymentType;
 import manufacture.entity.product.Product;
+import manufacture.facade.util.ClassPathLoader;
 import manufacture.ibusiness.cart.IBusinessCart;
+import manufacture.ibusiness.catalog.IBusinessCatalog;
+import manufacture.ifacade.cart.ICartSpecificCustomer;
 
-public class BusinessCart implements IBusinessCart {
-	
-	BeanFactory bf = new ClassPathXmlApplicationContext("classpath:springBusiness.xml");
+@Service
+public class CartSpecificCustomer implements ICartSpecificCustomer {
+
+	BeanFactory bf = ClassPathLoader.getBusinessBeanFactory();
 	IBusinessCart proxyCart = (IBusinessCart) bf.getBean(IBusinessCart.class);
-
+	
 	@Override
 	public void addProductToCart(CartProduct cartProduct) {
-		// TODO Auto-generated method stub
-
+		proxyCart.addProductToCart(cartProduct);
 	}
 
 	@Override
@@ -60,36 +64,6 @@ public class BusinessCart implements IBusinessCart {
 	}
 
 	@Override
-	public void orderProfessionalCommande(int idCart) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void orderSpecificCommande(int idCart) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void validatePayment(int idCart) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void createNewCart(int idUser) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void sendRecall(int idUser) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	public List<PaymentType> getAllPaymentType() {
 		// TODO Auto-generated method stub
 		return null;
@@ -102,13 +76,13 @@ public class BusinessCart implements IBusinessCart {
 	}
 
 	@Override
-	public void updateProductStock(int idProduct, int quantitySend) {
+	public void orderCommande(int idCart) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void checkProductStock(int idProduct) {
+	public void createNewCart(int idUser) {
 		// TODO Auto-generated method stub
 
 	}
@@ -117,6 +91,8 @@ public class BusinessCart implements IBusinessCart {
 	public void setProxyCart(IBusinessCart proxyCart) {
 		this.proxyCart = proxyCart;
 	}
+
+	
 	
 	
 

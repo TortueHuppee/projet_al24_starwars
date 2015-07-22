@@ -20,4 +20,8 @@ public interface IDaoCart {
 	
 	void sendRecall(int idUser); // increment nb recall
 	
+	List<CartProduct> getAllCartProductByCart(int idCart);
+	
+	Cart getCartByIdCart(int idCart);
+	
 }
