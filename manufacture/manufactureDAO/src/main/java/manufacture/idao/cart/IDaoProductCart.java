@@ -13,12 +13,9 @@ public interface IDaoProductCart {
 
 	//Gestion du panier
 	void addProductToCart(CartProduct cartProduct);
-	
-<<<<<<< HEAD
+
 	void deleteProductFromCart(CartProduct cartProduct);
-=======
-	void deleteProductFromCart(int idCartProduct);
->>>>>>> 20fe4fcee1a78b8da24ace9cd91c1f86f6d44620
+//	void deleteProductFromCart(int idCartProduct);
 	
 	void cleanCart(int idCart);
 	
