@@ -28,63 +28,53 @@ public class CartSpecificCustomer implements ICartSpecificCustomer {
 	}
 
 	@Override
-	public void deleteProductFromCart(int idCartProduct) {
-		// TODO Auto-generated method stub
-
+	public void deleteProductFromCart(CartProduct cartProduct) {
+		proxyCart.deleteProductFromCart(cartProduct);
 	}
 
 	@Override
 	public void cleanCart(int idCart) {
-		// TODO Auto-generated method stub
-
+		proxyCart.cleanCart(idCart);
 	}
 
 	@Override
 	public void updateOptionsProduct(int idCartProduct, Product newProduct) {
-		// TODO Auto-generated method stub
-
+		proxyCart.updateOptionsProduct(idCartProduct, newProduct);
 	}
 
 	@Override
 	public void updateQuantityProduct(int idCartProduct, int newQuantity) {
-		// TODO Auto-generated method stub
-
+		proxyCart.updateQuantityProduct(idCartProduct, newQuantity);
 	}
 
 	@Override
 	public List<Product> getAllProductByCart(int idCart) {
-		// TODO Auto-generated method stub
-		return null;
+		return proxyCart.getAllProductByCart(idCart);
 	}
 
 	@Override
 	public double getTotalPrice(int idCart) {
-		// TODO Auto-generated method stub
-		return 0;
+		return proxyCart.getTotalPrice(idCart);
 	}
 
 	@Override
 	public List<PaymentType> getAllPaymentType() {
-		// TODO Auto-generated method stub
-		return null;
+		return proxyCart.getAllPaymentType();
 	}
 
 	@Override
 	public List<Delivery> getAllDeliveryType() {
-		// TODO Auto-generated method stub
-		return null;
+		return proxyCart.getAllDeliveryType();
 	}
 
 	@Override
 	public void orderCommande(int idCart) {
-		// TODO Auto-generated method stub
-
+		proxyCart.orderSpecificCommande(idCart);
 	}
 
 	@Override
 	public void createNewCart(int idUser) {
-		// TODO Auto-generated method stub
-
+		proxyCart.createNewCart(idUser);
 	}
 
 	@Autowired
