@@ -43,6 +43,8 @@
 						
 						<!-- Filtre Couleur -->
 						<h:selectOneMenu value="#{mbCatalog.idColorSelected}">
+							<f:selectItem	itemLabel="-- Sélectionner une couleur -- "
+											itemValue="0"/>
 							<f:selectItems  var="item"
 											value="#{mbCatalog.listeCouleurs}"
 											itemLabel="#{item.colorName}"
@@ -52,6 +54,8 @@
 						
 						<!-- Filtre Matériaux -->
 						<h:selectOneMenu value="#{mbCatalog.idMaterialSelected}">
+							<f:selectItem	itemLabel="-- Sélectionner un matériau -- "
+											itemValue="0"/>
 							<f:selectItems  var="item"
 											value="#{mbCatalog.listeMateriaux}"
 											itemLabel="#{item.materialName}"
@@ -61,6 +65,8 @@
 						
 						<!-- Filtre Vaisseaux -->
 						<h:selectOneMenu value="#{mbCatalog.idSpaceShipSelected}">
+							<f:selectItem	itemLabel="-- Sélectionner un modèle de vaisseau -- "
+											itemValue="0"/>
 							<f:selectItems  var="item"
 											value="#{mbCatalog.listeVaisseaux}"
 											itemLabel="#{item.spaceshipName}"
@@ -70,6 +76,8 @@
 						
 						<!-- Filtre Constructeurs -->
 						<h:selectOneMenu value="#{mbCatalog.idConstructorSelected}">
+							<f:selectItem	itemLabel="-- Sélectionner un constructeur -- "
+											itemValue="0"/>
 							<f:selectItems  var="item"
 											value="#{mbCatalog.listeConstructeurs}"
 											itemLabel="#{item.constructorName}"

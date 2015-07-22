@@ -10,18 +10,28 @@
 
 	<ui:define name="main-body">
 
-		<h:form id="myForm">
+		<f:view>
+			<h:form id="myForm">
 
 				<ui:repeat var="produit" value="#{mbCatalog.listeProduitAffichee}">
 					<div class="article-wrapper">
-						<div class="article-name">#{produit.nom}</div>
-						<!-- 				<img src="#{produit.urlPhoto}" /> -->
-						<div class="article-description">#{produit.prixMin} Crédits</div>
+
+						<h:commandLink action="detailproduit">
+							<f:param name="idProductRef" value="#{produit.id}" />
+
+							<a href="detailproduit.xhtml">
+								<div class="article-name">#{produit.nom}</div>
+								 <!-- 				<img src="#{produit.urlPhoto}" /> -->
+								<div class="article-description">#{produit.prixMin}
+									Crédits</div>
+							</a>
+
+						</h:commandLink>
 					</div>
 				</ui:repeat>
 
-		</h:form>
-		
+			</h:form>
+		</f:view>
 	</ui:define>
 
 

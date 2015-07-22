@@ -82,7 +82,7 @@ public class Catalog implements ICatalog {
 	}
 
 	@Override
-	public List<Product> getAllProductByProductRef(int idProducRef) {
+	public List<ConstructorProduct> getAllProductByProductRef(int idProducRef) {
 		return proxyCatalog.getAllProductByProductRef(idProducRef);
 	}
 
@@ -99,6 +99,11 @@ public class Catalog implements ICatalog {
 	@Override
 	public List<SpaceshipProduct> getSpaceShipProductByProduct(ProductRef productRef) {
 		return proxyCatalog.getSpaceShipProductByProduct(productRef);
+	}
+	
+	@Override
+	public ProductRef getProductRefById(int idProductRef) {
+		return proxyCatalog.getProductRefById(idProductRef);
 	}
 
 	public IBusinessCatalog getProxyColor() {

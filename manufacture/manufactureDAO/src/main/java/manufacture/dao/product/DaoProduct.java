@@ -26,12 +26,12 @@ public class DaoProduct implements IDaoProduct {
 	private SessionFactory sf;
 	
 	@Override
-	public List<Product> getAllProductByProductRef(int idProducRef) {
+	public List<ConstructorProduct> getAllProductByProductRef(int idProducRef) {
 		Session session = sf.getCurrentSession();
 		String requete = "SELECT p FROM Product p WHERE p.productRef.idProductRef = :paramId";
 		Query hql = session.createQuery(requete);
 		hql.setParameter("paramId", idProducRef);
-		List<Product> resultat = hql.list();
+		List<ConstructorProduct> resultat = hql.list();
 		return resultat;
 	}
 

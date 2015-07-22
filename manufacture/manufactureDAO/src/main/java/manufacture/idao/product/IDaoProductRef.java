@@ -37,5 +37,7 @@ public interface IDaoProductRef {
 	void addSpaceShipProduct(SpaceshipProduct spaceShipProduct);
 
 	List<SpaceshipProduct> getSpaceShipProductByProduct(ProductRef productRef);
+
+	ProductRef getProductRefById(int idProductRef);
 	
 }

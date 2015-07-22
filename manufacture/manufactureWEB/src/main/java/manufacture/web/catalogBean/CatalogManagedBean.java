@@ -26,9 +26,9 @@ import org.springframework.beans.factory.BeanFactory;
 
 @ManagedBean(name="mbCatalog")
 @SessionScoped
-public class ManagedBeanCatalog {
+public class CatalogManagedBean {
 
-	private Logger log = Logger.getLogger(ManagedBeanCatalog.class);
+	private Logger log = Logger.getLogger(CatalogManagedBean.class);
 
 	private BeanFactory bf = ClassPathLoader.getFacadeBeanFactory();
 	private ICatalog proxyCatalog = (ICatalog) bf.getBean(ICatalog.class);
@@ -68,11 +68,6 @@ public class ManagedBeanCatalog {
 		listeMateriaux = proxyCatalog.getAllMaterial();
 		listeConstructeurs = proxyCatalog.getAllConstructor();
 		listeVaisseaux = proxyCatalog.getAllSpaceShipRef();
-		
-		listeCouleurs.add(new Color(0,"Sélectionner une couleur"));
-		listeMateriaux.add(new Material(0,"Sélectionner un type de matériau"));
-		listeConstructeurs.add(new Constructor(0, "Sélectionner un constructeur"));
-		listeVaisseaux.add(new SpaceshipRef(0, "Sélectionner un modèle de vaisseau"));
 
 		idCategorySelected = 1;
 		idColorSelected = 0;

@@ -1,5 +1,5 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition template="/layouts/master_layout.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:rich="http://richfaces.org/rich"
@@ -7,25 +7,11 @@
 	xmlns:composite="http://java.sun.com/jsf/composite"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
-<h:head>
-	<link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
-</h:head>
-<h:body>
 
-	<div>
-		<ui:insert>
-			<ui:include src="menu.xhtml" />
-		</ui:insert>
-	</div>
-	<div>
-		<ui:insert>
-			<ui:include src="infosimpleproduit.xhtml" />
-		</ui:insert>
-	</div>
-	<div>
-		<ui:insert>
-			<ui:include src="options.xhtml" />
-		</ui:insert>
-	</div>
-</h:body>
-</html>
+<ui:define name="main-body">
+
+	
+
+</ui:define>
+
+</ui:composition>
