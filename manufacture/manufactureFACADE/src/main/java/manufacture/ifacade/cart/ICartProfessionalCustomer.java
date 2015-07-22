@@ -14,7 +14,7 @@ public interface ICartProfessionalCustomer {
 	//Gestion du panier
 	void addProductToCart(CartProduct cartProduct);
 	
-	void deleteProductFromCart(int idCartProduct);
+	void deleteProductFromCart(CartProduct cartProduct);
 	
 	List<Product> getAllProductByCart(int idCart);
 	

@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Service;
 
 import manufacture.entity.cart.CartProduct;
@@ -13,7 +12,6 @@ import manufacture.entity.cart.PaymentType;
 import manufacture.entity.product.Product;
 import manufacture.facade.util.ClassPathLoader;
 import manufacture.ibusiness.cart.IBusinessCart;
-import manufacture.ibusiness.catalog.IBusinessCatalog;
 import manufacture.ifacade.cart.ICartSpecificCustomer;
 
 @Service
@@ -81,9 +79,5 @@ public class CartSpecificCustomer implements ICartSpecificCustomer {
 	public void setProxyCart(IBusinessCart proxyCart) {
 		this.proxyCart = proxyCart;
 	}
-
-	
-	
-	
 
 }
