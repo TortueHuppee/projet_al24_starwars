@@ -8,6 +8,7 @@ import manufacture.entity.cart.Delivery;
 import manufacture.entity.cart.PaymentType;
 import manufacture.entity.product.Product;
 import manufacture.entity.product.ProductRef;
+import manufacture.entity.product.SpaceshipProduct;
 import manufacture.entity.product.SpaceshipRef;
 import manufacture.entity.user.User;
 
@@ -32,5 +33,7 @@ public interface IDaoProductRef {
 	void deleteProductRef(ProductRef productRef);
 	
 	void updateProductRef(ProductRef productRef);
+
+	void addSpaceShipProduct(SpaceshipProduct spaceShipProduct);
 	
 }

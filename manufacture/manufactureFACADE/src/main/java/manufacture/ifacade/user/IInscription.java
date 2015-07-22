@@ -12,4 +12,7 @@ public interface IInscription {
 	
 	//Création
 	void createAccount(User user, Address adress);
+
+	User createAccount(User user);
+
 }

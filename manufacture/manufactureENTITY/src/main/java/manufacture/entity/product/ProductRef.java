@@ -37,6 +37,9 @@ public class ProductRef implements Serializable {
 	//bi-directional many-to-one association to SpaceshipProduct
 	@OneToMany(mappedBy="productRef")
 	private List<SpaceshipProduct> spaceshipProducts;
+	
+	@Column(name="url_image")
+	private String urlImage;
 
 	public ProductRef() {
 	}
@@ -117,4 +120,11 @@ public class ProductRef implements Serializable {
 		return spaceshipProduct;
 	}
 
+	public String getUrlImage() {
+		return urlImage;
+	}
+
+	public void setUrlImage(String urlImage) {
+		this.urlImage = urlImage;
+	}
 }

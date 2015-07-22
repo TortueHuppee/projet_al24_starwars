@@ -38,6 +38,7 @@ public class Product implements Serializable {
 	@Column(name="id_product")
 	private int idProduct;
 
+	//Par défaut FALSE = 0 et TRUE = 1
 	@Column(name="is_disabled")
 	private byte isDisabled;
 

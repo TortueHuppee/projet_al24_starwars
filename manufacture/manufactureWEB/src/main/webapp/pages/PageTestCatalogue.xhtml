@@ -8,25 +8,20 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
 
-<h:head>
-	<link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
-</h:head>
-<h:body>
-	<div>
-		<ui:insert>
-			<ui:include src="menu.xhtml" />
-		</ui:insert>
-	</div>
+<ui:composition template="templateElsa.xhtml">
 
-	<div>
-		<ui:insert>
-			<ui:include src="recherche.xhtml" />
-		</ui:insert>
-	</div>
-	<div>
-		<ui:insert>
-			<ui:include src="articleCatalogue.xhtml" />
-		</ui:insert>
-	</div>
-</h:body>
+	<ui:define name="header"></ui:define>
+	
+	<ui:define name="body">
+		<h:form>
+			Liste des produits dans le catalogue :
+			
+			<ui:repeat var="productRef" value="#{mbCatalog.listeConstructorProductRef}">
+				<h:outputLabel value="#{productRef.productName}" />
+			</ui:repeat>
+		</h:form>
+
+	</ui:define>
+</ui:composition>
+
 </html>

@@ -31,7 +31,7 @@ public class User implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="id_user")
-	private int idUser;
+	private Integer idUser;
 
 	@Column(name="activity_domain")
 	private String activityDomain;
@@ -99,11 +99,11 @@ public class User implements Serializable {
 	public User() {
 	}
 
-	public int getIdUser() {
+	public Integer getIdUser() {
 		return this.idUser;
 	}
 
-	public void setIdUser(int idUser) {
+	public void setIdUser(Integer idUser) {
 		this.idUser = idUser;
 	}
 

@@ -5,7 +5,7 @@ import manufacture.entity.user.Address;
 import manufacture.entity.user.ProfessionnalCustomer;
 import manufacture.entity.user.Artisan;
 import manufacture.entity.user.SpecificCustomer;
-import manufacture.entity.user.User;
+import manufacture.entity.user.User; 
 
 public interface IBusinessInscription {
 
@@ -17,13 +17,17 @@ public interface IBusinessInscription {
 	//Création
 	void createAccount(User user, Address adress);
 	
-	void createAdministrator(Administrator admin);
+	Administrator createAdministrator(Administrator admin);
 	
-	void createArtisan(Artisan artisan);
+	Artisan createArtisan(Artisan artisan);
 	
-	void createProfessionalCustomer(ProfessionnalCustomer professionalCustomer);
+	ProfessionnalCustomer createProfessionalCustomer(ProfessionnalCustomer professionalCustomer);
 	
-	void createSpecificCustomer(SpecificCustomer specificCustomer);
+	SpecificCustomer createSpecificCustomer(SpecificCustomer specificCustomer);
 	
-	void createAdress(Address adress);
+	Address createAdress(Address adress);
+
+	boolean userExists(User user);
+
+	User createAccount(User user);
 }
