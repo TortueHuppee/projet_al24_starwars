@@ -27,4 +27,6 @@ public interface IDaoProduct {
 
 	List<Product> getAllProduct();
 	
+	Product getProductByIdProduct (int idProduct);
+	
 }
