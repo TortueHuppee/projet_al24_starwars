@@ -117,6 +117,12 @@ public class BusinessCart implements IBusinessCart {
 	public void setProxyCart(IBusinessCart proxyCart) {
 		this.proxyCart = proxyCart;
 	}
+
+	@Override
+	public void deleteProductFromCart(CartProduct cartProduct) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	
 

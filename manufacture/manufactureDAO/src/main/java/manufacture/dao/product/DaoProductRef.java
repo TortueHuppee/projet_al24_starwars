@@ -38,7 +38,7 @@ public class DaoProductRef implements IDaoProductRef {
 	public List<ProductRef> getAllConstructorProductRef() {
 		Session session = sf.getCurrentSession();		
 		//Requete à partir de la valeur discriminatrice
-<<<<<<< HEAD
+
 		//String requete = "SELECT DISTINCT p.productRef FROM Product p WHERE p.class='constructor_product'";
 		String requete = "SELECT p.productRef FROM Product p WHERE p.class='constructor_product'";
 		Query hql = session.createQuery(requete);
@@ -130,79 +130,8 @@ public class DaoProductRef implements IDaoProductRef {
 		hql.setParameter("paramId", idProductRef);
 		List<ProductRef> resultat = hql.list();
 		return resultat.get(0);
-=======
-		String requete = "SELECT p.productRef FROM Product p WHERE p.class='constructor_product'";
-		Query hql = session.createQuery(requete);
-		List<ProductRef> resultat = hql.list();
-		return resultat;
 	}
 
-	@Override
-	public List<ProductRef> getAllUsedProductRef() {
-		Session session = sf.getCurrentSession();		
-		//Requete à partir de la valeur discriminatrice
-		String requete = "SELECT p.productRef FROM Product p WHERE p.class='used_product'";
-		Query hql = session.createQuery(requete);
-		List<ProductRef> resultat = hql.list();
-		return resultat;
-	}
-
-	@Override
-	public List<ProductRef> getAllArtisanProductRef() {
-		Session session = sf.getCurrentSession();		
-		//Requete à partir de la valeur discriminatrice
-		String requete = "SELECT p.productRef FROM Product p WHERE p.class='artisan_product'";
-		Query hql = session.createQuery(requete);
-		List<ProductRef> resultat = hql.list();
-		return resultat;
-	}
-
-	@Override
-	public List<ProductRef> getProductRefByName(String name) {
-		Session session = sf.getCurrentSession();
-		String requete = "SELECT p FROM ProductRef p WHERE LOWER(p.productName) like LOWER(:paramId)";
-		Query hql = session.createQuery(requete);
-		hql.setParameter("paramId", "%" + name + "%");
-		List<ProductRef> resultat = hql.list();
-		return resultat;
-	}
-
-	@Override
-	public List<ProductRef> getConstructorProductRefBySpaceShip(
-			SpaceshipRef spaceShipRef) {
-		Session session = sf.getCurrentSession();
-		String requete = "SELECT p.productRef FROM SpaceshipProduct p WHERE p.spaceshipRef.idSpaceshipRef =:paramId";
-		Query hql = session.createQuery(requete);
-		hql.setParameter("paramId", spaceShipRef);
-		List<ProductRef> resultat = hql.list();
-		return resultat;
-	}
-
-	@Override
-	public void addProductRef(ProductRef productRef) {
-		Session session = sf.getCurrentSession();
-		session.save(productRef);
-	}
-
-	@Override
-	public void deleteProductRef(ProductRef productRef) {
-		Session session = sf.getCurrentSession();
-		session.delete(productRef);
-	}
-
-	@Override
-	public void updateProductRef(ProductRef productRef) {
-		Session session = sf.getCurrentSession();
-		session.update(productRef);
-	}
-	
-	@Override
-	public void addSpaceShipProduct(SpaceshipProduct spaceShipProduct) {
-		Session session = sf.getCurrentSession();
-		session.save(spaceShipProduct);
->>>>>>> refs/heads/master
-	}
-	
 	//Getters et Setters
 	public SessionFactory getSf() {
 		return sf;

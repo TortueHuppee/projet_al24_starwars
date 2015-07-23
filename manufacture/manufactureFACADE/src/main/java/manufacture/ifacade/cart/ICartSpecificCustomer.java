@@ -35,5 +35,7 @@ public interface ICartSpecificCustomer {
 	void orderCommande(int idCart);
 	
 	void createNewCart(int idUser);
+
+	void deleteProductFromCart(int idCartProduct);
 	
 }

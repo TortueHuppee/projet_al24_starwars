@@ -47,5 +47,7 @@ public interface IBusinessCart {
 	void updateProductStock(int idProduct, int quantitySend);
 	
 	void checkProductStock(int idProduct);
+
+	void deleteProductFromCart(int idCartProduct);
 	
 }

@@ -90,6 +90,12 @@ public class Cart implements ICartSpecificCustomer {
 		this.proxyCart = proxyCart;
 	}
 
+	@Override
+	public void deleteProductFromCart(CartProduct cartProduct) {
+		// TODO Auto-generated method stub
+		
+	}
+
 	
 	
 	

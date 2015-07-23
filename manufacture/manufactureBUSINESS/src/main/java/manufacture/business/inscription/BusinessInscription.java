@@ -78,4 +78,16 @@ public class BusinessInscription implements IBusinessInscription {
 		List<User> userFound = proxyUser.getUserByUserName(user.getUserName());
 		return userFound.size() == 0 ? false:true;
 	}
+
+	@Override
+	public boolean emailAlreadyExisting(String email) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void createAccount(User user, Address adress) {
+		// TODO Auto-generated method stub
+		
+	}
 }
