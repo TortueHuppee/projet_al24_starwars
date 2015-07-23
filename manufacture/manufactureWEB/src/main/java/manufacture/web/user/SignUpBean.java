@@ -1,10 +1,12 @@
 package manufacture.web.user;
 
 import javax.faces.application.FacesMessage;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
 
 import manufacture.entity.user.Address;
 import manufacture.entity.user.User;
+import manufacture.ifacade.user.IConnection;
 import manufacture.ifacade.user.IInscription;
 import manufacture.web.util.ClassPathLoader;
 
@@ -18,9 +20,14 @@ import org.springframework.stereotype.Component;
 @Component(value="signUpBean")
 @Scope(value="session")
 public class SignUpBean {
+	
 	private static Logger LOGGER = Logger.getLogger(SignUpBean.class);
-	private BeanFactory bf = ClassPathLoader.getFacadeBeanFactory();
+	
 	private User user;
+	
+	@ManagedProperty(value="#{inscription}")
+	private IInscription proxyInscription;
+
 	@Autowired
 	private UserBean userBean;
 
@@ -35,8 +42,7 @@ public class SignUpBean {
 	 * @return String
 	 */
 	public String createUser(){
-		IInscription inscriptionBean = bf.getBean(IInscription.class);
-		user = inscriptionBean.createAccount(user);
+		user = proxyInscription.createAccount(user);
 		if(user.getIdUser() != null){
 			userBean.setUser(user); //Realise la connexion automatique au site
 			return "index.xhtml?faces-redirect=true"; 

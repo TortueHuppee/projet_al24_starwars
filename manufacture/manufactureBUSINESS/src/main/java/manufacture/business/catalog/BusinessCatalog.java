@@ -30,15 +30,13 @@ import manufacture.idao.product.IDaoSpaceShipRef;
 @Service
 public class BusinessCatalog implements IBusinessCatalog {
 
-	BeanFactory bf = new ClassPathXmlApplicationContext("classpath:springData.xml");
-	
-	IDaoColor proxyColor = (IDaoColor) bf.getBean(IDaoColor.class);
-	IDaoCategory proxyCategory = (IDaoCategory) bf.getBean(IDaoCategory.class);
-	IDaoConstructor proxyConstructor = (IDaoConstructor) bf.getBean(IDaoConstructor.class);
-	IDaoMaterial proxyMaterial = (IDaoMaterial) bf.getBean(IDaoMaterial.class);
-	IDaoProduct proxyProduct = (IDaoProduct) bf.getBean(IDaoProduct.class);
-	IDaoProductRef proxyProductRef = (IDaoProductRef) bf.getBean(IDaoProductRef.class);
-	IDaoSpaceShipRef proxySpaceShip = (IDaoSpaceShipRef) bf.getBean(IDaoSpaceShipRef.class);
+	IDaoColor proxyColor ;
+	IDaoCategory proxyCategory;
+	IDaoConstructor proxyConstructor;
+	IDaoMaterial proxyMaterial;
+	IDaoProduct proxyProduct;
+	IDaoProductRef proxyProductRef;
+	IDaoSpaceShipRef proxySpaceShip;
 	
 	@Override
 	public List<ProductRef> getAllProductRef() {

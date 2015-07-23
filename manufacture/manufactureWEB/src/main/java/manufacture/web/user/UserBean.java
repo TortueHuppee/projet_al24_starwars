@@ -16,11 +16,14 @@ import org.springframework.stereotype.Component;
 @Component
 @Scope(value="session")
 public class UserBean {
+	
 	private static Logger LOGGER = Logger.getLogger(UserBean.class);
 	private User user;
+	
 	public User getUser() {
 		return user;
 	}
+	
 	public void setUser(User user) {
 		this.user = user;
 	}

@@ -39,7 +39,7 @@ public class DaoProduct implements IDaoProduct {
 	@Override
 	public List<ConstructorProduct> getAllProductByProductRef(int idProducRef) {
 		Session session = sf.getCurrentSession();
-		String requete = "SELECT p FROM Product p WHERE p.productRef.idProductRef = :paramId";
+		String requete = "SELECT p FROM Product p WHERE p.productRef.idProductRef = :paramId ORDER BY p.price";
 		Query hql = session.createQuery(requete);
 		hql.setParameter("paramId", idProducRef);
 		List<ConstructorProduct> resultat = hql.list();

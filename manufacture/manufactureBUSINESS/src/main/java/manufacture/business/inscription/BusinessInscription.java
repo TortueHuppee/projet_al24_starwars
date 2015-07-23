@@ -23,14 +23,14 @@ import manufacture.ibusiness.user.IBusinessInscription;
 import manufacture.idao.user.IDaoUser;
 
 import org.springframework.beans.factory.BeanFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Service;
 
 @Service
 public class BusinessInscription implements IBusinessInscription {
 
-	BeanFactory bf = ClassPathLoader.getDaoBeanFactory();	
-	IDaoUser proxyUser = (IDaoUser) bf.getBean(IDaoUser.class);
+	IDaoUser proxyUser;
 
 	@Override
 	public User createAccount(User user) {
@@ -89,4 +89,12 @@ public class BusinessInscription implements IBusinessInscription {
 		
 	}
 
+	public IDaoUser getProxyUser() {
+		return proxyUser;
+	}
+
+	@Autowired
+	public void setProxyUser(IDaoUser proxyUser) {
+		this.proxyUser = proxyUser;
+	}
 }

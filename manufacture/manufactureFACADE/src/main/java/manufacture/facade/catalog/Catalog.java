@@ -22,9 +22,13 @@ import org.springframework.stereotype.Service;
 @Service
 public class Catalog implements ICatalog {
 
-	BeanFactory bf = ClassPathLoader.getBusinessBeanFactory();
-	IBusinessCatalog proxyCatalog = (IBusinessCatalog) bf.getBean(IBusinessCatalog.class);
+	@Autowired
+	IBusinessCatalog proxyCatalog;
 	
+	public void setProxyCatalog(IBusinessCatalog proxyCatalog) {
+		this.proxyCatalog = proxyCatalog;
+	}
+
 	@Override
 	public List<ProductRef> getAllProductRef() {
 		return proxyCatalog.getAllProductRef();

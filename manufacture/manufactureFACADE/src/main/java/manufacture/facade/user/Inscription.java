@@ -26,8 +26,7 @@ import manufacture.ifacade.user.IInscription;
 @Service
 public class Inscription implements IInscription {
 
-	BeanFactory bf = ClassPathLoader.getBusinessBeanFactory();
-	IBusinessInscription proxyInscription = (IBusinessInscription) bf.getBean(IBusinessInscription.class);
+	IBusinessInscription proxyInscription;
 	
 	@Override
 	public User createAccount(User user) {
@@ -56,5 +55,13 @@ public class Inscription implements IInscription {
 		// TODO Auto-generated method stub
 		
 	}
-	
+
+	public IBusinessInscription getProxyInscription() {
+		return proxyInscription;
+	}
+
+	@Autowired
+	public void setProxyInscription(IBusinessInscription proxyInscription) {
+		this.proxyInscription = proxyInscription;
+	}
 }

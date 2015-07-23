@@ -24,14 +24,15 @@ import manufacture.ibusiness.user.IBusinessInscription;
 import manufacture.idao.user.IDaoUser;
 
 import org.springframework.beans.factory.BeanFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Service;
 
 @Service
 public class BusinessConnection implements IBusinessConnection {
 
-	BeanFactory bf = ClassPathLoader.getDaoBeanFactory();	
-	IDaoUser proxyUser = (IDaoUser) bf.getBean(IDaoUser.class);
+	IDaoUser proxyUser;
+	
 	@Override
 	public User getSignInUser(String login, String password) {
 		// TODO Auto-generated method stub
@@ -74,8 +75,14 @@ public class BusinessConnection implements IBusinessConnection {
 			e.printStackTrace();
 			return input;
 		}
-
 	}
-
 	
+	public IDaoUser getProxyUser() {
+		return proxyUser;
+	}
+	
+	@Autowired
+	public void setProxyUser(IDaoUser proxyUser) {
+		this.proxyUser = proxyUser;
+	}
 }

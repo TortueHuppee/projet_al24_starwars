@@ -16,15 +16,15 @@
 				<ui:repeat var="produit" value="#{mbCatalog.listeProduitAffichee}">
 					<div class="article-wrapper">
 
-						<h:commandLink action="detailproduit">
+						<h:commandLink action="#{mbProduct.detailProduit(produit.id)}">
 							<f:param name="idProductRef" value="#{produit.id}" />
 
-							<a href="detailproduit.xhtml">
+							
 								<div class="article-name">#{produit.nom}</div>
 								 <!-- 				<img src="#{produit.urlPhoto}" /> -->
 								<div class="article-description">#{produit.prixMin}
 									Crédits</div>
-							</a>
+							
 
 						</h:commandLink>
 					</div>

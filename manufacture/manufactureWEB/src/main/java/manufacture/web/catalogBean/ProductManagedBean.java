@@ -1,17 +1,18 @@
 package manufacture.web.catalogBean;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 
 import manufacture.entity.product.Color;
 import manufacture.entity.product.Constructor;
 import manufacture.entity.product.ConstructorProduct;
 import manufacture.entity.product.Material;
-import manufacture.entity.product.Product;
 import manufacture.entity.product.ProductRef;
 import manufacture.entity.product.SpaceshipProduct;
 import manufacture.entity.product.SpaceshipRef;
@@ -27,11 +28,12 @@ public class ProductManagedBean {
 
 	private Logger log = Logger.getLogger(ProductManagedBean.class);
 
-	private BeanFactory bf = ClassPathLoader.getFacadeBeanFactory();
-	private ICatalog proxyCatalog = (ICatalog) bf.getBean(ICatalog.class);
+	@ManagedProperty(value="#{catalog}")
+	private ICatalog proxyCatalog;
 	
 	private int idProductRef;
 	private ProductRef productRef;
+	private ConstructorProduct produitAffiche;
 	private List<ConstructorProduct> listeProduitsTotaux;
 	private List<ConstructorProduct> listeProduitsAffiches;
 	private int quantiteDispo;
@@ -45,17 +47,16 @@ public class ProductManagedBean {
 	private int idColorSelected;
 	private int idMaterialSelected;
 	private int idConstructorSelected;
-	private int idSpaceShipSelected;
 	
 	@PostConstruct
 	void init()
 	{
-		idProductRef = 1;
-		quantiteDispo = 0;
-		
 		//photo, nom, description, catégorie, modèles vaisseaux
-		productRef = proxyCatalog.getProductRefById(idProductRef);
-		List<Product> listeTest = new ArrayList<Product>();
+		if (productRef == null)
+		{
+			idProductRef = 47;
+			productRef = proxyCatalog.getProductRefById(idProductRef);
+		}
 		listeVaisseauxProduit = proxyCatalog.getSpaceShipProductByProduct(productRef);
 		listeVaisseaux = new ArrayList<SpaceshipRef>();
 		for (SpaceshipProduct ssp : listeVaisseauxProduit)
@@ -66,20 +67,91 @@ public class ProductManagedBean {
 		//prix, options disponibles (couleur, matériaux, constructeur)
 		listeProduitsTotaux = proxyCatalog.getAllProductByProductRef(idProductRef);
 		listeProduitsAffiches = listeProduitsTotaux;
-		//quantité disponible si les options sont disponibles
 		
+		produitAffiche = listeProduitsTotaux.get(0);			
+
 		//options
-		idColorSelected = 0;
-		idMaterialSelected = 0;
-		idConstructorSelected = 0;
-		idSpaceShipSelected = 0;
+		idColorSelected = produitAffiche.getColor().getIdColor();
+		idMaterialSelected = produitAffiche.getMaterial().getIdMaterial();
+		idConstructorSelected = produitAffiche.getConstructor().getIdConstructor();
+		
+		//Couleurs
+		listeCouleurs = new ArrayList<Color>();
+		boolean ajoutColor = true;
+		for (ConstructorProduct product : listeProduitsTotaux)
+		{			
+			for (Color color : listeCouleurs)
+			{
+				if (color.getIdColor() == product.getColor().getIdColor())
+				{
+					ajoutColor = false;
+				}
+			}
+			if (ajoutColor)
+			{
+				listeCouleurs.add(product.getColor());
+			}
+		}
+		quantiteDisponibleEtProduitSelectionne();
 	}
 
-	//Méthodes
+	//Méthodes	
 	
-	public void quantiteDisponible()
+	public String detailProduit(int idProduit)
 	{
-		for (ConstructorProduct product : listeProduitsAffiches)
+		this.idProductRef = idProduit;
+		this.productRef = proxyCatalog.getProductRefById(idProductRef);
+		
+		return "/pages/detailproduit.xhtml?faces-redirect=true";
+	}
+	
+	public void filtrerListeProduitsParCouleur()
+	{
+		quantiteDispo = 0;
+		listeProduitsAffiches = new ArrayList<ConstructorProduct>();
+
+		for (ConstructorProduct product : listeProduitsTotaux)
+		{
+			if (product.getColor().getIdColor() == idColorSelected)
+			{
+				listeProduitsAffiches.add(product);
+				quantiteDispo += product.getStock();
+			}	
+		}
+		produitAffiche = listeProduitsAffiches.get(0);
+		idMaterialSelected = produitAffiche.getMaterial().getIdMaterial();
+		idConstructorSelected = produitAffiche.getConstructor().getIdConstructor();
+		initialisationListes();
+	}
+	
+	public void filtrerListeProduitsParMateriaux()
+	{
+		quantiteDispo = 0;
+		listeProduitsAffiches = new ArrayList<ConstructorProduct>();
+
+		for (ConstructorProduct product : listeProduitsTotaux)
+		{
+			if (product.getColor().getIdColor() == idColorSelected)
+			{
+				if (product.getMaterial().getIdMaterial() == idMaterialSelected)
+				{
+					listeProduitsAffiches.add(product);
+					quantiteDispo += product.getStock();
+				}
+			}
+		}
+		produitAffiche = listeProduitsAffiches.get(0);
+		idColorSelected = produitAffiche.getColor().getIdColor();
+		idConstructorSelected = produitAffiche.getConstructor().getIdConstructor();
+		initialisationListes();
+	}
+	
+	public void filtrerListeProduitsParConstructeur()
+	{
+		quantiteDispo = 0;
+		listeProduitsAffiches = new ArrayList<ConstructorProduct>();
+
+		for (ConstructorProduct product : listeProduitsTotaux)
 		{
 			if (product.getColor().getIdColor() == idColorSelected)
 			{
@@ -87,34 +159,91 @@ public class ProductManagedBean {
 				{
 					if (product.getConstructor().getIdConstructor() == idConstructorSelected)
 					{
+						listeProduitsAffiches.add(product);
 						quantiteDispo += product.getStock();
 					}
 				}
 			}
 		}
+		produitAffiche = listeProduitsAffiches.get(0);
+		idColorSelected = produitAffiche.getColor().getIdColor();
+		idMaterialSelected = produitAffiche.getMaterial().getIdMaterial();
+		initialisationListes();
+	}
+	
+	public void quantiteDisponibleEtProduitSelectionne()
+	{
+		quantiteDispo = 0;
+		
+		for (ConstructorProduct product : listeProduitsTotaux)
+		{
+			//if (idColorSelected == 00 || product.getColor().getIdColor() == idColorSelected)
+			if (product.getColor().getIdColor() == idColorSelected)
+			{
+				if (product.getMaterial().getIdMaterial() == idMaterialSelected)
+				{
+					if (product.getConstructor().getIdConstructor() == idConstructorSelected)
+					{
+						quantiteDispo += product.getStock();
+						produitAffiche = product;
+					}
+				}
+			}	
+		}
+		initialisationListes();
 	}
 	
 	public void initialisationListes()
 	{
-		listeCouleurs = new ArrayList<Color>();
 		listeMateriaux = new ArrayList<Material>();
 		listeConstructeurs = new ArrayList<Constructor>();
 
-		for (ConstructorProduct product : listeProduitsAffiches)
-		{
-			if (!listeCouleurs.contains(product.getColor()))
+		for (ConstructorProduct product : listeProduitsTotaux)
+		{	
+			boolean ajoutMateriaux = true;
+			boolean ajoutConstructeur = true;
+						
+			//Matériaux
+			if (product.getColor().getIdColor() == idColorSelected)
 			{
-				listeCouleurs.add(product.getColor());
-			}
-			if (!listeMateriaux.contains(product.getMaterial()))
-			{
-				listeMateriaux.add(product.getMaterial());
-			}
-			if (!listeConstructeurs.contains(product.getConstructor()))
-			{
-				listeConstructeurs.add(product.getConstructor());
-			}
+				for (Material material : listeMateriaux)
+				{
+					if (material.getIdMaterial() == product.getMaterial().getIdMaterial())
+					{
+						ajoutMateriaux = false;
+					}
+				}
+				if (ajoutMateriaux)
+				{
+					listeMateriaux.add(product.getMaterial());
+				}
+				
+				//Constructeurs
+				if (product.getMaterial().getIdMaterial() == idMaterialSelected)
+				{
+					for (Constructor constructeur : listeConstructeurs)
+					{
+						if (constructeur.getIdConstructor() == product.getConstructor().getIdConstructor())
+						{
+							ajoutConstructeur = false;
+						}
+					}
+					if (ajoutConstructeur)
+					{
+						listeConstructeurs.add(product.getConstructor());
+					}
+				}
+			}	
 		}
+	}
+	
+	public double DoubleFormat(double number)
+	{
+		number = number*100;
+		number = (double)((int) number);
+		number = number /100;
+
+		return number;
 	}
 	
 	//Getters et Setters
@@ -190,12 +319,50 @@ public class ProductManagedBean {
 	public void setIdConstructorSelected(int idConstructorSelected) {
 		this.idConstructorSelected = idConstructorSelected;
 	}
-
-	public int getIdSpaceShipSelected() {
-		return idSpaceShipSelected;
+	
+	public List<ConstructorProduct> getListeProduitsTotaux() {
+		return listeProduitsTotaux;
 	}
 
-	public void setIdSpaceShipSelected(int idSpaceShipSelected) {
-		this.idSpaceShipSelected = idSpaceShipSelected;
+	public void setListeProduitsTotaux(List<ConstructorProduct> listeProduitsTotaux) {
+		this.listeProduitsTotaux = listeProduitsTotaux;
+	}
+
+	public List<SpaceshipProduct> getListeVaisseauxProduit() {
+		return listeVaisseauxProduit;
+	}
+
+	public void setListeVaisseauxProduit(
+			List<SpaceshipProduct> listeVaisseauxProduit) {
+		this.listeVaisseauxProduit = listeVaisseauxProduit;
+	}
+
+	public List<SpaceshipRef> getListeVaisseaux() {
+		return listeVaisseaux;
+	}
+
+	public void setListeVaisseaux(List<SpaceshipRef> listeVaisseaux) {
+		this.listeVaisseaux = listeVaisseaux;
+	}
+	
+	public ConstructorProduct getProduitAffiche() {
+		return produitAffiche;
+	}
+
+	public void setProduitAffiche(ConstructorProduct produitAffiche) {
+		this.produitAffiche = produitAffiche;
+	}
+
+	public List<ConstructorProduct> getListeProduitsAffiches() {
+		return listeProduitsAffiches;
+	}
+
+	public void setListeProduitsAffiches(
+			List<ConstructorProduct> listeProduitsAffiches) {
+		this.listeProduitsAffiches = listeProduitsAffiches;
+	}
+	
+	public void setProxyCatalog(ICatalog proxyCatalog) {
+		this.proxyCatalog = proxyCatalog;
 	}
 }

@@ -21,14 +21,11 @@ import manufacture.idao.product.IDaoProduct;
 
 @Service
 public class BusinessCart implements IBusinessCart {
-	
-//	BeanFactory bf = new ClassPathXmlApplicationContext("classpath:springBusiness.xml");
-	BeanFactory bf = ClassPathLoader.getDaoBeanFactory();
-		
-	IDaoCart proxyCart = (IDaoCart) bf.getBean(IDaoCart.class);
-	IDaoProductCart proxyProductCart = (IDaoProductCart) bf.getBean(IDaoProductCart.class);
-	IDaoPaymentAndDelivery proxyPaymentAndDelivery = (IDaoPaymentAndDelivery) bf.getBean(IDaoPaymentAndDelivery.class);
-	IDaoProduct proxyProduct = (IDaoProduct) bf.getBean(IDaoProduct.class);
+			
+	IDaoCart proxyCart;
+	IDaoProductCart proxyProductCart;
+	IDaoPaymentAndDelivery proxyPaymentAndDelivery;
+	IDaoProduct proxyProduct;
 
 	@Override
 	public void addProductToCart(CartProduct cartProduct) {
