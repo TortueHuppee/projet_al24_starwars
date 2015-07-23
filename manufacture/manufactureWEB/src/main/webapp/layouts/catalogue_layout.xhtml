@@ -24,11 +24,20 @@
 			<ui:include src="parts/menu.xhtml" />
 		</div>
 	<div id="body-content">
-		<div class="sidebar-left">
-			<ui:insert name="sidebar">
-				<ui:include src="parts/sidebar.xhtml" />
+	
+<!-- 		<div class="sidebar-left"> -->
+<!-- 			<ui:insert name="sidebar"> -->
+<!-- 				<ui:include src="parts/sidebar.xhtml" /> -->
+<!-- 			</ui:insert> -->
+<!-- 		</div> -->
+		
+		<div class="search-bar">
+			<ui:insert name="searchbar">
+				<ui:include src="parts/searchbar.xhtml" />
 			</ui:insert>
 		</div>
+		
+		
 		<div class="main-content">
 			<ui:insert name="main-body">
 			</ui:insert>

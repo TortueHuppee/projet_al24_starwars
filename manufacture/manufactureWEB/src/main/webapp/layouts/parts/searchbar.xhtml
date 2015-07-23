@@ -4,5 +4,49 @@
 	xmlns:composite="http://java.sun.com/jsf/composite"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
-		Zone pour les differents filtres
+
+	<h:form>
+		<div id="divRecherche">
+			<p:fieldset legend="Basic" styleClass="al24FielSetContainer">
+				<div>
+					<p:fieldset legend="reference" styleClass="al24FielSetRecherche">
+						<h:panelGrid columns="2" cellpadding="5">
+							<span>Reference : <p:inputText id="inputReference" /></span>
+
+						</h:panelGrid>
+					</p:fieldset>
+				</div>
+				<div>
+					<p:fieldset legend="categorie" styleClass="al24FielSetRecherche">
+						<h:panelGrid columns="2" cellpadding="5">
+							<span>Type : <p:inputText id="inputType" /></span>
+							<span>Catégorie : <p:inputText id="inputCategorie" /></span>
+						</h:panelGrid>
+					</p:fieldset>
+				</div>
+				<div>
+					<p:fieldset legend="options" styleClass="al24FielSetRecherche">
+						<h:panelGrid columns="2" cellpadding="5">
+							<span>Type : <p:inputText id="input1" /></span>
+							<span>Catégorie : <p:inputText id="input2" /></span>
+							<span>Type : <p:inputText id="input3" /></span>
+							<span>Catégorie : <p:inputText id="input4" /></span>
+						</h:panelGrid>
+					</p:fieldset>
+				</div>
+				<div>
+					<div id="divBtnRefreshRecherche">
+						<div id="divBtnRefresh">
+							<p:commandButton value="refresh" id="ajax1111"
+								styleClass="bouton" />
+						</div>
+						<div id="divBtnRechercher">
+							<p:commandButton value="rechercher" id="ajax41111"
+								styleClass="bouton" />
+						</div>
+					</div>
+				</div>
+			</p:fieldset>
+		</div>
+	</h:form>
 </ui:composition>
