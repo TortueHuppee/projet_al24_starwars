@@ -1,6 +1,7 @@
 package manufacture.web.catalogBean;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -32,6 +33,7 @@ public class ProductManagedBean {
 	
 	private int idProductRef;
 	private ProductRef productRef;
+	private ConstructorProduct produitAffiche;
 	private List<ConstructorProduct> listeProduitsTotaux;
 	private List<ConstructorProduct> listeProduitsAffiches;
 	private int quantiteDispo;
@@ -45,17 +47,14 @@ public class ProductManagedBean {
 	private int idColorSelected;
 	private int idMaterialSelected;
 	private int idConstructorSelected;
-	private int idSpaceShipSelected;
 	
 	@PostConstruct
 	void init()
 	{
 		idProductRef = 1;
-		quantiteDispo = 0;
 		
 		//photo, nom, description, catégorie, modèles vaisseaux
 		productRef = proxyCatalog.getProductRefById(idProductRef);
-		List<Product> listeTest = new ArrayList<Product>();
 		listeVaisseauxProduit = proxyCatalog.getSpaceShipProductByProduct(productRef);
 		listeVaisseaux = new ArrayList<SpaceshipRef>();
 		for (SpaceshipProduct ssp : listeVaisseauxProduit)
@@ -66,21 +65,25 @@ public class ProductManagedBean {
 		//prix, options disponibles (couleur, matériaux, constructeur)
 		listeProduitsTotaux = proxyCatalog.getAllProductByProductRef(idProductRef);
 		listeProduitsAffiches = listeProduitsTotaux;
-		//quantité disponible si les options sont disponibles
-		
+		produitAffiche = listeProduitsAffiches.get(0);
+	
 		//options
-		idColorSelected = 0;
-		idMaterialSelected = 0;
-		idConstructorSelected = 0;
-		idSpaceShipSelected = 0;
+		idColorSelected = produitAffiche.getColor().getIdColor();
+		idMaterialSelected = produitAffiche.getMaterial().getIdMaterial();
+		idConstructorSelected = produitAffiche.getConstructor().getIdConstructor();
+		
+		quantiteDisponible();
 	}
 
 	//Méthodes
 	
 	public void quantiteDisponible()
 	{
+		quantiteDispo = 0;
+		
 		for (ConstructorProduct product : listeProduitsAffiches)
 		{
+			//if (idColorSelected == 00 || product.getColor().getIdColor() == idColorSelected)
 			if (product.getColor().getIdColor() == idColorSelected)
 			{
 				if (product.getMaterial().getIdMaterial() == idMaterialSelected)
@@ -90,7 +93,7 @@ public class ProductManagedBean {
 						quantiteDispo += product.getStock();
 					}
 				}
-			}
+			}	
 		}
 	}
 	
@@ -115,6 +118,15 @@ public class ProductManagedBean {
 				listeConstructeurs.add(product.getConstructor());
 			}
 		}
+	}
+	
+	public double DoubleFormat(double number)
+	{
+		number = number*100;
+		number = (double)((int) number);
+		number = number /100;
+
+		return number;
 	}
 	
 	//Getters et Setters
@@ -190,12 +202,46 @@ public class ProductManagedBean {
 	public void setIdConstructorSelected(int idConstructorSelected) {
 		this.idConstructorSelected = idConstructorSelected;
 	}
-
-	public int getIdSpaceShipSelected() {
-		return idSpaceShipSelected;
+	
+	public List<ConstructorProduct> getListeProduitsTotaux() {
+		return listeProduitsTotaux;
 	}
 
-	public void setIdSpaceShipSelected(int idSpaceShipSelected) {
-		this.idSpaceShipSelected = idSpaceShipSelected;
+	public void setListeProduitsTotaux(List<ConstructorProduct> listeProduitsTotaux) {
+		this.listeProduitsTotaux = listeProduitsTotaux;
+	}
+
+	public List<ConstructorProduct> getListeProduitsAffiches() {
+		return listeProduitsAffiches;
+	}
+
+	public void setListeProduitsAffiches(
+			List<ConstructorProduct> listeProduitsAffiches) {
+		this.listeProduitsAffiches = listeProduitsAffiches;
+	}
+
+	public List<SpaceshipProduct> getListeVaisseauxProduit() {
+		return listeVaisseauxProduit;
+	}
+
+	public void setListeVaisseauxProduit(
+			List<SpaceshipProduct> listeVaisseauxProduit) {
+		this.listeVaisseauxProduit = listeVaisseauxProduit;
+	}
+
+	public List<SpaceshipRef> getListeVaisseaux() {
+		return listeVaisseaux;
+	}
+
+	public void setListeVaisseaux(List<SpaceshipRef> listeVaisseaux) {
+		this.listeVaisseaux = listeVaisseaux;
+	}
+	
+	public ConstructorProduct getProduitAffiche() {
+		return produitAffiche;
+	}
+
+	public void setProduitAffiche(ConstructorProduct produitAffiche) {
+		this.produitAffiche = produitAffiche;
 	}
 }

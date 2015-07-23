@@ -8,10 +8,63 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
 
-<ui:define name="main-body">
+	<ui:define name="main-body">
 
-	
+		<div class="product-description">
+			<h2>
+				<h:outputLabel value="#{mbProduct.productRef.productName}" />
+			</h2>
+			<h4>
+				Catégorie : <h:outputLabel value="#{mbProduct.productRef.category.categoryName}" />
+				<h:outputLabel value="#{mbProduct.productRef.urlImage}" />
+				<h:outputLabel value="#{mbProduct.DoubleFormat(mbProduct.produitAffiche.price)} Crédits" />
+			</h4>
 
-</ui:define>
+			<h:outputText value="#{mbProduct.productRef.description}" />
+			Modèles de vaisseaux :
+			<ul>
+				<ui:repeat var="vaisseau" value="#{mbProduct.listeVaisseaux}">
+					<li>#{vaisseau.spaceshipName}</li>
+				</ui:repeat>
+			</ul>
+
+		</div>
+
+		<div class="product-options">
+			<h2>Options</h2>
+
+			<!-- Filtre Constructeur -->
+			<h:selectOneMenu value="#{mbProduct.idConstructorSelected}">
+				<f:selectItems var="item" value="#{mbCatalog.listeConstructeurs}"
+							itemLabel="#{item.constructorName}"
+							itemValue="#{item.idConstructor}" />
+<!-- 				<f:ajax event="change" -->
+<!-- 					listener="#{mbCatalog.initialisationListeAffichee()}" -->
+<!-- 					render=":myForm" /> -->
+			</h:selectOneMenu>
+			
+			<!-- Filtre Matériaux -->
+			<h:selectOneMenu value="#{mbProduct.idMaterialSelected}">
+				<f:selectItems var="item" value="#{mbCatalog.listeMateriaux}"
+							itemLabel="#{item.materialName}"
+							itemValue="#{item.idMaterial}" />
+<!-- 				<f:ajax event="change" -->
+<!-- 					listener="#{mbCatalog.initialisationListeAffichee()}" -->
+<!-- 					render=":myForm" /> -->
+			</h:selectOneMenu>
+			
+			<!-- Filtre Couleur -->
+			<h:selectOneMenu value="#{mbProduct.idColorSelected}">
+				<f:selectItems var="item" value="#{mbCatalog.listeConstructeurs}"
+							itemLabel="#{item.constructorName}"
+							itemValue="#{item.idConstructor}" />
+<!-- 				<f:ajax event="change" -->
+<!-- 					listener="#{mbCatalog.initialisationListeAffichee()}" -->
+<!-- 					render=":myForm" /> -->
+			</h:selectOneMenu>
+
+		</div>
+
+	</ui:define>
 
 </ui:composition>
