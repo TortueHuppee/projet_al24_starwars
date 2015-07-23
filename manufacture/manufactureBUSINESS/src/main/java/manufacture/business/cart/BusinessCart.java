@@ -69,6 +69,12 @@ public class BusinessCart implements IBusinessCart {
 		}
 		return total;
 	}
+	
+
+	@Override
+	public double getSubTotalPrice(int idCartProduct) {
+		return proxyProductCart.getSubTotalPrice(idCartProduct);
+	}
 
 	@Override
 	public void orderProfessionalCommande(int idCart) {
@@ -166,5 +172,6 @@ public class BusinessCart implements IBusinessCart {
 		// TODO Auto-generated method stub
 		
 	}
+
 	
 }

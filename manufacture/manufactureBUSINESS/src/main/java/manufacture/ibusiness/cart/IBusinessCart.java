@@ -29,6 +29,8 @@ public interface IBusinessCart {
 	//Gestion de la commande
 	double getTotalPrice(int idCart);
 	
+	double getSubTotalPrice(int idCartProduct);
+	
 	void orderProfessionalCommande(int idCart);
 	
 	void orderSpecificCommande(int idCart);

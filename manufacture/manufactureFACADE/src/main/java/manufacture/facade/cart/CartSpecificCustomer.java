@@ -53,6 +53,11 @@ public class CartSpecificCustomer implements ICartSpecificCustomer {
 	public double getTotalPrice(int idCart) {
 		return proxyCart.getTotalPrice(idCart);
 	}
+	
+	@Override
+	public double getSubTotalPrice(int idCartProduct) {
+		return proxyCart.getSubTotalPrice(idCartProduct);
+	}
 
 	@Override
 	public List<PaymentType> getAllPaymentType() {
@@ -81,7 +86,8 @@ public class CartSpecificCustomer implements ICartSpecificCustomer {
 
 	@Override
 	public void deleteProductFromCart(int idCartProduct) {
-		// TODO Auto-generated method stub
+		proxyCart.deleteProductFromCart(idCartProduct);
 		
 	}
+
 }

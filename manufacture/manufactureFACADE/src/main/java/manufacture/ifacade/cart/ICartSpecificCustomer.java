@@ -27,6 +27,9 @@ public interface ICartSpecificCustomer {
 	//Gestion de la commande
 	double getTotalPrice(int idCart);
 	
+	//Gestion de la commande
+	double getSubTotalPrice(int idCartProduct);
+	
 	List<PaymentType> getAllPaymentType();
 	
 	List<Delivery> getAllDeliveryType();

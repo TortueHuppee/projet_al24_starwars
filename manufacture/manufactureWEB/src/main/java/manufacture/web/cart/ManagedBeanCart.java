@@ -8,9 +8,11 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 
+import manufacture.entity.cart.Cart;
 import manufacture.entity.cart.CartProduct;
 import manufacture.entity.product.ConstructorProduct;
 import manufacture.entity.product.Product;
+import manufacture.entity.user.SpecificCustomer;
 import manufacture.entity.user.User;
 import manufacture.facade.cart.CartSpecificCustomer;
 import manufacture.ifacade.cart.ICartSpecificCustomer;
@@ -41,7 +43,7 @@ public class ManagedBeanCart {
 	private ICatalog proxyCatalog;
 	
 //	@ManagedProperty(value = "#{specificUserCart}")
-	CartSpecificCustomer specificUserCart = new CartSpecificCustomer();
+	Cart specificUserCart = new Cart();
 
 	private int idSelectedProduct;
 	private Product selectedProduct;
@@ -164,12 +166,41 @@ public class ManagedBeanCart {
 		log.info("Product Quantity : " + cartProduct.getQuantity());
 	}
 	
+	public void upadateProductQuantityWithSpinner(int idProduct, int newQuantity){
+		CartProduct cartProduct = getProductFromCartListeById(idProduct);
+		cartProduct.setQuantity(newQuantity);
+	}
+	
+	public void refreshQuantity(CartProduct cartProduct){
+		quantity = cartProduct.getQuantity();
+		log.info("Quantité = " + quantity);
+	}
+	
+	public double getSubTotalPrice(int idProduct) {
+		log.info(" ===<<< je calcule le subTotal>>>=== ");
+		double subTotalPrice = 0 ;
+		CartProduct cartProduct = getProductFromCartListeById(idProduct);
+		subTotalPrice = cartProduct.getProduct().getPrice() * cartProduct.getQuantity();
+		return subTotalPrice;
+	}
+	
+	public double getTotalPrice() {
+		log.info(" ===<<< je calcule le Total>>>=== ");
+		double totalPrice = 0 ;
+		for (CartProduct cp : panier) {
+			totalPrice += getSubTotalPrice(cp.getProduct().getIdProduct());
+		}
+		return totalPrice;
+	}
+	
 	public void deleteProductFromCart(int idProduct){
 		CartProduct cartProduct = new CartProduct();
 		Product product = getProductFromLocalListeById(idProduct);
 		for (CartProduct cp : panier) {
 			if (cp.getProduct().getIdProduct() == idProduct) {
+				log.info("===== Produit trouve =====");
 				panier.remove(cp);
+				log.info("===== Produit id="+ cp.getProduct().getIdProduct() +" supprimé =====");
 //				proxyCart.deleteProductFromCart(cp);
 				break;
 				}
@@ -193,12 +224,15 @@ public class ManagedBeanCart {
 	
 	// enregistre le panier pour qu'il soit visible ds les autres managerd bean
 	public void storeCart (){
+		SpecificCustomer specificCustomer = new SpecificCustomer();
+		specificCustomer.setIdUser(1);
 		// Les autres parametres pour le panier seront ajoutes apres la validation du paiement
 		for (CartProduct cp : panier) {
-			specificUserCart.addProductToCart(cp);
+			specificUserCart.addCartProduct(cp);
 		}
 		log.info("============>>>>> JUSQUE LA, CA MARCHE 1 <<<<<============");
-		specificUserCart.createNewCart(1);
+		specificUserCart.setUser(specificCustomer);
+//		specificUserCart.setUser(userBean.getUser());
 		log.info("============>>>>> JUSQUE LA, CA MARCHE 2 <<<<<============");
 		
 	}
@@ -263,9 +297,11 @@ public class ManagedBeanCart {
 		this.proxyCatalog = proxyCatalog;
 	}
 
-	public void setSpecificUserCart(CartSpecificCustomer specificUserCart) {
+	public void setSpecificUserCart(Cart specificUserCart) {
 		this.specificUserCart = specificUserCart;
 	}
+
+
 
 	@Autowired
 	private UserBean userBean;
