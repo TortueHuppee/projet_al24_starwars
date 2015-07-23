@@ -11,18 +11,21 @@
 	<ui:define name="main-body">
 
 <h:form id="myForm">
-		<div class="product-description">
-			<h2>
+		<div class="product-description">			<h2>
 				<h:outputLabel value="#{mbProduct.productRef.productName}" />
 			</h2>
 			<h4>
+				<h:commandButton value="Ajouter au panier">
+					<f:ajax listener=""	render=":myForm" event="click" />
+				</h:commandButton></td>
+						
 				Catégorie : <h:outputLabel value="#{mbProduct.productRef.category.categoryName}" />
 				<br/>
 				<h:outputLabel value="#{mbProduct.productRef.urlImage}" />
 				<br/>
 				Prix : <h:outputLabel value="#{mbProduct.DoubleFormat(mbProduct.produitAffiche.price)} Crédits" />
 				<br/>
-				Stock : <h:outputLabel value="#{mbProduct.quantiteDispo}" />
+				Quantité : <p:spinner id="minMax" min="1" max="#{mbProduct.quantiteDispo}" />
 			</h4>
 
 			<h:outputText value="#{mbProduct.productRef.description}" />
