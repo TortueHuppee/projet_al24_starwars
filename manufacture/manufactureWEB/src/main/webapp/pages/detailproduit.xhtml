@@ -10,14 +10,19 @@
 
 	<ui:define name="main-body">
 
+<h:form id="myForm">
 		<div class="product-description">
 			<h2>
 				<h:outputLabel value="#{mbProduct.productRef.productName}" />
 			</h2>
 			<h4>
 				Catégorie : <h:outputLabel value="#{mbProduct.productRef.category.categoryName}" />
+				<br/>
 				<h:outputLabel value="#{mbProduct.productRef.urlImage}" />
-				<h:outputLabel value="#{mbProduct.DoubleFormat(mbProduct.produitAffiche.price)} Crédits" />
+				<br/>
+				Prix : <h:outputLabel value="#{mbProduct.DoubleFormat(mbProduct.produitAffiche.price)} Crédits" />
+				<br/>
+				Stock : <h:outputLabel value="#{mbProduct.quantiteDispo}" />
 			</h4>
 
 			<h:outputText value="#{mbProduct.productRef.description}" />
@@ -32,39 +37,39 @@
 
 		<div class="product-options">
 			<h2>Options</h2>
-
-			<!-- Filtre Constructeur -->
-			<h:selectOneMenu value="#{mbProduct.idConstructorSelected}">
-				<f:selectItems var="item" value="#{mbCatalog.listeConstructeurs}"
-							itemLabel="#{item.constructorName}"
-							itemValue="#{item.idConstructor}" />
-<!-- 				<f:ajax event="change" -->
-<!-- 					listener="#{mbCatalog.initialisationListeAffichee()}" -->
-<!-- 					render=":myForm" /> -->
+			
+			<!-- Filtre Couleur -->
+			<h:selectOneMenu value="#{mbProduct.idColorSelected}">
+				<f:selectItems var="item" value="#{mbProduct.listeCouleurs}"
+							itemLabel="#{item.colorName}"
+							itemValue="#{item.idColor}" />
+				<f:ajax event="change"
+					listener="#{mbProduct.filtrerListeProduitsParCouleur()}"
+					render=":myForm" />
 			</h:selectOneMenu>
 			
 			<!-- Filtre Matériaux -->
 			<h:selectOneMenu value="#{mbProduct.idMaterialSelected}">
-				<f:selectItems var="item" value="#{mbCatalog.listeMateriaux}"
+				<f:selectItems var="item" value="#{mbProduct.listeMateriaux}"
 							itemLabel="#{item.materialName}"
 							itemValue="#{item.idMaterial}" />
-<!-- 				<f:ajax event="change" -->
-<!-- 					listener="#{mbCatalog.initialisationListeAffichee()}" -->
-<!-- 					render=":myForm" /> -->
+				<f:ajax event="change"
+					listener="#{mbProduct.filtrerListeProduitsParMateriaux()}"
+					render=":myForm" />
 			</h:selectOneMenu>
-			
-			<!-- Filtre Couleur -->
-			<h:selectOneMenu value="#{mbProduct.idColorSelected}">
-				<f:selectItems var="item" value="#{mbCatalog.listeConstructeurs}"
+
+			<!-- Filtre Constructeur -->
+			<h:selectOneMenu value="#{mbProduct.idConstructorSelected}">
+				<f:selectItems var="item" value="#{mbProduct.listeConstructeurs}"
 							itemLabel="#{item.constructorName}"
 							itemValue="#{item.idConstructor}" />
-<!-- 				<f:ajax event="change" -->
-<!-- 					listener="#{mbCatalog.initialisationListeAffichee()}" -->
-<!-- 					render=":myForm" /> -->
+				<f:ajax event="change"
+					listener="#{mbProduct.filtrerListeProduitsParConstructeur()}"
+					render=":myForm" />
 			</h:selectOneMenu>
 
 		</div>
-
+</h:form>
 	</ui:define>
 
 </ui:composition>

@@ -15,8 +15,7 @@ import manufacture.ifacade.cart.ICartProfessionalCustomer;
 @Service
 public class CartProfessionalCustomer implements ICartProfessionalCustomer {
 	
-	BeanFactory bf = ClassPathLoader.getBusinessBeanFactory();
-	IBusinessCart proxyCart = (IBusinessCart) bf.getBean(IBusinessCart.class);
+	IBusinessCart proxyCart;
 
 	@Override
 	public void addProductToCart(CartProduct cartProduct) {
@@ -62,6 +61,4 @@ public class CartProfessionalCustomer implements ICartProfessionalCustomer {
 	public void setProxyCart(IBusinessCart proxyCart) {
 		this.proxyCart = proxyCart;
 	}
-	
-
 }

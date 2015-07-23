@@ -28,8 +28,7 @@ import manufacture.ifacade.user.IInscription;
 @Service
 public class Connection implements IConnection{
 
-	BeanFactory bf = ClassPathLoader.getBusinessBeanFactory();
-	IBusinessConnection proxyConnection = (IBusinessConnection) bf.getBean(IBusinessConnection.class);
+	IBusinessConnection proxyConnection;
 	
 	@Override
 	public User getSignInUser(String login, String password) {
@@ -59,5 +58,13 @@ public class Connection implements IConnection{
 	public User connectUser(User user) {
 		return proxyConnection.logUser(user);
 	}
-	
+
+	public IBusinessConnection getProxyConnection() {
+		return proxyConnection;
+	}
+
+	@Autowired
+	public void setProxyConnection(IBusinessConnection proxyConnection) {
+		this.proxyConnection = proxyConnection;
+	}
 }

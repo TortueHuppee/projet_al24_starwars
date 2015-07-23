@@ -17,8 +17,7 @@ import manufacture.ifacade.cart.ICartSpecificCustomer;
 @Service
 public class CartSpecificCustomer implements ICartSpecificCustomer {
 
-	BeanFactory bf = ClassPathLoader.getBusinessBeanFactory();
-	IBusinessCart proxyCart = (IBusinessCart) bf.getBean(IBusinessCart.class);
+	IBusinessCart proxyCart;
 	
 	@Override
 	public void addProductToCart(CartProduct cartProduct) {

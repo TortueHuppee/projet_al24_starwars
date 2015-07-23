@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 
 import manufacture.entity.product.Category;
@@ -30,8 +31,12 @@ public class CatalogManagedBean {
 
 	private Logger log = Logger.getLogger(CatalogManagedBean.class);
 
-	private BeanFactory bf = ClassPathLoader.getFacadeBeanFactory();
-	private ICatalog proxyCatalog = (ICatalog) bf.getBean(ICatalog.class);
+	@ManagedProperty(value="#{catalog}")
+	private ICatalog proxyCatalog;
+
+	public void setProxyCatalog(ICatalog proxyCatalog) {
+		this.proxyCatalog = proxyCatalog;
+	}
 
 	private List<ConstructorProduct> listeProductBrute;
 	private List<ConstructorProduct> listeProductAffichee;

@@ -1,9 +1,11 @@
 package manufacture.web.user;
 
 import javax.faces.application.FacesMessage;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
 
 import manufacture.entity.user.User;
+import manufacture.ifacade.catalog.ICatalog;
 import manufacture.ifacade.user.IConnection;
 import manufacture.web.util.ClassPathLoader;
 
@@ -17,8 +19,12 @@ import org.springframework.stereotype.Component;
 @Component
 @Scope(value="session")
 public class LoginBean {
+	
 	private static Logger LOGGER = Logger.getLogger(LoginBean.class);
-	private BeanFactory bf = ClassPathLoader.getFacadeBeanFactory();
+	
+	@ManagedProperty(value="#{connection}")
+	private IConnection proxyConnection;
+
 	@Autowired
 	private UserBean userBean; 
 	private User user;
@@ -29,8 +35,7 @@ public class LoginBean {
 	
 	public String doLogin(){
 		LOGGER.info("enter login bean");
-		IConnection connection = bf.getBean(IConnection.class);
-		User userTmp = connection.connectUser(user);
+		User userTmp = proxyConnection.connectUser(user);
 		if(userTmp==null){
             FacesMessage message = new FacesMessage("Utilisateur non trouvé");
             FacesContext context = FacesContext.getCurrentInstance();
@@ -62,5 +67,12 @@ public class LoginBean {
 	public void setUser(User user) {
 		this.user = user;
 	}
+	
+	public IConnection getProxyConnection() {
+		return proxyConnection;
+	}
 
+	public void setProxyConnection(IConnection proxyConnection) {
+		this.proxyConnection = proxyConnection;
+	}
 }

@@ -6,13 +6,13 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 
 import manufacture.entity.product.Color;
 import manufacture.entity.product.Constructor;
 import manufacture.entity.product.ConstructorProduct;
 import manufacture.entity.product.Material;
-import manufacture.entity.product.Product;
 import manufacture.entity.product.ProductRef;
 import manufacture.entity.product.SpaceshipProduct;
 import manufacture.entity.product.SpaceshipRef;
@@ -28,9 +28,13 @@ public class ProductManagedBean {
 
 	private Logger log = Logger.getLogger(ProductManagedBean.class);
 
-	private BeanFactory bf = ClassPathLoader.getFacadeBeanFactory();
-	private ICatalog proxyCatalog = (ICatalog) bf.getBean(ICatalog.class);
+	@ManagedProperty(value="#{catalog}")
+	private ICatalog proxyCatalog;
 	
+	public void setProxyCatalog(ICatalog proxyCatalog) {
+		this.proxyCatalog = proxyCatalog;
+	}
+
 	private int idProductRef;
 	private ProductRef productRef;
 	private ConstructorProduct produitAffiche;
@@ -51,7 +55,7 @@ public class ProductManagedBean {
 	@PostConstruct
 	void init()
 	{
-		idProductRef = 1;
+		idProductRef = 47;
 		
 		//photo, nom, description, catégorie, modèles vaisseaux
 		productRef = proxyCatalog.getProductRefById(idProductRef);
@@ -65,23 +69,107 @@ public class ProductManagedBean {
 		//prix, options disponibles (couleur, matériaux, constructeur)
 		listeProduitsTotaux = proxyCatalog.getAllProductByProductRef(idProductRef);
 		listeProduitsAffiches = listeProduitsTotaux;
-		produitAffiche = listeProduitsAffiches.get(0);
-	
+		
+		produitAffiche = listeProduitsTotaux.get(0);			
+
 		//options
 		idColorSelected = produitAffiche.getColor().getIdColor();
 		idMaterialSelected = produitAffiche.getMaterial().getIdMaterial();
 		idConstructorSelected = produitAffiche.getConstructor().getIdConstructor();
 		
-		quantiteDisponible();
+		//Couleurs
+		listeCouleurs = new ArrayList<Color>();
+		boolean ajoutColor = true;
+		for (ConstructorProduct product : listeProduitsTotaux)
+		{			
+			for (Color color : listeCouleurs)
+			{
+				if (color.getIdColor() == product.getColor().getIdColor())
+				{
+					ajoutColor = false;
+				}
+			}
+			if (ajoutColor)
+			{
+				listeCouleurs.add(product.getColor());
+			}
+		}
+		quantiteDisponibleEtProduitSelectionne();
 	}
 
-	//Méthodes
+	//Méthodes	
 	
-	public void quantiteDisponible()
+	public void filtrerListeProduitsParCouleur()
+	{
+		quantiteDispo = 0;
+		listeProduitsAffiches = new ArrayList<ConstructorProduct>();
+
+		for (ConstructorProduct product : listeProduitsTotaux)
+		{
+			if (product.getColor().getIdColor() == idColorSelected)
+			{
+				listeProduitsAffiches.add(product);
+				quantiteDispo += product.getStock();
+			}	
+		}
+		initialisationListes();
+		produitAffiche = listeProduitsAffiches.get(0);
+		idMaterialSelected = produitAffiche.getMaterial().getIdMaterial();
+		idConstructorSelected = produitAffiche.getConstructor().getIdConstructor();
+	}
+	
+	public void filtrerListeProduitsParMateriaux()
+	{
+		quantiteDispo = 0;
+		listeProduitsAffiches = new ArrayList<ConstructorProduct>();
+
+		for (ConstructorProduct product : listeProduitsTotaux)
+		{
+			if (product.getColor().getIdColor() == idColorSelected)
+			{
+				if (product.getMaterial().getIdMaterial() == idMaterialSelected)
+				{
+					listeProduitsAffiches.add(product);
+					quantiteDispo += product.getStock();
+				}
+			}
+		}
+		initialisationListes();
+		produitAffiche = listeProduitsAffiches.get(0);
+		idColorSelected = produitAffiche.getColor().getIdColor();
+		idConstructorSelected = produitAffiche.getConstructor().getIdConstructor();
+	}
+	
+	public void filtrerListeProduitsParConstructeur()
+	{
+		quantiteDispo = 0;
+		listeProduitsAffiches = new ArrayList<ConstructorProduct>();
+
+		for (ConstructorProduct product : listeProduitsTotaux)
+		{
+			if (product.getColor().getIdColor() == idColorSelected)
+			{
+				if (product.getMaterial().getIdMaterial() == idMaterialSelected)
+				{
+					if (product.getConstructor().getIdConstructor() == idConstructorSelected)
+					{
+						listeProduitsAffiches.add(product);
+						quantiteDispo += product.getStock();
+					}
+				}
+			}
+		}
+		initialisationListes();
+		produitAffiche = listeProduitsAffiches.get(0);
+		idColorSelected = produitAffiche.getColor().getIdColor();
+		idMaterialSelected = produitAffiche.getMaterial().getIdMaterial();
+	}
+	
+	public void quantiteDisponibleEtProduitSelectionne()
 	{
 		quantiteDispo = 0;
 		
-		for (ConstructorProduct product : listeProduitsAffiches)
+		for (ConstructorProduct product : listeProduitsTotaux)
 		{
 			//if (idColorSelected == 00 || product.getColor().getIdColor() == idColorSelected)
 			if (product.getColor().getIdColor() == idColorSelected)
@@ -91,32 +179,59 @@ public class ProductManagedBean {
 					if (product.getConstructor().getIdConstructor() == idConstructorSelected)
 					{
 						quantiteDispo += product.getStock();
+						produitAffiche = product;
 					}
 				}
 			}	
 		}
+		initialisationListes();
+	}
+	
+	public String detailProduit(int idProduit)
+	
+	{
+		System.out.println(idProduit);
+		return "/pages/detailproduit.xhtml?faces-redirect=true";
 	}
 	
 	public void initialisationListes()
 	{
-		listeCouleurs = new ArrayList<Color>();
 		listeMateriaux = new ArrayList<Material>();
 		listeConstructeurs = new ArrayList<Constructor>();
+		
+		boolean ajoutMateriaux = true;
+		boolean ajoutConstructeur = true;
 
-		for (ConstructorProduct product : listeProduitsAffiches)
-		{
-			if (!listeCouleurs.contains(product.getColor()))
+		for (ConstructorProduct product : listeProduitsTotaux)
+		{	
+			//Constructeurs
+			for (Constructor constructeur : listeConstructeurs)
 			{
-				listeCouleurs.add(product.getColor());
+				if (constructeur.getIdConstructor() == product.getConstructor().getIdConstructor())
+				{
+					ajoutConstructeur = false;
+				}
 			}
-			if (!listeMateriaux.contains(product.getMaterial()))
-			{
-				listeMateriaux.add(product.getMaterial());
-			}
-			if (!listeConstructeurs.contains(product.getConstructor()))
+			if (ajoutConstructeur)
 			{
 				listeConstructeurs.add(product.getConstructor());
 			}
+			
+			//Matériaux
+			if (product.getColor().getIdColor() == idColorSelected)
+			{
+				for (Material material : listeMateriaux)
+				{
+					if (material.getIdMaterial() == product.getMaterial().getIdMaterial())
+					{
+						ajoutMateriaux = false;
+					}
+				}
+				if (ajoutMateriaux)
+				{
+					listeMateriaux.add(product.getMaterial());
+				}
+			}	
 		}
 	}
 	
@@ -211,15 +326,6 @@ public class ProductManagedBean {
 		this.listeProduitsTotaux = listeProduitsTotaux;
 	}
 
-	public List<ConstructorProduct> getListeProduitsAffiches() {
-		return listeProduitsAffiches;
-	}
-
-	public void setListeProduitsAffiches(
-			List<ConstructorProduct> listeProduitsAffiches) {
-		this.listeProduitsAffiches = listeProduitsAffiches;
-	}
-
 	public List<SpaceshipProduct> getListeVaisseauxProduit() {
 		return listeVaisseauxProduit;
 	}
@@ -243,5 +349,14 @@ public class ProductManagedBean {
 
 	public void setProduitAffiche(ConstructorProduct produitAffiche) {
 		this.produitAffiche = produitAffiche;
+	}
+
+	public List<ConstructorProduct> getListeProduitsAffiches() {
+		return listeProduitsAffiches;
+	}
+
+	public void setListeProduitsAffiches(
+			List<ConstructorProduct> listeProduitsAffiches) {
+		this.listeProduitsAffiches = listeProduitsAffiches;
 	}
 }
