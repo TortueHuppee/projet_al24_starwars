@@ -1,3 +1,4 @@
+
 *{
 	margin:0;
 	padding:0; 
@@ -46,4 +47,309 @@
 }
 #menu ul{
 	clear:both; 
+
+/* fichier.xhtml */
+/* ********* debut ********* */
+/* ... */
+/* ********* fin ********* */
+
+/* index.xhtml */
+/* ********* debut ********* */
+#divMenuMenu {
+	width: auto;
+}
+
+#divMenuLogo {
+	float: left;
+}
+
+#divMenuRecherche {
+	clear: both;
+}
+
+#divMenuArticle {
+	clear: both;
+}
+/* ********* fin ********* */
+
+/* commande.xhtml */
+/* ********* debut ********* */
+.itemCommande {
+	clear: both !important;
+	/*background-color: #FE2E2A;*/
+}
+.al24FielSetCommande{
+	clear: both !important;
+	background-color: #fffE2A;
+	width: 500px;
+}
+
+.itemLigneCommande {
+	float: left !important;
+	
+	background-color: #FE2E2A;
+}
+/* ********* fin ********* */
+
+/* panier.xhtml */
+/* ********* debut ********* */
+.itemLignePanier {
+	 float: left !important; 
+	width: inherit;
+	background-color: #AA1E2A;
+}
+
+.al24FielSetPanier{
+	clear:both;
+		width: 800px;
+	background-color: #FE2000;
+}
+
+.boutonPasserCommande
+{
+	clear:both;
+		width: 200px;
+	background-color: #eee000;
+}
+/* ********* fin ********* */
+
+/* menu.xhtml */
+/* ********* debut ********* */
+#divMenu {
+	float: left !important;
+	background-color: #FE2000;
+}
+
+.logo {
+	float: left !important;
+	background-color: #FE2E2A;
+}
+
+#divLogo {
+	float: left !important;
+}
+
+#divMenuBtn {
+	float: left !important;
+}
+
+#divPanierConnexion {
+	float: left !important;
+	background-color: #FE2E2E;
+}
+
+#divPanier {
+	float: left !important;
+	background-color: #FE2E2E;
+}
+
+/* connexion */
+/* ********* ********* */
+#divDeConnexion {
+	background-color: lime;
+	width: 300px;
+	height: 200px;
+}
+
+.divLabelConnexion {
+	width: 100%;
+	height: auto;
+
+	background-color: fuchsia;
+}
+
+.labelInputConnexion {
+	width: 100%;
+	height: auto;
+
+	background-color: navy;
+}
+
+.labelConnexion {
+	width: 100%;
+	height: auto;
+	background-color: azure;
+}
+
+.inputConnexion {
+	width: 100%;
+	height: auto;
+	background-color: rosybrown;
+	 padding: 0 !important;
+}
+
+.boutonConnexion {
+	width: 100%;
+	height: auto;
+	background-color: salmon;
+}
+
+.linkConnexion {
+	background-color: teal;
+}
+
+.divBoutonConnexion {
+	float: left;
+	width: 50%;
+	height: auto;
+	background-color: orange;
+}
+
+/* *********  ********* */
+
+
+/* ********* fin ********* */
+
+/* recherche.xhtml */
+/* ********* debut ********* */
+#divRecherche {
+	clear: both;
+	margin: 5px;
+}
+
+#divBtnRefreshRecherche {
+	clear: both;
+}
+
+#divBtnRefresh {
+	float: left !important;
+}
+
+#divBtnRechercher {
+	float: left !important;
+}
+
+#divRecehrcheReference {
+	
+}
+
+#divRechercheCategorie {
+	
+}
+
+#divRechercheOptions {
+	
+}
+
+#divRechercheBouton {
+	
+}
+
+/* ********* fin ********* */
+
+
+
+
+/* ********* Code Divers Debut ********* */
+.bouton {
+	color: #FOOOOO;
+	background-color: #58FA82;
+	background: none !important;
+	border-radius: 2px !important;
+}
+
+.al24InputText {
+	clear: both !important;
+	color: #FE2E2E;
+}
+
+.al24Combox {
+	color: #FE2E2E;
+}
+
+.al24RadioBouton {
+	color: #FE2E2E;
+}
+
+.al24FielSet {
+	float: left;
+	width: inherit;
+	height: inherit;
+	color: #FE2E2E;
+}
+
+.al24FielSetRecherche {
+	float: left;
+	width: inherit;
+	height: 300px;
+	color: #FE2E2E;
+}
+
+.al24FielSetContainer {
+	width: inherit;;
+	height: inherit;
+	color: #FE000E;
+}
+
+.ui-fieldset,.ui-fieldset .ui-fieldset-legend {
+	padding: 5px 5px;
+	background-color: #FFFFFF;
+}
+
+.al24TabMenu {
+	color: #FE2E2E;
+}
+
+.al24OutLabel {
+	color: #FE2E2E;
+}
+
+.imgLogo{height: 50px;}
+/* ********* Code Divers Fin ********* */
+.toto {
+	background: none !important;
+}
+
+* {
+	margin: 0;
+	padding: 0;
+}
+
+#header {
+	height: 100px;
+	width: 100%;
+}
+
+#header .left_zone {
+	float: left;
+	width: 60%;
+}
+
+#header .right_zone {
+	float: right;
+	width: 40%;
+}
+
+.sidebar-left {
+	float: left;
+	width: 20%;
+	min-height: 500px;
+}
+
+.main-content {
+	float: left;
+	width: 80%;
+}
+
+#body-content {
+	clear: both;
+}
+
+.article-wrapper {
+	float: left;
+	margin-right: 50px;
+	height: 150px;
+	width: 150px;
+	border: 1px solid black;
+}
+
+#menu ul li {
+	float: left;
+	display: inline-block;
+	min-width: 80px;
+}
+
+#menu ul {
+	clear: both;
+
 }

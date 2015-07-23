@@ -1,0 +1,53 @@
+/* connexion */
+/* ********* ********* */
+#divDeConnexion {
+	background-color: lime;
+	width: 300px;
+	height: 200px;
+}
+
+.divLabelConnexion {
+	width: 100%;
+	height: auto;
+
+	background-color: fuchsia;
+}
+
+.labelInputConnexion {
+	width: 100%;
+	height: auto;
+
+	background-color: navy;
+}
+
+.labelConnexion {
+	width: 100%;
+	height: auto;
+	background-color: azure;
+}
+
+.inputConnexion {
+	width: 100%;
+	height: auto;
+	background-color: rosybrown;
+	 padding: 0;
+}
+
+.boutonConnexion {
+	width: 100%;
+	height: auto;
+	background-color: salmon;
+}
+
+.linkConnexion {
+	background-color: teal;
+}
+
+.divBoutonConnexion {
+	float: left;
+	width: 50%;
+	height: auto;
+	background-color: orange;
+}
+
+/* *********  ********* */

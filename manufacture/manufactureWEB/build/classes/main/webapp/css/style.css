@@ -92,3 +92,145 @@ div {
 .al24OutLabel {
 	color: #FE2E2E;
 }
+/* fichier.xhtml */
+/* ********* debut ********* */
+/* ... */
+/* ********* fin ********* */
+
+/* index.xhtml */
+/* ********* debut ********* */
+#divMenuMenu {
+	clear: both;
+}
+
+#divMenuRecherche {
+	clear: both;
+}
+
+#divMenuArticle {
+	clear: both;
+}
+/* ********* fin ********* */
+
+/* commande.xhtml */
+/* ********* debut ********* */
+.itemCommande {
+	clear: both !important;
+	background-color: #FE2E2A;
+}
+
+.itemLigneCommande {
+	float: left !important;
+	background-color: #FE2E2A;
+}
+/* ********* fin ********* */
+
+/* panier.xhtml */
+/* ********* debut ********* */
+.itemLignePanier {
+	float: left !important;
+	background-color: #FE2E2A;
+}
+/* ********* fin ********* */
+
+/* menu.xhtml */
+/* ********* debut ********* */
+#divMenu {
+	float: left !important;
+	background-color: #FE2E2E;
+}
+
+.logo {
+	float: left !important;
+	background-color: #FE2E2A;
+}
+
+#divLogo {
+	float: left !important;
+}
+
+#divMenuBtn {
+	float: left !important;
+}
+
+#divPanierConnexion {
+	float: left !important;
+	background-color: #FE2E2E;
+}
+
+#divPanier {
+	float: left !important;
+	background-color: #FE2E2E;
+}
+
+#divConnexion {
+	float: left !important;
+	background-color: #FE2E2E;
+}
+/* ********* fin ********* */
+
+/* recherche.xhtml */
+/* ********* debut ********* */
+#divRecherche {
+	clear: both;
+}
+
+#divRecehrcheReference {
+
+}
+
+#divRecehrcheCategorie {
+
+}
+
+#divRecehrcheOptions {
+	
+}
+
+#divRechercheBouton {
+	
+}
+
+/* ********* fin ********* */
+
+/* ********* Code Divers Debut ********* */
+.bouton {
+	color: #FOOOOO;
+	background-color: #58FA82;
+	background: none !important;
+	border-radius: 2px !important;
+}
+
+.al24InputText {
+	clear: both !important;
+	color: #FE2E2E;
+}
+
+.al24Combox {
+	color: #FE2E2E;
+}
+
+.al24RadioBouton {
+	color: #FE2E2E;
+}
+
+.al24FielSet {
+	float: left;
+	width: auto;
+	height: auto;
+	color: #FE2E2E;
+}
+
+.ui-fieldset,.ui-fieldset .ui-fieldset-legend {
+	padding: 5px 5px;
+	background-color: #FFFFFF;
+}
+
+.al24TabMenu {
+	color: #FE2E2E;
+}
+
+.al24OutLabel {
+	color: #FE2E2E;
+}
+/* ********* Code Divers Fin ********* */

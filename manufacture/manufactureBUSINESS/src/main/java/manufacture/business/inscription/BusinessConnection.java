@@ -23,7 +23,6 @@ import manufacture.ibusiness.user.IBusinessConnection;
 import manufacture.ibusiness.user.IBusinessInscription;
 import manufacture.idao.user.IDaoUser;
 
-import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Service;
