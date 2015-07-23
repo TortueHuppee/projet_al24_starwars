@@ -1,53 +1,3 @@
-
-*{
-	margin:0;
-	padding:0; 
-}
-#header{ 
-	height:100px;
-	width:100%;
-}
-#header .left_zone{
-	float:left;
-	width:60%;
-} 
-#header .right_zone{
-	float:right;
-	width:40%;
-}
-.sidebar-left{
-	float:left;
-	width:20%;
-	min-height:500px; 
-}
-.main-content{
-	float:left;
-	width:80%;
-} 
-#body-content{
-	clear:both;  
-}
-.article-wrapper{
-	float:left;
-	margin-right:50px;
-	height:150px;
-	width:150px; 
-	border:1px solid black; 
-} 
-
-.article-wrapper img
-{
-	border:1px black solid;
-	width:50px;
-}
-#menu ul li{
-	float:left; 
-	display:inline-block;
-	min-width:80px; 
-}
-#menu ul{
-	clear:both; 
-
 /* fichier.xhtml */
 /* ********* debut ********* */
 /* ... */
@@ -293,8 +243,6 @@
 .al24OutLabel {
 	color: #FE2E2E;
 }
-
-.imgLogo{height: 50px;}
 /* ********* Code Divers Fin ********* */
 .toto {
 	background: none !important;
@@ -351,5 +299,4 @@
 
 #menu ul {
 	clear: both;
-
 }
