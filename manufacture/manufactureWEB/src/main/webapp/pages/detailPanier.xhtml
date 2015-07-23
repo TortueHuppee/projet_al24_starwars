@@ -1,4 +1,4 @@
-<ui:composition template="/layouts/catalogue_layout.xhtml"
+<ui:composition template="/layouts/master_layout.xhtml"
 	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:a4j="http://richfaces.org/a4j"
@@ -9,22 +9,42 @@
 	xmlns:p="http://primefaces.org/ui">
 
 	<ui:define name="main-body">
-	
+
 		<h:form id="myForm">
-        	
-        	<h:panelGroup id="panier">
-				<ui:repeat var="produit" value="#{mbCart.panier}">
-					<div>
-						<span> Product Name : #{produit.product.productRef.productName    }     </span>
-						<span></span>
-						<span>     Product Quantity :#{produit.quantity}</span>
-						<!-- <div>#{produit.quantity * produit.product.price}</div>  -->
-					</div>
-				</ui:repeat>
+
+			<h:panelGroup id="panier">
+				<CENTER>
+					<TABLE>
+						<ui:repeat var="produit" value="#{mbCart.panier}">
+
+							<TR>
+								<TD>"#{produit.product.productRef.productName}"</TD>
+								<TD><h:commandButton value="-"
+										action="#{mbCart.decrementProductQuantity(produit.product.idProduct)}"/></TD>
+								<TD>#{produit.quantity}</TD>
+								<TD><h:commandButton value="+"
+										action="#{mbCart.incrementProductQuantity(produit.product.idProduct)}"/></TD>
+								<TD><h:commandButton value="Supprimer produit"
+										action="#{mbCart.deleteProductFromCart(produit.product.idProduct)}"/></TD>
+							</TR>
+
+
+						</ui:repeat>
+						
+						<TR>
+								<TD><h:commandButton value="Vider le panier"
+										action="#{mbCart.cleanCart()}"/>
+								</TD>
+								<TD><h:commandButton value="Valider le panier"
+										action="#{mbCart.storeCart()}"/>
+								</TD>
+							</TR>
+					</TABLE>
+				</CENTER>
 			</h:panelGroup>
-			
+
 		</h:form>
-	
+
 	</ui:define>
-		
+
 </ui:composition>
