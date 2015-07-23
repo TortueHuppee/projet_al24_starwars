@@ -1,77 +1,88 @@
-package manufacture.facade.cart;
+package manufacture.facade.catalog;
 
 import java.util.List;
 
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import manufacture.entity.cart.CartProduct;
 import manufacture.entity.cart.Delivery;
 import manufacture.entity.cart.PaymentType;
 import manufacture.entity.product.Product;
-import manufacture.facade.util.ClassPathLoader;
 import manufacture.ibusiness.cart.IBusinessCart;
+import manufacture.ibusiness.catalog.IBusinessCatalog;
 import manufacture.ifacade.cart.ICartSpecificCustomer;
 
-@Service
-public class CartSpecificCustomer implements ICartSpecificCustomer {
+public class Cart implements ICartSpecificCustomer {
 
-	IBusinessCart proxyCart;
+	BeanFactory bf = new ClassPathXmlApplicationContext("classpath:springBusiness.xml");
+	IBusinessCart proxyCart = (IBusinessCart) bf.getBean(IBusinessCart.class);
 	
 	@Override
 	public void addProductToCart(CartProduct cartProduct) {
-		proxyCart.addProductToCart(cartProduct);
+		// TODO Auto-generated method stub
+
 	}
 
 	@Override
-	public void deleteProductFromCart(CartProduct cartProduct) {
-		proxyCart.deleteProductFromCart(cartProduct);
+	public void deleteProductFromCart(int idCartProduct) {
+		// TODO Auto-generated method stub
+
 	}
 
 	@Override
 	public void cleanCart(int idCart) {
-		proxyCart.cleanCart(idCart);
+		// TODO Auto-generated method stub
+
 	}
 
 	@Override
 	public void updateOptionsProduct(int idCartProduct, Product newProduct) {
-		proxyCart.updateOptionsProduct(idCartProduct, newProduct);
+		// TODO Auto-generated method stub
+
 	}
 
 	@Override
 	public void updateQuantityProduct(int idCartProduct, int newQuantity) {
-		proxyCart.updateQuantityProduct(idCartProduct, newQuantity);
+		// TODO Auto-generated method stub
+
 	}
 
 	@Override
 	public List<Product> getAllProductByCart(int idCart) {
-		return proxyCart.getAllProductByCart(idCart);
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
 	public double getTotalPrice(int idCart) {
-		return proxyCart.getTotalPrice(idCart);
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 	@Override
 	public List<PaymentType> getAllPaymentType() {
-		return proxyCart.getAllPaymentType();
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
 	public List<Delivery> getAllDeliveryType() {
-		return proxyCart.getAllDeliveryType();
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
 	public void orderCommande(int idCart) {
-		proxyCart.orderSpecificCommande(idCart);
+		// TODO Auto-generated method stub
+
 	}
 
 	@Override
 	public void createNewCart(int idUser) {
-		proxyCart.createNewCart(idUser);
+		// TODO Auto-generated method stub
+
 	}
 
 	@Autowired
@@ -80,8 +91,13 @@ public class CartSpecificCustomer implements ICartSpecificCustomer {
 	}
 
 	@Override
-	public void deleteProductFromCart(int idCartProduct) {
+	public void deleteProductFromCart(CartProduct cartProduct) {
 		// TODO Auto-generated method stub
 		
 	}
+
+	
+	
+	
+
 }

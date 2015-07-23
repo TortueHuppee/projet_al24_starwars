@@ -36,6 +36,13 @@ public class DaoCart implements IDaoCart {
 	private String requestSendRecall = "SELECT u FROM User u WHERE u.idUser = :idUser and AND u.class = 'constructor_product'";
 	private String requestGetAllCartProductByCart = "SELECT cp FROM CartProduct cp WHERE cp.cart.idCart = :idCart";
 
+
+//	@Override
+//	public double getTotalPrice(int idCart) {
+//		// TODO Auto-generated method stub
+//		return 0;
+//	}
+
 	@Override
 	public void validatePayment(int idCart) {
 		Session session = sf.getCurrentSession();

@@ -9,36 +9,51 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <h:head>
-	<link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
+	<link href="toto.css" rel="stylesheet" type="text/css" />
+
 </h:head>
 <h:body>
+
 	<h:form>
-		<div>
-
-			<div>
-				<span>Connexion :</span>
+		<!-- DESCRIPTION 
+	de cette balise jusq'à celle de fin , le texte est à copier tel quel de connexion.xhtml dans menu.xhtml afin de faire la petite fenetre de connexion
+	ceci rend plus simple l'implementation (pour nosu en tous cas) et plus propre
+	 -->
+		<div id="divDeConnexion">
+			<div class="divLabelConnexion">
+				<span class="labelConnexion">Connexion :</span>
 			</div>
-			<div>
-				<span>Login :</span>
-				<p:inputText />
+			<div class="labelInputConnexion">
+				<div class="divLabelConnexion">
+					<span class="labelConnexion">Login :</span>
+				</div>
+				<div class="divInputConnexion">
+					<p:inputText styleClass="inputConnexion" value="#{mbConnexion.login}" />
+				</div>
 			</div>
-			<div>
-				<span>Password :</span>
-				<p:inputText />
+			<div class="labelConnexion">
+				<div class="divLabelConnexion">
+					<span class="labelConnexion">Password :</span>
+				</div>
+				<div class="divInputConnexion">
+					<p:inputText styleClass="inputConnexion" value="#{mbConnexion.password}" />
+				</div>
 			</div>
-
-			<div>
-				<div>
+			<div class="labelConnexion">
+				<div class="linkConnexion">
 					<p:commandLink id="ajax" value="Inscription" />
 				</div>
-				<div>
-					<p:commandButton value="Valider" id="ajax0" styleClass="bouton" />
+				<div class="divBoutonConnexion">
+					<p:commandButton value="Valider" id="btnVallider" styleClass="boutonConnexion"
+						action="#{mbConnexion.verifier()}" />
 				</div>
-				<div>
-					<p:commandButton value="Annuler" id="ajax1" styleClass="bouton" />
+				<div class="divBoutonConnexion">
+					<p:commandButton value="Annuler" id="btnAnnuler" styleClass="boutonConnexion" />
 				</div>
+				<h:outputText value="#{mbConnexion.reponse}" />
 			</div>
 		</div>
+		<!-- Balise de fin -->
 	</h:form>
 </h:body>
 </html>

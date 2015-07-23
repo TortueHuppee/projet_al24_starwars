@@ -1,4 +1,5 @@
-<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:rich="http://richfaces.org/rich"
@@ -6,8 +7,99 @@
 	xmlns:composite="http://java.sun.com/jsf/composite"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
-	<ul>
-		<li><a href="index.xhtml">accueil</a></li>
-		<li><a href="catalogue.xhtml">catalogue</a></li>
-	</ul>
-</ui:composition> 
+
+<h:head>
+	<link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
+</h:head>
+<h:body>
+	<ui:composition>
+		<h:form>
+			<div id="divMenuLogo">
+				<h:graphicImage
+					value="/manufactureWEB/src/main/webapp/layouts/parts/apple.png"
+					onclick="" />
+			</div>
+			<div id="divMenu">
+				<!-- div qui contient le logo -->
+				<div id="divMenuBtn" class="logo">
+
+
+					<p:menubar styleClass="toto">
+						<p:menuitem value="logo " url="articleSimple.xhtml">
+
+						</p:menuitem>
+						<p:menuitem value="Catalogue " url="catalogue.xhtml" />
+						<p:menuitem value="Annonce " url="annonce.xhtml" />
+						<p:menuitem value="Compte " url="compte.xhtml" />
+						<p:menuitem value="Commande " url="commande.xhtml" />
+						<p:menuitem value="panier " url="panier.xhtml" />
+
+						<f:facet name="options">
+							<p:commandButton id="imageBtn" value="login" type="button" />
+							<p:overlayPanel id="imagePanel" for="imageBtn" hideEffect="fade">
+
+
+
+
+								<!-- DESCRIPTION 
+	de cette balise jusq'à celle de fin , le texte est à copier tel quel de connexion.xhtml dans menu.xhtml afin de faire la petite fenetre de connexion
+	ceci rend plus simple l'implementation (pour nosu en tous cas) et plus propre
+	 -->
+
+								<div id="divDeConnexion">
+									<div class="divLabelConnexion">
+										<span class="labelConnexion">Connexion :</span>
+									</div>
+									<div class="labelInputConnexion">
+										<div class="divLabelConnexion">
+											<span class="labelConnexion">Login :</span>
+										</div>
+										<div class="divInputConnexion">
+											<p:inputText styleClass="inputConnexion"
+												value="#{mbConnexion.login}" />
+										</div>
+									</div>
+									<div class="labelConnexion">
+										<div class="divLabelConnexion">
+											<span class="labelConnexion">Password :</span>
+										</div>
+										<div class="divInputConnexion">
+											<p:inputText styleClass="inputConnexion"
+												value="#{mbConnexion.password}" />
+										</div>
+									</div>
+									<div class="labelConnexion">
+										<div class="linkConnexion">
+											<p:commandLink id="ajax" value="Inscription" />
+										</div>
+										<div class="divBoutonConnexion">
+											<p:commandButton value="Valider" id="btnVallider"
+												styleClass="boutonConnexion"
+												action="#{mbConnexion.verifier()}" />
+										</div>
+										<div class="divBoutonConnexion">
+											<p:commandButton value="Annuler" id="btnAnnuler"
+												styleClass="boutonConnexion" />
+										</div>
+										<h:outputText value="#{mbConnexion.reponse}" />
+									</div>
+								</div>
+								<!-- Balise de fin -->
+
+							</p:overlayPanel>
+							<p:commandButton id="imageBtn2" value="logout" type="button" />
+							<p:overlayPanel id="imagePanel2" for="imageBtn2"
+								hideEffect="fade">
+
+							</p:overlayPanel>
+						</f:facet>
+					</p:menubar>
+
+					<!-- Fin du menu -->
+				</div>
+
+			</div>
+		</h:form>
+	</ui:composition>
+</h:body>
+</html>
