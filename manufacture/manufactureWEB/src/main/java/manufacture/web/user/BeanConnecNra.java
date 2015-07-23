@@ -13,7 +13,6 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import manufacture.entity.user.User;
 import manufacture.ifacade.nra.IFacNra;
 import manufacture.ifacade.user.IConnection;
-import manufacture.web.user.LoginBeanTmp;
 import manufacture.web.util.ClassPathLoader;
 
 @ManagedBean(name = "mbConnexion")
