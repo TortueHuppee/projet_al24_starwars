@@ -92,15 +92,6 @@ public class DaoUser implements IDaoUser {
 		LOGGER.info("user saved : "+user.getIdUser());
 		return user;		
 	}
-	//Getters et Setters
-	public SessionFactory getSf() {
-		return sf;
-	}
-
-	@Autowired
-	public void setSf(SessionFactory sf) {
-		this.sf = sf;
-	}
 	@Override
 	public List<User> getUserByUserName(String userName) {
 		Session session = sf.getCurrentSession();
@@ -114,4 +105,15 @@ public class DaoUser implements IDaoUser {
 		// TODO Auto-generated method stub
 		
 	}
+	
+	//Getters et Setters
+	public SessionFactory getSf() {
+		return sf;
+	}
+
+	@Autowired
+	public void setSf(SessionFactory sf) {
+		this.sf = sf;
+	}
+
 }

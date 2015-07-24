@@ -1,7 +1,9 @@
 package manufacture.web.user;
 
 import javax.faces.application.FacesMessage;
+import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
 import manufacture.entity.user.User;
@@ -16,8 +18,8 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Component;
 
-@Component
-@Scope(value="session")
+@ManagedBean(name="loginBean")
+@SessionScoped
 public class LoginBean {
 	
 	private static Logger LOGGER = Logger.getLogger(LoginBean.class);

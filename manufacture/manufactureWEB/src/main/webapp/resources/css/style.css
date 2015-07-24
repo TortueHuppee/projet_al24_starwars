@@ -4,7 +4,8 @@
 	clear: both !important;
 	/*background-color: #FE2E2A;*/
 }
-.al24FielSetCommande{
+
+.al24FielSetCommande {
 	clear: both !important;
 	background-color: #fffE2A;
 	width: 500px;
@@ -12,7 +13,6 @@
 
 .itemLigneCommande {
 	float: left !important;
-	
 	background-color: #FE2E2A;
 }
 /* ********* fin ********* */
@@ -20,20 +20,19 @@
 /* panier.xhtml */
 /* ********* debut ********* */
 .itemLignePanier {
-	 float: left !important; 
+	float: left !important;
 	width: inherit;
 }
 
-.al24FielSetPanier{
-	clear:both;
-		width: 800px;
+.al24FielSetPanier {
+	clear: both;
+	width: 800px;
 	background-color: #FE2000;
 }
 
-.boutonPasserCommande
-{
-	clear:both;
-		width: 200px;
+.boutonPasserCommande {
+	clear: both;
+	width: 200px;
 	background-color: #eee000;
 }
 /* ********* fin ********* */
@@ -43,23 +42,19 @@
 #menu {
 	height: 100px;
 	background-color: silver;
-	padding-left:27%;
+	padding-left: 27%;
 }
 
-#menu img
-{
-	display:inline-block;
-	margin-top:4px;
-	height:90px;
-	margin-right:100px;
-
+#menu img {
+	display: inline-block;
+	margin-top: 4px;
+	height: 90px;
+	margin-right: 100px;
 }
 
-#menu img:hover
-{
-	cursor:pointer;
+#menu img:hover {
+	cursor: pointer;
 }
-
 
 #divLogo {
 	float: left !important;
@@ -76,14 +71,12 @@
 .divLabelConnexion {
 	width: 100%;
 	height: auto;
-
 	background-color: fuchsia;
 }
 
 .labelInputConnexion {
 	width: 100%;
 	height: auto;
-
 	background-color: navy;
 }
 
@@ -97,7 +90,7 @@
 	width: 100%;
 	height: auto;
 	background-color: rosybrown;
-	 padding: 0 !important;
+	padding: 0 !important;
 }
 
 .boutonConnexion {
@@ -200,55 +193,49 @@
 }
 
 /* ********* Header ********* */
-
-#logo img
-{
-	height:100px;
-	margin-top:20px;
-	margin-left:15%;
-	float:left;
+#logo img {
+	height: 100px;
+	margin-top: 20px;
+	margin-left: 15%;
+	float: left;
 }
 
-#logo label
-{
-	float:left;
-	color:white;
-	font-size:80px;
-	margin-left:60px;
-	font-family:Arial;
-	margin-top:20px;
+#logo label {
+	float: left;
+	color: white;
+	font-size: 80px;
+	margin-left: 60px;
+	font-family: Arial;
+	margin-top: 20px;
 }
 
 #header {
 	height: 150px;
 	width: 100%;
-	background-color:#10507B;
+	background-color: #10507B;
 }
 
-#header a
-{
-	margin-top:10%;
-	display:inline-block;
-	color:lightgrey;
-	width:130px;
+#header a {
+	margin-top: 10%;
+	display: inline-block;
+	color: lightgrey;
+	width: 130px;
 }
 
 #header a:visited {
-    text-decoration: none;
+	text-decoration: none;
 }
 
-#menu a:visited, a:link, a:active {
-    text-decoration: none;   
+#menu a:visited,a:link,a:active {
+	text-decoration: none;
 }
 
-#searchBar
-{
-	display:none;
+#searchBar {
+	display: none;
 }
 
-#searchBar input[type="text"]
-{
-	width:200px;
+#searchBar input[type="text"] {
+	width: 200px;
 }
 
 #header .left_zone {
@@ -261,10 +248,9 @@
 	width: 40%;
 }
 
-#body-content
-{
-	margin-left:20px;
-   	margin-top:20px;
+#body-content {
+	margin-left: 20px;
+	margin-top: 20px;
 }
 
 .sidebar-left {
@@ -273,11 +259,10 @@
 	min-height: 500px;
 }
 
-.main-content
-{
-	display:inline-block;
+.main-content {
+	display: inline-block;
 	width: 78%;
-	margin-left:20px;
+	margin-left: 20px;
 }
 
 #menu ul li {
@@ -288,4 +273,24 @@
 
 #menu ul {
 	clear: both;
+}
+
+/* Inscription */
+#signinForm label {
+	display: block;
+	width:100%;
+}
+
+#signinForm input, #signinform select {
+	display: block; 
+	width:50%; 
+}
+
+.center-body {
+	margin-left: 20%;
+	width:60%;
+}
+
+.center-body #signinForm fieldset {
+	padding: 10px;
 }

@@ -25,11 +25,11 @@ public class Address implements Serializable {
 
 	//Par convention FALSE = 0 et TRUE = 1
 	@Column(name="is_billing_address")
-	private byte isBillingaddress;
+	private boolean isBillingaddress;
 
 	//Par convention FALSE = 0 et TRUE = 1
 	@Column(name="is_delivery_address")
-	private byte isDeliveryaddress;
+	private boolean isDeliveryaddress;
 
 	@Column(name="number")
 	private String number;
@@ -57,19 +57,19 @@ public class Address implements Serializable {
 		this.idAddress = idaddress;
 	}
 
-	public byte getIsBillingaddress() {
+	public boolean getIsBillingaddress() {
 		return this.isBillingaddress;
 	}
 
-	public void setIsBillingaddress(byte isBillingaddress) {
+	public void setIsBillingaddress(boolean isBillingaddress) {
 		this.isBillingaddress = isBillingaddress;
 	}
 
-	public byte getIsDeliveryaddress() {
+	public boolean getIsDeliveryaddress() {
 		return this.isDeliveryaddress;
 	}
 
-	public void setIsDeliveryaddress(byte isDeliveryaddress) {
+	public void setIsDeliveryaddress(boolean isDeliveryaddress) {
 		this.isDeliveryaddress = isDeliveryaddress;
 	}
 

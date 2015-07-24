@@ -1,10 +1,13 @@
 package manufacture.web.user;
 
 import javax.faces.application.FacesMessage;
+import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
 import manufacture.entity.user.Address;
+import manufacture.entity.user.City;
 import manufacture.entity.user.User;
 import manufacture.ifacade.user.IConnection;
 import manufacture.ifacade.user.IInscription;
@@ -17,8 +20,8 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Component;
 
-@Component(value="signUpBean")
-@Scope(value="session")
+@ManagedBean(name="signUpBean")
+@SessionScoped
 public class SignUpBean {
 	
 	private static Logger LOGGER = Logger.getLogger(SignUpBean.class);
@@ -30,10 +33,11 @@ public class SignUpBean {
 
 	@Autowired
 	private UserBean userBean;
-
+	private String userType;
 	public SignUpBean(){
 		user = new User();
-		//		user.setAddress(new Address());
+		user.setAddress(new Address());
+		user.getAddress().setCity(new City());
 	}
 
 	/**
@@ -63,5 +67,13 @@ public class SignUpBean {
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+
+	public String getUserType() {
+		return userType;
+	}
+
+	public void setUserType(String userType) {
+		this.userType = userType;
 	}
 }
