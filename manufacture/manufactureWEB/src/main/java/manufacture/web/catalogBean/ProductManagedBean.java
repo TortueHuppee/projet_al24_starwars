@@ -246,6 +246,17 @@ public class ProductManagedBean {
 		return number;
 	}
 	
+	public void simulateAddProduct (ConstructorProduct produit){
+		
+		log.info(" =============================================================================================== ");
+		log.info(" ==================================<<< ProductManagedBean >>>================================== ");
+		log.info(" ===<<< ID produit ajouté au panier = "+produit.getIdProduct() +">>>=== ");
+		log.info(" ===<<< Nom produit ajouté au panier = "+produit.getProductRef().getProductName()+">>>=== ");
+		log.info(" ===<<< Quantité produit ajouté au panier = "+produit.getProductRef().getProductName()+">>>=== ");
+		log.info(" =============================================================================================== ");
+		
+	}
+	
 	//Getters et Setters
 
 	public int getIdProductRef() {

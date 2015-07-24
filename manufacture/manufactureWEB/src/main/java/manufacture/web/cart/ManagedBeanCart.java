@@ -47,7 +47,8 @@ public class ManagedBeanCart {
 
 	private int idSelectedProduct;
 	private Product selectedProduct;
-	private int quantity;
+	private int quantity =0;
+	private double total = 0;
 
 	private List<ConstructorProduct> listeProductBrute;
 
@@ -61,15 +62,6 @@ public class ManagedBeanCart {
 	}
 
 	public void addProductToCartBeta() {
-		CartProduct cartProduct = new CartProduct();
-		Product product = getProductFromLocalListeById(idSelectedProduct);
-		cartProduct.setProduct(product);
-		cartProduct.setQuantity(quantity);
-		// proxyCart.addProductToCart(cartProduct);
-		panier.add(cartProduct);
-	}
-
-	public void addProductToCart() {
 		CartProduct cartProduct = new CartProduct();
 		Product product = getProductFromLocalListeById(idSelectedProduct);
 		int cartProductQuantity = cartProduct.getQuantity();
@@ -91,6 +83,38 @@ public class ManagedBeanCart {
 			}
 			if (isNewProductInCart) {
 				cartProduct.setProduct(product);
+				cartProduct.setQuantity(quantity);
+				panier.add(cartProduct);
+				// proxyCart.addProductToCart(cartProduct);
+			}
+		}
+	}
+
+	public void addProductToCart(int idProductToAdd) {
+		CartProduct cartProduct = new CartProduct();
+		Product productToAdd = getProductFromLocalListeById(idProductToAdd);
+		int cartProductQuantity = cartProduct.getQuantity();
+		boolean isNewProductInCart = true;
+		log.info(" ===<<< ID produit ajouté au panier = "+idProductToAdd+">>>=== ");
+		log.info(" ===<<< Nom produit ajouté au panier = "+productToAdd.getProductRef().getProductName()+">>>=== ");
+		log.info(" ===<<< Quantité produit ajouté au panier = "+productToAdd.getProductRef().getProductName()+">>>=== ");
+		if (quantity > 0) {
+			for (CartProduct cp : panier) {
+				if (cp.getProduct().getIdProduct() == productToAdd.getIdProduct()) {
+					isNewProductInCart = false;
+					cartProductQuantity = cp.getQuantity();
+					cartProductQuantity += quantity ;
+					if (cartProductQuantity < cp.getProduct().getStock()) {
+						cp.setQuantity(cartProductQuantity);
+//						proxyCart.updateQuantityProduct(cp.getIdCartProduct(), cartProductQuantity + quantity);
+					} else {
+						cp.setQuantity(cp.getProduct().getStock());
+					}
+					break;
+				}
+			}
+			if (isNewProductInCart) {
+				cartProduct.setProduct(productToAdd);
 				cartProduct.setQuantity(quantity);
 				panier.add(cartProduct);
 				// proxyCart.addProductToCart(cartProduct);
@@ -190,6 +214,7 @@ public class ManagedBeanCart {
 		for (CartProduct cp : panier) {
 			totalPrice += getSubTotalPrice(cp.getProduct().getIdProduct());
 		}
+		total = totalPrice;
 		return totalPrice;
 	}
 	
