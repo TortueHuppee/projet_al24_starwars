@@ -15,19 +15,19 @@
 	<ui:define name="main-body">
 
 <h:form id="myForm">
-		<div class="product-description">
+    <p:growl id="growl" showDetail="true" sticky="true" />  
+  		<div class="product-description">
 			
 			<h2>
 				<h:outputLabel value="#{mbProduct.productRef.productName}" />
-				
-				<p:growl id="messages" />
-				
+
 				<p:commandButton value="Ajouter au panier"
 					action="#{mbCart.addProductToCart(mbProduct.produitAffiche.idProduct)}"
 					update="messages"/>
+				<p:commandButton update="growl" value="Ajouter au panier" action="#{mbCart.addProductToCart(mbProduct.produitAffiche.idProduct)}"/>
 			</h2>
 			<img src="#{mbProduct.productRef.urlImage}" />
-			<fieldset>
+			<fieldset> 
 				<legend>Description</legend>
 					
 					
