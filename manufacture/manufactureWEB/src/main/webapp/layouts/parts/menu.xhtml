@@ -31,20 +31,20 @@
 				onmousedown="this.src='../resources/images/catalogOrange.png';"/>
 			</h:commandLink>
 			
-			<h:commandLink action="/pages/login.xhtml" rendered="#{loginBean.isLogged()}">
+			<h:commandLink action="/pages/login.xhtml" rendered="#{not loginBean.isLogged()}">
 			<img id="boutonCompte" src="../resources/images/compteGris.png"
 				onmouseover="this.src='../resources/images/compteBleu.png';"
 				onmouseout="this.src='../resources/images/compteGris.png';"
 				onmousedown="this.src='../resources/images/compteOrange.png';"/>
 			</h:commandLink> 
 			 
-			<h:commandLink action="/pages/profil.xhtml" rendered="#{not loginBean.isLogged()}"> 
+			<h:commandLink action="/pages/profil.xhtml" rendered="#{loginBean.isLogged()}"> 
 			<img id="boutonCompte" src="../resources/images/compteGris.png"
 				onmouseover="this.src='../resources/images/compteBleu.png';"
 				onmouseout="this.src='../resources/images/compteGris.png';"
 				onmousedown="this.src='../resources/images/compteOrange.png';"/>
 			</h:commandLink>
-			
+			 
 			<h:commandLink action="/pages/panier">
 			<img id="boutonPanier" src="../resources/images/panierGris.png"
 				onmouseover="this.src='../resources/images/panierBleu.png';"
