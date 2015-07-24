@@ -6,7 +6,11 @@
 	xmlns:p="http://primefaces.org/ui">
 
 
-	<ui:define name="panier-body">
+	<ui:define name="stylesheets">
+		<h:outputStylesheet name="panierCss.css" library="css" />
+	</ui:define>
+
+	<ui:define name="main-body">
 		<h:form id="listeProduitPanier">
 			<div>
 				<div title="à repeter">
@@ -25,7 +29,9 @@
 									<h:commandButton value="+"
 										action="#{mbCart.incrementProductQuantity(produit.product.idProduct)}" />
 								</div>
-								<div class="itemLignePanier">modifier</div>
+								<div class="itemLignePanier"><p:commandButton value="Modifier"
+										styleClass="bouton"
+										action="detailproduit.xhtml" /></div>
 								<!-- <div class="itemLignePanier">quantite</div>  -->
 								<div class="itemLignePanier">"#{produit.product.price}"</div>
 								<div class="itemLignePanier">"#{mbCart.getSubTotalPrice(produit.product.idProduct)}"</div>
