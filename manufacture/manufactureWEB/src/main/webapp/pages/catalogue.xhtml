@@ -1,43 +1,33 @@
-<ui:composition template="recherche.xhtml"
+<ui:composition template="/layouts/catalogue_layout.xhtml"
 	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:p="http://primefaces.org/ui"
-	>
+	xmlns:p="http://primefaces.org/ui">
+	
+	<ui:define name="main-body">
+		<f:view>
+			<h:form id="myForm">
 
-	<ui:define name="catalogue-body">
-		<div class="article-wrapper">
-			<div class="article-name">Nom</div>
-			<div class="article-description">Description</div>
-			<div class="article-description">Prix</div>
-		</div>
-		<div class="article-wrapper">
-			<div class="article-name">Nom</div>
-			<div class="article-description">Description</div>
-			<div class="article-description">Prix</div>
-		</div>
-		<div class="article-wrapper">
-			<div class="article-name">Nom</div>
-			<div class="article-description">Description</div>
-			<div class="article-description">Prix</div>
-		</div>
-		<div class="article-wrapper">
-			<div class="article-name">Nom</div>
-			<div class="article-description">Description</div>
-			<div class="article-description">Prix</div>
-		</div>
-		<div class="article-wrapper">
-			<div class="article-name">Nom</div>
-			<div class="article-description">Description</div>
-			<div class="article-description">Prix</div>
-		</div>
-		<div class="article-wrapper">
-			<div class="article-name">Nom</div>
-			<div class="article-description">Description</div>
-			<div class="article-description">Prix</div>
-		</div>
-  	</ui:define>
+				<ui:repeat var="produit" value="#{mbCatalog.listeProduitAffichee}">
+					<div class="article-wrapper">
 
+						<h:commandLink action="#{mbProduct.detailProduit(produit.id)}">
+							<f:param name="idProductRef" value="#{produit.id}" />
+
+							
+								<div class="article-name">#{produit.nom}</div>
+								 <!-- 				<img src="#{produit.urlPhoto}" /> -->
+								<div class="article-description">#{produit.prixMin}
+									Crédits</div>
+							
+
+						</h:commandLink>
+					</div>
+				</ui:repeat>
+
+			</h:form>
+		</f:view>
+	</ui:define>
 
 </ui:composition>

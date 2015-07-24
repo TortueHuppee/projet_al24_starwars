@@ -14,12 +14,37 @@
 <h:body>
 	<ui:composition>
 		<h:form>
-			<div id="divMenuLogo">
-				<h:graphicImage
-					value="/manufactureWEB/src/main/webapp/layouts/parts/apple.png"
-					onclick="" />
-			</div>
 			<div id="divMenu">
+			
+			<h:commandLink action="/pages/index">
+					<img id="boutonAcceuil" onclick="#{mbNavigation.goToAccueil()}"
+						src="../resources/images/accueilGris.png"
+						onmousedown="this.src='../resources/images/accueilOrange.png';"
+						onmouseover="this.src='../resources/images/accueilBleu.png';"
+						onmouseout="this.src='../resources/images/accueilGris.png';" />
+			</h:commandLink>
+			
+			<h:commandLink action="/pages/catalogue">
+			<img id="boutonCatalogue" src="../resources/images/catalogGris.png"
+				onmouseover="this.src='../resources/images/catalogBleu.png';"
+				onmouseout="this.src='../resources/images/catalogGris.png';"
+				onmousedown="this.src='../resources/images/catalogOrange.png';"/>
+			</h:commandLink>
+			
+			<h:commandLink action="/pages/catalogue">
+			<img id="boutonCompte" src="../resources/images/compteGris.png"
+				onmouseover="this.src='../resources/images/compteBleu.png';"
+				onmouseout="this.src='../resources/images/compteGris.png';"
+				onmousedown="this.src='../resources/images/compteOrange.png';"/>
+			</h:commandLink>
+			
+			<h:commandLink action="/pages/panier">
+			<img id="boutonPanier" src="../resources/images/panierGris.png"
+				onmouseover="this.src='../resources/images/panierBleu.png';"
+				onmouseout="this.src='../resources/images/panierGris.png';"
+				onmousedown="this.src='../resources/images/panierOrange.png';"/>
+			</h:commandLink>
+			
 				<!-- div qui contient le logo -->
 				<div id="divMenuBtn" class="logo">
 

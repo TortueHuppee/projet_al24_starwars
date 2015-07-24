@@ -4,44 +4,32 @@
 	xmlns:composite="http://java.sun.com/jsf/composite"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
-		
+
 	<h:form>
-		<table border="1" width="100%">
-				<tr>
-					<td><h:outputLabel
-							value="Je fais un truc de très sale ici en espérant que mon coeur ne le voit pas :3" />
-					</td>
-				</tr>
+		<div id="divRecherche">
+			<p:fieldset legend="Basic" styleClass="al24FielSetContainer">
+				<div>
+					<p:fieldset legend="reference" styleClass="al24FielSetRecherche">
+						<h:panelGrid columns="2" cellpadding="5">
+							<span>Reference : <p:inputText id="inputReference" /></span>
 
-				<tr>
-					<td><h:commandButton value="Réinitialiser">
-							<f:ajax listener="#{mbCatalog.reinitialiseListeAffichee()}"
-								render=":myForm" event="click" />
-						</h:commandButton></td>
-				</tr>
+						</h:panelGrid>
+					</p:fieldset>
+				</div>
+				<div>
+					<p:fieldset legend="categorie" styleClass="al24FielSetRecherche">
+						<h:panelGrid columns="2" cellpadding="5">
+							<span>Type : <p:inputText id="inputType" /></span>
+							<span>Catégorie : <p:inputText id="inputCategorie" /></span>
+						</h:panelGrid>
+					</p:fieldset>
+				</div>
+				<div>
+					<p:fieldset legend="options" styleClass="al24FielSetRecherche">
+						<h:panelGrid columns="2" cellpadding="5">
 
-				<tr>
-					<td><h:commandButton value="Trier par prix">
-							<f:ajax listener="#{mbCatalog.trierParPrix()}" render=":myForm"
-								event="click" />
-						</h:commandButton> <h:commandButton value="Reverse">
-							<f:ajax listener="#{mbCatalog.reverseTrierParPrix()}"
-								render=":myForm" event="click" />
-						</h:commandButton></td>
-				</tr>
-
-				<tr>
-					<td>
-						<!-- Filtre Catégorie -->
-						<h:selectOneMenu value="#{mbCatalog.idCategorySelected}">
-							<f:selectItems  var="item"
-											value="#{mbCatalog.listeCatégories}"
-											itemLabel="#{item.categoryName}"
-											itemValue="#{item.idCategory}"/>
-							<f:ajax event="change" listener="#{mbCatalog.initialisationListeAffichee()}" render=":myForm"/>
-						</h:selectOneMenu>
-						
-						<!-- Filtre Couleur -->
+							<!-- Filtre Couleur -->
+						<span>Couleur :</span> 
 						<h:selectOneMenu value="#{mbCatalog.idColorSelected}">
 							<f:selectItem	itemLabel="-- Sélectionner une couleur -- "
 											itemValue="0"/>
@@ -53,6 +41,7 @@
 						</h:selectOneMenu>
 						
 						<!-- Filtre Matériaux -->
+						<span>Matériaux :</span>
 						<h:selectOneMenu value="#{mbCatalog.idMaterialSelected}">
 							<f:selectItem	itemLabel="-- Sélectionner un matériau -- "
 											itemValue="0"/>
@@ -64,6 +53,7 @@
 						</h:selectOneMenu>
 						
 						<!-- Filtre Vaisseaux -->
+						<span>Modèle de vaisseaux :</span>
 						<h:selectOneMenu value="#{mbCatalog.idSpaceShipSelected}">
 							<f:selectItem	itemLabel="-- Sélectionner un modèle de vaisseau -- "
 											itemValue="0"/>
@@ -75,6 +65,7 @@
 						</h:selectOneMenu>
 						
 						<!-- Filtre Constructeurs -->
+						<span>Constructeur :</span>
 						<h:selectOneMenu value="#{mbCatalog.idConstructorSelected}">
 							<f:selectItem	itemLabel="-- Sélectionner un constructeur -- "
 											itemValue="0"/>
@@ -84,9 +75,10 @@
 											itemValue="#{item.idConstructor}"/>
 							<f:ajax event="change" listener="#{mbCatalog.initialisationListeAffichee()}" render=":myForm"/>
 						</h:selectOneMenu>
-					</td>
-				</tr>
-
-			</table>
-		</h:form>
+						</h:panelGrid>
+					</p:fieldset>
+				</div>
+			</p:fieldset>
+		</div>
+	</h:form>
 </ui:composition>

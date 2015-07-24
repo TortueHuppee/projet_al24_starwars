@@ -1,5 +1,5 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition template="/layouts/master_layout.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:rich="http://richfaces.org/rich"
@@ -7,25 +7,72 @@
 	xmlns:composite="http://java.sun.com/jsf/composite"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
-<h:head>
-	<link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
-</h:head>
-<h:body>
 
-	<div>
-		<ui:insert>
-			<ui:include src="menu.xhtml" />
-		</ui:insert>
-	</div>
-	<div>
-		<ui:insert>
-			<ui:include src="infosimpleproduit.xhtml" />
-		</ui:insert>
-	</div>
-	<div>
-		<ui:insert>
-			<ui:include src="options.xhtml" />
-		</ui:insert>
-	</div>
-</h:body>
-</html>
+	<ui:define name="main-body">
+
+<h:form id="myForm">
+		<div class="product-description">			<h2>
+				<h:outputLabel value="#{mbProduct.productRef.productName}" />
+			</h2>
+			<h4>
+				<h:commandButton value="Ajouter au panier">
+					<f:ajax listener=""	render=":myForm" event="click" />
+				</h:commandButton></td>
+						
+				Catégorie : <h:outputLabel value="#{mbProduct.productRef.category.categoryName}" />
+				<br/>
+				<h:outputLabel value="#{mbProduct.productRef.urlImage}" />
+				<br/>
+				Prix : <h:outputLabel value="#{mbProduct.DoubleFormat(mbProduct.produitAffiche.price)} Crédits" />
+				<br/>
+				Quantité : <p:spinner id="minMax" min="1" max="#{mbProduct.quantiteDispo}" />
+			</h4>
+
+			<h:outputText value="#{mbProduct.productRef.description}" />
+			Modèles de vaisseaux :
+			<ul>
+				<ui:repeat var="vaisseau" value="#{mbProduct.listeVaisseaux}">
+					<li>#{vaisseau.spaceshipName}</li>
+				</ui:repeat>
+			</ul>
+
+		</div>
+
+		<div class="product-options">
+			<h2>Options</h2>
+			
+			<!-- Filtre Couleur -->
+			<h:selectOneMenu value="#{mbProduct.idColorSelected}">
+				<f:selectItems var="item" value="#{mbProduct.listeCouleurs}"
+							itemLabel="#{item.colorName}"
+							itemValue="#{item.idColor}" />
+				<f:ajax event="change"
+					listener="#{mbProduct.filtrerListeProduitsParCouleur()}"
+					render=":myForm" />
+			</h:selectOneMenu>
+			
+			<!-- Filtre Matériaux -->
+			<h:selectOneMenu value="#{mbProduct.idMaterialSelected}">
+				<f:selectItems var="item" value="#{mbProduct.listeMateriaux}"
+							itemLabel="#{item.materialName}"
+							itemValue="#{item.idMaterial}" />
+				<f:ajax event="change"
+					listener="#{mbProduct.filtrerListeProduitsParMateriaux()}"
+					render=":myForm" />
+			</h:selectOneMenu>
+
+			<!-- Filtre Constructeur -->
+			<h:selectOneMenu value="#{mbProduct.idConstructorSelected}">
+				<f:selectItems var="item" value="#{mbProduct.listeConstructeurs}"
+							itemLabel="#{item.constructorName}"
+							itemValue="#{item.idConstructor}" />
+				<f:ajax event="change"
+					listener="#{mbProduct.filtrerListeProduitsParConstructeur()}"
+					render=":myForm" />
+			</h:selectOneMenu>
+
+		</div>
+</h:form>
+	</ui:define>
+
+</ui:composition>
