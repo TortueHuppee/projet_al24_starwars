@@ -50,23 +50,37 @@ public class ManagedBeanCart {
 		listeProductBrute = proxyCatalog.getAllConstructorProduct();
 	}
 	
-	public void addProductToCart(){
+	public void addProductToCart(int idProductToAdd) {
 		CartProduct cartProduct = new CartProduct();
-		Product product = getProductFromLocalListeById(idSelectedProduct);
-		log.info("Product ID : " + product.getIdProduct());
-		log.info("Product Name : " + product.getProductRef().getProductName());
-		cartProduct.setProduct(product);
-		cartProduct.setQuantity(quantity);
-		log.info("Product Quantity : " + quantity);
-//		proxyCart.addProductToCart(cartProduct);
-		log.info("=====================================  Before cartProduct  ===================================== ");
-		panier.add(cartProduct);
-		log.info("=====================================  After cartProduct  ===================================== ");
+		Product productToAdd = getProductFromLocalListeById(idProductToAdd);
+		int cartProductQuantity = cartProduct.getQuantity();
+		boolean isNewProductInCart = true;
+		log.info(" ===<<< ID produit ajouté au panier = "+idProductToAdd+">>>=== ");
+		log.info(" ===<<< Nom produit ajouté au panier = "+productToAdd.getProductRef().getProductName()+">>>=== ");
+		log.info(" ===<<< Quantité produit ajouté au panier = "+productToAdd.getProductRef().getProductName()+">>>=== ");
+		if (quantity > 0) {
+			for (CartProduct cp : panier) {
+				if (cp.getProduct().getIdProduct() == productToAdd.getIdProduct()) {
+					isNewProductInCart = false;
+					cartProductQuantity = cp.getQuantity();
+					cartProductQuantity += quantity ;
+					if (cartProductQuantity < cp.getProduct().getStock()) {
+						cp.setQuantity(cartProductQuantity);
+//						proxyCart.updateQuantityProduct(cp.getIdCartProduct(), cartProductQuantity + quantity);
+					} else {
+						cp.setQuantity(cp.getProduct().getStock());
+					}
+					break;
+				}
+			}
+			if (isNewProductInCart) {
+				cartProduct.setProduct(productToAdd);
+				cartProduct.setQuantity(quantity);
+				panier.add(cartProduct);
+				// proxyCart.addProductToCart(cartProduct);
+			}
 		}
-	
-//	public List<CartProduct> getAllCartProducts() {
-//		return panier;	
-//	}
+	}
 	
 	public void getStockByProductId(){
 		for (Product product : listeProductBrute) {
