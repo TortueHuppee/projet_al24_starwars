@@ -28,10 +28,9 @@ public class SignUpBean {
 	
 	private User user;
 	
-	@Autowired
+	@ManagedProperty(value="#{inscription}")
 	private IInscription proxyInscription;
-
-	@Autowired
+	@ManagedProperty(value="#{userBean}")
 	private UserBean userBean;
 	private String userType;
 	public SignUpBean(){
@@ -46,9 +45,9 @@ public class SignUpBean {
 	 * @return String
 	 */
 	public String createUser(){
-		user = proxyInscription.createAccount(user);
+		user = getProxyInscription().createAccount(user);
 		if(user.getIdUser() != null){
-			userBean.setUser(user); //Realise la connexion automatique au site
+			getUserBean().setUser(user); //Realise la connexion automatique au site
 			return "index.xhtml?faces-redirect=true"; 
 		}else{
 			//Affiche un message d'erreur a l'utilisateur
@@ -75,5 +74,21 @@ public class SignUpBean {
 
 	public void setUserType(String userType) {
 		this.userType = userType;
+	}
+
+	public IInscription getProxyInscription() {
+		return proxyInscription;
+	}
+
+	public void setProxyInscription(IInscription proxyInscription) {
+		this.proxyInscription = proxyInscription;
+	}
+
+	public UserBean getUserBean() {
+		return userBean;
+	}
+
+	public void setUserBean(UserBean userBean) {
+		this.userBean = userBean;
 	}
 }

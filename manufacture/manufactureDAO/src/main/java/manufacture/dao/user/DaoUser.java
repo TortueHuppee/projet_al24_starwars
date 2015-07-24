@@ -88,6 +88,8 @@ public class DaoUser implements IDaoUser {
 	public User openAccount(User user) {
 		Session session = sf.getCurrentSession();
 		LOGGER.info("user pre save : "+user.getIdUser());
+		session.save(user.getAddress().getCity());
+		session.save(user.getAddress());
 		session.save(user);
 		LOGGER.info("user saved : "+user.getIdUser());
 		return user;		

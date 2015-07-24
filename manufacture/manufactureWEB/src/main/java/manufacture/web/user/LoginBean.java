@@ -24,10 +24,10 @@ public class LoginBean {
 	
 	private static Logger LOGGER = Logger.getLogger(LoginBean.class);
 	
-	@Autowired
-	private IConnection proxyConnection;
+	@ManagedProperty(value="#{connection}")
+	private IConnection proxyConnection; 
 
-	@Autowired
+	@ManagedProperty(value="#{userBean}")
 	private UserBean userBean; 
 	private User user;
 	
@@ -77,4 +77,8 @@ public class LoginBean {
 	public void setProxyConnection(IConnection proxyConnection) {
 		this.proxyConnection = proxyConnection;
 	}
+	
+	public boolean isLogged(){
+		return user == null ? false : true;
+	} 
 }
