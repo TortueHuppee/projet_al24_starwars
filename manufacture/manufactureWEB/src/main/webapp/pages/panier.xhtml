@@ -1,76 +1,35 @@
 <ui:composition template="/layouts/master_layout.xhtml"
 	xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:composite="http://java.sun.com/jsf/composite"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
 
-
-	<ui:define name="stylesheets">
-		<h:outputStylesheet name="panierCss.css" library="css" />
-	</ui:define>
-
 	<ui:define name="main-body">
-		<h:form id="listeProduitPanier">
-			<div>
-				<div title="à repeter">
-					<ui:repeat var="produit" value="#{mbCart.panier}">
-						<p:fieldset id="cartProduct" styleClass="al24FielSetPanier">
-							<h:panelGrid columns="9" cellpadding="5">
-								<!-- <div class="itemLignePanier">"#{produit.product.productRef.urlImage}"</div>  -->
-								<div class="itemLignePanier">"#{produit.product.productRef.productName}"</div>
-								<!-- <div class="itemLignePanier">"#{produit.product.productRef.description}"</div>  -->
-								<div class="itemLignePanier">
-									<!-- "#{mbCart.refreshQuantity(produit)}"  -->
-									<!-- je voudrais que tous les trois soient allignes  -->
-									<h:commandButton value="-"
-										action="#{mbCart.decrementProductQuantity(produit.product.idProduct)}" />
-									<h:outputText value="#{produit.quantity}" />
-									<h:commandButton value="+"
-										action="#{mbCart.incrementProductQuantity(produit.product.idProduct)}" />
-								</div>
-								<div class="itemLignePanier"><p:commandButton value="Modifier"
-										styleClass="bouton"
-										action="detailproduit.xhtml" /></div>
-								<!-- <div class="itemLignePanier">quantite</div>  -->
-								<div class="itemLignePanier">"#{produit.product.price}"</div>
-								<div class="itemLignePanier">"#{mbCart.getSubTotalPrice(produit.product.idProduct)}"</div>
-								<div>
-									<p:commandButton value="Supprimer" id="ajax00"
-										styleClass="bouton"
-										action="#{mbCart.deleteProductFromCart(produit.product.idProduct)}"
-										update=":listeProduitPanier" />
-								</div>
-							</h:panelGrid>
-						</p:fieldset>
-					</ui:repeat>
+	
+		<h:form id="myform">
+			<h:selectonemenu value="#{mbcart.idselectedproduct}"> <!-- ajouter une methode ds mbcart qui retourne une liste de produits -->
+				<f:selectitems  var="item"
+											value="#{mbcart.listeproductbrute}"
+											itemlabel="#{item.productref.productname}"
+											itemvalue="#{item.idproduct}"/>
+<!-- 		<f:ajax event="change" listener="#{mbcatalog.initialisationlisteaffichee()}" render="myform"/>  -->
+			</h:selectonemenu>
+			<h:commandbutton value="ajouter au panier" action="#{mbcart.addproducttocart()}" >
+			</h:commandbutton>
+			<h:inputtext value="#{mbcart.quantity}" /> 
+			<p:spinner value="#{mbcart.quantity}" />
+<!--			<h:outputlabel for="minmax" value="quantity " /> -->
+<!--       		<p:spinner id="minmax" value="#{mbcart.quantity}" min="1" max="#{mbcart.productstock}" /> -->
 
-
-				</div>
-				<div>
-					<p:fieldset styleClass="al24FielSetPanier">
-						<h:panelGrid columns="3" cellpadding="5">
-							<!--	Je ne vois à quoi ça doit correspondre -->
-							<!--	<div class="itemLignePanier">quantite totale</div> -->
-							<div class="itemLignePanier">"#{mbCart.getTotalPrice()}"</div>
-							<div class="itemLignePanier">
-								<h:commandButton value="Vider le Panier"
-									action="#{mbCart.cleanCart()}" update=":listeProduitPanier" />
-							</div>
-						</h:panelGrid>
-					</p:fieldset>
-				</div>
-			</div>
-			<div>
-				<p:commandButton value="Passer Commande" id="ajax0"
-					styleClass="boutonPasserCommande" />
-
-
-			</div>
-
-
+			<h:commandbutton value="détail panier" action="detailpanier.xhtml" >
+			</h:commandbutton>
+			
 		</h:form>
+	
 	</ui:define>
-
-
+		
 </ui:composition>
