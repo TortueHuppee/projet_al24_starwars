@@ -7,7 +7,7 @@
 
 
 	<ui:define name="panier-body">
-		<h:form id="listeProduitPanier">
+		<h:form>
 			<div>
 				<div title="à repeter">
 					<ui:repeat var="produit" value="#{mbCart.panier}">
@@ -17,40 +17,49 @@
 								<div class="itemLignePanier">"#{produit.product.productRef.productName}"</div>
 								<!-- <div class="itemLignePanier">"#{produit.product.productRef.description}"</div>  -->
 								<div class="itemLignePanier">
-									<!-- "#{mbCart.refreshQuantity(produit)}"  -->
-									<!-- je voudrais que tous les trois soient allignes  -->
-									<h:commandButton value="-"
-										action="#{mbCart.decrementProductQuantity(produit.product.idProduct)}" />
-									<h:outputText value="#{produit.quantity}" />
-									<h:commandButton value="+"
-										action="#{mbCart.incrementProductQuantity(produit.product.idProduct)}" />
+								<!-- "#{mbCart.refreshQuantity(produit)}"  -->
+									<p:spinner id="minMax" value="#{produit.quantity}" min="1"
+										max="#{produit.product.stock}" />
+									<f:ajax event="click"
+										listener="#{mbCart.upadateProductQuantityWithSpinner(produit.product.idProduct, mbCart.quantity)}"
+										render="cartProduct" />
 								</div>
 								<div class="itemLignePanier">modifier</div>
 								<!-- <div class="itemLignePanier">quantite</div>  -->
 								<div class="itemLignePanier">"#{produit.product.price}"</div>
 								<div class="itemLignePanier">"#{mbCart.getSubTotalPrice(produit.product.idProduct)}"</div>
 								<div>
-									<p:commandButton value="Supprimer" id="ajax00"
+									<p:commandButton value="Effacer" id="ajax00"
 										styleClass="bouton"
-										action="#{mbCart.deleteProductFromCart(produit.product.idProduct)}"
-										update=":listeProduitPanier" />
+										action="#{mbCart.deleteProductFromCart(produit.product.idProduct)}" />
 								</div>
 							</h:panelGrid>
 						</p:fieldset>
 					</ui:repeat>
 
-
+					<p:fieldset styleClass="al24FielSetPanier">
+						<h:panelGrid columns="9" cellpadding="5">
+							<div class="itemLignePanier">image</div>
+							<div class="itemLignePanier">titre</div>
+							<div class="itemLignePanier">texte descriptif</div>
+							<div class="itemLignePanier">bouton +/-</div>
+							<div class="itemLignePanier">modifier</div>
+							<div class="itemLignePanier">quantite</div>
+							<div class="itemLignePanier">prix unitaire</div>
+							<div class="itemLignePanier">total</div>
+							<div>
+								<p:commandButton value="effacer" id="ajax450"
+									styleClass="bouton" />
+							</div>
+						</h:panelGrid>
+					</p:fieldset>
 				</div>
 				<div>
 					<p:fieldset styleClass="al24FielSetPanier">
 						<h:panelGrid columns="3" cellpadding="5">
-							<!--	Je ne vois à quoi ça doit correspondre -->
-							<!--	<div class="itemLignePanier">quantite totale</div> -->
-							<div class="itemLignePanier">"#{mbCart.getTotalPrice()}"</div>
-							<div class="itemLignePanier">
-								<h:commandButton value="Vider le Panier"
-									action="#{mbCart.cleanCart()}" update=":listeProduitPanier" />
-							</div>
+							<div class="itemLignePanier">quantite totale</div>
+							<div class="itemLignePanier">grand total</div>
+							<div class="itemLignePanier">effacer tout le panier</div>
 						</h:panelGrid>
 					</p:fieldset>
 				</div>
@@ -58,10 +67,7 @@
 			<div>
 				<p:commandButton value="Passer Commande" id="ajax0"
 					styleClass="boutonPasserCommande" />
-
-
 			</div>
-
 
 		</h:form>
 	</ui:define>
