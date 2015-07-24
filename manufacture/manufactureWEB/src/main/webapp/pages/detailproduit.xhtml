@@ -20,7 +20,7 @@
 			
 			<h2>
 				<h:outputLabel value="#{mbProduct.productRef.productName}" />
-
+				
 				<p:commandButton update="growl" value="Ajouter au panier" action="#{mbCart.addProductToCart(mbProduct.produitAffiche.idProduct)}"/>
 			</h2>
 			<img src="#{mbProduct.productRef.urlImage}" />
@@ -42,6 +42,7 @@
 					<h:outputLabel value="#{mbProduct.productRef.description}" />
 					
 					<h:outputLabel value="Modèles de vaisseaux compatibles :" />
+					
 					<ul>
 						<ui:repeat var="vaisseau" value="#{mbProduct.listeVaisseaux}">
 							<li>#{vaisseau.spaceshipName}</li>

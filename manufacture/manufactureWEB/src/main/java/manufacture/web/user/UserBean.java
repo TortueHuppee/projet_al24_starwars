@@ -27,4 +27,8 @@ public class UserBean {
 	public void setUser(User user) {
 		this.user = user;
 	}
+	
+	public boolean isLogged(){
+		return user == null ? false : true; 
+	}
 }

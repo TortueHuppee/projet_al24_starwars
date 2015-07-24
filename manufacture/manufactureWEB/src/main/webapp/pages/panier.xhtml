@@ -59,16 +59,16 @@
 									update=":myForm" />
 							</td>						
 						</tr>
-					</ui:repeat>	
-
+					</ui:repeat>
+					
 				</table>
 
 				<div class="recapCommande">
 					<h:outputLabel value="Prix total (crédits) :" />
 					<h:outputLabel value="#{mbProduct.DoubleFormat(mbCart.getTotalPrice())}" />
 					<br/>
-					<p:commandButton value="Passer Commande" action="paiement.xhtml" />
-				</div>
+					<p:commandButton value="Passer Commande" action="#{paymentBean.processPayment()}" />
+				</div>  
 
 
 			</div>

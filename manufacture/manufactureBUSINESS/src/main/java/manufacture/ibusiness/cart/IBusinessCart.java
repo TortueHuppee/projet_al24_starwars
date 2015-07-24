@@ -35,7 +35,7 @@ public interface IBusinessCart {
 	
 	void orderSpecificCommande(int idCart);
 	
-	void validatePayment(int idCart);
+	Cart validatePayment(Cart cart);
 	
 	void createNewCart(int idUser);
 	

@@ -33,10 +33,10 @@ public class Cart implements Serializable {
 	private Date datePayment;
 
 	@Column(name="is_paid")
-	private byte isPaid;
+	private boolean isPaid;
 
 	@Column(name="is_validated")
-	private byte isValidated;
+	private boolean isValidated;
 
 	@Column(name="transaction_number")
 	private int transactionNumber;
@@ -87,19 +87,19 @@ public class Cart implements Serializable {
 		this.datePayment = datePayment;
 	}
 
-	public byte getIsPaid() {
+	public boolean getIsPaid() {
 		return this.isPaid;
 	}
 
-	public void setIsPaid(byte isPaid) {
+	public void setIsPaid(boolean isPaid) {
 		this.isPaid = isPaid;
 	}
 
-	public byte getIsValidated() {
+	public boolean getIsValidated() {
 		return this.isValidated;
 	}
 
-	public void setIsValidated(byte isValidated) {
+	public void setIsValidated(boolean isValidated) {
 		this.isValidated = isValidated;
 	}
 

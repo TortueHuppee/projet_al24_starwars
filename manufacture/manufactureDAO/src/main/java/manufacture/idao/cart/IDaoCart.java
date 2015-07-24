@@ -14,7 +14,7 @@ public interface IDaoCart {
 	//Gestion de la commande
 //	double getTotalPrice(int idCart);
 	
-	void validatePayment(int idCart); // change boolean to true
+	Cart validatePayment(Cart cart); // change boolean to true
 	
 	int createNewCart(int idUser);  // if user connected
 	

@@ -60,7 +60,7 @@ public class User implements Serializable {
 	private String userName;
 
 	//bi-directional many-to-one association to Cart
-	@OneToMany(mappedBy="user")
+	@OneToMany(mappedBy="user",fetch=FetchType.EAGER)
 	private List<Cart> carts;
 
 	//bi-directional many-to-one association to Product

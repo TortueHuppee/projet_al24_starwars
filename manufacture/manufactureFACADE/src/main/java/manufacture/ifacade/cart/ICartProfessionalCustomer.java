@@ -23,10 +23,11 @@ public interface ICartProfessionalCustomer {
 	
 	void orderProfessionalCommande(int idCart);
 	
-	void validatePayment(int idCart);
+	void validatePayment(Cart cart);
 	
 	void createNewCart(int idUser);
 	
 	void sendRecall(int idUser);
+
 	
 }

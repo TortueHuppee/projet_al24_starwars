@@ -81,7 +81,7 @@ public class BusinessCart implements IBusinessCart {
 		//dateCommande, isValidated
 		Cart commande = proxyCart.getCartByIdCart(idCart);
 		commande.setDateCommande(new Date());
-		commande.setIsValidated((byte) 1);
+		commande.setIsValidated(true);
 		proxyCart.updateCart(commande);
 	}
 
@@ -91,13 +91,13 @@ public class BusinessCart implements IBusinessCart {
 		//dateCommande, isValidated
 		Cart commande = proxyCart.getCartByIdCart(idCart);
 		commande.setDateCommande(new Date());
-		commande.setIsValidated((byte) 1);
+		commande.setIsValidated(true);
 		proxyCart.updateCart(commande);
 	}
 
 	@Override
-	public void validatePayment(int idCart) {
-		proxyCart.validatePayment(idCart);
+	public Cart validatePayment(Cart cart) {
+		return proxyCart.validatePayment(cart);
 	}
 
 	@Override

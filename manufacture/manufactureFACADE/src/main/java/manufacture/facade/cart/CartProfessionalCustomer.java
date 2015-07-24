@@ -6,6 +6,7 @@ import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import manufacture.entity.cart.Cart;
 import manufacture.entity.cart.CartProduct;
 import manufacture.entity.product.Product;
 import manufacture.facade.util.ClassPathLoader;
@@ -43,8 +44,8 @@ public class CartProfessionalCustomer implements ICartProfessionalCustomer {
 	}
 
 	@Override
-	public void validatePayment(int idCart) {
-		proxyCart.validatePayment(idCart);
+	public void validatePayment(Cart cart) {
+		proxyCart.validatePayment(cart);
 	}
 
 	@Override

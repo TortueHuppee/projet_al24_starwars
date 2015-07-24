@@ -6,17 +6,13 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
+import manufacture.entity.cart.Cart;
+import manufacture.entity.cart.CartProduct;
 import manufacture.entity.user.User;
-import manufacture.ifacade.catalog.ICatalog;
 import manufacture.ifacade.user.IConnection;
-import manufacture.web.util.ClassPathLoader;
+import manufacture.web.cart.ManagedBeanCart;
 
 import org.apache.log4j.Logger;
-import org.springframework.beans.factory.BeanFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.stereotype.Component;
 
 @ManagedBean(name="loginBean")
 @SessionScoped
@@ -28,7 +24,11 @@ public class LoginBean {
 	private IConnection proxyConnection; 
 
 	@ManagedProperty(value="#{userBean}")
-	private UserBean userBean; 
+	private UserBean userBean;
+	
+	@ManagedProperty(value="#{mbCart}")
+	private ManagedBeanCart mbCart;
+	
 	private User user;
 	
 	public LoginBean(){
@@ -44,9 +44,33 @@ public class LoginBean {
             context.addMessage(null, message);		
             return "login.xhtml?faces-redirect=true";
 		}
-		userBean.setUser(userTmp); 
+		userBean.setUser(userTmp);
+		mergeCarts();
 		return "index.xhtml?faces-redirect=true";
 	} 
+	
+	/**
+	 * Permet de melanger le cart de l'utilisateur existant, et le cart en cours afin d'obtenir un cart unique
+	 */
+	private void mergeCarts(){
+		Cart currentUserCart = mbCart.getCurrentUserCart();
+		Cart currentCart = mbCart.getSpecificUserCart();
+		if(currentUserCart.getCartProducts().size() > 0){
+			if(currentCart.getCartProducts().size() == 0){
+				mbCart.setSpecificUserCart(currentUserCart);
+			}else{
+				currentCart.setUser(userBean.getUser());
+				for(CartProduct productUser : currentUserCart.getCartProducts()){
+					for(CartProduct currentCartProduct: currentCart.getCartProducts()){
+						if(productUser.getProduct().getIdProduct() == currentCartProduct.getProduct().getIdProduct()){
+							currentCartProduct.setQuantity(currentCartProduct.getQuantity()+productUser.getQuantity());
+						}
+					}
+				}
+			} 
+			mbCart.setSpecificUserCart(currentCart);
+		}
+	}
 	
 	public String doLogout(){
 		userBean.setUser(null);
@@ -80,5 +104,13 @@ public class LoginBean {
 	
 	public boolean isLogged(){
 		return user == null ? false : true;
+	}
+
+	public ManagedBeanCart getMbCart() {
+		return mbCart;
+	}
+
+	public void setMbCart(ManagedBeanCart mbCart) {
+		this.mbCart = mbCart;
 	} 
 }

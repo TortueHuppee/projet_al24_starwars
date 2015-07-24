@@ -8,7 +8,7 @@
 	<ui:define name="main-body">
 		<f:view>
 			<h:form id="myForm">
-				<div>
+				<div class="center-body payment-form">
 					<div>
 					
 						
@@ -17,7 +17,7 @@
 						</div>
 						<div>
 						<span>Total à payer : </span>
-							<span>#{mbProduct.DoubleFormat(total)}</span>
+							<span><h:outputText value="#{mbProduct.DoubleFormat(mbCart.getTotalPrice())}" /> Crédits</span>
 						</div>
 						<div>
 							<span>Nom titulaire carte* : </span>
@@ -42,26 +42,23 @@
 					<div>
 						<div>
 							<p:commandButton value="Oui, je confirme le paiement" id="btnValider"
-								styleClass="bouton" action="#{paymentBean.valider()}"
-								update="reponse reponse2 reponse3" />
-						</div>
-						<div>
+								styleClass="bouton" action="#{paymentBean.valider()}" /> 
 							<p:commandButton value="Annuler" id="btnAnnuler"
 								styleClass="bouton" action="panier.xhtml" />
 						</div>
 					</div>
 
-					<p:panel id="reponse">
-						<h:outputText value="#{paymentBean.reponse}" />
-					</p:panel>
-					<p:panel id="reponse2">
-						<h:outputText value="#{paymentBean.cardNumber}" />
-					</p:panel>
-					<p:panel id="reponse3">
-						<h:outputText value="#{paymentBean.pin}" />
-					</p:panel>
+<!-- 					<p:panel id="reponse"> -->
+<!-- 						<h:outputText value="#{paymentBean.reponse}" /> -->
+<!-- 					</p:panel> -->
+<!-- 					<p:panel id="reponse2"> -->
+<!-- 						<h:outputText value="#{paymentBean.cardNumber}" /> -->
+<!-- 					</p:panel> -->
+<!-- 					<p:panel id="reponse3"> -->
+<!-- 						<h:outputText value="#{paymentBean.pin}" /> -->
+<!-- 					</p:panel> -->
 
-				</div>
+				</div> 
 
 
 			</h:form>

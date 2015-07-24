@@ -18,14 +18,11 @@
     </h:outputLink>  	
 						<p:overlayPanel id="imagePanel" for="loginLink" hideEffect="fade">
 
-
-
-
 								<!-- DESCRIPTION 
 	de cette balise jusq'à celle de fin , le texte est à copier tel quel de connexion.xhtml dans menu.xhtml afin de faire la petite fenetre de connexion
 	ceci rend plus simple l'implementation (pour nosu en tous cas) et plus propre
 	 --> 
-
+	 
 								<div id="divDeConnexion">
 									<div class="divLabelConnexion">
 										<span class="labelConnexion">Connexion :</span>
@@ -63,10 +60,6 @@
 				<h:commandLink value="S'inscrire" action="signin.xhtml?faces-redirect=true"
 					rendered="#{userBean.user == null}" /> 
 				<h:commandLink value="Se deconnecter"
-					action="#{loginBean.doLogout()}" rendered="#{userBean.user != null}" />
-<!-- 				<h:commandLink value="Mon profil" -->
-<!-- 					action="#{loginBean.doLogout()}" rendered="#{userBean.user != null}" /> -->
-				<h:commandLink value="Mon panier" 
 					action="#{loginBean.doLogout()}" rendered="#{userBean.user != null}" />
 			</h:form>
 
