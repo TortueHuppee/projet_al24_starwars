@@ -36,7 +36,7 @@
 										</div>
 										<div class="divInputConnexion">
 											<p:inputText styleClass="inputConnexion"
-												value="#{mbConnexion.login}" />
+												value="#{loginBean.user.userName}" />
 										</div>
 									</div>
 									<div class="labelConnexion">
@@ -45,21 +45,14 @@
 										</div>
 										<div class="divInputConnexion">
 											<p:inputText styleClass="inputConnexion"
-												value="#{mbConnexion.password}" />
+												value="#{loginBean.user.password}" />
 										</div>
 									</div>
 									<div class="labelConnexion">
-										<div class="linkConnexion">
-											<p:commandLink id="ajax" value="Inscription" />
-										</div>
 										<div class="divBoutonConnexion">
 											<p:commandButton value="Valider" id="btnVallider"
 												styleClass="boutonConnexion"
-												action="#{mbConnexion.verifier()}" />
-										</div>
-										<div class="divBoutonConnexion">
-											<p:commandButton value="Annuler" id="btnAnnuler"
-												styleClass="boutonConnexion" />
+												action="#{loginBean.doLogin()}" />
 										</div>
 										<h:outputText value="#{mbConnexion.reponse}" />
 									</div>
