@@ -3,7 +3,149 @@
 	display:none;
 }
 
-#body-content{
-	margin-top:20px;
+.product-description{
+   background-color:#f1f1f1;
+   border:1px solid #e5e5e5;
+   border-radius:5px;
+   margin-right:20px;
+   display:inline-block;
+   width:99%;
+}
+
+.product-description h2
+{
+    font-family:Arial;
+    margin:10px;
+    margin-bottom:20px;
+    border-bottom:1px solid lightgrey;
+    padding-bottom:10px;
+}
+
+.product-description h2 button
+{
+    float:right;
+    font-size:small;
+}
+
+.product-description img
+{
+	height:100px;
+	margin:5px;
+	border:1px solid grey;
+	float:left;
+}
+
+/* TABLEAU */
+
+table, tr, td, th
+{
+	text-align:center;
+	border:1px solid lightgrey;
+}
+
+table
+{
+	border-spacing:0px;
+	border:1px solid grey;
+	margin:10px;
+	font-family:Arial;
+}
+
+table th
+{
+	height:50px;
+	font-size:larger;
+	border-bottom:1px solid grey;
+	background-color:silver;
+}
+
+table td
+{
+	width:25%;
+	
+	background-color:white;
+}
+
+table td:first-of-type label:first-of-type
+{
+	font-weight:bold;
+	float:left;
+	margin-top:25px;
+	margin-bottom:10px;
+}
+
+table td:nth-of-type(2) label
+{
+	float:left;
+	width:150px;
+}
+
+table td:nth-of-type(2) label:nth-child(2n+1)
+{
+	font-weight:bold;
+	float:left;
+	width:150px;
+}
+
+table td:nth-of-type(3) label,
+table td:nth-of-type(4) label
+{
+	margin-left:20px;
+	margin-right:20px;
+	font-size:large;
+}
+
+table td:nth-of-type(3) input
+{
+	width:20px;
+	font-size:20px;
+}
+table input
+{
+	width:30px;
+}
+
+/* BOUTONS DU BAS */
+
+.recapCommande
+{
+	float:right;
+	padding:10px;
+}
+
+.recapCommande label:first-of-type
+{
+	font-weight:bold;
+	float:left;;
+	font-size:larger;
+	background-color:silver;
+	height:40px;
+	width:210px;
+	border:1px solid grey;
+	display:inline-block;
+	border-radius:2px;
+	margin-bottom:30px;
+	text-align:center;
+	padding-top:15px;
+}
+
+.recapCommande label:nth-of-type(2)
+{
+	float:left;;
+	font-size:larger;
+	background-color:white;
+	height:40px;
+	width:237px;
+	border:1px solid grey;
+	display:inline-block;
+	border-radius:2px;
+	margin-bottom:30px;
+	text-align:center;
+	padding-top:15px;
+}
+
+.recapCommande button
+{
+	width:100%;
 }
 

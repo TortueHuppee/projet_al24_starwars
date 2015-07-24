@@ -42,7 +42,6 @@
 /* ********* debut ********* */
 #menu {
 	height: 100px;
-	width: 100%;
 	background-color: silver;
 	padding-left:27%;
 }
@@ -201,6 +200,24 @@
 }
 
 /* ********* Header ********* */
+
+#logo img
+{
+	height:100px;
+	margin-top:20px;
+	margin-left:15%;
+	float:left;
+}
+
+#logo label
+{
+	float:left;
+	color:white;
+	font-size:80px;
+	margin-left:60px;
+	font-family:Arial;
+	margin-top:20px;
+}
 
 #header {
 	height: 150px;

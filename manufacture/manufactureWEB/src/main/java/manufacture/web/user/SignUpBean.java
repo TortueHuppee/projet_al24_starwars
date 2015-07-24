@@ -25,7 +25,7 @@ public class SignUpBean {
 	
 	private User user;
 	
-	@ManagedProperty(value="#{inscription}")
+	@Autowired
 	private IInscription proxyInscription;
 
 	@Autowired

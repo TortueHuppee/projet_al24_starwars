@@ -61,57 +61,7 @@
 
 						<f:facet name="options">
 							<p:commandButton id="imageBtn" value="login" type="button" />
-							<p:overlayPanel id="imagePanel" for="imageBtn" hideEffect="fade">
-
-
-
-
-								<!-- DESCRIPTION 
-	de cette balise jusq'à celle de fin , le texte est à copier tel quel de connexion.xhtml dans menu.xhtml afin de faire la petite fenetre de connexion
-	ceci rend plus simple l'implementation (pour nosu en tous cas) et plus propre
-	 -->
-
-								<div id="divDeConnexion">
-									<div class="divLabelConnexion">
-										<span class="labelConnexion">Connexion :</span>
-									</div>
-									<div class="labelInputConnexion">
-										<div class="divLabelConnexion">
-											<span class="labelConnexion">Login :</span>
-										</div>
-										<div class="divInputConnexion">
-											<p:inputText styleClass="inputConnexion"
-												value="#{mbConnexion.login}" />
-										</div>
-									</div>
-									<div class="labelConnexion">
-										<div class="divLabelConnexion">
-											<span class="labelConnexion">Password :</span>
-										</div>
-										<div class="divInputConnexion">
-											<p:inputText styleClass="inputConnexion"
-												value="#{mbConnexion.password}" />
-										</div>
-									</div>
-									<div class="labelConnexion">
-										<div class="linkConnexion">
-											<p:commandLink id="ajax" value="Inscription" />
-										</div>
-										<div class="divBoutonConnexion">
-											<p:commandButton value="Valider" id="btnVallider"
-												styleClass="boutonConnexion"
-												action="#{mbConnexion.verifier()}" />
-										</div>
-										<div class="divBoutonConnexion">
-											<p:commandButton value="Annuler" id="btnAnnuler"
-												styleClass="boutonConnexion" />
-										</div>
-										<h:outputText value="#{mbConnexion.reponse}" />
-									</div>
-								</div>
-								<!-- Balise de fin -->
-
-							</p:overlayPanel>
+						
 							<p:commandButton id="imageBtn2" value="logout" type="button" />
 							<p:overlayPanel id="imagePanel2" for="imageBtn2"
 								hideEffect="fade">

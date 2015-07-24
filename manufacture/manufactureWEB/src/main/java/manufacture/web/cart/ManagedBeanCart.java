@@ -17,7 +17,6 @@ import manufacture.entity.user.User;
 import manufacture.facade.cart.CartSpecificCustomer;
 import manufacture.ifacade.cart.ICartSpecificCustomer;
 import manufacture.ifacade.catalog.ICatalog;
-//import manufacture.web.catalogBean.ManagedBeanCatalog.Produit;
 import manufacture.web.user.UserBean;
 import manufacture.web.util.ClassPathLoader;
 
@@ -90,14 +89,12 @@ public class ManagedBeanCart {
 		}
 	}
 
+
 	public void addProductToCart(int idProductToAdd) {
 		CartProduct cartProduct = new CartProduct();
 		Product productToAdd = getProductFromLocalListeById(idProductToAdd);
 		int cartProductQuantity = cartProduct.getQuantity();
 		boolean isNewProductInCart = true;
-		log.info(" ===<<< ID produit ajouté au panier = "+idProductToAdd+">>>=== ");
-		log.info(" ===<<< Nom produit ajouté au panier = "+productToAdd.getProductRef().getProductName()+">>>=== ");
-		log.info(" ===<<< Quantité produit ajouté au panier = "+productToAdd.getProductRef().getProductName()+">>>=== ");
 		if (quantity > 0) {
 			for (CartProduct cp : panier) {
 				if (cp.getProduct().getIdProduct() == productToAdd.getIdProduct()) {
@@ -118,7 +115,7 @@ public class ManagedBeanCart {
 				cartProduct.setQuantity(quantity);
 				panier.add(cartProduct);
 				// proxyCart.addProductToCart(cartProduct);
-			}
+		    }
 		}
 	}
 
@@ -170,7 +167,6 @@ public class ManagedBeanCart {
 			cartProductQuantity = cartProduct.getProduct().getStock();
 		}
 		cartProduct.setQuantity(cartProductQuantity);
-		log.info("Product Quantity : " + cartProduct.getQuantity());
 	}
 
 	public void decrementProductQuantity(int idProduct) {
@@ -187,7 +183,6 @@ public class ManagedBeanCart {
 //			proxyCart.deleteProductFromCart(cartProduct);
 		}
 		cartProduct.setQuantity(cartProductQuantity);
-		log.info("Product Quantity : " + cartProduct.getQuantity());
 	}
 	
 	public void upadateProductQuantityWithSpinner(int idProduct, int newQuantity){
@@ -201,7 +196,6 @@ public class ManagedBeanCart {
 	}
 	
 	public double getSubTotalPrice(int idProduct) {
-		log.info(" ===<<< je calcule le subTotal>>>=== ");
 		double subTotalPrice = 0 ;
 		CartProduct cartProduct = getProductFromCartListeById(idProduct);
 		subTotalPrice = cartProduct.getProduct().getPrice() * cartProduct.getQuantity();
@@ -209,7 +203,6 @@ public class ManagedBeanCart {
 	}
 	
 	public double getTotalPrice() {
-		log.info(" ===<<< je calcule le Total>>>=== ");
 		double totalPrice = 0 ;
 		for (CartProduct cp : panier) {
 			totalPrice += getSubTotalPrice(cp.getProduct().getIdProduct());
@@ -223,9 +216,7 @@ public class ManagedBeanCart {
 		Product product = getProductFromLocalListeById(idProduct);
 		for (CartProduct cp : panier) {
 			if (cp.getProduct().getIdProduct() == idProduct) {
-				log.info("===== Produit trouve =====");
 				panier.remove(cp);
-				log.info("===== Produit id="+ cp.getProduct().getIdProduct() +" supprimé =====");
 //				proxyCart.deleteProductFromCart(cp);
 				break;
 				}
