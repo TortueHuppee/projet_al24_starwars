@@ -65,7 +65,7 @@ public class CatalogManagedBean {
 	}
 
 	//Méthodes de tri et de filtres
-
+	
 	public void choixCategorie(int idCategory)
 	{
 		this.idCategorySelected = idCategory;

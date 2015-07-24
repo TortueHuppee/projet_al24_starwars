@@ -50,8 +50,7 @@ public class ManagedBeanCart {
 	private int idSelectedProduct;
 	private Product selectedProduct;
 	private int quantity;
-	private FacesContext context = FacesContext.getCurrentInstance();
-
+	
 	private List<ConstructorProduct> listeProductBrute;
 
 	private int productStock;
@@ -88,7 +87,6 @@ public class ManagedBeanCart {
 				cartProduct.setQuantity(quantity);
 				panier.add(cartProduct);
 				// proxyCart.addProductToCart(cartProduct);		         
-		        context.addMessage(null, new FacesMessage("Ajout effectué",  "Produit ajouté au panier ") );
 			}
 		}
 	}
