@@ -1,4 +1,4 @@
-<ui:composition template="catalogue_layout.xhtml"
+<ui:composition template="/layouts/catalogue_layout.xhtml"
 	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
@@ -9,6 +9,7 @@
 	xmlns:p="http://primefaces.org/ui">
 	
 	<ui:define name="main-body">
+	<h:form id="myForm">
 		<div>
 			<div class="ui-grid ui-grid-responsive">
 				<div class="ui-grid-row">
@@ -101,6 +102,7 @@
 				</div>
 			</div>
 		</div>
+		</h:form>
 	</ui:define>
 </ui:composition>
 

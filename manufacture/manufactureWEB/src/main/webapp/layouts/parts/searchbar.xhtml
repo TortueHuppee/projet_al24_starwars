@@ -27,24 +27,56 @@
 				<div>
 					<p:fieldset legend="options" styleClass="al24FielSetRecherche">
 						<h:panelGrid columns="2" cellpadding="5">
-							<span>Type : <p:inputText id="input1" /></span>
-							<span>Catégorie : <p:inputText id="input2" /></span>
-							<span>Type : <p:inputText id="input3" /></span>
-							<span>Catégorie : <p:inputText id="input4" /></span>
+
+							<!-- Filtre Couleur -->
+						<span>Couleur :</span> 
+						<h:selectOneMenu value="#{mbCatalog.idColorSelected}">
+							<f:selectItem	itemLabel="-- Sélectionner une couleur -- "
+											itemValue="0"/>
+							<f:selectItems  var="item"
+											value="#{mbCatalog.listeCouleurs}"
+											itemLabel="#{item.colorName}"
+											itemValue="#{item.idColor}"/>
+							<f:ajax event="change" listener="#{mbCatalog.initialisationListeAffichee()}" render=":myForm"/>
+						</h:selectOneMenu>
+						
+						<!-- Filtre Matériaux -->
+						<span>Matériaux :</span>
+						<h:selectOneMenu value="#{mbCatalog.idMaterialSelected}">
+							<f:selectItem	itemLabel="-- Sélectionner un matériau -- "
+											itemValue="0"/>
+							<f:selectItems  var="item"
+											value="#{mbCatalog.listeMateriaux}"
+											itemLabel="#{item.materialName}"
+											itemValue="#{item.idMaterial}"/>
+							<f:ajax event="change" listener="#{mbCatalog.initialisationListeAffichee()}" render=":myForm"/>
+						</h:selectOneMenu>
+						
+						<!-- Filtre Vaisseaux -->
+						<span>Modèle de vaisseaux :</span>
+						<h:selectOneMenu value="#{mbCatalog.idSpaceShipSelected}">
+							<f:selectItem	itemLabel="-- Sélectionner un modèle de vaisseau -- "
+											itemValue="0"/>
+							<f:selectItems  var="item"
+											value="#{mbCatalog.listeVaisseaux}"
+											itemLabel="#{item.spaceshipName}"
+											itemValue="#{item.idSpaceshipRef}"/>
+							<f:ajax event="change" listener="#{mbCatalog.initialisationListeAffichee()}" render=":myForm"/>
+						</h:selectOneMenu>
+						
+						<!-- Filtre Constructeurs -->
+						<span>Constructeur :</span>
+						<h:selectOneMenu value="#{mbCatalog.idConstructorSelected}">
+							<f:selectItem	itemLabel="-- Sélectionner un constructeur -- "
+											itemValue="0"/>
+							<f:selectItems  var="item"
+											value="#{mbCatalog.listeConstructeurs}"
+											itemLabel="#{item.constructorName}"
+											itemValue="#{item.idConstructor}"/>
+							<f:ajax event="change" listener="#{mbCatalog.initialisationListeAffichee()}" render=":myForm"/>
+						</h:selectOneMenu>
 						</h:panelGrid>
 					</p:fieldset>
-				</div>
-				<div>
-					<div id="divBtnRefreshRecherche">
-						<div id="divBtnRefresh">
-							<p:commandButton value="refresh" id="ajax1111"
-								styleClass="bouton" />
-						</div>
-						<div id="divBtnRechercher">
-							<p:commandButton value="rechercher" id="ajax41111"
-								styleClass="bouton" />
-						</div>
-					</div>
 				</div>
 			</p:fieldset>
 		</div>
