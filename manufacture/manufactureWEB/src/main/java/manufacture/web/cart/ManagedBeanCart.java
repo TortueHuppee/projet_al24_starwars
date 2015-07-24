@@ -84,7 +84,7 @@ public class ManagedBeanCart {
 				cartProduct.setProduct(product);
 				cartProduct.setQuantity(quantity);
 				panier.add(cartProduct);
-				// proxyCart.addProductToCart(cartProduct);
+				// proxyCart.addProductToCart(cartProduct);		         
 			}
 		}
 	}

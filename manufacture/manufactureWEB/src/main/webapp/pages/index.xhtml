@@ -1,4 +1,4 @@
-<ui:composition template="/layouts/catalogue_layout.xhtml"
+<ui:composition template="/layouts/master_layout.xhtml"
 	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
@@ -9,100 +9,36 @@
 	xmlns:p="http://primefaces.org/ui">
 	
 	<ui:define name="main-body">
-	<h:form id="myForm">
-		<div>
-			<div class="ui-grid ui-grid-responsive">
-				<div class="ui-grid-row">
-					<div class="article-wrapper">
-						<div class="article-name">Nom</div>
-						<div class="article-description">Description</div>
-						<div class="article-description">Prix</div>
-					</div>
-					<div class="article-wrapper">
-						<div class="article-name">Nom</div>
-						<div class="article-description">Description</div>
-						<div class="article-description">Prix</div>
-					</div>
-					<div class="article-wrapper">
-						<div class="article-name">Nom</div>
-						<div class="article-description">Description</div>
-						<div class="article-description">Prix</div>
-					</div>
-					<div class="article-wrapper">
-						<div class="article-name">Nom</div>
-						<div class="article-description">Description</div>
-						<div class="article-description">Prix</div>
-					</div>
-				</div>
-				<div class="ui-grid-row">
-					<div class="article-wrapper">
-						<div class="article-name">Nom</div>
-						<div class="article-description">Description</div>
-						<div class="article-description">Prix</div>
-					</div>
-					<div class="article-wrapper">
-						<div class="article-name">Nom</div>
-						<div class="article-description">Description</div>
-						<div class="article-description">Prix</div>
-					</div>
-					<div class="article-wrapper">
-						<div class="article-name">Nom</div>
-						<div class="article-description">Description</div>
-						<div class="article-description">Prix</div>
-					</div>
-					<div class="article-wrapper">
-						<div class="article-name">Nom</div>
-						<div class="article-description">Description</div>
-						<div class="article-description">Prix</div>
-					</div>
-				</div>
-				<div class="ui-grid-row">
-					<div class="article-wrapper">
-						<div class="article-name">Nom</div>
-						<div class="article-description">Description</div>
-						<div class="article-description">Prix</div>
-					</div>
-					<div class="article-wrapper">
-						<div class="article-name">Nom</div>
-						<div class="article-description">Description</div>
-						<div class="article-description">Prix</div>
-					</div>
-					<div class="article-wrapper">
-						<div class="article-name">Nom</div>
-						<div class="article-description">Description</div>
-						<div class="article-description">Prix</div>
-					</div>
-					<div class="article-wrapper">
-						<div class="article-name">Nom</div>
-						<div class="article-description">Description</div>
-						<div class="article-description">Prix</div>
-					</div>
-				</div>
-				<div class="ui-grid-row">
-					<div class="article-wrapper">
-						<div class="article-name">Nom</div>
-						<div class="article-description">Description</div>
-						<div class="article-description">Prix</div>
-					</div>
-					<div class="article-wrapper">
-						<div class="article-name">Nom</div>
-						<div class="article-description">Description</div>
-						<div class="article-description">Prix</div>
-					</div>
-					<div class="article-wrapper">
-						<div class="article-name">Nom</div>
-						<div class="article-description">Description</div>
-						<div class="article-description">Prix</div>
-					</div>
-					<div class="article-wrapper">
-						<div class="article-name">Nom</div>
-						<div class="article-description">Description</div>
-						<div class="article-description">Prix</div>
-					</div>
-				</div>
+	<f:view>
+		<h:form id="myForm">
+		
+			<div id="accueilSite">
+				<h:outputLabel value="Bienvenue sur GalaxZon.universe" />
+				<br/>
+				<h:outputLabel value="Site spécialisé dans la vente de pièces pour vaisseaux spatiaux quelque soit votre planète, votre vaisseau ou votrre faction." />
 			</div>
-		</div>
+			
+			<div id="produitRandom">
+				
+				<ui:repeat var="produit" value="#{mbIndex.listeProduitRandom}">
+					<div class="article-wrapper">
+
+						<h:commandLink action="#{mbProduct.detailProduit(produit.idProduct)}">
+							<f:param name="idProductRef" value="#{produit.idProduct}" />
+
+							
+								<div class="article-name">#{produit.productRef.productName}</div>
+								 <img src="#{produit.productRef.urlImage}" />
+								<div class="article-description">#{produit.price} Crédits</div>
+							
+						</h:commandLink>
+					</div>					
+				</ui:repeat>
+					
+			</div>
+		
 		</h:form>
+		</f:view>
 	</ui:define>
 </ui:composition>
 
