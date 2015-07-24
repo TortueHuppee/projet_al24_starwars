@@ -5,11 +5,16 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 
+import manufacture.entity.cart.Cart;
 import manufacture.entity.cart.CartProduct;
 import manufacture.entity.product.ConstructorProduct;
 import manufacture.entity.product.Product;
+import manufacture.entity.user.SpecificCustomer;
+import manufacture.entity.user.User;
+import manufacture.facade.cart.CartSpecificCustomer;
 import manufacture.ifacade.cart.ICartSpecificCustomer;
 import manufacture.ifacade.catalog.ICatalog;
 //import manufacture.web.catalogBean.ManagedBeanCatalog.Produit;
@@ -25,62 +30,49 @@ import org.springframework.stereotype.Component;
 //@Component
 //@Scope(value="session")
 
-@ManagedBean(name="mbCart")
+@ManagedBean(name = "mbCart")
 @SessionScoped
 public class ManagedBeanCart {
-	
+
 	private Logger log = Logger.getLogger(ManagedBeanCart.class);
 
-	private BeanFactory bf = ClassPathLoader.getFacadeBeanFactory();
-	private ICartSpecificCustomer proxyCart = (ICartSpecificCustomer) bf.getBean(ICartSpecificCustomer.class);
-	private ICatalog proxyCatalog = (ICatalog) bf.getBean(ICatalog.class);
+	@ManagedProperty(value = "#{cartSpecificCustomer}")
+	private ICartSpecificCustomer proxyCart;
+
+	@ManagedProperty(value = "#{catalog}")
+	private ICatalog proxyCatalog;
 	
-	private int idSelectedProduct ;
-	private int quantity ;
-	
+//	@ManagedProperty(value = "#{specificUserCart}")
+	Cart specificUserCart = new Cart();
+
+	private int idSelectedProduct;
+	private Product selectedProduct;
+	private int quantity;
+
 	private List<ConstructorProduct> listeProductBrute;
 
 	private int productStock;
-	
+
 	private List<CartProduct> panier = new ArrayList<CartProduct>();
-	
+
 	@PostConstruct
-	void init()
-	{
+	void init() {
 		listeProductBrute = proxyCatalog.getAllConstructorProduct();
 	}
 	
 	public void addProductToCart(int idProductToAdd) {
 		CartProduct cartProduct = new CartProduct();
-		Product productToAdd = getProductFromLocalListeById(idProductToAdd);
-		int cartProductQuantity = cartProduct.getQuantity();
-		boolean isNewProductInCart = true;
-		log.info(" ===<<< ID produit ajouté au panier = "+idProductToAdd+">>>=== ");
-		log.info(" ===<<< Nom produit ajouté au panier = "+productToAdd.getProductRef().getProductName()+">>>=== ");
-		log.info(" ===<<< Quantité produit ajouté au panier = "+productToAdd.getProductRef().getProductName()+">>>=== ");
-		if (quantity > 0) {
-			for (CartProduct cp : panier) {
-				if (cp.getProduct().getIdProduct() == productToAdd.getIdProduct()) {
-					isNewProductInCart = false;
-					cartProductQuantity = cp.getQuantity();
-					cartProductQuantity += quantity ;
-					if (cartProductQuantity < cp.getProduct().getStock()) {
-						cp.setQuantity(cartProductQuantity);
-//						proxyCart.updateQuantityProduct(cp.getIdCartProduct(), cartProductQuantity + quantity);
-					} else {
-						cp.setQuantity(cp.getProduct().getStock());
-					}
-					break;
-				}
-			}
-			if (isNewProductInCart) {
-				cartProduct.setProduct(productToAdd);
-				cartProduct.setQuantity(quantity);
-				panier.add(cartProduct);
-				// proxyCart.addProductToCart(cartProduct);
-			}
+		Product product = getProductFromLocalListeById(idSelectedProduct);
+		log.info("Product ID : " + product.getIdProduct());
+		log.info("Product Name : " + product.getProductRef().getProductName());
+		cartProduct.setProduct(product);
+		cartProduct.setQuantity(quantity);
+		log.info("Product Quantity : " + quantity);
+//		proxyCart.addProductToCart(cartProduct);
+		log.info("=====================================  Before cartProduct  ===================================== ");
+		panier.add(cartProduct);
+		log.info("=====================================  After cartProduct  ===================================== ");
 		}
-	}
 	
 	public void getStockByProductId(){
 		for (Product product : listeProductBrute) {
@@ -102,6 +94,62 @@ public class ManagedBeanCart {
 		return result ;
 	}
 	
+	public void deleteProductFromCart(int idProduct){
+		CartProduct cartProduct = new CartProduct();
+		Product product = getProductFromLocalListeById(idProduct);
+		for (CartProduct cp : panier) {
+			if (cp.getProduct().getIdProduct() == idProduct) {
+				log.info("===== Produit trouve =====");
+				panier.remove(cp);
+				log.info("===== Produit id="+ cp.getProduct().getIdProduct() +" supprimé =====");
+//				proxyCart.deleteProductFromCart(cp);
+				break;
+				}
+			}
+	}
+	
+	//TODO this method
+	//Verifier si c'est ce qu'il faut faire car je ne vois pas la difference entre 
+	public void cleanCart (){
+		panier = new ArrayList<>();
+//		panier.removeAll(panier);
+//		proxyCart.cleanCart(idCart);	//il faut récuperer l'idCart du panier
+	}
+	
+	public void deleteCart (){
+		panier.removeAll(panier);
+//		for (CartProduct cp : panier) {
+//			proxyCart.deleteProductFromCart(cp);
+//		}	
+	}
+	
+	// enregistre le panier pour qu'il soit visible ds les autres managerd bean
+	public void storeCart (){
+		SpecificCustomer specificCustomer = new SpecificCustomer();
+		specificCustomer.setIdUser(1);
+		// Les autres parametres pour le panier seront ajoutes apres la validation du paiement
+		for (CartProduct cp : panier) {
+			specificUserCart.addCartProduct(cp);
+		}
+		log.info("============>>>>> JUSQUE LA, CA MARCHE 1 <<<<<============");
+		specificUserCart.setUser(specificCustomer);
+//		specificUserCart.setUser(userBean.getUser());
+		log.info("============>>>>> JUSQUE LA, CA MARCHE 2 <<<<<============");
+		
+	}
+	
+	
+//	================================================================
+//	==============>>>>>> MOVE TO AN OTHER MBEAN <<<<<<==============
+//	================================================================
+	
+//	public void validateCart (){
+//		proxyCart.createNewCart(userBean.getUser().getIdUser());
+//		for (CartProduct cp : panier) {
+//			proxyCart.addProductToCart(cp);
+//		}
+//	}
+
 	public List<ConstructorProduct> getListeProductBrute() {
 		return listeProductBrute;
 	}
@@ -109,8 +157,6 @@ public class ManagedBeanCart {
 	public void setListeProductBrute(List<ConstructorProduct> listeProductBrute) {
 		this.listeProductBrute = listeProductBrute;
 	}
-	
-	
 
 	public int getIdSelectedProduct() {
 		return idSelectedProduct;
@@ -136,8 +182,6 @@ public class ManagedBeanCart {
 		this.productStock = productStock;
 	}
 
-
-
 	public List<CartProduct> getPanier() {
 		return panier;
 	}
@@ -146,9 +190,21 @@ public class ManagedBeanCart {
 		this.panier = panier;
 	}
 
+	public void setProxyCart(ICartSpecificCustomer proxyCart) {
+		this.proxyCart = proxyCart;
+	}
+
+	public void setProxyCatalog(ICatalog proxyCatalog) {
+		this.proxyCatalog = proxyCatalog;
+	}
+
+	public void setSpecificUserCart(Cart specificUserCart) {
+		this.specificUserCart = specificUserCart;
+	}
+
 
 
 	@Autowired
 	private UserBean userBean;
-	
+
 }

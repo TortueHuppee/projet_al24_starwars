@@ -1,0 +1,32 @@
+<ui:composition  template="/layouts/master_layout.xhtml"
+xmlns="http://www.w3.org/1999/xhtml"
+xmlns:f="http://java.sun.com/jsf/core"
+xmlns:h="http://java.sun.com/jsf/html"
+xmlns:ui="http://java.sun.com/jsf/facelets"
+xmlns:p="http://primefaces.org/ui">
+
+
+<ui:define name="panier-body">
+<h:form>
+	<div>
+		<div title="à repeter">
+		<ui:repeat var="produit" value="#{mbCart.panier}">
+
+			<p:fieldset styleClass="al24FielSetPanier">
+				<h:panelGrid columns="9" cellpadding="5">
+					<p:spinner value="#{mbCart.quantity}">
+						<p:ajax update="ajaxSpinnerValue" process="@this" />
+					</p:spinner>
+					quantite = 
+					<h:outputText id="ajaxSpinnerValue" value="#{mbCart.quantity}" />
+				</h:panelGrid>
+			</p:fieldset>
+		</ui:repeat>
+		</div>
+		
+	</div>
+</h:form>
+</ui:define>
+
+
+</ui:composition>
