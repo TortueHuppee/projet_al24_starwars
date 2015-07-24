@@ -59,39 +59,161 @@ public class ManagedBeanCart {
 	void init() {
 		listeProductBrute = proxyCatalog.getAllConstructorProduct();
 	}
-	
-	public void addProductToCart(int idProductToAdd) {
+
+	public void addProductToCartBeta() {
 		CartProduct cartProduct = new CartProduct();
 		Product product = getProductFromLocalListeById(idSelectedProduct);
-		log.info("Product ID : " + product.getIdProduct());
-		log.info("Product Name : " + product.getProductRef().getProductName());
-		cartProduct.setProduct(product);
-		cartProduct.setQuantity(quantity);
-		log.info("Product Quantity : " + quantity);
-//		proxyCart.addProductToCart(cartProduct);
-		log.info("=====================================  Before cartProduct  ===================================== ");
-		panier.add(cartProduct);
-		log.info("=====================================  After cartProduct  ===================================== ");
-		}
-	
-	public void getStockByProductId(){
-		for (Product product : listeProductBrute) {
-			if (product.getIdProduct()== idSelectedProduct) {
-				productStock = product.getStock();
-				break ;
+		int cartProductQuantity = cartProduct.getQuantity();
+		boolean isNewProductInCart = true;
+		if (quantity > 0) {
+			for (CartProduct cp : panier) {
+				if (cp.getProduct().getIdProduct() == idSelectedProduct) {
+					isNewProductInCart = false;
+					cartProductQuantity = cp.getQuantity();
+					cartProductQuantity += quantity ;
+					if (cartProductQuantity < cp.getProduct().getStock()) {
+						cp.setQuantity(cartProductQuantity);
+//						proxyCart.updateQuantityProduct(cp.getIdCartProduct(), cartProductQuantity + quantity);
+					} else {
+						cp.setQuantity(cp.getProduct().getStock());
+					}
+					break;
+				}
+			}
+			if (isNewProductInCart) {
+				cartProduct.setProduct(product);
+				cartProduct.setQuantity(quantity);
+				panier.add(cartProduct);
+				// proxyCart.addProductToCart(cartProduct);
 			}
 		}
 	}
-	
-	public Product getProductFromLocalListeById(int idProduct){
-		Product result = new Product();
-		for (Product product : listeProductBrute) {
-			if (product.getIdProduct()== idProduct) {
-				result = product;
-				break ;
+
+	public void addProductToCart(int idProductToAdd) {
+		CartProduct cartProduct = new CartProduct();
+		Product productToAdd = getProductFromLocalListeById(idProductToAdd);
+		int cartProductQuantity = cartProduct.getQuantity();
+		boolean isNewProductInCart = true;
+		log.info(" ===<<< ID produit ajouté au panier = "+idProductToAdd+">>>=== ");
+		log.info(" ===<<< Nom produit ajouté au panier = "+productToAdd.getProductRef().getProductName()+">>>=== ");
+		log.info(" ===<<< Quantité produit ajouté au panier = "+productToAdd.getProductRef().getProductName()+">>>=== ");
+		if (quantity > 0) {
+			for (CartProduct cp : panier) {
+				if (cp.getProduct().getIdProduct() == productToAdd.getIdProduct()) {
+					isNewProductInCart = false;
+					cartProductQuantity = cp.getQuantity();
+					cartProductQuantity += quantity ;
+					if (cartProductQuantity < cp.getProduct().getStock()) {
+						cp.setQuantity(cartProductQuantity);
+//						proxyCart.updateQuantityProduct(cp.getIdCartProduct(), cartProductQuantity + quantity);
+					} else {
+						cp.setQuantity(cp.getProduct().getStock());
+					}
+					break;
+				}
+			}
+			if (isNewProductInCart) {
+				cartProduct.setProduct(productToAdd);
+				cartProduct.setQuantity(quantity);
+				panier.add(cartProduct);
+				// proxyCart.addProductToCart(cartProduct);
 			}
 		}
-		return result ;
+	}
+
+	// public List<CartProduct> getAllCartProducts() {
+	// return panier;
+	// }
+
+	public int getStockByProductId(int idProduct) {
+		int result = 0;
+		for (Product product : listeProductBrute) {
+			if (product.getIdProduct() == idProduct) {
+				result = product.getStock();
+				break;
+			}
+		}
+		return result;
+	}
+
+	public Product getProductFromLocalListeById(int idProduct) {
+		Product result = new Product();
+		for (Product product : listeProductBrute) {
+			if (product.getIdProduct() == idProduct) {
+				result = product;
+				break;
+			}
+		}
+		return result;
+	}
+
+	public CartProduct getProductFromCartListeById(int idProduct) {
+		CartProduct result = new CartProduct();
+		for (CartProduct cartProduct : panier) {
+			if (cartProduct.getProduct().getIdProduct() == idProduct) {
+				result = cartProduct;
+				break;
+			}
+		}
+		return result;
+	}
+
+	// verifier que l'id retourne est bien celui du produit en question
+	// eventuellement ajouter l'id en parametre
+	public void incrementProductQuantity(int idProduct) {
+		CartProduct cartProduct = getProductFromCartListeById(idProduct);
+		int cartProductQuantity = cartProduct.getQuantity();
+		if (cartProductQuantity < cartProduct.getProduct().getStock()) {
+			cartProductQuantity++;
+		} else {
+			cartProductQuantity = cartProduct.getProduct().getStock();
+		}
+		cartProduct.setQuantity(cartProductQuantity);
+		log.info("Product Quantity : " + cartProduct.getQuantity());
+	}
+
+	public void decrementProductQuantity(int idProduct) {
+		CartProduct cartProduct = getProductFromCartListeById(idProduct);
+		int cartProductQuantity = cartProduct.getQuantity();
+		if (cartProductQuantity > 1) {
+			cartProductQuantity--;
+		} else {
+			cartProductQuantity = 1;
+			// plus besoin de le supprimer de la liste car le user met 
+			//au minimum la qtt 1, sinon il est assez intelligent pour 
+			//le supprimer s'il en veut '0' article
+//			deleteProductFromCart(idProduct);
+//			proxyCart.deleteProductFromCart(cartProduct);
+		}
+		cartProduct.setQuantity(cartProductQuantity);
+		log.info("Product Quantity : " + cartProduct.getQuantity());
+	}
+	
+	public void upadateProductQuantityWithSpinner(int idProduct, int newQuantity){
+		CartProduct cartProduct = getProductFromCartListeById(idProduct);
+		cartProduct.setQuantity(newQuantity);
+	}
+	
+	public void refreshQuantity(CartProduct cartProduct){
+		quantity = cartProduct.getQuantity();
+		log.info("Quantité = " + quantity);
+	}
+	
+	public double getSubTotalPrice(int idProduct) {
+		log.info(" ===<<< je calcule le subTotal>>>=== ");
+		double subTotalPrice = 0 ;
+		CartProduct cartProduct = getProductFromCartListeById(idProduct);
+		subTotalPrice = cartProduct.getProduct().getPrice() * cartProduct.getQuantity();
+		return subTotalPrice;
+	}
+	
+	public double getTotalPrice() {
+		log.info(" ===<<< je calcule le Total>>>=== ");
+		double totalPrice = 0 ;
+		for (CartProduct cp : panier) {
+			totalPrice += getSubTotalPrice(cp.getProduct().getIdProduct());
+		}
+		return totalPrice;
 	}
 	
 	public void deleteProductFromCart(int idProduct){

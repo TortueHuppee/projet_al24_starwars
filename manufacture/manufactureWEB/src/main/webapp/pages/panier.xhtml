@@ -14,37 +14,46 @@
 		<h:form id="listeProduitPanier">
 			<div>
 				<div title="à repeter">
-					<ui:repeat var="produit" value="#{mbCart.panier}">
-						<p:fieldset id="cartProduct" styleClass="al24FielSetPanier">
-							<h:panelGrid columns="9" cellpadding="5">
-								<!-- <div class="itemLignePanier">"#{produit.product.productRef.urlImage}"</div>  -->
-								<div class="itemLignePanier">"#{produit.product.productRef.productName}"</div>
-								<!-- <div class="itemLignePanier">"#{produit.product.productRef.description}"</div>  -->
-								<div class="itemLignePanier">
-									<!-- "#{mbCart.refreshQuantity(produit)}"  -->
-									<!-- je voudrais que tous les trois soient allignes  -->
-									<h:commandButton value="-"
-										action="#{mbCart.decrementProductQuantity(produit.product.idProduct)}" />
-									<h:outputText value="#{produit.quantity}" />
-									<h:commandButton value="+"
-										action="#{mbCart.incrementProductQuantity(produit.product.idProduct)}" />
-								</div>
-								<div class="itemLignePanier"><p:commandButton value="Modifier"
-										styleClass="bouton"
-										action="detailproduit.xhtml" /></div>
-								<!-- <div class="itemLignePanier">quantite</div>  -->
-								<div class="itemLignePanier">"#{produit.product.price}"</div>
-								<div class="itemLignePanier">"#{mbCart.getSubTotalPrice(produit.product.idProduct)}"</div>
-								<div>
-									<p:commandButton value="Supprimer" id="ajax00"
-										styleClass="bouton"
-										action="#{mbCart.deleteProductFromCart(produit.product.idProduct)}"
-										update=":listeProduitPanier" />
-								</div>
-							</h:panelGrid>
-						</p:fieldset>
-					</ui:repeat>
+					<table>
+						<thead>
+							<tr>
+								<!-- 	<th class="order-table-header" scope="col">Order No</th>  -->
+								<th class="order-table-header" scope="col"><div class="itemLignePanier">Produit</div></th>
+								<th class="order-table-header" scope="col"><div class="itemLignePanier">Options</div></th>
+								<th class="order-table-header" scope="col"><div class="itemLignePanier">Quantité</div></th>
+								<th class="order-table-header" scope="col"><div class="itemLignePanier">Sous-total</div></th>
+							</tr>
+						</thead>
+						<tbody>
 
+							<ui:repeat var="produit" value="#{mbCart.panier}">
+							<p:fieldset id="cartProduct" styleClass="al24FielSetPanier">
+							<h:panelGrid columns="9" cellpadding="5">
+								<tr class="order-table-odd-row">
+									<!-- <td><div class="itemLignePanier">"#{produit.product.productRef.urlImage}"</div></td>  -->
+									<td><div class="itemLignePanier">#{produit.product.productRef.productName}</div>
+										<div class="itemLignePanier">#{mbProduct.DoubleFormat(produit.product.price)}</div>
+									</td>
+									<td><div class="itemLignePanier">#{produit.product.productRef.description}</div></td>
+									<td><div class="itemLignePanier">
+											<!-- je voudrais que tous les trois soient allignes  -->
+											<h:commandButton value="-"
+												action="#{mbCart.decrementProductQuantity(produit.product.idProduct)}" />
+											<h:outputText value="#{produit.quantity}" />
+											<h:commandButton value="+"
+												action="#{mbCart.incrementProductQuantity(produit.product.idProduct)}" />
+											<p:commandButton value="Supprimer" id="ajax00"
+												styleClass="bouton"
+												action="#{mbCart.deleteProductFromCart(produit.product.idProduct)}"
+												update=":listeProduitPanier" />
+										</div></td>
+									<td><div class="itemLignePanier">#{mbProduct.DoubleFormat(mbCart.getSubTotalPrice(produit.product.idProduct))}</div></td>
+								</tr>
+								</h:panelGrid>
+					</p:fieldset>
+							</ui:repeat>
+						</tbody>
+					</table>
 
 				</div>
 				<div>
@@ -52,7 +61,7 @@
 						<h:panelGrid columns="3" cellpadding="5">
 							<!--	Je ne vois à quoi ça doit correspondre -->
 							<!--	<div class="itemLignePanier">quantite totale</div> -->
-							<div class="itemLignePanier">"#{mbCart.getTotalPrice()}"</div>
+							<div class="itemLignePanier">#{mbProduct.DoubleFormat(mbCart.getTotalPrice())}</div>
 							<div class="itemLignePanier">
 								<h:commandButton value="Vider le Panier"
 									action="#{mbCart.cleanCart()}" update=":listeProduitPanier" />
