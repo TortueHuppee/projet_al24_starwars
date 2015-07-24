@@ -4,9 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 
 import manufacture.entity.cart.Cart;
 import manufacture.entity.cart.CartProduct;
@@ -117,6 +119,9 @@ public class ManagedBeanCart {
 				cartProduct.setQuantity(quantity);
 				panier.add(cartProduct);
 				// proxyCart.addProductToCart(cartProduct);
+		        FacesContext context = FacesContext.getCurrentInstance();
+		         
+		        context.addMessage(null, new FacesMessage("Produit(s) ajouté(s)", quantity+" "+productToAdd.getProductRef().getProductName()+" ajouté(s) au panier" ) );
 			}
 		}
 	}

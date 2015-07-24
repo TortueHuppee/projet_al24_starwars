@@ -22,7 +22,7 @@ public class LoginBean {
 	
 	private static Logger LOGGER = Logger.getLogger(LoginBean.class);
 	
-	@ManagedProperty(value="#{connection}")
+	@Autowired
 	private IConnection proxyConnection;
 
 	@Autowired
