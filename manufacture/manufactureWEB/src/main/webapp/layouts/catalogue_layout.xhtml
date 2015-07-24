@@ -1,8 +1,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:a4j="http://richfaces.org/a4j"
-	xmlns:rich="http://richfaces.org/rich"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:composite="http://java.sun.com/jsf/composite"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
@@ -11,6 +9,7 @@
 	<title><ui:insert name="title">Star Wars Part E-Shop</ui:insert></title>
 	<ui:insert name="stylesheets"></ui:insert>
 	<h:outputStylesheet library="css" name="style.css" />
+	<h:outputStylesheet library="css" name="catalogCss.css" />
 
 	<ui:insert name="stylesheets"></ui:insert>
 	<ui:insert name="javascripts"></ui:insert>
@@ -25,18 +24,11 @@
 		</div>
 	<div id="body-content">
 	
-<!-- 		<div class="sidebar-left"> -->
-<!-- 			<ui:insert name="sidebar"> -->
-<!-- 				<ui:include src="parts/sidebar.xhtml" /> -->
-<!-- 			</ui:insert> -->
-<!-- 		</div> -->
-		
-		<div class="search-bar">
-			<ui:insert name="searchbar">
-				<ui:include src="parts/searchbar.xhtml" />
+		<div class="sidebar-left">
+			<ui:insert name="sidebar">
+				<ui:include src="parts/sidebar.xhtml" />
 			</ui:insert>
 		</div>
-		
 		
 		<div class="main-content">
 			<ui:insert name="main-body">

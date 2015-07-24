@@ -118,11 +118,6 @@
 	background-color: orange;
 }
 
-/* *********  ********* */
-
-
-/* ********* fin ********* */
-
 /* recherche.xhtml */
 /* ********* debut ********* */
 #divRecherche {
@@ -141,27 +136,6 @@
 #divBtnRechercher {
 	float: left !important;
 }
-
-#divRecehrcheReference {
-	
-}
-
-#divRechercheCategorie {
-	
-}
-
-#divRechercheOptions {
-	
-}
-
-#divRechercheBouton {
-	
-}
-
-/* ********* fin ********* */
-
-
-
 
 /* ********* Code Divers Debut ********* */
 .bouton {
@@ -246,7 +220,7 @@
     text-decoration: none;
 }
 
-#menu a:active {
+#menu a:visited, a:link, a:active {
     text-decoration: none;   
 }
 
@@ -270,27 +244,23 @@
 	width: 40%;
 }
 
+#body-content
+{
+	margin-left:20px;
+   	margin-top:20px;
+}
+
 .sidebar-left {
 	float: left;
 	width: 20%;
 	min-height: 500px;
 }
 
-.main-content {
-	float: left;
-	width: 80%;
-}
-
-#body-content {
-	clear: both;
-}
-
-.article-wrapper {
-	float: left;
-	margin-right: 50px;
-	height: 150px;
-	width: 150px;
-	border: 1px solid black;
+.main-content
+{
+	display:inline-block;
+	width: 78%;
+	margin-left:20px;
 }
 
 #menu ul li {

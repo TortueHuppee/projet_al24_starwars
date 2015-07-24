@@ -1,24 +1,100 @@
-body
+#divMenuBtn
 {
-    margin:0px;
+    display:none;
 }
 
-.header
+.sidebar-left 
 {
-    background-color:#1c1d21;
-    color:white;
-    height:120px;
+   background-color:#f1f1f1;
+   border:1px solid #e5e5e5;
+   border-radius:5px;
 }
 
-.menu
+.sidebar-left .options
 {
-    background-color:#37648c;
-    color:white;
-    height:100px;
+   background: #10507B;
+  border-radius: 2px;
+  font-family: Arial;
+  color: #ffffff;
+  font-size: 30px;
+  text-decoration: none;
+  display:block;
+  height:50px;
+  margin:5px;
+  text-align:center;
+  padding-top:15px;
+  margin-top:10px;
 }
 
-.body
+.sidebar-left a:visited, .sidebar-left a:active, .sidebar-left a:link
 {
-    padding-left:30%;
-    padding-right:30%;
+  background: #558bad;
+  border-radius: 2px;
+  font-family: Arial;
+  color: #ffffff;
+  font-size: 15px;
+  text-decoration: none;
+  display:block;
+  height:25px;
+  margin:5px;
+  text-align:center;
+  padding-top:5px;
+}
+
+.sidebar-left a:hover
+{
+  background: #f5742e;
+  text-decoration: none;
+}
+
+.sidebar-left button
+{
+  font-size:15px;
+  width:97%;
+  margin-left:5px;
+  margin-right:5px;
+  margin-bottom:5px;
+}
+
+.sidebar-left div:not(.options)
+{
+  margin-left:5px;
+  margin-right:5px;
+  margin-bottom:5px;
+  font-size:15px;
+  text-align:center;
+}
+
+/*ARTICLES*/
+
+.article-wrapper {
+    text-align:center;
+	float: left;
+	margin-right: 10px;
+	margin-bottom:10px;
+	height: 300px;
+	width: 200px;
+	border-bottom: 1px solid lightgrey;
+}
+
+.article-wrapper a:visited,
+.article-wrapper a:link,
+.article-wrapper a:active {
+    text-decoration: none;
+    color:black;
+    font-family:Arial,sans serif;
+}
+
+.article-wrapper img
+{
+  width:150px;
+  height:150px;
+  margin:5px;
+}
+
+.article-name
+{
+  font-weight:bold;
+  font-size:15px;
+  height:51px;
 }
