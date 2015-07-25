@@ -136,10 +136,11 @@ public class ManagedBeanCart {
 				cartProduct.setQuantity(quantity);
 				panier.add(cartProduct);
 				// proxyCart.addProductToCart(cartProduct);
-				FacesContext context = FacesContext.getCurrentInstance();
-
-				context.addMessage(null, new FacesMessage("Produit(s) ajouté(s)", quantity+" "+productToAdd.getProductRef().getProductName()+" ajouté(s) au panier" ) );
 			}
+			FacesContext context = FacesContext.getCurrentInstance();
+
+			context.addMessage(null, new FacesMessage("Produit(s) ajouté(s)", quantity+" "+productToAdd.getProductRef().getProductName()+" ajouté(s) au panier" ) );
+
 		}
 	}
 
