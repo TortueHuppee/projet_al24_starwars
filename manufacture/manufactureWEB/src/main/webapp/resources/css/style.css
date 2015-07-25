@@ -238,12 +238,12 @@
 	float: right;
 	width: 40%;
 }
-
+/*
 #body-content {
 	margin-left: 20px;
 	margin-top: 20px;
 }
-
+*/
 .sidebar-left {
 	float: left;
 	width: 20%;
@@ -291,24 +291,6 @@
 
 /* index css */
 
-.article-wrapper{
-	float:left;
-	margin-top:25px;
-	margin-right:5%;
-	min-height:300px; 
-	width:20%; 
-}
-.article-wrapper img{
-	width:100%; 
-	height:200px;   
-}
-.article-wrapper a{
-	margin-left:auto;
-	display:block;  
-}
-.article-name{
-	min-height:40px; 
-}
 .paginator{ 
     clear: both !important;
     display: block;

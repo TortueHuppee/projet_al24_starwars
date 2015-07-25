@@ -48,7 +48,7 @@ public class IndexManagedBean {
 		listeProduitBrute = proxyCatalog.getAllConstructorProduct();
 		listeProduitRandom = new ArrayList<Product>();
 		
-		for (int i = 0; i < 8; i++)
+		for (int i = 0; i < 5; i++)
 		{
 			Random rand = new Random();
 			int randomIdProduct = rand.nextInt(listeProduitBrute.size()) + 1;

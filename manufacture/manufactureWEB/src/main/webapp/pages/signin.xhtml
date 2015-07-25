@@ -61,7 +61,7 @@
 					</h:selectOneMenu> 
 				</h:outputLabel> 
 				<p:outputPanel id="companyName"> 
-					<h:outputLabel for="signup_companyName" value="Nom de la compagnie : " rendered="#{not(signUpBean.userType eq 'particulier')}" >
+					<h:outputLabel for="signup_companyName" value="Nom de la compagnie : " rendered="#{not(signUpBean.userType eq 'particulier') and signUpBean.userType != null}" >
 						<h:inputText value="#{signUpBean.user.companyName}" required="true" requiredMessage="Test" id="signup_companyName" />
 					</h:outputLabel>
 				</p:outputPanel>	   

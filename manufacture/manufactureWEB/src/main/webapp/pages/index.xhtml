@@ -8,6 +8,10 @@
 	xmlns:composite="http://java.sun.com/jsf/composite"
 	xmlns:p="http://primefaces.org/ui">
 	
+	<ui:define name="stylesheets">
+		<h:outputStylesheet library="css" name="indexCss.css" />
+	</ui:define>
+	
 	<ui:define name="main-body">
 	<f:view>
 		<h:form id="myForm">
@@ -15,11 +19,11 @@
 			<div id="accueilSite">
 				<h:outputLabel value="Bienvenue sur GalaxZon.universe" />
 				<br/>
-				<h:outputLabel value="Site spécialisé dans la vente de pièces pour vaisseaux spatiaux quelque soit votre planète, votre vaisseau ou votrre faction." />
+				<h:outputLabel value="Site spécialisé dans la vente de pièces pour vaisseaux spatiaux quelque soit votre planète, votre vaisseau ou votre faction." />
 			</div>
 			
-			<div id="produitRandom" class="center-body">
-				
+			<div id="produitRandom">
+				<h:outputLabel value="Notre sélection d'articles" />
 				<ui:repeat var="produit" value="#{mbIndex.listeProduitRandom}">
 					<div class="article-wrapper">
 						<h4 class="article-name"><h:outputText value="#{stringUtil.trimText(produit.productRef.productName,30)}"/></h4> 
