@@ -36,11 +36,10 @@
 			 
 			<div class="article-list">
 				<ui:repeat var="produit" value="#{mbCatalog.paginatedList.model}">
+<!-- 				<ui:repeat var="produit" value="#{mbCatalog.listeProduitAffichee}"> -->
 					<div class="article-wrapper"> 
 
-						<h:commandLink action="#{mbProduct.detailProduit(produit.id)}">
-							<f:param name="idProductRef" value="#{produit.id}" />
-
+						<h:commandLink action="#{mbProduct.detailProduit(produit.idProduct)}">
 							
 								<div class="article-name">#{produit.nom}</div>
 								 <img src="#{produit.urlPhoto}" />

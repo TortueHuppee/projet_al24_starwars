@@ -124,12 +124,13 @@ public class CatalogManagedBean {
 			if (ajout)
 			{
 				int idProductRef = product.getProductRef().getIdProductRef();
+				int idProduct = product.getIdProduct();
+				
 				String nomProduct = product.getProductRef().getProductName();
 				String urlPhoto = product.getProductRef().getUrlImage();
-
 				double prix = DoubleFormat(product.getPrice());
 
-				Produit produit = new Produit(idProductRef, nomProduct, urlPhoto, prix);
+				Produit produit = new Produit(idProductRef, idProduct, nomProduct, urlPhoto, prix);
 				listeProduitAffichee.add(produit);
 			}
 		}
@@ -207,13 +208,13 @@ public class CatalogManagedBean {
 	}
 
 
-	public boolean produitDejaDansLaListe(Product product)
+	public boolean produitDejaDansLaListe(ConstructorProduct product)
 	{
 		boolean ajout = true;
 
 		for (Produit pr : listeProduitAffichee)
 		{
-			if (pr.getId() == product.getProductRef().getIdProductRef())
+			if (pr.getIdProductRef() == product.getProductRef().getIdProductRef())
 			{
 				ajout = false;
 
@@ -381,31 +382,45 @@ public class CatalogManagedBean {
 	//Classe interne	
 	public class Produit implements Comparable<Produit>
 	{
-		private int id;
+		private int idProductRef;
+		private int idProduct;
 		private String nom;
 		private String urlPhoto;
 		private double prixMin;
 
-		public Produit(int id, String nom, String urlPhoto, double prixMoyen) {
+		public Produit(int idProductRef, int idProduct, String nom, String urlPhoto, double prixMoyen) {
 			super();
-			this.id = id;
+			this.idProductRef = idProductRef;
+			this.idProduct = idProduct;
 			this.nom = nom;
 			this.urlPhoto = urlPhoto;
 			this.prixMin = prixMoyen;
 		}
 
-		public int getId() {
-			return id;
+		public int getIdProductRef() {
+			return idProductRef;
 		}
-		public void setId(int id) {
-			this.id = id;
+		
+		public void setIdProductRef(int idProductRef) {
+			this.idProductRef = idProductRef;
 		}
+		
+		public int getIdProduct() {
+			return idProduct;
+		}
+
+		public void setIdProduct(int idProduct) {
+			this.idProduct = idProduct;
+		}
+
 		public String getNom() {
 			return nom;
 		}
+		
 		public void setNom(String nom) {
 			this.nom = nom;
 		}
+		
 		public String getUrlPhoto() {
 			return urlPhoto;
 		}

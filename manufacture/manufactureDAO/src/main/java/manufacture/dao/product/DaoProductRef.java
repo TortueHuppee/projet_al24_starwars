@@ -125,7 +125,7 @@ public class DaoProductRef implements IDaoProductRef {
 	@Override
 	public ProductRef getProductRefById(int idProductRef) {
 		Session session = sf.getCurrentSession();
-		String requete = "SELECT pr FROM Product p JOIN p.productRef pr WHERE p.idProduct =:paramId";
+		String requete = "SELECT p FROM ProductRef WHERE p.idProductRef =:paramId";
 		Query hql = session.createQuery(requete);
 		hql.setParameter("paramId", idProductRef);
 		List<ProductRef> resultat = hql.list();

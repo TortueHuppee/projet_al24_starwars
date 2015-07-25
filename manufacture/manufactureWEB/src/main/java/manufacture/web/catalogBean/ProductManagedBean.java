@@ -51,11 +51,6 @@ public class ProductManagedBean {
 	void init()
 	{
 		//photo, nom, description, catégorie, modèles vaisseaux
-//		if (productRef == null)
-//		{
-//			idProductRef = 47;
-//			productRef = proxyCatalog.getProductRefById(idProductRef);
-//		}
 		listeVaisseauxProduit = proxyCatalog.getSpaceShipProductByProduct(productRef);
 		listeVaisseaux = new ArrayList<SpaceshipRef>();
 		for (SpaceshipProduct ssp : listeVaisseauxProduit)
@@ -97,7 +92,7 @@ public class ProductManagedBean {
 	//Méthodes	
 	
 	public String detailProduit(int idProduit)
-	{
+	{	
 		this.idProductRef = idProduit;
 		this.productRef = proxyCatalog.getProductRefById(idProductRef);
 		init();
