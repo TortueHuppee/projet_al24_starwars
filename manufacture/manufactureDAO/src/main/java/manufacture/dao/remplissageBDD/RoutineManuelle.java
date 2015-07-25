@@ -17,6 +17,8 @@ import manufacture.entity.product.Product;
 import manufacture.entity.product.ProductRef;
 import manufacture.entity.product.SpaceshipProduct;
 import manufacture.entity.product.SpaceshipRef;
+import manufacture.entity.user.City;
+import manufacture.entity.user.Country;
 import manufacture.idao.product.IDaoCategory;
 import manufacture.idao.product.IDaoColor;
 import manufacture.idao.product.IDaoConstructor;
@@ -24,6 +26,7 @@ import manufacture.idao.product.IDaoMaterial;
 import manufacture.idao.product.IDaoProduct;
 import manufacture.idao.product.IDaoProductRef;
 import manufacture.idao.product.IDaoSpaceShipRef;
+import manufacture.idao.user.IDaoAdress;
 
 public class RoutineManuelle {
 
@@ -39,9 +42,10 @@ public class RoutineManuelle {
 	IDaoProductRef proxyProductRef = (IDaoProductRef) bf.getBean(IDaoProductRef.class);
 	IDaoSpaceShipRef proxySpaceShipRef = (IDaoSpaceShipRef) bf.getBean(IDaoSpaceShipRef.class);
 	IDaoProduct proxyProduct = (IDaoProduct) bf.getBean(IDaoProduct.class);
-
+	IDaoAdress proxyAdresse = (IDaoAdress) bf.getBean(IDaoAdress.class);
+	
 	//Méthodes 
-
+	
 	public void genererProduct()
 	{
 		log.info("========================================[ Init ]=====================================");

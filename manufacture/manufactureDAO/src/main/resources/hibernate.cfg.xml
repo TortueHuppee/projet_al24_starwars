@@ -43,6 +43,6 @@
 		<mapping class="manufacture.entity.user.Administrator" />
 		<mapping class="manufacture.entity.user.ProfessionnalCustomer" />
 		<mapping class="manufacture.entity.user.SpecificCustomer" />
-
+		
 	</session-factory>
 </hibernate-configuration>

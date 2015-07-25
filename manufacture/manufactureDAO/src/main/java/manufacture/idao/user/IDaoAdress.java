@@ -15,11 +15,22 @@ import manufacture.entity.user.User;
 
 public interface IDaoAdress {
 
+	List<City> getAllCities();
+	
+	void addCity(City city);
+	
+	void addCountry(Country country);
+	
+	void addPlanet(Planet planet);
+	
 	void createAdress(Address adress);
+	
+	List<Country> getAllCountries();
 	
 	List<Planet> getAllPlanet();
 	
 	List<Country> getAllCountryByPlanet(int idPlanet);
 	
 	List<City> getAllCityByCountry(int idCountry);
+	
 }

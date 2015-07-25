@@ -11,36 +11,34 @@ public class Main {
 		 * Données ajoutées à la base de données :
 		 * 
 		 * ***Vaisseaux
-		 */ rout.recupVaisseaux();
-		 /* 
+		 * rout.recupVaisseaux();
+		 * 
 		 * ***Constructeurs
-		 */ rout.recupConstructeurs();
-		 /* 
+		 * rout.recupConstructeurs();
+		 * 
 		 * ***Catégories
-		 */ rout2.ajoutCategorie();
+		 * rout2.ajoutCategorie();
 		 
-		 /* ***ProductRef (*4 catégories)
-		 */ rout.recupDonnnesSiteASP();
-		  rout.recupDonnesArmes();
-		  rout2.correctionCategory();
-		 /* 
+		 * ***ProductRef (*4 catégories)
+		 * rout.recupDonnnesSiteASP();
+		 * rout.recupDonnesArmes();
+		 * rout2.correctionCategory();
+		 * 
 		 * ***SpaceShipProduct
-		 */ rout2.genererSpaceShipProduct();
-		 /* 
+		 * rout2.genererSpaceShipProduct();
+		 * 
 		 * ***Color
-		 */ rout2.genererColor();
-		 /* 
+		 * rout2.genererColor();
+		 * 
 		 * ***Material
-		 */ rout2.genererMaterial();
-		 /* 
+		 * rout2.genererMaterial();
+		 * 
 		 * ***Product
-		 */ rout2.genererProduct();
-		 
-		
-		
-		rout.recupPlanetes();		
-		
-		
+		 * rout2.genererProduct();
+		 *
+		 * ***Product
+		 * rout.recupPlanetes();
+		 * */
 		
 	}
 

@@ -17,6 +17,7 @@ import manufacture.idao.product.IDaoConstructor;
 import manufacture.idao.product.IDaoMaterial;
 import manufacture.idao.product.IDaoProductRef;
 import manufacture.idao.product.IDaoSpaceShipRef;
+import manufacture.idao.user.IDaoAdress;
 
 import org.apache.log4j.Logger;
 import org.jsoup.Jsoup;
@@ -39,8 +40,7 @@ public class Routine {
 	IDaoMaterial proxyMaterial = (IDaoMaterial) bf.getBean(IDaoMaterial.class);
 	IDaoProductRef proxyProductRef = (IDaoProductRef) bf.getBean(IDaoProductRef.class);
 	IDaoSpaceShipRef proxySapceShipRef = (IDaoSpaceShipRef) bf.getBean(IDaoSpaceShipRef.class);
-	
-	//IDaoPlanet proxyColor = (IDaoColor) bf.getBean(IDaoColor.class);
+	IDaoAdress proxyAdresse = (IDaoAdress) bf.getBean(IDaoAdress.class);
 	
 	
 	//Site ASP (pièces détachées avions)
@@ -83,7 +83,7 @@ public class Routine {
 
 				System.out.println(lienDetails.size());
 
-				for (int i = ind ; i < lienDetails.size() ; i++)
+				for (int i = ind ; i < lienDetails.size() ; i +=100)
 				{
 					ind = i;
 
@@ -131,10 +131,10 @@ public class Routine {
 //					planete.setRegionGalactique(regionGalactique);
 //					planete.setSecteurGalactique(secteurGalactique);
 //					planete.setSystemeStellaire(systemeStellaire);
+					
+					planete.setPlanetName(nom);
 
-					System.out.println(nom);
-
-//					per.save(planete);
+					proxyAdresse.addPlanet(planete);
 					Thread.sleep(20);
 				}
 				ind = 0;
