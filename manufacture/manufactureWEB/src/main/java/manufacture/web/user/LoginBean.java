@@ -1,10 +1,14 @@
 package manufacture.web.user;
 
+import java.io.IOException;
+
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletRequest;
 
 import manufacture.entity.cart.Cart;
 import manufacture.entity.cart.CartProduct;
@@ -30,7 +34,7 @@ public class LoginBean {
 	private ManagedBeanCart mbCart;
 	
 	private User user;
-	
+	private String redirect;
 	public LoginBean(){
 		user = new User(); 
 	}
@@ -46,7 +50,20 @@ public class LoginBean {
 		}
 		userBean.setUser(userTmp);
 		mergeCarts();
-		return "index.xhtml?faces-redirect=true";
+		String toPage = null;
+		if(redirect != null){
+			toPage = redirect;
+			redirect = null;
+		}else{
+		    ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+		    try {
+				ec.redirect(((HttpServletRequest) ec.getRequest()).getRequestURI());
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} 
+		return toPage;
 	} 
 	
 	/**
@@ -112,5 +129,13 @@ public class LoginBean {
 
 	public void setMbCart(ManagedBeanCart mbCart) {
 		this.mbCart = mbCart;
+	}
+
+	public String getRedirect() {
+		return redirect;
+	}
+
+	public void setRedirect(String redirect) {
+		this.redirect = redirect;
 	} 
 }

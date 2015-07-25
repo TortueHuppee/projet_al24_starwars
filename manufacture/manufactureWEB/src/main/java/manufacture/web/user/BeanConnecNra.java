@@ -72,41 +72,4 @@ public class BeanConnecNra {
 		this.reponse = reponse;
 	}
 	
-	/*
-	public String doLogin(){
-		LOGGER.info("enter login bean");
-		IConnection connection = bf.getBean(IConnection.class);
-		User userTmp = connection.connectUser(user);
-		if(userTmp==null){
-            FacesMessage message = new FacesMessage("Utilisateur non trouvé");
-            FacesContext context = FacesContext.getCurrentInstance();
-            context.addMessage(null, message);		
-            return "login.xhtml?faces-redirect=true";
-		}
-		userBean.setUser(userTmp); 
-		return "index.xhtml?faces-redirect=true";
-	} 
-	
-	public String doLogout(){
-		userBean.setUser(null);
-		LOGGER.info("user reseted");
-		return null;
-	}
-
-	public UserBeanTmp getUserBean() {
-		return userBean;
-	}
-
-	public void setUserBean(UserBeanTmp userBean) {
-		this.userBean = userBean;
-	}
-
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
-	}
-*/
 }

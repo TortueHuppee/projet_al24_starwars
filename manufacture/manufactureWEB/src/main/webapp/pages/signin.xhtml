@@ -13,6 +13,7 @@
 
 	<ui:define name="main-body">
 	<div class="center-body">
+	<h1>Création de compte</h1>
 		<h:form id="signinForm">  
 			<div class="sign-identity">
 			<fieldset>
@@ -24,10 +25,10 @@
 					<h:inputSecret value="#{signUpBean.user.password}" required="true" requiredMessage="Test" id="signup_password" />
 				</h:outputLabel>
 				<h:outputLabel for="signup_firstName" value="Prenom : ">
-					<h:inputSecret value="#{signUpBean.user.userFirstName}" required="true" requiredMessage="Test" id="signup_firstName" />
+					<h:inputText value="#{signUpBean.user.userFirstName}" required="true" requiredMessage="Test" id="signup_firstName" />
 				</h:outputLabel>
 				<h:outputLabel for="signup_lastName" value="Nom de famille : ">
-					<h:inputSecret value="#{signUpBean.user.userName}" required="true" requiredMessage="Test" id="signup_lastName" />
+					<h:inputText value="#{signUpBean.user.userName}" required="true" requiredMessage="Test" id="signup_lastName" />
 				</h:outputLabel>			
 					</fieldset>
 			</div>

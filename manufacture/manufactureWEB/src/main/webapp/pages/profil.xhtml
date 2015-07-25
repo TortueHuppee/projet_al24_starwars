@@ -8,6 +8,30 @@
 </ui:define>
 
 	<ui:define name="main-body">
-		Mon profil
+		<div class="center-body">
+			<h1>Mon profil</h1>
+			<div class="identity">
+				<h2>Identite</h2>
+				<h:outputLabel value="Prenom : "/>
+				<h:outputText value="#{profilBean.userBean.user.userFirstName}"/><br />
+				<h:outputLabel value="Nom : "/>
+				<h:outputText value="#{profilBean.userBean.user.userName}"/><br />
+				<h:outputLabel value="Date d'inscription : "/>
+				<h:outputText value="#{profilBean.userBean.user.createTime.date}"/><br />
+				
+			</div> 
+			<div class="address">
+				<h2>Adresse</h2>
+				<h:outputLabel value="N°Rue : "/>
+				<h:outputText value="#{profilBean.userBean.user.address.number}"/><br />
+				<h:outputLabel value="Rue : "/>
+				<h:outputText value="#{profilBean.userBean.user.address.street}"/><br />
+				
+				
+			</div>
+			<div class="lastBuy"> 
+				<h2>Derniers achats</h2>
+			</div>
+		</div>
 	</ui:define>
 </ui:composition>

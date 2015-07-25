@@ -37,12 +37,12 @@
 							</td>
 							<td>
 								<h:outputLabel value="Catégorie :" />
-								<h:outputLabel value="#{produit.product.productRef.category.categoryName}" />
+								<h:outputText value="#{produit.product.productRef.category.categoryName}" /><br />
 								<h:outputLabel value="Couleur :" />
-								<h:outputLabel value="#{produit.product.color.colorName}" />
+								<h:outputText value="#{produit.product.color.colorName}" /><br />
 								<h:outputLabel value="Matériaux :" />
-								<h:outputLabel value="#{produit.product.material.materialName}" />
-							</td>
+								<h:outputText value="#{produit.product.material.materialName}" /><br />
+							</td> 
 							<td>
 								<h:commandButton value="-"
 									action="#{mbCart.decrementProductQuantity(produit.product.idProduct)}" />

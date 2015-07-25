@@ -11,6 +11,7 @@ import javax.faces.context.FacesContext;
 
 import manufacture.entity.cart.CartProduct;
 import manufacture.ifacade.cart.IPaiement;
+import manufacture.web.user.LoginBean;
 import manufacture.web.user.UserBean;
 
 import org.springframework.beans.factory.BeanFactory;
@@ -28,6 +29,9 @@ public class PaymentBean {
 
 	@ManagedProperty(value="#{userBean}")
 	private UserBean userBean;
+	
+	@ManagedProperty(value="#{loginBean}")
+	private LoginBean loginBean;
 	
 	@ManagedProperty(value="#{mbCart}")
 	private ManagedBeanCart mbCart;
@@ -73,7 +77,7 @@ public class PaymentBean {
 		paiementFacade.processPaiement(getMbCart().getSpecificUserCart());
 		mbCart.setSpecificUserCart(mbCart.generateCart(userBean.getUser()));
 		userBean.getUser().getCarts().add(mbCart.getSpecificUserCart());
-		mbCart.setPanier(new ArrayList<CartProduct>()); 
+		mbCart.setPanier(new ArrayList<CartProduct>());
 		return "paymentSuccess.xhtml";
 	}
 	
@@ -81,6 +85,7 @@ public class PaymentBean {
 		if(!userBean.isLogged()){
 			FacesMessage fm = new FacesMessage("Erreur", "Vous devez vous connecter pour procéder au paiement");
 			FacesContext.getCurrentInstance().addMessage(null, fm);
+			loginBean.setRedirect("paiement.xhtml?faces-redirect=true");
 			return "login.xhtml?faces-redirect=true";
 		} 
 		return "paiement.xhtml?faces-redirect=true";
@@ -129,6 +134,14 @@ public class PaymentBean {
 
 	public void setPaiementFacade(IPaiement paiementFacade) {
 		this.paiementFacade = paiementFacade;
+	}
+
+	public LoginBean getLoginBean() {
+		return loginBean;
+	}
+
+	public void setLoginBean(LoginBean loginBean) {
+		this.loginBean = loginBean;
 	}
 
 }
