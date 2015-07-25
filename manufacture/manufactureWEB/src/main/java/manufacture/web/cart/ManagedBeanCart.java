@@ -50,7 +50,7 @@ public class ManagedBeanCart {
 
 	private int idSelectedProduct;
 	private Product selectedProduct;
-	private int quantity =0;
+	private int quantity = 1;
 	private double total = 0;
 
 	private List<ConstructorProduct> listeProductBrute;

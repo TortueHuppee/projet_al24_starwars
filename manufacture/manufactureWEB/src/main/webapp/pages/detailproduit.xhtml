@@ -36,7 +36,7 @@
 					<h:outputLabel  value="#{mbProduct.DoubleFormat(mbProduct.produitAffiche.price)} Crédits" />
 
 					<h:outputLabel value="Quantité :" />
-					<p:spinner id="minMax" min="1"  max="#{mbProduct.quantiteDispo}" value="#{mbCart.quantity == 0 ? 1 : mbCart.quantity}" />
+					<p:spinner id="minMax" min="1"  max="#{mbProduct.quantiteDispo}" value="#{mbCart.quantity}" />
 
 					<h:outputLabel value="Description :" />
 					<h:outputLabel value="#{mbProduct.productRef.description}" />
