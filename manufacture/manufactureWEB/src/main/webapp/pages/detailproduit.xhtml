@@ -36,13 +36,13 @@
 					<h:outputLabel  value="#{mbProduct.DoubleFormat(mbProduct.produitAffiche.price)} Crédits" />
 
 					<h:outputLabel value="Quantité :" />
-					<p:spinner id="minMax" min="1" max="#{mbProduct.quantiteDispo}" value="#{mbCart.quantity}" />
+					<p:spinner id="minMax" min="1"  max="#{mbProduct.quantiteDispo}" value="#{mbCart.quantity == 0 ? 1 : mbCart.quantity}" />
 
 					<h:outputLabel value="Description :" />
 					<h:outputLabel value="#{mbProduct.productRef.description}" />
 					
 					<h:outputLabel value="Modèles de vaisseaux compatibles :" />
-					
+					 
 					<ul>
 						<ui:repeat var="vaisseau" value="#{mbProduct.listeVaisseaux}">
 							<li>#{vaisseau.spaceshipName}</li>

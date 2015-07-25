@@ -19,7 +19,8 @@
 				<h:outputLabel for="login_password" value="Mot de passe : " /> 
 				<h:inputSecret value="#{loginBean.user.password}" id="login_password"
 					required="true" requiredMessage="Champs obligatoire" styleClass="inputConnexion"/>
-				<p:commandButton value="se connecter"
+				<h:outputText value="Pas de compte ?"/><h:commandLink value="Inscrivez vous !" action="signin.xhtml&amp;faces-redirect=true" /><br />
+				<p:commandButton value="se connecter" 
 					action="#{loginBean.doLogin()}" /> 
 			</h:form>
 		</div> 
