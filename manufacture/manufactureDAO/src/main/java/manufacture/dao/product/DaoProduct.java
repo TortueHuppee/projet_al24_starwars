@@ -85,7 +85,7 @@ public class DaoProduct implements IDaoProduct {
 	@Override
 	public List<Product> getAllProduct() {
 		Session session = sf.getCurrentSession();
-		String requete = "FROM Product a";
+		String requete = "FROM Product a JOIN a.productRef pr";
 		Query hql = session.createQuery(requete);
 		List<Product> resultat = hql.list();
 		return resultat;
@@ -96,7 +96,7 @@ public class DaoProduct implements IDaoProduct {
 		Session session = sf.getCurrentSession();		
 		//Requete à partir de la valeur discriminatrice
 		//String requete = "SELECT DISTINCT p.productRef FROM Product p WHERE p.class='constructor_product'";
-		String requete = "SELECT p FROM Product p WHERE p.class='constructor_product'";
+		String requete = "SELECT p FROM Product p JOIN p.productRef pr WHERE p.class='constructor_product'";
 		Query hql = session.createQuery(requete);
 		List<ConstructorProduct> resultat = hql.list();
 		return resultat;

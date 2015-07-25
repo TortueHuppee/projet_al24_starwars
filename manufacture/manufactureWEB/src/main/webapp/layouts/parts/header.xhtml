@@ -5,18 +5,20 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
 	<div class="left_zone">
-		<div id="logo">
+		<div id="logo">  
+		<a href="index.xhtml" style="display: inline; width: auto;;">
 			<img src="../resources/images/logo.png" alt="logo" />
 			<label>GalaxZon</label>
+		</a> 
 		</div> 
 	</div>
 	<div class="right_zone">
 		<div id="membership_zone">
 			<h:form> 
 			    <h:outputLink value="#" rendered="#{userBean.user == null}" id="loginLink">  
-     <h:outputText value="Se connecter" />  
-    </h:outputLink>  	
-						<p:overlayPanel id="imagePanel" for="loginLink" hideEffect="fade">
+		     <h:outputText value="Se connecter" />  
+		    </h:outputLink>  	
+								<p:overlayPanel id="imagePanel" for="loginLink" hideEffect="fade">
 
 								<!-- DESCRIPTION 
 	de cette balise jusq'à celle de fin , le texte est à copier tel quel de connexion.xhtml dans menu.xhtml afin de faire la petite fenetre de connexion
@@ -24,12 +26,9 @@
 	 --> 
 	 
 								<div id="divDeConnexion">
-									<div class="divLabelConnexion">
-										<span class="labelConnexion">Connexion :</span>
-									</div>
 									<div class="labelInputConnexion">
-										<div class="divLabelConnexion">
-											<span class="labelConnexion">Login :</span>
+										<div class="divLabelConnexion"> 
+											<span class="labelConnexion">Nom d'utilisateur :</span>
 										</div>
 										<div class="divInputConnexion">
 											<p:inputText styleClass="inputConnexion"
@@ -38,16 +37,16 @@
 									</div>
 									<div class="labelConnexion">
 										<div class="divLabelConnexion">
-											<span class="labelConnexion">Password :</span>
+											<span class="labelConnexion">Mot de passe :</span>
 										</div>
 										<div class="divInputConnexion">
-											<h:inputSecret styleClass="inputConnexion"
+											<h:inputSecret styleClass="ui-inputfield ui-inputtext ui-widget ui-state-default ui-corner-all inputConnexion"
 												value="#{loginBean.user.password}" />
 										</div>
 									</div>
 									<div class="labelConnexion">
 										<div class="divBoutonConnexion">
-											<p:commandButton value="Valider" id="btnVallider"
+											<p:commandButton value="Se connecter" id="btnVallider"
 												styleClass="boutonConnexion"
 												action="#{loginBean.doLogin()}" />
 										</div>

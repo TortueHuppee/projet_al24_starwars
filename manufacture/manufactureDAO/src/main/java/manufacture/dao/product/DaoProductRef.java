@@ -40,7 +40,7 @@ public class DaoProductRef implements IDaoProductRef {
 		//Requete à partir de la valeur discriminatrice
 
 		//String requete = "SELECT DISTINCT p.productRef FROM Product p WHERE p.class='constructor_product'";
-		String requete = "SELECT p.productRef FROM Product p WHERE p.class='constructor_product'";
+		String requete = "SELECT p.productRef FROM Product p JOIN p.productRef pr WHERE p.class='constructor_product'";
 		Query hql = session.createQuery(requete);
 		List<ProductRef> resultat = hql.list();
 		return resultat;
@@ -125,7 +125,7 @@ public class DaoProductRef implements IDaoProductRef {
 	@Override
 	public ProductRef getProductRefById(int idProductRef) {
 		Session session = sf.getCurrentSession();
-		String requete = "SELECT p FROM ProductRef p WHERE p.idProductRef =:paramId";
+		String requete = "SELECT pr FROM Product p JOIN p.productRef pr WHERE p.idProduct =:paramId";
 		Query hql = session.createQuery(requete);
 		hql.setParameter("paramId", idProductRef);
 		List<ProductRef> resultat = hql.list();

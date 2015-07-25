@@ -22,6 +22,7 @@ import manufacture.ifacade.catalog.ICatalog;
 import org.apache.log4j.Logger;
 
 import manufacture.web.util.ClassPathLoader;
+import manufacture.web.util.RepeatPaginator;
 
 import org.springframework.beans.factory.BeanFactory;
 
@@ -53,7 +54,7 @@ public class CatalogManagedBean {
 	private int idMaterialSelected;
 	private int idConstructorSelected;
 	private int idSpaceShipSelected;
-
+	private RepeatPaginator paginatedList;
 	@PostConstruct
 	void init()
 	{
@@ -132,7 +133,8 @@ public class CatalogManagedBean {
 				listeProduitAffichee.add(produit);
 			}
 		}
-	}
+		paginatedList = new RepeatPaginator(listeProduitAffichee, 24);
+	} 
 
 	//Filtres
 	public boolean filtreCategorie(Product product)
@@ -366,6 +368,14 @@ public class CatalogManagedBean {
 	public void setListeProductAffichee(
 			List<ConstructorProduct> listeProductAffichee) {
 		this.listeProductAffichee = listeProductAffichee;
+	}
+
+	public RepeatPaginator getPaginatedList() {
+		return paginatedList;
+	}
+
+	public void setPaginatedList(RepeatPaginator paginatedList) {
+		this.paginatedList = paginatedList;
 	}
 
 	//Classe interne	

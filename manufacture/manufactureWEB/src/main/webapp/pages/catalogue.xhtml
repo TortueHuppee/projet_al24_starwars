@@ -8,9 +8,35 @@
 	<ui:define name="main-body">
 		<f:view>
 			<h:form id="myForm">
-
-				<ui:repeat var="produit" value="#{mbCatalog.listeProduitAffichee}">
-					<div class="article-wrapper">
+							<div class="paginator"> 
+					<h:commandLink action="#{mbCatalog.paginatedList.goTo(mbCatalog.paginatedList.getOne())}"> 
+			    		<span class="glyphicon glyphicon-fast-backward"></span> 
+			    	</h:commandLink> 
+					<h:commandLink action="#{mbCatalog.paginatedList.prev}"> 
+			    		<span class="glyphicon glyphicon-backward"></span> 
+			    	</h:commandLink> 
+				
+			        <ui:repeat value="#{mbCatalog.paginatedList.listPage}" var="pages">
+				        <h:panelGroup rendered="#{mbCatalog.paginatedList.pageIndex == pages}">
+				        	<span class="pagination-set">#{pages}</span>
+				        </h:panelGroup>
+				        <h:panelGroup rendered="#{mbCatalog.paginatedList.pageIndex != pages}">
+				        	        <span class="pagination-set"><h:commandLink action="#{mbCatalog.paginatedList.goTo(pages)}" value="#{pages}" /></span>
+				        </h:panelGroup>
+			        </ui:repeat>
+			     	<h:commandLink action="#{mbCatalog.paginatedList.next}"> 
+			    		<span class="glyphicon glyphicon-forward"></span>
+			    	</h:commandLink> 
+			    				<h:commandLink action="#{mbCatalog.paginatedList.goTo(mbCatalog.paginatedList.pages)}"> 
+			    		<span class="glyphicon glyphicon-fast-forward"></span>
+			    	</h:commandLink> 
+			    	 
+			        <h:inputHidden value="#{mbCatalog.paginatedList.pageIndex}"/> 
+				</div> 
+			 
+			<div class="article-list">
+				<ui:repeat var="produit" value="#{mbCatalog.paginatedList.model}">
+					<div class="article-wrapper"> 
 
 						<h:commandLink action="#{mbProduct.detailProduit(produit.id)}">
 							<f:param name="idProductRef" value="#{produit.id}" />
@@ -20,12 +46,37 @@
 								 <img src="#{produit.urlPhoto}" />
 								<div class="article-description">#{produit.prixMin}
 									Crédits</div>
-							
+							 
 
 						</h:commandLink>
 					</div>
 				</ui:repeat>
-
+				</div>
+				<div class="paginator"> 
+					<h:commandLink action="#{mbCatalog.paginatedList.goTo(mbCatalog.paginatedList.getOne())}"> 
+			    		<span class="glyphicon glyphicon-fast-backward"></span> 
+			    	</h:commandLink> 
+					<h:commandLink action="#{mbCatalog.paginatedList.prev}"> 
+			    		<span class="glyphicon glyphicon-backward"></span> 
+			    	</h:commandLink> 
+				
+			        <ui:repeat value="#{mbCatalog.paginatedList.listPage}" var="pages">
+				        <h:panelGroup rendered="#{mbCatalog.paginatedList.pageIndex == pages}">
+				        	<span class="pagination-set">#{pages}</span>
+				        </h:panelGroup>
+				        <h:panelGroup rendered="#{mbCatalog.paginatedList.pageIndex != pages}">
+				        	        <span class="pagination-set"><h:commandLink action="#{mbCatalog.paginatedList.goTo(pages)}" value="#{pages}" /></span>
+				        </h:panelGroup>
+			        </ui:repeat>
+			     	<h:commandLink action="#{mbCatalog.paginatedList.next}"> 
+			    		<span class="glyphicon glyphicon-forward"></span>
+			    	</h:commandLink> 
+			    				<h:commandLink action="#{mbCatalog.paginatedList.goTo(mbCatalog.paginatedList.pages)}"> 
+			    		<span class="glyphicon glyphicon-fast-forward"></span>
+			    	</h:commandLink> 
+			    	 
+			        <h:inputHidden value="#{mbCatalog.paginatedList.pageIndex}"/> 
+				</div> 
 			</h:form>
 		</f:view>
 	</ui:define>
