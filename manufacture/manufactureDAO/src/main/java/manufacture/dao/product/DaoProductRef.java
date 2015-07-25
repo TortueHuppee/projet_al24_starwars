@@ -129,7 +129,12 @@ public class DaoProductRef implements IDaoProductRef {
 		Query hql = session.createQuery(requete);
 		hql.setParameter("paramId", idProductRef);
 		List<ProductRef> resultat = hql.list();
-		return resultat.get(0);
+		if(resultat.size() == 0){
+			//Rustine
+			return new ProductRef();
+		}else{			
+			return resultat.get(0);
+		}
 	}
 
 	//Getters et Setters

@@ -18,22 +18,25 @@
 				<h:outputLabel value="Site spécialisé dans la vente de pièces pour vaisseaux spatiaux quelque soit votre planète, votre vaisseau ou votrre faction." />
 			</div>
 			
-			<div id="produitRandom">
+			<div id="produitRandom" class="center-body">
 				
 				<ui:repeat var="produit" value="#{mbIndex.listeProduitRandom}">
 					<div class="article-wrapper">
-
-						<h:commandLink action="#{mbProduct.detailProduit(produit.idProduct)}">
-							<f:param name="idProductRef" value="#{produit.idProduct}" />
-
+						<h4 class="article-name"><h:outputText value="#{stringUtil.trimText(produit.productRef.productName,30)}"/></h4> 
+							<h:commandLink action="#{mbProduct.detailProduit(produit.idProduct)}">  
+								<f:param name="idProductRef" value="#{produit.idProduct}" />
+								<img src="#{produit.productRef.urlImage}" />
+							</h:commandLink>
+							<div class="article-description">
+								<h:commandLink action="#{mbProduct.detailProduit(produit.idProduct)}">
+									<h:outputText value="#{produit.price}"> 
+									<f:convertNumber maxFractionDigits="2"/>
+									</h:outputText> Crédits
+								</h:commandLink>
+							</div> 
 							
-								<div class="article-name">#{produit.productRef.productName}</div>
-								 <img src="#{produit.productRef.urlImage}" />
-								<div class="article-description">#{produit.price} Crédits</div>
-							
-						</h:commandLink>
 					</div>					
-				</ui:repeat>
+				</ui:repeat> 
 					
 			</div>
 		
