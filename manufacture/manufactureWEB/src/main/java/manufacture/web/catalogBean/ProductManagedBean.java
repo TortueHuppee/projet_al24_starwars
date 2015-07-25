@@ -62,7 +62,7 @@ public class ProductManagedBean {
 		listeProduitsTotaux = proxyCatalog.getAllProductByProductRef(productRef.getIdProductRef());
 		listeProduitsAffiches = listeProduitsTotaux;
 		
-		produitAffiche = listeProduitsTotaux.get(0);			
+		produitAffiche = listeProduitsTotaux.get(0);
 
 		//options
 		idColorSelected = produitAffiche.getColor().getIdColor();
