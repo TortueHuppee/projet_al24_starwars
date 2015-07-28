@@ -26,17 +26,17 @@ public class Constructor implements Serializable {
 	public Constructor() {
 	}
 
-	public Constructor(int idConstructor, String constructorName) {
+	public Constructor(Integer idConstructor, String constructorName) {
 		super();
 		this.idConstructor = idConstructor;
 		this.constructorName = constructorName;
 	}
 
-	public int getIdConstructor() {
+	public Integer getIdConstructor() {
 		return this.idConstructor;
 	}
 
-	public void setIdConstructor(int idConstructor) {
+	public void setIdConstructor(Integer idConstructor) {
 		this.idConstructor = idConstructor;
 	}
 

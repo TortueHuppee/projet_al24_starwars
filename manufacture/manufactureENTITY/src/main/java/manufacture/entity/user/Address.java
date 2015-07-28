@@ -21,7 +21,7 @@ public class Address implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="id_address")
-	private int idAddress;
+	private Integer idAddress;
 
 	//Par convention FALSE = 0 et TRUE = 1
 	@Column(name="is_billing_address")
@@ -54,11 +54,11 @@ public class Address implements Serializable {
 	public Address() {
 	}
 
-	public int getIdAddress() {
+	public Integer getIdAddress() {
 		return this.idAddress;
 	}
 
-	public void setIdaddress(int idaddress) {
+	public void setIdaddress(Integer idaddress) {
 		this.idAddress = idaddress;
 	}
 

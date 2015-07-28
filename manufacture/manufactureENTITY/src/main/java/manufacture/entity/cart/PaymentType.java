@@ -17,7 +17,7 @@ public class PaymentType implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="id_payment")
-	private int idPayment;
+	private Integer idPayment;
 
 	private String name;
 
@@ -28,11 +28,11 @@ public class PaymentType implements Serializable {
 	public PaymentType() {
 	}
 
-	public int getIdPayment() {
+	public Integer getIdPayment() {
 		return this.idPayment;
 	}
 
-	public void setIdPayment(int idPayment) {
+	public void setIdPayment(Integer idPayment) {
 		this.idPayment = idPayment;
 	}
 

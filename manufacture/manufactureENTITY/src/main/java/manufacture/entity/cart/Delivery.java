@@ -17,7 +17,7 @@ public class Delivery implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="id_delivery")
-	private int idDelivery;
+	private Integer idDelivery;
 
 	@Column(name="delivery_method")
 	private String deliveryMethod;
@@ -32,11 +32,11 @@ public class Delivery implements Serializable {
 	public Delivery() {
 	}
 
-	public int getIdDelivery() {
+	public Integer getIdDelivery() {
 		return this.idDelivery;
 	}
 
-	public void setIdDelivery(int idDelivery) {
+	public void setIdDelivery(Integer idDelivery) {
 		this.idDelivery = idDelivery;
 	}
 

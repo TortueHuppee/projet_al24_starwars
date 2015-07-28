@@ -17,7 +17,7 @@ public class Country implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="id_country")
-	private int idCountry;
+	private Integer idCountry;
 
 	@Column(name="country_name")
 	private String countryName;
@@ -34,11 +34,11 @@ public class Country implements Serializable {
 	public Country() {
 	}
 
-	public int getIdCountry() {
+	public Integer getIdCountry() {
 		return this.idCountry;
 	}
 
-	public void setIdCountry(int idCountry) {
+	public void setIdCountry(Integer idCountry) {
 		this.idCountry = idCountry;
 	}
 

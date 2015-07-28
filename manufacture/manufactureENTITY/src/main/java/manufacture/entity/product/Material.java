@@ -19,7 +19,7 @@ public class Material implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="id_material")
-	private int idMaterial;
+	private Integer idMaterial;
 
 	@Column(name="material_name")
 	private String materialName;
@@ -31,17 +31,17 @@ public class Material implements Serializable {
 	public Material() {
 	}
 
-	public Material(int idMaterial, String materialName) {
+	public Material(Integer idMaterial, String materialName) {
 		super();
 		this.idMaterial = idMaterial;
 		this.materialName = materialName;
 	}
 
-	public int getIdMaterial() {
+	public Integer getIdMaterial() {
 		return this.idMaterial;
 	}
 
-	public void setIdMaterial(int idMaterial) {
+	public void setIdMaterial(Integer idMaterial) {
 		this.idMaterial = idMaterial;
 	}
 

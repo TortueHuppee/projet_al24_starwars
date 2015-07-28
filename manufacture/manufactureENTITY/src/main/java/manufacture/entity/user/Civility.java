@@ -17,7 +17,7 @@ public class Civility implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="id_civility")
-	private int idCivility;
+	private Integer idCivility;
 
 	private String civility;
 
@@ -28,11 +28,11 @@ public class Civility implements Serializable {
 	public Civility() {
 	}
 
-	public int getIdCivility() {
+	public Integer getIdCivility() {
 		return this.idCivility;
 	}
 
-	public void setIdCivility(int idCivility) {
+	public void setIdCivility(Integer idCivility) {
 		this.idCivility = idCivility;
 	}
 

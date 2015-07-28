@@ -19,7 +19,7 @@ public class SpaceshipRef implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="id_spaceship_ref")
-	private int idSpaceshipRef;
+	private Integer idSpaceshipRef;
 
 	@Column(name="spaceship_name")
 	private String spaceshipName;
@@ -31,7 +31,7 @@ public class SpaceshipRef implements Serializable {
 	public SpaceshipRef() {
 	}
 
-	public SpaceshipRef(int idSpaceshipRef, String spaceshipName) {
+	public SpaceshipRef(Integer idSpaceshipRef, String spaceshipName) {
 		super();
 		this.idSpaceshipRef = idSpaceshipRef;
 		this.spaceshipName = spaceshipName;

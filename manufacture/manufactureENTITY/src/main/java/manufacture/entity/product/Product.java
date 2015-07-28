@@ -36,11 +36,11 @@ public class Product implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="id_product")
-	private int idProduct;
+	private Integer idProduct;
 
 	//Par défaut FALSE = 0 et TRUE = 1
 	@Column(name="is_disabled")
-	private byte isDisabled;
+	private boolean isDisabled;
 
 	private double price;
 
@@ -76,19 +76,19 @@ public class Product implements Serializable {
 	public Product() {
 	}
 
-	public int getIdProduct() {
+	public Integer getIdProduct() {
 		return this.idProduct;
 	}
 
-	public void setIdProduct(int idProduct) {
+	public void setIdProduct(Integer idProduct) {
 		this.idProduct = idProduct;
 	}
-
-	public byte getIsDisabled() {
-		return this.isDisabled;
+	
+	public boolean isDisabled() {
+		return isDisabled;
 	}
 
-	public void setIsDisabled(byte isDisabled) {
+	public void setDisabled(boolean isDisabled) {
 		this.isDisabled = isDisabled;
 	}
 

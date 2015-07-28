@@ -19,7 +19,7 @@ public class ProductRef implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="id_product_ref")
-	private int idProductRef;
+	private Integer idProductRef;
 
 	private String description;
 
@@ -44,11 +44,11 @@ public class ProductRef implements Serializable {
 	public ProductRef() {
 	}
 
-	public int getIdProductRef() {
+	public Integer getIdProductRef() {
 		return this.idProductRef;
 	}
 
-	public void setIdProductRef(int idProductRef) {
+	public void setIdProductRef(Integer idProductRef) {
 		this.idProductRef = idProductRef;
 	}
 

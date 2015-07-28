@@ -17,7 +17,7 @@ public class ReportingDecision implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="id_reporting_decision")
-	private int idReportingDecision;
+	private Integer idReportingDecision;
 
 	private String decision;
 
@@ -28,11 +28,11 @@ public class ReportingDecision implements Serializable {
 	public ReportingDecision() {
 	}
 
-	public int getIdReportingDecision() {
+	public Integer getIdReportingDecision() {
 		return this.idReportingDecision;
 	}
 
-	public void setIdReportingDecision(int idReportingDecision) {
+	public void setIdReportingDecision(Integer idReportingDecision) {
 		this.idReportingDecision = idReportingDecision;
 	}
 

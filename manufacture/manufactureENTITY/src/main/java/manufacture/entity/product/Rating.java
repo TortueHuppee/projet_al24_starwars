@@ -19,7 +19,7 @@ public class Rating implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="id_rating")
-	private int idRating;
+	private Integer idRating;
 
 	private String comment;
 
@@ -38,11 +38,11 @@ public class Rating implements Serializable {
 	public Rating() {
 	}
 
-	public int getIdRating() {
+	public Integer getIdRating() {
 		return this.idRating;
 	}
 
-	public void setIdRating(int idRating) {
+	public void setIdRating(Integer idRating) {
 		this.idRating = idRating;
 	}
 

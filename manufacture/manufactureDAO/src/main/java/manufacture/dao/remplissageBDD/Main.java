@@ -7,6 +7,8 @@ public class Main {
 		Routine rout = new Routine();
 		RoutineManuelle rout2 = new RoutineManuelle();
 		
+		
+		
 		/*
 		 * Données ajoutées à la base de données :
 		 * 

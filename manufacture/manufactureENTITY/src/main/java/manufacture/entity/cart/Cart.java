@@ -22,7 +22,7 @@ public class Cart implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="id_cart")
-	private int idCart;
+	private Integer idCart;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="date_commande")
@@ -63,11 +63,11 @@ public class Cart implements Serializable {
 	public Cart() {
 	}
 
-	public int getIdCart() {
+	public Integer getIdCart() {
 		return this.idCart;
 	}
 
-	public void setIdCart(int idCart) {
+	public void setIdCart(Integer idCart) {
 		this.idCart = idCart;
 	}
 

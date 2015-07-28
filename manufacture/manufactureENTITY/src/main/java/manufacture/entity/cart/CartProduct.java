@@ -20,7 +20,7 @@ public class CartProduct implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="id_cart_product")
-	private int idCartProduct;
+	private Integer idCartProduct;
 
 	private int quantity;
 
@@ -37,11 +37,11 @@ public class CartProduct implements Serializable {
 	public CartProduct() {
 	}
 
-	public int getIdCartProduct() {
+	public Integer getIdCartProduct() {
 		return this.idCartProduct;
 	}
 
-	public void setIdCartProduct(int idCartProduct) {
+	public void setIdCartProduct(Integer idCartProduct) {
 		this.idCartProduct = idCartProduct;
 	}
 

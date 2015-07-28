@@ -16,7 +16,7 @@ public class SpaceshipProduct implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="id_spaceship_product")
-	private int idSpaceshipProduct;
+	private Integer idSpaceshipProduct;
 
 	//bi-directional many-to-one association to ProductRef
 	@ManyToOne
@@ -31,11 +31,11 @@ public class SpaceshipProduct implements Serializable {
 	public SpaceshipProduct() {
 	}
 
-	public int getIdSpaceshipProduct() {
+	public Integer getIdSpaceshipProduct() {
 		return this.idSpaceshipProduct;
 	}
 
-	public void setIdSpaceshipProduct(int idSpaceshipProduct) {
+	public void setIdSpaceshipProduct(Integer idSpaceshipProduct) {
 		this.idSpaceshipProduct = idSpaceshipProduct;
 	}
 

@@ -22,7 +22,7 @@ public class Reporting implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="id_reporting")
-	private int idReporting;
+	private Integer idReporting;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date date;
@@ -60,11 +60,11 @@ public class Reporting implements Serializable {
 	public Reporting() {
 	}
 
-	public int getIdReporting() {
+	public Integer getIdReporting() {
 		return this.idReporting;
 	}
 
-	public void setIdReporting(int idReporting) {
+	public void setIdReporting(Integer idReporting) {
 		this.idReporting = idReporting;
 	}
 

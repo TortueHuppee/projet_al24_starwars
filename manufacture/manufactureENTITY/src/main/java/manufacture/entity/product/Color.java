@@ -19,7 +19,7 @@ public class Color implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="id_color")
-	private int idColor;
+	private Integer idColor;
 
 	@Column(name="color_name")
 	private String colorName;
@@ -31,7 +31,7 @@ public class Color implements Serializable {
 	public Color() {
 	}
 	
-	public Color(int idColor, String colorName) {
+	public Color(Integer idColor, String colorName) {
 		super();
 		this.idColor = idColor;
 		this.colorName = colorName;
@@ -39,11 +39,11 @@ public class Color implements Serializable {
 
 
 
-	public int getIdColor() {
+	public Integer getIdColor() {
 		return this.idColor;
 	}
 
-	public void setIdColor(int idColor) {
+	public void setIdColor(Integer idColor) {
 		this.idColor = idColor;
 	}
 

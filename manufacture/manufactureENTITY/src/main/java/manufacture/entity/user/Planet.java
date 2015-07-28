@@ -17,7 +17,7 @@ public class Planet implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="id_planet")
-	private int idPlanet;
+	private Integer idPlanet;
 
 	@Column(name="planet_name")
 	private String planetName;
@@ -29,11 +29,11 @@ public class Planet implements Serializable {
 	public Planet() {
 	}
 
-	public int getIdPlanet() {
+	public Integer getIdPlanet() {
 		return this.idPlanet;
 	}
 
-	public void setIdPlanet(int idPlanet) {
+	public void setIdPlanet(Integer idPlanet) {
 		this.idPlanet = idPlanet;
 	}
 
