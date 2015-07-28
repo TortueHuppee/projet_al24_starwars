@@ -91,10 +91,14 @@ public class User implements Serializable {
 	@JoinColumn(name="id_civility")
 	private Civility civility;
 
-	//bi-directional many-to-one association to Adress
-	@ManyToOne
-	@JoinColumn(name="id_address")
-	private Address address;
+	//bi-directional many-to-one association to Reporting
+	@OneToMany(mappedBy="user")
+	private List<Address> addresses;
+	
+//	//bi-directional many-to-one association to Adress
+//	@ManyToOne
+//	@JoinColumn(name="id_address")
+//	private Address address;
 
 	public User() {
 	}
@@ -297,13 +301,13 @@ public class User implements Serializable {
 		this.civility = civility;
 	}
 
-	public Address getAddress() {
-		return this.address;
-	}
-
-	public void setAddress(Address address) {
-		this.address = address;
-	}
+//	public Address getAddress() {
+//		return this.address;
+//	}
+//
+//	public void setAddress(Address address) {
+//		this.address = address;
+//	}
 
 	public List<ArtisanProduct> getArtisanProducts() {
 		return artisanProducts;
@@ -319,6 +323,30 @@ public class User implements Serializable {
 
 	public void setUsedProducts(List<UsedProduct> usedProducts) {
 		this.usedProducts = usedProducts;
+	}
+
+	public List<Address> getAddresses() {
+		return addresses;
+	}
+
+	public void setAddresses(List<Address> addresses) {
+		this.addresses = addresses;
+	}
+	
+	public Address addAddress(Address address)
+	{
+		getAddresses().add(address);
+		address.setUser(this);
+		
+		return address;
+	}
+	
+	public Address removeAddress(Address address)
+	{
+		getAddresses().remove(address);
+		address.setUser(null);
+		
+		return address;
 	}
 
 }

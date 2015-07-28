@@ -42,9 +42,14 @@ public class Address implements Serializable {
 	@JoinColumn(name="id_city")
 	private City city;
 
-	//bi-directional many-to-one association to User
-	@OneToMany(mappedBy="address")
-	private List<User> users;
+//	//bi-directional many-to-one association to User
+//	@OneToMany(mappedBy="address")
+//	private List<User> users;
+	
+	//bi-directional many-to-one association to Adress
+	@ManyToOne
+	@JoinColumn(name="id_user")
+	private User user;
 
 	public Address() {
 	}
@@ -97,26 +102,46 @@ public class Address implements Serializable {
 		this.city = city;
 	}
 
-	public List<User> getUsers() {
-		return this.users;
-	}
+//	public List<User> getUsers() {
+//		return this.users;
+//	}
+//
+//	public void setUsers(List<User> users) {
+//		this.users = users;
+//	}
+//
+//	public User addUser(User user) {
+//		getUsers().add(user);
+//		user.setAddress(this);
+//
+//		return user;
+//	}
+//
+//	public User removeUser(User user) {
+//		getUsers().remove(user);
+//		user.setAddress(null);
+//
+//		return user;
+//	}
 
-	public void setUsers(List<User> users) {
-		this.users = users;
-	}
-
-	public User addUser(User user) {
-		getUsers().add(user);
-		user.setAddress(this);
-
+	public User getUser() {
 		return user;
 	}
 
-	public User removeUser(User user) {
-		getUsers().remove(user);
-		user.setAddress(null);
+	public void setUser(User user) {
+		this.user = user;
+	}
 
-		return user;
+	public void setIdAddress(int idAddress) {
+		this.idAddress = idAddress;
+	}
+
+	public void setBillingaddress(boolean isBillingaddress) {
+		this.isBillingaddress = isBillingaddress;
+	}
+
+	public void setDeliveryaddress(boolean isDeliveryaddress) {
+		this.isDeliveryaddress = isDeliveryaddress;
 	}
 
 }
