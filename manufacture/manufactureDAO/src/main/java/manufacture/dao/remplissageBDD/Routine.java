@@ -11,6 +11,7 @@ import manufacture.entity.product.ProductRef;
 import manufacture.entity.product.SpaceshipProduct;
 import manufacture.entity.product.SpaceshipRef;
 import manufacture.entity.user.Planet;
+import manufacture.idao.dataloading.IDaoPlanet;
 import manufacture.idao.product.IDaoCategory;
 import manufacture.idao.product.IDaoColor;
 import manufacture.idao.product.IDaoConstructor;
@@ -40,7 +41,7 @@ public class Routine {
 	IDaoMaterial proxyMaterial = (IDaoMaterial) bf.getBean(IDaoMaterial.class);
 	IDaoProductRef proxyProductRef = (IDaoProductRef) bf.getBean(IDaoProductRef.class);
 	IDaoSpaceShipRef proxySapceShipRef = (IDaoSpaceShipRef) bf.getBean(IDaoSpaceShipRef.class);
-	IDaoAdress proxyAdresse = (IDaoAdress) bf.getBean(IDaoAdress.class);
+	IDaoPlanet proxyAdresse = (IDaoPlanet) bf.getBean(IDaoPlanet.class);
 	
 	
 	//Site ASP (pièces détachées avions)

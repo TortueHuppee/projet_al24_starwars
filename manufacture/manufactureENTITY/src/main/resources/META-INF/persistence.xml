@@ -4,7 +4,7 @@
 	<provider>org.hibernate.ejb.HibernatePersistence</provider>
 		<class>manufacture.entity.user.Address</class>
 		<class>manufacture.entity.cart.Cart</class>
-		<class>manufacture.entity.cart.CartProduct</class>  
+		<class>manufacture.entity.cart.CartProduct</class>
 		<class>manufacture.entity.product.Category</class>
 		<class>manufacture.entity.user.City</class>
 		<class>manufacture.entity.user.Civility</class>

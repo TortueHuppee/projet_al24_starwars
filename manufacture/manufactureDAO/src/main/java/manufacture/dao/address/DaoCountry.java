@@ -10,42 +10,51 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import manufacture.entity.product.Color;
+import manufacture.entity.user.Address;
 import manufacture.entity.user.City;
+import manufacture.entity.user.Country;
 import manufacture.idao.dataloading.IDaoCity;
+import manufacture.idao.dataloading.IDaoCountry;
 
 @Transactional
 @Service
-public class DaoCity implements IDaoCity {
-
-    @Autowired
-    private SessionFactory sf;
-
+public class DaoCountry implements IDaoCountry {
+	
+	@Autowired
+	private SessionFactory sf;
+	
     @Override
-    public void addCity(City city) {
+    public void addCountry(Country country) {
         Session session = sf.getCurrentSession();
-        session.save(city);
+        session.save(country);
     }
-    
+
     @Override
-    public List<City> getAllCities(){
+    public void createAdress(Address paramAdress) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public List<Country> getAllCountries() {
         Session session = getSf().getCurrentSession();
-        String requete = "FROM City a";
+        String requete = "FROM Country a";
         Query hql = session.createQuery(requete);
-        List<City> resultat = hql.list();
+        List<Country> resultat = hql.list();
         return resultat;
     }
 
     @Override
-    public List<City> getAllCityByCountry(int idCountry) {
+    public List<Country> getAllCountryByPlanet(int paramIdPlanet) {
         // TODO Auto-generated method stub
         return null;
     }
-
-    public SessionFactory getSf() {
-        return sf;
-    }
-
-    public void setSf(SessionFactory sf) {
-        this.sf = sf;
-    }
+    
+	public SessionFactory getSf() {
+		return sf;
+	}
+	
+	public void setSf(SessionFactory sf) {
+		this.sf = sf;
+	}
 }

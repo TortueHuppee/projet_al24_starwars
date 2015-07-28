@@ -10,9 +10,11 @@ import manufacture.ibusiness.dataloading.IBusinessDataLoading;
 import manufacture.idao.dataloading.IDaoCity;
 @Service
 public class BusinessDataLoading implements IBusinessDataLoading {
-	@Autowired
-	private IDaoCity daoCity;
-	public List<City> loadCity(){
-		return daoCity.getAllCities();
-	}
+
+    @Autowired
+    private IDaoCity daoCity;
+    
+    public List<City> loadCity(){
+        return daoCity.getAllCities();
+    }
 }

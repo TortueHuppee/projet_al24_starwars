@@ -1,4 +1,4 @@
-package manufacture.idao.user;
+package manufacture.idao.dataloading;
 
 import java.util.List;
 
@@ -13,8 +13,10 @@ import manufacture.entity.user.SpecificCustomer;
 import manufacture.entity.user.User;
 
 
-public interface IDaoAdress {
+public interface IDaoPlanet {
+
+	void addPlanet(Planet planet);
 	
-	void createAdress(Address adress);
+	List<Planet> getAllPlanet();
 
 }

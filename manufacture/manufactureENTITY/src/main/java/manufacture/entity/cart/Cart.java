@@ -12,149 +12,209 @@ import java.util.List;
 
 /**
  * The persistent class for the cart database table.
- * 
  */
-@Entity 
-@Table(name="cart")
+@Entity
+@Table(name = "cart")
 public class Cart implements Serializable {
-	private static final long serialVersionUID = 1L;
 
-	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name="id_cart")
-	private Integer idCart;
+    /**
+     * Numéro de version.
+     */
+    private static final long serialVersionUID = 1L;
 
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name="date_commande")
-	private Date dateCommande;
+    /**
+     * Identifiant unique du panier.
+     */
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id_cart")
+    private Integer idCart;
 
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name="date_payment")
-	private Date datePayment;
+    /**
+     * Date de commande du panier (correspondant à la date du jour).
+     */
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "date_commande")
+    private Date dateCommande;
 
-	@Column(name="is_paid")
-	private boolean isPaid;
+    /**
+     * Date de paiement de la commande (correspondant à la date du jour).
+     * La date de paiement et la même que la date de commande s'il s'agit d'un client particulier.
+     * La date de paiement diffère de la date de commande s'il s'agit d'un client professionnel.
+     */
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "date_payment")
+    private Date datePayment;
 
-	@Column(name="is_validated")
-	private boolean isValidated;
+    /**
+     * Boolean pour savoir si la commande a été payée (TRUE) ou non (FALSE).
+     */
+    @Column(name = "is_paid")
+    private boolean isPaid;
 
-	@Column(name="transaction_number")
-	private int transactionNumber;
+    /**
+     * Boolean pour savoir si la commande a été passée (TRUE) ou non (FALSE).
+     * La commande peut être passée sans être payée dans le cas du client professionnel.
+     * La commande doit obligatoirement être payée pour pouvoir être enregistrée dans le cas
+     * du client particulier.
+     */
+    @Column(name = "is_validated")
+    private boolean isValidated;
 
-	//bi-directional many-to-one association to Delivery
-	@ManyToOne
-	@JoinColumn(name="id_delivery")
-	private Delivery delivery;
+    /**
+     * Numéro de transaction bancaire correspond au paiement de la commande.
+     */
+    @Column(name = "transaction_number")
+    private int transactionNumber;
 
-	//bi-directional many-to-one association to PaymentType
-	@ManyToOne
-	@JoinColumn(name="id_payment")
-	private PaymentType paymentType;
+    /**
+     * Moyen de livraison de la commande.
+     */
+    //bi-directional many-to-one association to Delivery
+    @ManyToOne
+    @JoinColumn(name = "id_delivery")
+    private Delivery delivery;
 
-	//bi-directional many-to-one association to User
-	@ManyToOne
-	@JoinColumn(name="id_user")
-	private User user;
+    /**
+     * Moyen de paiement de la commande.
+     */
+    //bi-directional many-to-one association to PaymentType
+    @ManyToOne
+    @JoinColumn(name = "id_payment")
+    private PaymentType paymentType;
 
-	//bi-directional many-to-one association to CartProduct
-	@OneToMany(mappedBy="cart")
-	private List<CartProduct> cartProducts;
+    /**
+     * Utilisateur propriétaire du panier.
+     */
+    //bi-directional many-to-one association to User
+    @ManyToOne
+    @JoinColumn(name = "id_user")
+    private User user;
 
-	public Cart() {
-	}
+    /**
+     * Liste des produits ajoutés au panier.
+     */
+    //bi-directional many-to-one association to CartProduct
+    @OneToMany(mappedBy = "cart")
+    private List<CartProduct> cartProducts;
 
-	public Integer getIdCart() {
-		return this.idCart;
-	}
+    public Cart() {
+    }
 
-	public void setIdCart(Integer idCart) {
-		this.idCart = idCart;
-	}
+    /**
+     * @return the idCart
+     */
+    public Integer getIdCart() {
+        return this.idCart;
+    }
 
-	public Date getDateCommande() {
-		return this.dateCommande;
-	}
+    /**
+     * @param paramIdCart the idCart to set
+     */
+    public void setIdCart(Integer paramIdCart) {
+        this.idCart = paramIdCart;
+    }
 
-	public void setDateCommande(Date dateCommande) {
-		this.dateCommande = dateCommande;
-	}
+    /**
+     * @param paramIsPaid the isPaid to set
+     */
+    public void setPaid(boolean paramIsPaid) {
+        this.isPaid = paramIsPaid;
+    }
 
-	public Date getDatePayment() {
-		return this.datePayment;
-	}
 
-	public void setDatePayment(Date datePayment) {
-		this.datePayment = datePayment;
-	}
+    /**
+     * @param paramIsValidated the isValidated to set
+     */
+    public void setValidated(boolean paramIsValidated) {
+        this.isValidated = paramIsValidated;
+    }
 
-	public boolean getIsPaid() {
-		return this.isPaid;
-	}
 
-	public void setIsPaid(boolean isPaid) {
-		this.isPaid = isPaid;
-	}
+    public Date getDateCommande() {
+        return this.dateCommande;
+    }
 
-	public boolean getIsValidated() {
-		return this.isValidated;
-	}
+    public void setDateCommande(Date dateCommande) {
+        this.dateCommande = dateCommande;
+    }
 
-	public void setIsValidated(boolean isValidated) {
-		this.isValidated = isValidated;
-	}
+    public Date getDatePayment() {
+        return this.datePayment;
+    }
 
-	public int getTransactionNumber() {
-		return this.transactionNumber;
-	}
+    public void setDatePayment(Date datePayment) {
+        this.datePayment = datePayment;
+    }
 
-	public void setTransactionNumber(int transactionNumber) {
-		this.transactionNumber = transactionNumber;
-	}
+    public boolean getIsPaid() {
+        return this.isPaid;
+    }
 
-	public Delivery getDelivery() {
-		return this.delivery;
-	}
+    public void setIsPaid(boolean isPaid) {
+        this.isPaid = isPaid;
+    }
 
-	public void setDelivery(Delivery delivery) {
-		this.delivery = delivery;
-	}
+    public boolean getIsValidated() {
+        return this.isValidated;
+    }
 
-	public PaymentType getPaymentType() {
-		return this.paymentType;
-	}
+    public void setIsValidated(boolean isValidated) {
+        this.isValidated = isValidated;
+    }
 
-	public void setPaymentType(PaymentType paymentType) {
-		this.paymentType = paymentType;
-	}
+    public int getTransactionNumber() {
+        return this.transactionNumber;
+    }
 
-	public User getUser() {
-		return this.user;
-	}
+    public void setTransactionNumber(int transactionNumber) {
+        this.transactionNumber = transactionNumber;
+    }
 
-	public void setUser(User user) {
-		this.user = user;
-	}
+    public Delivery getDelivery() {
+        return this.delivery;
+    }
 
-	public List<CartProduct> getCartProducts() {
-		return this.cartProducts;
-	}
+    public void setDelivery(Delivery delivery) {
+        this.delivery = delivery;
+    }
 
-	public void setCartProducts(List<CartProduct> cartProducts) {
-		this.cartProducts = cartProducts;
-	}
+    public PaymentType getPaymentType() {
+        return this.paymentType;
+    }
 
-	public CartProduct addCartProduct(CartProduct cartProduct) {
-		getCartProducts().add(cartProduct);
-		cartProduct.setCart(this);
+    public void setPaymentType(PaymentType paymentType) {
+        this.paymentType = paymentType;
+    }
 
-		return cartProduct;
-	}
+    public User getUser() {
+        return this.user;
+    }
 
-	public CartProduct removeCartProduct(CartProduct cartProduct) {
-		getCartProducts().remove(cartProduct);
-		cartProduct.setCart(null);
+    public void setUser(User user) {
+        this.user = user;
+    }
 
-		return cartProduct;
-	}
+    public List<CartProduct> getCartProducts() {
+        return this.cartProducts;
+    }
+
+    public void setCartProducts(List<CartProduct> cartProducts) {
+        this.cartProducts = cartProducts;
+    }
+
+    public CartProduct addCartProduct(CartProduct cartProduct) {
+        getCartProducts().add(cartProduct);
+        cartProduct.setCart(this);
+
+        return cartProduct;
+    }
+
+    public CartProduct removeCartProduct(CartProduct cartProduct) {
+        getCartProducts().remove(cartProduct);
+        cartProduct.setCart(null);
+
+        return cartProduct;
+    }
 
 }

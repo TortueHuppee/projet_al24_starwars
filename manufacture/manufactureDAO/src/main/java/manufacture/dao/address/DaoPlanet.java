@@ -11,41 +11,37 @@ import org.springframework.transaction.annotation.Transactional;
 
 import manufacture.entity.product.Color;
 import manufacture.entity.user.City;
+import manufacture.entity.user.Planet;
 import manufacture.idao.dataloading.IDaoCity;
+import manufacture.idao.dataloading.IDaoPlanet;
 
 @Transactional
 @Service
-public class DaoCity implements IDaoCity {
-
-    @Autowired
-    private SessionFactory sf;
-
+public class DaoPlanet implements IDaoPlanet {
+	
+	@Autowired
+	private SessionFactory sf;
+	
     @Override
-    public void addCity(City city) {
+    public void addPlanet(Planet planet) {
         Session session = sf.getCurrentSession();
-        session.save(city);
+        session.save(planet);
     }
     
     @Override
-    public List<City> getAllCities(){
+    public List<Planet> getAllPlanet() {
         Session session = getSf().getCurrentSession();
-        String requete = "FROM City a";
+        String requete = "FROM Planet a";
         Query hql = session.createQuery(requete);
-        List<City> resultat = hql.list();
+        List<Planet> resultat = hql.list();
         return resultat;
     }
-
-    @Override
-    public List<City> getAllCityByCountry(int idCountry) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    public SessionFactory getSf() {
-        return sf;
-    }
-
-    public void setSf(SessionFactory sf) {
-        this.sf = sf;
-    }
+    
+	public SessionFactory getSf() {
+		return sf;
+	}
+	
+	public void setSf(SessionFactory sf) {
+		this.sf = sf;
+	}
 }

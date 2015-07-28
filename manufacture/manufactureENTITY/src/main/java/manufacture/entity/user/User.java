@@ -58,6 +58,9 @@ public class User implements Serializable {
 
 	@Column(name="user_name")
 	private String userName;
+	
+	@Column(name="is_black_listed")
+    private boolean isBlackListed;
 
 	//bi-directional many-to-one association to Cart
 	@OneToMany(mappedBy="user",fetch=FetchType.EAGER)
@@ -348,5 +351,19 @@ public class User implements Serializable {
 		
 		return address;
 	}
+
+    /**
+     * @return the isBlackListed
+     */
+    public boolean isBlackListed() {
+        return isBlackListed;
+    }
+
+    /**
+     * @param paramIsBlackListed the isBlackListed to set
+     */
+    public void setBlackListed(boolean paramIsBlackListed) {
+        isBlackListed = paramIsBlackListed;
+    }
 
 }

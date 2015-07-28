@@ -5,5 +5,10 @@ import java.util.List;
 import manufacture.entity.user.City;
 
 public interface IDaoCity {
-	public List<City> getAllCities();
+	
+	List<City> getAllCities();
+	
+	void addCity(City city);
+	
+	List<City> getAllCityByCountry(int idCountry);
 }

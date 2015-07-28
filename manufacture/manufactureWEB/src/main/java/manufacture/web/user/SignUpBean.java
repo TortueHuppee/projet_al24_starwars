@@ -35,8 +35,8 @@ public class SignUpBean {
 	private String userType;
 	public SignUpBean(){
 		user = new User();
-		user.setAddress(new Address());
-		user.getAddress().setCity(new City());
+//		user.setAddress(new Address());
+//		user.getAddress().setCity(new City());
 	}
 
 	/**

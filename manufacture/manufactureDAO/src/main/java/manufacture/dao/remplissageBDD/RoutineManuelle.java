@@ -102,7 +102,7 @@ public class RoutineManuelle {
 									Random rPrice = new Random();
 									double randomValue = prixMin + (prixMax - prixMin) * rPrice.nextDouble();
 									produit.setPrice(randomValue);
-									produit.setIsDisabled((byte) 0);
+									produit.setDisabled(false);
 									
 									Random rStock = new Random();
 									int stock = rPrice.nextInt(500000 - 0 + 1) + 0;//rand.nextInt(max - min + 1) + min;
