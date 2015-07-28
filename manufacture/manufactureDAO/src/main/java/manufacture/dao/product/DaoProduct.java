@@ -1,5 +1,6 @@
 package manufacture.dao.product;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -96,10 +97,18 @@ public class DaoProduct implements IDaoProduct {
 		Session session = sf.getCurrentSession();		
 		//Requete à partir de la valeur discriminatrice
 		//String requete = "SELECT DISTINCT p.productRef FROM Product p WHERE p.class='constructor_product'";
-		String requete = "SELECT p FROM Product p JOIN p.productRef pr WHERE p.class='constructor_product'";
+		String requete = "SELECT p FROM Product p WHERE p.class='constructor_product'";
 		Query hql = session.createQuery(requete);
 		List<ConstructorProduct> resultat = hql.list();
-		return resultat;
+		
+		if (resultat.size() == 0)
+		{
+		    return new ArrayList<ConstructorProduct>();
+		}
+		else
+		{
+		    return resultat;
+		}
 	}
 
 	//Getters et Setters

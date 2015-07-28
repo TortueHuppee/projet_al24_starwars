@@ -22,14 +22,11 @@ public class DaoPaymentAndDelivery implements IDaoPaymentAndDelivery {
 	
 	private Logger log = Logger.getLogger(DaoPaymentAndDelivery.class);
 	private SessionFactory sf;
-	
-	String requestGetAllPaymentType = "FROM PaymentType pt";
-	String requestGetAllDeliveryType = "FROM Delivery d";
 
 	@Override
 	public List<PaymentType> getAllPaymentType() {
 		Session session = sf.getCurrentSession();
-		Query hql = session.createQuery(requestGetAllPaymentType);
+		Query hql = session.createQuery("FROM PaymentType pt");
 		List<PaymentType> resultat = hql.list();
 		return resultat;
 	}
@@ -37,7 +34,7 @@ public class DaoPaymentAndDelivery implements IDaoPaymentAndDelivery {
 	@Override
 	public List<Delivery> getAllDeliveryType() {
 		Session session = sf.getCurrentSession();
-		Query hql = session.createQuery(requestGetAllDeliveryType);
+		Query hql = session.createQuery("FROM Delivery d");
 		List<Delivery> resultat = hql.list();
 		return resultat;
 	}

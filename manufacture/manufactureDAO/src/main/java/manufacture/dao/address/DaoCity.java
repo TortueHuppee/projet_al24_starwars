@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import manufacture.entity.product.Color;
 import manufacture.entity.user.City;
+import manufacture.entity.user.Country;
 import manufacture.idao.dataloading.IDaoCity;
 
 @Transactional
@@ -37,8 +38,12 @@ public class DaoCity implements IDaoCity {
 
     @Override
     public List<City> getAllCityByCountry(int idCountry) {
-        // TODO Auto-generated method stub
-        return null;
+        Session session = sf.getCurrentSession();
+        String requete = "SELECT p FROM City p WHERE p.country.idCountry = :paramId";
+        Query hql = session.createQuery(requete);
+        hql.setParameter("paramId", idCountry);
+        List<City> resultat = hql.list();
+        return resultat;
     }
 
     public SessionFactory getSf() {

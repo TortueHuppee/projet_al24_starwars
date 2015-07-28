@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import manufacture.entity.product.Color;
+import manufacture.entity.product.ConstructorProduct;
 import manufacture.entity.user.Address;
 import manufacture.entity.user.City;
 import manufacture.entity.user.Country;
@@ -30,24 +31,22 @@ public class DaoCountry implements IDaoCountry {
     }
 
     @Override
-    public void createAdress(Address paramAdress) {
-        // TODO Auto-generated method stub
-        
-    }
-
-    @Override
     public List<Country> getAllCountries() {
         Session session = getSf().getCurrentSession();
-        String requete = "FROM Country a";
+        String requete = "SELECT a FROM Country a";
         Query hql = session.createQuery(requete);
         List<Country> resultat = hql.list();
         return resultat;
     }
 
     @Override
-    public List<Country> getAllCountryByPlanet(int paramIdPlanet) {
-        // TODO Auto-generated method stub
-        return null;
+    public List<Country> getAllCountryByPlanet(int IdPlanet) {
+        Session session = sf.getCurrentSession();
+        String requete = "SELECT p FROM Country p WHERE p.planet.idPlanet = :paramId";
+        Query hql = session.createQuery(requete);
+        hql.setParameter("paramId", IdPlanet);
+        List<Country> resultat = hql.list();
+        return resultat;
     }
     
 	public SessionFactory getSf() {

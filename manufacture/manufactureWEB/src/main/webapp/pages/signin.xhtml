@@ -2,75 +2,102 @@
 	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
-    xmlns:p="http://primefaces.org/ui"  
-    	xmlns:ui="http://java.sun.com/jsf/facelets">
-<ui:define name="title">
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<ui:define name="title">
 	Star Wars E-Shop - Inscription
-</ui:define>
-<ui:define name="stylesheets">
-	<h:outputStylesheet name="panierCss.css" library="css"/>
-</ui:define>
+	</ui:define>
+
+	<ui:define name="stylesheets">
+		<h:outputStylesheet name="panierCss.css" library="css" />
+	</ui:define>
 
 	<ui:define name="main-body">
-	<div class="center-body">
-	<h1>Création de compte</h1>
-		<h:form id="signinForm">  
-			<div class="sign-identity">
-			<fieldset>
-				<legend>Identite</legend>
-				<h:outputLabel for="signup_login" value="Nom utilisateur : ">
-					<h:inputText value="#{signUpBean.user.userName}" required="true" id="signup_login"/>
-				</h:outputLabel>
-				<h:outputLabel for="signup_login" value="Mot de passe : ">
-					<h:inputSecret value="#{signUpBean.user.password}" required="true" requiredMessage="Test" id="signup_password" />
-				</h:outputLabel>
-				<h:outputLabel for="signup_firstName" value="Prenom : ">
-					<h:inputText value="#{signUpBean.user.userFirstName}" required="true" requiredMessage="Test" id="signup_firstName" />
-				</h:outputLabel>
-				<h:outputLabel for="signup_lastName" value="Nom de famille : ">
-					<h:inputText value="#{signUpBean.user.userName}" required="true" requiredMessage="Test" id="signup_lastName" />
-				</h:outputLabel>			
-					</fieldset>
-			</div>
-			<div class="sign-address">
-		<fieldset>
-			<legend>Adresse</legend>
-				<h:outputLabel for="signup_number" value="N°rue : ">
-					<h:inputText id="signup_number" value="#{signUpBean.user.address.number}"></h:inputText>			
-				</h:outputLabel>
-				<h:outputLabel for="signup_street" value="Rue : ">
-					<h:inputText id="signup_street" value="#{signUpBean.user.address.street}"></h:inputText>			
-				</h:outputLabel>
-				<h:outputLabel for="signup_city" value="Ville">
-					<h:selectOneMenu id="signup_city" value="#{signUpBean.user.address.city.idCity}">
-						<f:selectItems value="#{mbDataLoader.listCity}" var="city" itemLabel="#{city.cityName}" itemValue="#{city.idCity}"></f:selectItems>
-					</h:selectOneMenu>
-				</h:outputLabel>
-					</fieldset>
+		<h:form id="signinForm">
+			<div class="center-body">
+				<h1>Création de compte</h1>
+				<div class="sign-identity">
 				
-			</div>
-			<div class="sign-company">
-			<fieldset> 
-			<legend>Type de compte</legend>
-				<h:outputLabel for="signup_companyType" value="Type de compte : ">
-					<h:selectOneMenu id="signup_companyType" value="#{signUpBean.userType}"> 
-						<f:ajax event="change" render="companyName" execute="signup_companyType" /> 
-						<f:selectItem itemLabel="particulier" itemValue="particulier" />
-						<f:selectItem itemLabel="artisan" itemValue="artisan" />
-						<f:selectItem itemLabel="professionnel" itemValue="professionnel" /> 
-					</h:selectOneMenu> 
-				</h:outputLabel> 
-				<p:outputPanel id="companyName"> 
-					<h:outputLabel for="signup_companyName" value="Nom de la compagnie : " rendered="#{not(signUpBean.userType eq 'particulier') and signUpBean.userType != null}" >
-						<h:inputText value="#{signUpBean.user.companyName}" required="true" requiredMessage="Test" id="signup_companyName" />
-					</h:outputLabel>
-				</p:outputPanel>	   
-				</fieldset>
-			</div>      
-			<div style="margin-left:40%">		
-			<p:commandButton value="S'inscrire" action="#{signUpBean.createUser()}" /> 
+<!-- 				<p:panel header="Validate"> -->
+<!--         <p:messages autoUpdate="true"/> -->
+ 
+<!--         <h:panelGrid id="grid" columns="4" cellpadding="5"> -->
+           
+<!--         	<h:outputLabel value="Nom utilisateur : " for="signup_login2"/> -->
+<!-- 			<p:inputText value="#{signUpBean.user.login}" id="signup_login2" label="login" required="true"/> -->
+<!-- 			<p:message for="signup_login2" /> -->
+ 
+<!--         </h:panelGrid> -->
+ 
+<!--         <p:commandButton value="Ajax" update="grid" icon="ui-icon-check" validateClient="true" style="margin-right:10px"/> -->
+<!--     </p:panel> -->
+					<fieldset>
+						<legend>Identité</legend>
+
+						<h:outputLabel value="Nom utilisateur : "/>
+						<p:inputText value="#{signUpBean.user.login}" id="signup_login" label="login" required="true"/>
+						<p:message for="signup_login" style="color:red" />
+
+						<h:outputLabel for="signup_password" value="Mot de passe : "/>
+						<h:inputSecret value="#{signUpBean.user.password}" id="signup_password" />
+
+						<h:outputLabel for="signup_firstName" value="Prénom : "/>
+						<h:inputText value="#{signUpBean.user.userFirstName}" id="signup_firstName" />
+
+						<h:outputLabel for="signup_lastName" value="Nom de famille : "/>
+						<h:inputText value="#{signUpBean.user.userName}" id="signup_lastName" />
+
+					</fieldset>
+				</div>
+
+				<div class="sign-address">
+					<fieldset>
+						<legend>Adresse</legend>
+
+						<h:outputLabel for="signup_number" value="N°rue : "/>
+						<h:inputText id="signup_number" value="#{signUpBean.addresse.number}"/>
+
+						<h:outputLabel for="signup_street" value="Rue : "/>
+						<h:inputText id="signup_street" value="#{signUpBean.addresse.street}"/>
+
+						<h:outputLabel for="signup_city" value="Ville"/>
+						<h:selectOneMenu id="signup_city" value="#{signUpBean.addresse.city.idCity}">
+							<f:selectItems value="#{mbDataLoader.listCity}" var="city"
+										itemLabel="#{city.cityName}" itemValue="#{city.idCity}"/>
+						</h:selectOneMenu>
+
+					</fieldset>
+
+				</div>
+				<div class="sign-company">
+					<fieldset>
+						<legend>Type de compte</legend>
+
+						<h:outputLabel for="signup_companyType" value="Type de compte : "/>
+							<h:selectOneMenu id="signup_companyType"
+								value="#{signUpBean.userType}">
+								<f:ajax event="change" render="companyName"
+									execute="signup_companyType" />
+								<f:selectItem itemLabel="particulier" itemValue="1" />
+								<f:selectItem itemLabel="artisan" itemValue="2" />
+								<f:selectItem itemLabel="professionnel" itemValue="3" />
+							</h:selectOneMenu>
+
+						<p:outputPanel id="companyName">
+							<h:outputLabel for="signup_companyName"
+								value="Nom de la compagnie : "
+								rendered="#{not(signUpBean.userType eq 'particulier') and signUpBean.userType != null}"/>
+							<h:inputText value="#{signUpBean.user.companyName}" id="signup_companyName" />
+
+						</p:outputPanel>
+					</fieldset>
+				</div>
+
+				<div style="margin-left: 40%">
+					<p:commandButton action="#{signUpBean.createUser()}" value="S'inscrire" update=":signinForm"/>
+				</div>
 			</div>
 		</h:form>
-		</div>
 	</ui:define>
-</ui:composition> 
+</ui:composition>

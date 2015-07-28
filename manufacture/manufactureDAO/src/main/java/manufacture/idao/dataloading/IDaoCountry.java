@@ -17,8 +17,6 @@ public interface IDaoCountry {
 	
 	void addCountry(Country country);
 
-	void createAdress(Address adress);
-	
 	List<Country> getAllCountries();
 
 	List<Country> getAllCountryByPlanet(int idPlanet);

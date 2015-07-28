@@ -1,14 +1,14 @@
 package manufacture.dao.remplissageBDD;
 
+import manufacture.entity.user.User;
+
 public class Main {
 
 	public static void main(String[] args) {
 
 		Routine rout = new Routine();
 		RoutineManuelle rout2 = new RoutineManuelle();
-		
-		
-		
+
 		/*
 		 * Données ajoutées à la base de données :
 		 * 
