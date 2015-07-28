@@ -59,7 +59,6 @@ public class LoginBean {
 		    try {
 				ec.redirect(((HttpServletRequest) ec.getRequest()).getRequestURI());
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		} 

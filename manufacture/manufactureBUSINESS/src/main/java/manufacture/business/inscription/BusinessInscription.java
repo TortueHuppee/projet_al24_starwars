@@ -30,8 +30,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class BusinessInscription implements IBusinessInscription {
 
-	BeanFactory bf = ClassPathLoader.getDaoBeanFactory();	
-	IDaoUser proxyUser = (IDaoUser) bf.getBean(IDaoUser.class);
+	IDaoUser proxyUser;
 
 	@Override
 	public User createAccount(User user) {
@@ -69,8 +68,8 @@ public class BusinessInscription implements IBusinessInscription {
 	
 	@Override
 	public boolean loginAlreadyExisting(String login) {
-		// TODO Auto-generated method stub
-		return false;
+		List<User> userFound = proxyUser.getUserByLogin(login);
+		return userFound.size() == 0 ? false:true;
 	}
 	
 	@Override
@@ -81,13 +80,18 @@ public class BusinessInscription implements IBusinessInscription {
 
 	@Override
 	public boolean emailAlreadyExisting(String email) {
-		// TODO Auto-generated method stub
-		return false;
+		List<User> userFound = proxyUser.getUserByEmail(email);
+		return userFound.size() == 0 ? false:true;
 	}
 
 	@Override
 	public void createAccount(User user, Address adress) {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	@Autowired
+	public void setProxyUser(IDaoUser proxyUser) {
+		this.proxyUser = proxyUser;
 	}
 }

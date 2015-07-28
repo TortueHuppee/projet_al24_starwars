@@ -40,14 +40,12 @@ public class Inscription implements IInscription {
 
 	@Override
 	public boolean loginAlreadyExisting(String login) {
-		// TODO Auto-generated method stub
-		return false;
+		return proxyInscription.loginAlreadyExisting(login);
 	}
 
 	@Override
 	public boolean emailAlreadyExisting(String email) {
-		// TODO Auto-generated method stub
-		return false;
+		return proxyInscription.emailAlreadyExisting(email);
 	}
 
 	@Override

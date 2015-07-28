@@ -14,7 +14,11 @@ public interface IDaoUser {
 
 	List<String> getAllLogin();
 	
+	List<User> getUserByLogin(String login);
+	
 	List<String> getAllEmail();
+	
+	List<User> getUserByEmail(String email);
 	
 	void getPasswordByLogin(String login);
 	
@@ -29,8 +33,6 @@ public interface IDaoUser {
 	void createSpecificCustomer(SpecificCustomer specificCustomer);
 	
 	void closeAccount(User user);
-	
-	void openAccoutn(User user);
 
 	User openAccount(User user);
 

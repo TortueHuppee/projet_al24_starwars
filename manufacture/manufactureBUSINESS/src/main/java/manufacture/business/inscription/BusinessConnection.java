@@ -70,7 +70,6 @@ public class BusinessConnection implements IBusinessConnection {
 
 			return sb.toString();	
 		} catch (NoSuchAlgorithmException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return input;
 		}

@@ -27,13 +27,38 @@ public class DaoUser implements IDaoUser {
 	
 	@Override
 	public List<String> getAllLogin() {
-		// TODO Auto-generated method stub
-		return null;
+		Session session = sf.getCurrentSession();
+		String requete = "SELECT u.login FROM User u";
+		Query hql = session.createQuery(requete);
+		List<String> resultat = hql.list();
+		return resultat;
 	}
 	@Override
 	public List<String> getAllEmail() {
-		// TODO Auto-generated method stub
-		return null;
+		Session session = sf.getCurrentSession();
+		String requete = "SELECT u.email FROM User u";
+		Query hql = session.createQuery(requete);
+		List<String> resultat = hql.list();
+		return resultat;
+	}
+	
+	@Override
+	public List<User> getUserByLogin(String login) {
+		Session session = sf.getCurrentSession();
+		String requete = "FROM User u WHERE u.login = :login";
+		Query hql = session.createQuery(requete);
+		hql.setParameter("login",login);
+		List<User> resultat = hql.list();
+		return resultat;
+	}
+	@Override
+	public List<User> getUserByEmail(String email) {
+		Session session = sf.getCurrentSession();
+		String requete = "FROM User u WHERE u.email = :email";
+		Query hql = session.createQuery(requete);
+		hql.setParameter("email",email);
+		List<User> resultat = hql.list();
+		return resultat;
 	}
 	
 	@Override
@@ -101,11 +126,6 @@ public class DaoUser implements IDaoUser {
 		List<User> resultat = hql.list();
 		return resultat;
 	}
-	@Override
-	public void openAccoutn(User user) {
-		// TODO Auto-generated method stub
-		
-	}
 	
 	//Getters et Setters
 	public SessionFactory getSf() {
@@ -116,5 +136,4 @@ public class DaoUser implements IDaoUser {
 	public void setSf(SessionFactory sf) {
 		this.sf = sf;
 	}
-
 }
