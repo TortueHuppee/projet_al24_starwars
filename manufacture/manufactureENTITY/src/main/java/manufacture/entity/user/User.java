@@ -45,15 +45,15 @@ public class User implements Serializable {
     @Column(name = "id_user")
     private Integer idUser;
 
-    @Column(name = "activity_domain")
-    private String activityDomain;
+//    @Column(name = "activity_domain")
+//    private String activityDomain;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "closing_time")
     private Date closingTime;
 
-    @Column(name = "company_name")
-    private String companyName;
+//    @Column(name = "company_name")
+//    private String companyName;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "create_time")
@@ -78,12 +78,12 @@ public class User implements Serializable {
     @OneToMany(mappedBy = "user",fetch = FetchType.EAGER)
     private List<Cart> carts;
 
-    //bi-directional many-to-one association to Product
-    @OneToMany(mappedBy = "user")
-    private List<ArtisanProduct> artisanProducts;
+//    //bi-directional many-to-one association to Product
+//    @OneToMany(mappedBy = "user")
+//    private List<ArtisanProduct> artisanProducts;
 
-    @OneToMany(mappedBy = "user")
-    private List<UsedProduct> usedProducts;
+//    @OneToMany(mappedBy = "user")
+//    private List<UsedProduct> usedProducts;
 
     //bi-directional many-to-one association to Rating
     @OneToMany(mappedBy = "user")
@@ -121,13 +121,13 @@ public class User implements Serializable {
         this.idUser = idUser;
     }
 
-    public String getActivityDomain() {
-        return this.activityDomain;
-    }
-
-    public void setActivityDomain(String activityDomain) {
-        this.activityDomain = activityDomain;
-    }
+//    public String getActivityDomain() {
+//        return this.activityDomain;
+//    }
+//
+//    public void setActivityDomain(String activityDomain) {
+//        this.activityDomain = activityDomain;
+//    }
 
     public Date getClosingTime() {
         return this.closingTime;
@@ -137,13 +137,13 @@ public class User implements Serializable {
         this.closingTime = closingTime;
     }
 
-    public String getCompanyName() {
-        return this.companyName;
-    }
-
-    public void setCompanyName(String companyName) {
-        this.companyName = companyName;
-    }
+//    public String getCompanyName() {
+//        return this.companyName;
+//    }
+//
+//    public void setCompanyName(String companyName) {
+//        this.companyName = companyName;
+//    }
 
     public Date getCreateTime() {
         return this.createTime;
@@ -311,21 +311,21 @@ public class User implements Serializable {
         this.civility = civility;
     }
 
-    public List<ArtisanProduct> getArtisanProducts() {
-        return artisanProducts;
-    }
+//    public List<ArtisanProduct> getArtisanProducts() {
+//        return artisanProducts;
+//    }
+//
+//    public void setArtisanProducts(List<ArtisanProduct> artisanProducts) {
+//        this.artisanProducts = artisanProducts;
+//    }
 
-    public void setArtisanProducts(List<ArtisanProduct> artisanProducts) {
-        this.artisanProducts = artisanProducts;
-    }
-
-    public List<UsedProduct> getUsedProducts() {
-        return usedProducts;
-    }
-
-    public void setUsedProducts(List<UsedProduct> usedProducts) {
-        this.usedProducts = usedProducts;
-    }
+//    public List<UsedProduct> getUsedProducts() {
+//        return usedProducts;
+//    }
+//
+//    public void setUsedProducts(List<UsedProduct> usedProducts) {
+//        this.usedProducts = usedProducts;
+//    }
 
     public List<Address> getAddresses() {
         return addresses;
@@ -351,16 +351,10 @@ public class User implements Serializable {
         return address;
     }
 
-    /**
-     * @return the isBlackListed
-     */
     public boolean isBlackListed() {
         return isBlackListed;
     }
 
-    /**
-     * @param paramIsBlackListed the isBlackListed to set
-     */
     public void setBlackListed(boolean paramIsBlackListed) {
         isBlackListed = paramIsBlackListed;
     }

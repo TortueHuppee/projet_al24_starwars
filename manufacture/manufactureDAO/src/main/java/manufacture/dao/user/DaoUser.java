@@ -84,25 +84,29 @@ public class DaoUser implements IDaoUser {
 		
 	}
 	@Override
-	public void createAdministrator(Administrator admin) {
-		// TODO Auto-generated method stub
-		
+	public User openAccount(Administrator admin) {
+	    Session session = sf.getCurrentSession();
+        session.save(admin);
+        return admin;
 	}
 	@Override
-	public void createArtisan(Artisan artisan) {
-		// TODO Auto-generated method stub
-		
+	public User openAccount(Artisan artisan) {
+	    Session session = sf.getCurrentSession();
+        session.save(artisan);
+        return artisan;
 	}
 	@Override
-	public void createProfessionalCustomer(
+	public User openAccount(
 			ProfessionnalCustomer professionalCustomer) {
-		// TODO Auto-generated method stub
-		
+	    Session session = sf.getCurrentSession();
+        session.save(professionalCustomer);
+        return professionalCustomer;
 	}
 	@Override
-	public void createSpecificCustomer(SpecificCustomer specificCustomer) {
-		// TODO Auto-generated method stub
-		
+	public User openAccount(SpecificCustomer specificCustomer) {
+	    Session session = sf.getCurrentSession();
+        session.save(specificCustomer);
+        return specificCustomer;
 	}
 	@Override
 	public void closeAccount(User user) {
@@ -112,10 +116,7 @@ public class DaoUser implements IDaoUser {
 	@Override
 	public User openAccount(User user) {
 		Session session = sf.getCurrentSession();
-		LOGGER.info("user pre save : "+user.getIdUser());
-//		session.save(user.getAddress());
 		session.save(user);
-		LOGGER.info("user saved : "+user.getIdUser());
 		return user;		
 	}
 	@Override

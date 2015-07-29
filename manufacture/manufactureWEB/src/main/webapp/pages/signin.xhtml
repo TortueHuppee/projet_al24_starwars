@@ -32,11 +32,15 @@
 								<f:selectItem itemLabel="professionnel" itemValue="professionnel" />
 							</p:selectOneRadio>
 
-						<h:outputPanel id="companyName">
-							<h:outputLabel for="signup_companyName"	value="Nom de la compagnie : " rendered="#{not(signUpBean.userType eq 'particulier')}"/>
+						<p:outputPanel id="companyName">
+							<h:outputLabel for="signup_companyName"	value="Nom de la compagnie : "/>
 							<h:inputText value="#{signUpBean.companyName}" id="signup_companyName" />
 							<h:outputLabel class="messageErreur" value="#{signUpBean.messageErreurCompanyName}" />
-						</h:outputPanel>
+							
+							<h:outputLabel for="signup_activityDomain"	value="Domaine d'activité : "/>
+							<h:inputText value="#{signUpBean.domaineActivite}" id="signup_activityDomain" />
+							<h:outputLabel class="messageErreur" value="#{signUpBean.messageErreurDomaineActivite}" />
+						</p:outputPanel rendered="#{not(signUpBean.userType eq 'particulier')}">
 					</fieldset>
 				</div>
 				
@@ -73,25 +77,23 @@
 					</fieldset>
 				</div>
 
-				<div class="sign-address">
-					<fieldset>
-						<legend>Adresse</legend>
+<!-- 				<div class="sign-address"> -->
+<!-- 					<fieldset> -->
+<!-- 						<legend>Adresse</legend> -->
 
-						<h:outputLabel for="signup_number" value="N°rue : "/>
-						<h:inputText id="signup_number" value="#{signUpBean.addresse.number}"/>
+<!-- 						<h:outputLabel for="signup_number" value="N°rue : "/> -->
+<!-- 						<h:inputText id="signup_number" value="#{signUpBean.addresse.number}"/> -->
 
-						<h:outputLabel for="signup_street" value="Rue : "/>
-						<h:inputText id="signup_street" value="#{signUpBean.addresse.street}"/>
+<!-- 						<h:outputLabel for="signup_street" value="Rue : "/> -->
+<!-- 						<h:inputText id="signup_street" value="#{signUpBean.addresse.street}"/> -->
 
-						<h:outputLabel for="signup_city" value="Ville"/>
-						<h:selectOneMenu id="signup_city" value="#{signUpBean.addresse.city.idCity}">
-							<f:selectItems value="#{mbDataLoader.listCity}" var="city"
-										itemLabel="#{city.cityName}" itemValue="#{city.idCity}"/>
-						</h:selectOneMenu>
-
-					</fieldset>
-
-				</div>
+<!-- 						<h:outputLabel for="signup_city" value="Ville"/> -->
+<!-- 						<h:selectOneMenu id="signup_city" value="#{signUpBean.addresse.city.idCity}"> -->
+<!-- 							<f:selectItems value="#{mbDataLoader.listCity}" var="city" -->
+<!-- 										itemLabel="#{city.cityName}" itemValue="#{city.idCity}"/> -->
+<!-- 						</h:selectOneMenu> -->
+<!-- 					</fieldset> -->
+<!-- 				</div> -->
 			
 				<div style="margin-left: 40%">
 					<p:commandButton action="#{signUpBean.validationFormulaire()}" value="S'inscrire" update="signinForm"/>

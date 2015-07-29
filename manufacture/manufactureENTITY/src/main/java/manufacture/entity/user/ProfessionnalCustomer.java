@@ -13,12 +13,24 @@ public class ProfessionnalCustomer extends User {
 	@Column(name = "number_recall")
 	private int nbRecall ;
 
+	@Column(name = "activity_domain")
+    private String activityDomain;
 	
-	public ProfessionnalCustomer()
+    @Column(name = "company_name")
+    private String companyName;
+
+    public ProfessionnalCustomer(int paramNbRecall, String paramActivityDomain,
+            String paramCompanyName) {
+        super();
+        nbRecall = paramNbRecall;
+        activityDomain = paramActivityDomain;
+        companyName = paramCompanyName;
+    }
+
+    public ProfessionnalCustomer()
 	{
 		
 	}
-
 
 	public int getNbRecall() {
 		return nbRecall;
@@ -28,6 +40,21 @@ public class ProfessionnalCustomer extends User {
 	public void setNbRecall(int nbRecall) {
 		this.nbRecall = nbRecall;
 	}
-	
-	
+
+    public String getActivityDomain() {
+        return activityDomain;
+    }
+
+    public void setActivityDomain(String paramActivityDomain) {
+        activityDomain = paramActivityDomain;
+    }
+
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public void setCompanyName(String paramCompanyName) {
+        companyName = paramCompanyName;
+    }
+
 }

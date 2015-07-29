@@ -24,17 +24,20 @@ public interface IDaoUser {
 	
 	void getPasswordByEmail(String email);
 	
-	void createAdministrator(Administrator admin);
 	
-	void createArtisan(Artisan artisan);
+	User openAccount(User user);
 	
-	void createProfessionalCustomer(ProfessionnalCustomer professionalCustomer);
+	User openAccount(Administrator admin);
 	
-	void createSpecificCustomer(SpecificCustomer specificCustomer);
+	User openAccount(Artisan artisan);
+	
+	User openAccount(ProfessionnalCustomer professionalCustomer);
+	
+	User openAccount(SpecificCustomer specificCustomer);
+	
 	
 	void closeAccount(User user);
-
-	User openAccount(User user);
+	
 
 	User getUserLogin(User user);
 

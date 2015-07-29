@@ -15,19 +15,18 @@ public interface IBusinessInscription {
 	boolean emailAlreadyExisting(String email);
 	
 	//Création
-	void createAccount(User user, Address adress);
-	
-	Administrator createAdministrator(Administrator admin);
-	
-	Artisan createArtisan(Artisan artisan);
-	
-	ProfessionnalCustomer createProfessionalCustomer(ProfessionnalCustomer professionalCustomer);
-	
-	SpecificCustomer createSpecificCustomer(SpecificCustomer specificCustomer);
-	
 	Address createAdress(Address adress);
 
 	boolean userExists(User user);
+	
 
 	User createAccount(User user);
+	
+	User createAccount(Administrator admin);
+    
+    User createAccount(Artisan artisan);
+    
+    User createAccount(ProfessionnalCustomer professionalCustomer);
+    
+    User createAccount(SpecificCustomer specificCustomer);
 }
