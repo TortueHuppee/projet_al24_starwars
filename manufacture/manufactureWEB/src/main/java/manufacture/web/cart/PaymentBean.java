@@ -9,11 +9,13 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 
+import manufacture.entity.cart.Cart;
 import manufacture.entity.cart.CartProduct;
 import manufacture.ifacade.cart.IPaiement;
 import manufacture.web.user.LoginBean;
 import manufacture.web.user.UserBean;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -21,6 +23,8 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 @SessionScoped
 public class PaymentBean {
 
+    private Logger log = Logger.getLogger(PaymentBean.class);
+    
 	private String cardNumber = "";
 	private String pin;
 	private String expirationDate;
@@ -74,6 +78,7 @@ public class PaymentBean {
 
 	public String valider() {
 		getMbCart().getSpecificUserCart().setCartProducts(getMbCart().getPanier());
+
 		paiementFacade.processPaiement(getMbCart().getSpecificUserCart());
 		mbCart.setSpecificUserCart(mbCart.generateCart(userBean.getUser()));
 		userBean.getUser().getCarts().add(mbCart.getSpecificUserCart());

@@ -100,38 +100,54 @@ public class SignUpBean {
 	 * @return String
 	 */
 	public String createUser()
-	{
-	    user.setLogin(login);
-        user.setPassword(motDePasse);
-        user.setEmail(email);
-        user.setUserName(nomFamille);
-        user.setUserFirstName(prenom);
-        user.setCreateTime(new Date());
-        user.setBlackListed(false);
-        
+	{        
 	    if (userType.equals("particulier"))
 	    {
-	        SpecificCustomer particulier = (SpecificCustomer) user;
+	        SpecificCustomer particulier = new SpecificCustomer();
+	        particulier.setLogin(login);
+	        particulier.setPassword(motDePasse);
+	        particulier.setEmail(email);
+	        particulier.setUserName(nomFamille);
+	        particulier.setUserFirstName(prenom);
+	        particulier.setCreateTime(new Date());
+	        particulier.setBlackListed(false);
+	        
+	        user = proxyInscription.createAccount(particulier);
 	    }
 	    else if (userType.equals("professionnel"))
 	    {
-	        ProfessionnalCustomer professionnel = (ProfessionnalCustomer) user;
+	        ProfessionnalCustomer professionnel = new ProfessionnalCustomer();
+	        professionnel.setLogin(login);
+	        professionnel.setPassword(motDePasse);
+	        professionnel.setEmail(email);
+	        professionnel.setUserName(nomFamille);
+	        professionnel.setUserFirstName(prenom);
+	        professionnel.setCreateTime(new Date());
+	        professionnel.setBlackListed(false);
+	        
 	        professionnel.setCompanyName(companyName);
 	        professionnel.setActivityDomain(domaineActivite);
 	        professionnel.setNbRecall(0);
+	        user = proxyInscription.createAccount(professionnel);
 	    }
 	    else if (userType.equals("artisan"))
         {
-            Artisan artisan = (Artisan) user;
+            Artisan artisan = new Artisan();
+            artisan.setLogin(login);
+            artisan.setPassword(motDePasse);
+            artisan.setEmail(email);
+            artisan.setUserName(nomFamille);
+            artisan.setUserFirstName(prenom);
+            artisan.setCreateTime(new Date());
+            artisan.setBlackListed(false);
+            
             artisan.setCompanyName(companyName);
             artisan.setActivityDomain(domaineActivite);
+            user = proxyInscription.createAccount(artisan);
         }
-
-	    user = proxyInscription.createAccount(user);
 		
 		if(user.getIdUser() != null){
 			getUserBean().setUser(user); //Realise la connexion automatique au site
-			
 			return "index.xhtml?faces-redirect=true"; 
 		} else {
 
@@ -160,9 +176,15 @@ public class SignUpBean {
 		nombreErreur += validationPrenom();
 		nombreErreur += validationMail();
 		
+		if (!userType.equals("particulier"))
+		{
+		    nombreErreur += validationCompanyName();
+		    nombreErreur += validationDomaineActivite();
+		}
+
 		if (nombreErreur == 0)
 		{
-			createUser();
+			return createUser();
 		}
 		return null;
 	}
@@ -260,6 +282,34 @@ public class SignUpBean {
 			}
 		}
 	}
+	
+	public int validationCompanyName()
+    {
+        if (companyName.equals(""))
+        {
+            messageErreurCompanyName = "Veuillez indiquer le nom de votre companie";
+            return 1;
+        }
+        else
+        {
+            messageErreurCompanyName = "";
+            return 0;
+        }
+    }
+	
+	public int validationDomaineActivite()
+    {
+        if (domaineActivite.equals(""))
+        {
+            messageErreurDomaineActivite = "Veuillez indiquer votre domaine d'activité";
+            return 1;
+        }
+        else
+        {
+            messageErreurDomaineActivite = "";
+            return 0;
+        }
+    }
 	
 	//Getters et Setters
 

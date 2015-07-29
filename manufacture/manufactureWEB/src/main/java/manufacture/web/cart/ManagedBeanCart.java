@@ -16,20 +16,10 @@ import manufacture.entity.product.ConstructorProduct;
 import manufacture.entity.product.Product;
 import manufacture.entity.user.SpecificCustomer;
 import manufacture.entity.user.User;
-import manufacture.facade.cart.CartSpecificCustomer;
 import manufacture.ifacade.cart.ICartSpecificCustomer;
 import manufacture.ifacade.catalog.ICatalog;
 import manufacture.web.user.UserBean;
-import manufacture.web.util.ClassPathLoader;
-
 import org.apache.log4j.Logger;
-import org.springframework.beans.factory.BeanFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
-
-//@Component
-//@Scope(value="session")
 
 @ManagedBean(name = "mbCart")
 @SessionScoped
@@ -42,6 +32,7 @@ public class ManagedBeanCart {
 
 	@ManagedProperty(value = "#{catalog}")
 	private ICatalog proxyCatalog;
+	
 	@ManagedProperty(value="#{userBean}")
 	private UserBean userBean;
 
@@ -58,6 +49,7 @@ public class ManagedBeanCart {
 	private int productStock;
 
 	private List<CartProduct> panier = new ArrayList<CartProduct>();
+	
 	@PostConstruct
 	void init() {
 		if(userBean.isLogged()){
@@ -143,10 +135,6 @@ public class ManagedBeanCart {
 
 		}
 	}
-
-	// public List<CartProduct> getAllCartProducts() {
-	// return panier;
-	// }
 
 	public int getStockByProductId(int idProduct) {
 		int result = 0;
@@ -367,5 +355,33 @@ public class ManagedBeanCart {
 		cart.setUser(user);
 		return cart;
 	}
+
+    /**
+     * @return the selectedProduct
+     */
+    public Product getSelectedProduct() {
+        return selectedProduct;
+    }
+
+    /**
+     * @param paramSelectedProduct the selectedProduct to set
+     */
+    public void setSelectedProduct(Product paramSelectedProduct) {
+        selectedProduct = paramSelectedProduct;
+    }
+
+    /**
+     * @return the total
+     */
+    public double getTotal() {
+        return total;
+    }
+
+    /**
+     * @param paramTotal the total to set
+     */
+    public void setTotal(double paramTotal) {
+        total = paramTotal;
+    }
 
 }

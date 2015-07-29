@@ -3,11 +3,6 @@ package manufacture.business.cart;
 import java.util.Date;
 import java.util.List;
 
-import org.springframework.beans.factory.BeanFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import manufacture.business.util.ClassPathLoader;
 import manufacture.entity.cart.Cart;
 import manufacture.entity.cart.CartProduct;
 import manufacture.entity.cart.Delivery;
@@ -19,13 +14,19 @@ import manufacture.idao.cart.IDaoPaymentAndDelivery;
 import manufacture.idao.cart.IDaoProductCart;
 import manufacture.idao.product.IDaoProduct;
 
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 @Service
 public class BusinessCart implements IBusinessCart {
 			
-	IDaoCart proxyCart;
-	IDaoProductCart proxyProductCart;
-	IDaoPaymentAndDelivery proxyPaymentAndDelivery;
-	IDaoProduct proxyProduct;
+    private Logger log = Logger.getLogger(BusinessCart.class);
+    
+    private IDaoCart proxyCart;
+    private IDaoProductCart proxyProductCart;
+    private IDaoPaymentAndDelivery proxyPaymentAndDelivery;
+    private IDaoProduct proxyProduct;
 
 	@Override
 	public void addProductToCart(CartProduct cartProduct) {

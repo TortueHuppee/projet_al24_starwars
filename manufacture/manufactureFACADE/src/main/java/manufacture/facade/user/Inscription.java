@@ -48,12 +48,6 @@ public class Inscription implements IInscription {
 		return proxyInscription.emailAlreadyExisting(email);
 	}
 
-	@Override
-	public void createAccount(User user, Address adress) {
-		// TODO Auto-generated method stub
-		
-	}
-
 	public IBusinessInscription getProxyInscription() {
 		return proxyInscription;
 	}

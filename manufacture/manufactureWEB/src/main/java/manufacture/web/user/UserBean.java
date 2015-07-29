@@ -17,7 +17,6 @@ public class UserBean {
 	
 	private static Logger LOGGER = Logger.getLogger(UserBean.class);
 	private User user;
-	private Address adress;
 	
 	public User getUser() {
 		return user;
@@ -29,13 +28,5 @@ public class UserBean {
 	
 	public boolean isLogged(){
 		return user == null ? false : true; 
-	}
-
-	public Address getAdress() {
-		return adress;
-	}
-
-	public void setAdress(Address adress) {
-		this.adress = adress;
 	}
 }
