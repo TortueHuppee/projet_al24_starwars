@@ -70,10 +70,10 @@ public class LoginBean {
 	 */
 	private void mergeCarts(){
 		Cart currentUserCart = mbCart.getCurrentUserCart();
-		Cart currentCart = mbCart.getSpecificUserCart();
+		Cart currentCart = mbCart.getCart();
 		if(currentUserCart.getCartProducts().size() > 0){
 			if(currentCart.getCartProducts().size() == 0){
-				mbCart.setSpecificUserCart(currentUserCart);
+				mbCart.setCart(currentUserCart);
 			}else{
 				currentCart.setUser(userBean.getUser());
 				for(CartProduct productUser : currentUserCart.getCartProducts()){
@@ -84,13 +84,13 @@ public class LoginBean {
 					}
 				}
 			} 
-			mbCart.setSpecificUserCart(currentCart);
+			mbCart.setCart(currentCart);
 		}
 	}
 	
 	public String doLogout(){
 		userBean.setUser(null);
-		mbCart.setSpecificUserCart(new Cart());
+		mbCart.setCart(new Cart());
 		LOGGER.info("user reseted");
 		return null;
 	}

@@ -56,7 +56,7 @@ public class PaymentBean {
 	//Méthodes
 	
 	public String valider() {
-	    Cart commande = mbCart.getSpecificUserCart();
+	    Cart commande = mbCart.getCart();
 	    User user = userBean.getUser();
 	    commande.setUser(user);	    
 	    commande.setCartProducts(mbCart.getPanier());

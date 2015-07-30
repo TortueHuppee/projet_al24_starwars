@@ -17,7 +17,7 @@ import manufacture.entity.cart.PaymentType;
 import manufacture.entity.product.ConstructorProduct;
 import manufacture.entity.product.Product;
 import manufacture.entity.user.User;
-import manufacture.ifacade.cart.ICartSpecificCustomer;
+import manufacture.ifacade.cart.IGestionCart;
 import manufacture.ifacade.catalog.ICatalog;
 import manufacture.web.user.UserBean;
 
@@ -29,16 +29,16 @@ public class ManagedBeanCart {
 
 	private Logger log = Logger.getLogger(ManagedBeanCart.class);
 
-	@ManagedProperty(value = "#{cartSpecificCustomer}")
-	private ICartSpecificCustomer proxyCart;
-
 	@ManagedProperty(value = "#{catalog}")
 	private ICatalog proxyCatalog;
+	
+	@ManagedProperty(value = "#{gestionCart}")
+    private IGestionCart proxyCart;
 	
 	@ManagedProperty(value="#{userBean}")
 	private UserBean userBean;
 
-	private Cart specificUserCart;
+	private Cart cart;
 
 	private int idSelectedProduct;
 	private Product selectedProduct;
@@ -56,9 +56,9 @@ public class ManagedBeanCart {
 	@PostConstruct
 	void init() {
 		if(userBean.isLogged()){
-			specificUserCart = getCurrentUserCart();
+			cart = getCurrentUserCart();
 		}else{
-			specificUserCart = new Cart();
+			cart = new Cart();
 		}
 		listeProductBrute = proxyCatalog.getAllConstructorProduct();
 		
@@ -68,8 +68,8 @@ public class ManagedBeanCart {
 		moyenTransport = new Delivery();
 		moyenTransport.setIdDelivery(1);
 		
-		specificUserCart.setDelivery(moyenTransport);
-		specificUserCart.setPaymentType(moyenPaiement);
+		cart.setDelivery(moyenTransport);
+		cart.setPaymentType(moyenPaiement);
 	}
 
 	public Cart getCurrentUserCart() {
@@ -270,10 +270,10 @@ public class ManagedBeanCart {
 		user.setIdUser(1);
 		// Les autres parametres pour le panier seront ajoutes apres la validation du paiement
 		for (CartProduct cp : panier) {
-			specificUserCart.addCartProduct(cp);
+			cart.addCartProduct(cp);
 		}
 		log.info("============>>>>> JUSQUE LA, CA MARCHE 1 <<<<<============");
-		specificUserCart.setUser(user);
+		cart.setUser(user);
 		//		specificUserCart.setUser(userBean.getUser());
 		log.info("============>>>>> JUSQUE LA, CA MARCHE 2 <<<<<============");
 
@@ -331,19 +331,8 @@ public class ManagedBeanCart {
 		this.panier = panier;
 	}
 
-	public void setProxyCart(ICartSpecificCustomer proxyCart) {
-		this.proxyCart = proxyCart;
-	}
-
 	public void setProxyCatalog(ICatalog proxyCatalog) {
 		this.proxyCatalog = proxyCatalog;
-	}
-
-	public void setSpecificUserCart(Cart specificUserCart) {
-		this.specificUserCart = specificUserCart;
-	}
-	public Cart getSpecificUserCart() {
-		return specificUserCart;
 	}
 
 	public UserBean getUserBean() {
@@ -352,10 +341,6 @@ public class ManagedBeanCart {
 
 	public void setUserBean(UserBean userBean) {
 		this.userBean = userBean;
-	}
-
-	public ICartSpecificCustomer getProxyCart() {
-		return proxyCart;
 	}
 
 	public ICatalog getProxyCatalog() {
@@ -369,32 +354,52 @@ public class ManagedBeanCart {
 		return cart;
 	}
 
-    /**
-     * @return the selectedProduct
-     */
     public Product getSelectedProduct() {
         return selectedProduct;
     }
-
-    /**
-     * @param paramSelectedProduct the selectedProduct to set
-     */
+    
     public void setSelectedProduct(Product paramSelectedProduct) {
         selectedProduct = paramSelectedProduct;
     }
-
-    /**
-     * @return the total
-     */
+    
     public double getTotal() {
         return total;
     }
-
-    /**
-     * @param paramTotal the total to set
-     */
+    
     public void setTotal(double paramTotal) {
         total = paramTotal;
+    }
+
+    public IGestionCart getProxyCart() {
+        return proxyCart;
+    }
+
+    public void setProxyCart(IGestionCart paramProxyCart) {
+        proxyCart = paramProxyCart;
+    }
+
+    public Cart getCart() {
+        return cart;
+    }
+
+    public void setCart(Cart paramCart) {
+        cart = paramCart;
+    }
+
+    public Delivery getMoyenTransport() {
+        return moyenTransport;
+    }
+
+    public void setMoyenTransport(Delivery paramMoyenTransport) {
+        moyenTransport = paramMoyenTransport;
+    }
+
+    public PaymentType getMoyenPaiement() {
+        return moyenPaiement;
+    }
+
+    public void setMoyenPaiement(PaymentType paramMoyenPaiement) {
+        moyenPaiement = paramMoyenPaiement;
     }
 
 }

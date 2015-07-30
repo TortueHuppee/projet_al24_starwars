@@ -47,7 +47,7 @@ public class GestionCart implements IGestionCart {
     }
     
     @Autowired
-    public void setBuCart(IBusinessCart paramBuCart) {
+    public void setBusinessCartCart(IBusinessCart paramBuCart) {
         businessCart = paramBuCart;
     }
 }
