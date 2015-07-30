@@ -43,8 +43,6 @@ public class PaymentBean {
 
 	@ManagedProperty(value="#{paiement}")
 	private IPaiement paiementFacade;
-	
-	
 
 	@PostConstruct
 	public void init() {
@@ -55,6 +53,8 @@ public class PaymentBean {
 		cardOwnerName = "";
 	}
 
+	//Méthodes
+	
 	public String valider() {
 	    Cart commande = mbCart.getSpecificUserCart();
 	    User user = userBean.getUser();

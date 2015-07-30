@@ -32,10 +32,10 @@ import manufacture.entity.report.Reporting;
  */
 @Entity
 @Table(name = "user")
-//Héritage :
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-//Pour distinguer nos entités qui sont réunies dans une seule table :
-@DiscriminatorColumn(name = "user_role")
+////Héritage :
+//@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+////Pour distinguer nos entités qui sont réunies dans une seule table :
+//@DiscriminatorColumn(name = "user_role")
 public class User implements Serializable {
 
     private static final long serialVersionUID  =  1L;
@@ -45,15 +45,15 @@ public class User implements Serializable {
     @Column(name = "id_user")
     private Integer idUser;
 
-//    @Column(name = "activity_domain")
-//    private String activityDomain;
+    @Column(name = "activity_domain")
+    private String activityDomain;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "closing_time")
     private Date closingTime;
 
-//    @Column(name = "company_name")
-//    private String companyName;
+    @Column(name = "company_name")
+    private String companyName;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "create_time")
@@ -78,12 +78,12 @@ public class User implements Serializable {
     @OneToMany(mappedBy = "user",fetch = FetchType.EAGER)
     private List<Cart> carts;
 
-//    //bi-directional many-to-one association to Product
-//    @OneToMany(mappedBy = "user")
-//    private List<ArtisanProduct> artisanProducts;
+    //bi-directional many-to-one association to Product
+    @OneToMany(mappedBy = "user")
+    private List<ArtisanProduct> artisanProducts;
 
-//    @OneToMany(mappedBy = "user")
-//    private List<UsedProduct> usedProducts;
+    @OneToMany(mappedBy = "user")
+    private List<UsedProduct> usedProducts;
 
     //bi-directional many-to-one association to Rating
     @OneToMany(mappedBy = "user")
@@ -105,6 +105,11 @@ public class User implements Serializable {
     @ManyToOne
     @JoinColumn(name = "id_civility")
     private Civility civility;
+    
+    //bi-directional many-to-one association to Civility
+    @ManyToOne
+    @JoinColumn(name = "id_user_role")
+    private UserRole userRole;
 
     //bi-directional many-to-one association to Reporting
     @OneToMany(mappedBy = "user")
@@ -121,13 +126,13 @@ public class User implements Serializable {
         this.idUser = idUser;
     }
 
-//    public String getActivityDomain() {
-//        return this.activityDomain;
-//    }
-//
-//    public void setActivityDomain(String activityDomain) {
-//        this.activityDomain = activityDomain;
-//    }
+    public String getActivityDomain() {
+        return this.activityDomain;
+    }
+
+    public void setActivityDomain(String activityDomain) {
+        this.activityDomain = activityDomain;
+    }
 
     public Date getClosingTime() {
         return this.closingTime;
@@ -137,13 +142,13 @@ public class User implements Serializable {
         this.closingTime = closingTime;
     }
 
-//    public String getCompanyName() {
-//        return this.companyName;
-//    }
-//
-//    public void setCompanyName(String companyName) {
-//        this.companyName = companyName;
-//    }
+    public String getCompanyName() {
+        return this.companyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
+    }
 
     public Date getCreateTime() {
         return this.createTime;
@@ -311,21 +316,21 @@ public class User implements Serializable {
         this.civility = civility;
     }
 
-//    public List<ArtisanProduct> getArtisanProducts() {
-//        return artisanProducts;
-//    }
-//
-//    public void setArtisanProducts(List<ArtisanProduct> artisanProducts) {
-//        this.artisanProducts = artisanProducts;
-//    }
+    public List<ArtisanProduct> getArtisanProducts() {
+        return artisanProducts;
+    }
 
-//    public List<UsedProduct> getUsedProducts() {
-//        return usedProducts;
-//    }
-//
-//    public void setUsedProducts(List<UsedProduct> usedProducts) {
-//        this.usedProducts = usedProducts;
-//    }
+    public void setArtisanProducts(List<ArtisanProduct> artisanProducts) {
+        this.artisanProducts = artisanProducts;
+    }
+
+    public List<UsedProduct> getUsedProducts() {
+        return usedProducts;
+    }
+
+    public void setUsedProducts(List<UsedProduct> usedProducts) {
+        this.usedProducts = usedProducts;
+    }
 
     public List<Address> getAddresses() {
         return addresses;
@@ -359,4 +364,11 @@ public class User implements Serializable {
         isBlackListed = paramIsBlackListed;
     }
 
+    public UserRole getUserRole() {
+        return userRole;
+    }
+
+    public void setUserRole(UserRole paramUserRole) {
+        userRole = paramUserRole;
+    }
 }

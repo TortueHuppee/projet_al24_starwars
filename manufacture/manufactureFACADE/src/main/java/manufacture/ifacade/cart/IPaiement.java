@@ -1,7 +1,13 @@
 package manufacture.ifacade.cart;
 
+import java.util.List;
+
 import manufacture.entity.cart.Cart;
+import manufacture.entity.cart.PaymentType;
 
 public interface IPaiement {
-	public Cart processPaiement(Cart cart);
+	
+    List<PaymentType> getAllPaymentType();
+    
+    Cart processPaiement(Cart cart);
 }

@@ -10,7 +10,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import manufacture.entity.user.Artisan;
 import manufacture.entity.user.User;
 
 @Entity
@@ -29,9 +28,9 @@ public class ArtisanProduct extends Product {
 	//bi-directional many-to-one association to User
 	@ManyToOne
 	@JoinColumn(name="seller_id_user")
-	private Artisan user;
+	private User user;
 
-	public ArtisanProduct(Date datePublication, String sellerComment, Artisan user) {
+	public ArtisanProduct(Date datePublication, String sellerComment, User user) {
 		super();
 		this.datePublication = datePublication;
 		this.sellerComment = sellerComment;
@@ -59,11 +58,11 @@ public class ArtisanProduct extends Product {
 		this.sellerComment = sellerComment;
 	}
 
-	public Artisan getUser() {
+	public User getUser() {
 		return user;
 	}
 
-	public void setUser(Artisan user) {
+	public void setUser(User user) {
 		this.user = user;
 	}
 }

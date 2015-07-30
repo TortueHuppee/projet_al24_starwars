@@ -10,7 +10,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import manufacture.entity.user.SpecificCustomer;
 import manufacture.entity.user.User;
 
 @Entity
@@ -29,10 +28,10 @@ public class UsedProduct extends Product {
 	//bi-directional many-to-one association to User
 	@ManyToOne
 	@JoinColumn(name="seller_id_user")
-	private SpecificCustomer user;
+	private User user;
 
     public UsedProduct(Date paramDatePublication, String paramSellerComment,
-            SpecificCustomer paramUser) {
+            User paramUser) {
         super();
         datePublication = paramDatePublication;
         sellerComment = paramSellerComment;
@@ -60,11 +59,11 @@ public class UsedProduct extends Product {
 		this.sellerComment = sellerComment;
 	}
 
-	public SpecificCustomer getUser() {
+	public User getUser() {
 		return user;
 	}
 
-	public void setUser(SpecificCustomer user) {
+	public void setUser(User user) {
 		this.user = user;
 	}
 }
