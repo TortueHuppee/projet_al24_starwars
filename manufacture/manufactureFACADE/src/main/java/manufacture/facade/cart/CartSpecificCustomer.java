@@ -19,21 +19,6 @@ import manufacture.ifacade.cart.ICartSpecificCustomer;
 public class CartSpecificCustomer implements ICartSpecificCustomer {
 
 	IBusinessCart proxyCart;
-	
-	@Override
-	public void addProductToCart(CartProduct cartProduct) {
-		proxyCart.addProductToCart(cartProduct);
-	}
-
-	@Override
-	public void deleteProductFromCart(CartProduct cartProduct) {
-		proxyCart.deleteProductFromCart(cartProduct);
-	}
-
-	@Override
-	public void cleanCart(int idCart) {
-		proxyCart.cleanCart(idCart);
-	}
 
 	@Override
 	public void updateOptionsProduct(int idCartProduct, Product newProduct) {
@@ -70,25 +55,9 @@ public class CartSpecificCustomer implements ICartSpecificCustomer {
 		return proxyCart.getAllDeliveryType();
 	}
 
-	@Override
-	public void orderCommande(Cart cart) {
-		proxyCart.orderSpecificCommande(cart);
-	}
-
-	@Override
-	public void createNewCart(int idUser) {
-		proxyCart.createNewCart(idUser);
-	}
-
 	@Autowired
 	public void setProxyCart(IBusinessCart proxyCart) {
 		this.proxyCart = proxyCart;
-	}
-
-	@Override
-	public void deleteProductFromCart(int idCartProduct) {
-		proxyCart.deleteProductFromCart(idCartProduct);
-		
 	}
 
 }

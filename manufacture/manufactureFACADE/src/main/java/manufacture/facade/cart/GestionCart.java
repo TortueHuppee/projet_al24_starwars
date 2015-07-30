@@ -2,16 +2,14 @@ package manufacture.facade.cart;
 
 import java.util.List;
 
-import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import manufacture.entity.cart.Cart;
-import manufacture.entity.cart.PaymentType;
 import manufacture.entity.product.Product;
 import manufacture.ibusiness.cart.IBusinessCart;
 import manufacture.ifacade.cart.IGestionCart;
-import manufacture.ifacade.cart.IPaiement;
+
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 @Service
 public class GestionCart implements IGestionCart {
@@ -33,25 +31,14 @@ public class GestionCart implements IGestionCart {
     @Override
     public void validateCommande(Cart paramCart) {
         
-//        if (paramCart.getUser())
-        businessCart.orderSpecificCommande(paramCart);
-        
-       //particulier => si paiement accepté par la banque
-            //on créé le panier et on le valide***
-            //on créé les sous-produits du panier***
-            //on valide la panier et le paiement
-        
-        
-      //professionnel => deux cas
-            //on créé le panier et on le valide***
-            //on créé les sous-produits du panier***
-        
-                //paiement différé
-                    //on valide le panier uniquement
-                    //prévoir méthode pou payer ultérieurement
-                //paiement immédiat
-                    //on valide la panier et le paiement
-
+        if (paramCart.getUser().getUserRole().getRole().equals("Particulier"))
+        {
+            businessCart.orderSpecificCommande(paramCart);
+        }
+        else if (paramCart.getUser().getUserRole().getRole().equals("Professionnel"))
+        {
+            businessCart.orderProfessionalCommande(paramCart);
+        }
     }
 
     @Override

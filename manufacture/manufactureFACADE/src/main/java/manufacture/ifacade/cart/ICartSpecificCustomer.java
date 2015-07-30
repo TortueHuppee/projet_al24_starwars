@@ -12,12 +12,6 @@ import manufacture.entity.user.User;
 public interface ICartSpecificCustomer {
 
 	//Gestion du panier
-	void addProductToCart(CartProduct cartProduct);
-	
-	void deleteProductFromCart(CartProduct cartProduct);
-	
-	void cleanCart(int idCart);
-	
 	void updateOptionsProduct(int idCartProduct, Product newProduct);
 	
 	void updateQuantityProduct(int idCartProduct, int newQuantity);
@@ -33,12 +27,4 @@ public interface ICartSpecificCustomer {
 	List<PaymentType> getAllPaymentType();
 	
 	List<Delivery> getAllDeliveryType();
-	
-	//Validation du panier = passer la commande
-	void orderCommande(Cart cart);
-	
-	void createNewCart(int idUser);
-
-	void deleteProductFromCart(int idCartProduct);
-	
 }

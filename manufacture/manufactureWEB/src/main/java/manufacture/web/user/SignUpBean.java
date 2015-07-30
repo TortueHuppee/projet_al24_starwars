@@ -9,11 +9,9 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 
-import manufacture.entity.user.Artisan;
 import manufacture.entity.user.Civility;
-import manufacture.entity.user.ProfessionnalCustomer;
-import manufacture.entity.user.SpecificCustomer;
 import manufacture.entity.user.User;
+import manufacture.entity.user.UserRole;
 import manufacture.ifacade.user.IInscription;
 
 import org.apache.log4j.Logger;
@@ -37,6 +35,7 @@ public class SignUpBean {
 	 */
 	private String userType;
 	private Civility civilite;
+	private UserRole role;
 	
 	/**
 	 * Informations rentrées par l'utilisateur :
@@ -68,6 +67,8 @@ public class SignUpBean {
 		user = new User();
 		civilite = new Civility();
 		civilite.setIdCivility(1);
+		role = new UserRole();
+		role.setIdUserRole(1);
 		
 		messageErreurLogin = "";
 		messageErreurMotDePasse = "";
@@ -98,54 +99,25 @@ public class SignUpBean {
 	 */
 	public String createUser()
 	{        
-	    if (userType.equals("particulier"))
+	    user.setLogin(login);
+	    user.setPassword(motDePasse);
+	    user.setEmail(email);
+	    user.setUserName(nomFamille);
+	    user.setUserFirstName(prenom);
+	    user.setCreateTime(new Date());
+        user.setBlackListed(false);
+        user.setCivility(civilite);
+        user.setUserRole(role);
+        
+        if (!userType.equals("particulier"))
 	    {
-	        SpecificCustomer particulier = new SpecificCustomer();
-	        particulier.setLogin(login);
-	        particulier.setPassword(motDePasse);
-	        particulier.setEmail(email);
-	        particulier.setUserName(nomFamille);
-	        particulier.setUserFirstName(prenom);
-	        particulier.setCreateTime(new Date());
-	        particulier.setBlackListed(false);
-	        particulier.setCivility(civilite);
-	        
-	        user = proxyInscription.createAccount(particulier);
+            user.setCompanyName(companyName);
+            user.setActivityDomain(domaineActivite);
+            user.setNbRecall(0);
 	    }
-	    else if (userType.equals("professionnel"))
-	    {
-	        ProfessionnalCustomer professionnel = new ProfessionnalCustomer();
-	        professionnel.setLogin(login);
-	        professionnel.setPassword(motDePasse);
-	        professionnel.setEmail(email);
-	        professionnel.setUserName(nomFamille);
-	        professionnel.setUserFirstName(prenom);
-	        professionnel.setCreateTime(new Date());
-	        professionnel.setBlackListed(false);
-	        professionnel.setCivility(civilite);
-	        
-	        professionnel.setCompanyName(companyName);
-	        professionnel.setActivityDomain(domaineActivite);
-	        professionnel.setNbRecall(0);
-	        user = proxyInscription.createAccount(professionnel);
-	    }
-	    else if (userType.equals("artisan"))
-        {
-            Artisan artisan = new Artisan();
-            artisan.setLogin(login);
-            artisan.setPassword(motDePasse);
-            artisan.setEmail(email);
-            artisan.setUserName(nomFamille);
-            artisan.setUserFirstName(prenom);
-            artisan.setCreateTime(new Date());
-            artisan.setBlackListed(false);
-            artisan.setCivility(civilite);
-            
-            artisan.setCompanyName(companyName);
-            artisan.setActivityDomain(domaineActivite);
-            user = proxyInscription.createAccount(artisan);
-        }
-		
+        
+        proxyInscription.createAccount(user);
+        
 		if(user.getIdUser() != null){
 			getUserBean().setUser(user); //Realise la connexion automatique au site
 			return "index.xhtml?faces-redirect=true"; 

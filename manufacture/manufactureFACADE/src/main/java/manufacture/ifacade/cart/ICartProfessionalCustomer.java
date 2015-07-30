@@ -12,22 +12,12 @@ import manufacture.entity.user.User;
 public interface ICartProfessionalCustomer {
 
 	//Gestion du panier
-	void addProductToCart(CartProduct cartProduct);
-	
-	void deleteProductFromCart(CartProduct cartProduct);
-	
 	List<Product> getAllProductByCart(int idCart);
 	
 	//Gestion de la commande
 	double getTotalPrice(int idCart);
-	
-	void orderProfessionalCommande(int idCart);
-	
-	void validatePayment(Cart cart);
-	
-	void createNewCart(int idUser);
-	
-	void sendRecall(int idUser);
 
-	
+	void validatePayment(Cart cart);
+
+	void sendRecall(int idUser);
 }

@@ -12,7 +12,6 @@ import manufacture.entity.user.User;
 public interface IDaoCart {
 
 	//Gestion de la commande
-//	double getTotalPrice(int idCart);
 	
 	Cart validatePayment(Cart cart); // change boolean to true
 	

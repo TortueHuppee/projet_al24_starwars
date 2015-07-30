@@ -114,10 +114,21 @@ public class User implements Serializable {
     //bi-directional many-to-one association to Reporting
     @OneToMany(mappedBy = "user")
     private List<Address> addresses;
+    
+    @Column(name = "number_recall")
+    private int nbRecall ;
 
     public User() {
     }
 
+    public int getNbRecall() {
+        return nbRecall;
+    }
+
+    public void setNbRecall(int nbRecall) {
+        this.nbRecall = nbRecall;
+    }
+    
     public Integer getIdUser() {
         return this.idUser;
     }

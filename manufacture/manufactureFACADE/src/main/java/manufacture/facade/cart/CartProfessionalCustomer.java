@@ -19,16 +19,6 @@ public class CartProfessionalCustomer implements ICartProfessionalCustomer {
 	IBusinessCart proxyCart;
 
 	@Override
-	public void addProductToCart(CartProduct cartProduct) {
-		proxyCart.addProductToCart(cartProduct);
-	}
-
-	@Override
-	public void deleteProductFromCart(CartProduct cartProduct) {
-		proxyCart.deleteProductFromCart(cartProduct);
-	}
-
-	@Override
 	public List<Product> getAllProductByCart(int idCart) {
 		return proxyCart.getAllProductByCart(idCart);
 	}
@@ -39,18 +29,8 @@ public class CartProfessionalCustomer implements ICartProfessionalCustomer {
 	}
 
 	@Override
-	public void orderProfessionalCommande(int idCart) {
-		proxyCart.orderProfessionalCommande(idCart);
-	}
-
-	@Override
 	public void validatePayment(Cart cart) {
 		proxyCart.validatePayment(cart);
-	}
-
-	@Override
-	public void createNewCart(int idUser) {
-		proxyCart.createNewCart(idUser);
 	}
 
 	@Override

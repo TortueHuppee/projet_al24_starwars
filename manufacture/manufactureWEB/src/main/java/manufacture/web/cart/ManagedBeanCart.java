@@ -16,7 +16,6 @@ import manufacture.entity.cart.Delivery;
 import manufacture.entity.cart.PaymentType;
 import manufacture.entity.product.ConstructorProduct;
 import manufacture.entity.product.Product;
-import manufacture.entity.user.SpecificCustomer;
 import manufacture.entity.user.User;
 import manufacture.ifacade.cart.ICartSpecificCustomer;
 import manufacture.ifacade.catalog.ICatalog;
@@ -267,14 +266,14 @@ public class ManagedBeanCart {
 
 	// enregistre le panier pour qu'il soit visible ds les autres managerd bean
 	public void storeCart (){
-		SpecificCustomer specificCustomer = new SpecificCustomer();
-		specificCustomer.setIdUser(1);
+		User user = new User();
+		user.setIdUser(1);
 		// Les autres parametres pour le panier seront ajoutes apres la validation du paiement
 		for (CartProduct cp : panier) {
 			specificUserCart.addCartProduct(cp);
 		}
 		log.info("============>>>>> JUSQUE LA, CA MARCHE 1 <<<<<============");
-		specificUserCart.setUser(specificCustomer);
+		specificUserCart.setUser(user);
 		//		specificUserCart.setUser(userBean.getUser());
 		log.info("============>>>>> JUSQUE LA, CA MARCHE 2 <<<<<============");
 
