@@ -40,21 +40,27 @@ public class LoginBean {
 	}
 	
 	public String doLogin(){
+	    
 		LOGGER.info("enter login bean");
 		User userTmp = proxyConnection.connectUser(user);
-		if(userTmp==null){
+		if(userTmp==null)
+		{
             FacesMessage message = new FacesMessage("Utilisateur non trouvé");
             FacesContext context = FacesContext.getCurrentInstance();
             context.addMessage(null, message);		
             return "login.xhtml?faces-redirect=true";
 		}
+		
 		userBean.setUser(userTmp);
-		mergeCarts();
+//		mergeCarts();
 		String toPage = null;
-		if(redirect != null){
+		if(redirect != null)
+		{
 			toPage = redirect;
 			redirect = null;
-		}else{
+		}
+		else
+		{
 		    ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
 		    try {
 				ec.redirect(((HttpServletRequest) ec.getRequest()).getRequestURI());
@@ -68,25 +74,25 @@ public class LoginBean {
 	/**
 	 * Permet de melanger le cart de l'utilisateur existant, et le cart en cours afin d'obtenir un cart unique
 	 */
-	private void mergeCarts(){
-		Cart currentUserCart = mbCart.getCurrentUserCart();
-		Cart currentCart = mbCart.getCart();
-		if(currentUserCart.getCartProducts().size() > 0){
-			if(currentCart.getCartProducts().size() == 0){
-				mbCart.setCart(currentUserCart);
-			}else{
-				currentCart.setUser(userBean.getUser());
-				for(CartProduct productUser : currentUserCart.getCartProducts()){
-					for(CartProduct currentCartProduct: currentCart.getCartProducts()){
-						if(productUser.getProduct().getIdProduct() == currentCartProduct.getProduct().getIdProduct()){
-							currentCartProduct.setQuantity(currentCartProduct.getQuantity()+productUser.getQuantity());
-						}
-					}
-				}
-			} 
-			mbCart.setCart(currentCart);
-		}
-	}
+//	private void mergeCarts(){
+//		Cart currentUserCart = mbCart.getCurrentUserCart();
+//		Cart currentCart = mbCart.getCart();
+//		if(currentUserCart.getCartProducts().size() > 0){
+//			if(currentCart.getCartProducts().size() == 0){
+//				mbCart.setCart(currentUserCart);
+//			}else{
+//				currentCart.setUser(userBean.getUser());
+//				for(CartProduct productUser : currentUserCart.getCartProducts()){
+//					for(CartProduct currentCartProduct: currentCart.getCartProducts()){
+//						if(productUser.getProduct().getIdProduct() == currentCartProduct.getProduct().getIdProduct()){
+//							currentCartProduct.setQuantity(currentCartProduct.getQuantity()+productUser.getQuantity());
+//						}
+//					}
+//				}
+//			} 
+//			mbCart.setCart(currentCart);
+//		}
+//	}
 	
 	public String doLogout(){
 		userBean.setUser(null);
