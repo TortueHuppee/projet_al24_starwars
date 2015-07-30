@@ -49,7 +49,6 @@ public class DaoProduct implements IDaoProduct {
 
 	@Override
 	public void updateProductStock(int idProduct, int quantitySend) {
-		//IMEN
 		Session session = sf.getCurrentSession();
 		Product product = getProductByIdProduct(idProduct);
 		product.setStock(product.getStock() - quantitySend);
@@ -58,8 +57,6 @@ public class DaoProduct implements IDaoProduct {
 
 	@Override
 	public void checkProductStock(int idProduct) {
-		// TODO Auto-generated method stub
-		//IMEN
 		Session session = sf.getCurrentSession();
 		Product product = getProductByIdProduct(idProduct);
 		product.getStock();

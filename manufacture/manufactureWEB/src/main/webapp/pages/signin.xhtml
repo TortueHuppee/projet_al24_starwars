@@ -61,14 +61,22 @@
 						<h:outputLabel for="signup_password" value="Mot de passe : "/>
 						<h:inputSecret value="#{signUpBean.motDePasse}" id="signup_password" />
 						<h:outputLabel class="messageErreur" value="#{signUpBean.messageErreurMotDePasse}" />
-
-						<h:outputLabel for="signup_firstName" value="Prénom : "/>
-						<h:inputText value="#{signUpBean.prenom}" id="signup_firstName" />
-						<h:outputLabel class="messageErreur" value="#{signUpBean.messageErreurPrenom}" />
-
+						
 						<h:outputLabel for="signup_lastName" value="Nom de famille : "/>
 						<h:inputText value="#{signUpBean.nomFamille}" id="signup_lastName" />
 						<h:outputLabel class="messageErreur" value="#{signUpBean.messageErreurNomFamille}" />
+						
+						<h:outputLabel for="signup_firstName" value="Prénom : "/>
+						<h:inputText value="#{signUpBean.prenom}" id="signup_firstName" />
+						<h:outputLabel class="messageErreur" value="#{signUpBean.messageErreurPrenom}" />
+						
+						<h:outputLabel for="signup_civility" value="Civilité : "/>
+							<p:selectOneRadio id="signup_civility"
+								value="#{signUpBean.civilite.idCivility}">
+								<f:selectItem itemLabel="Mr" itemValue="1" />
+								<f:selectItem itemLabel="Mme" itemValue="1" />
+								<f:selectItem itemLabel="Mlle" itemValue="1" />
+							</p:selectOneRadio>
 						
 						<h:outputLabel for="signup_email" value="Email : "/>
 						<h:inputText value="#{signUpBean.email}" id="signup_email" />

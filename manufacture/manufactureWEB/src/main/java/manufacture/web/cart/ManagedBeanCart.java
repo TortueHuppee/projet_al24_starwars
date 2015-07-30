@@ -12,6 +12,8 @@ import javax.faces.context.FacesContext;
 
 import manufacture.entity.cart.Cart;
 import manufacture.entity.cart.CartProduct;
+import manufacture.entity.cart.Delivery;
+import manufacture.entity.cart.PaymentType;
 import manufacture.entity.product.ConstructorProduct;
 import manufacture.entity.product.Product;
 import manufacture.entity.user.SpecificCustomer;
@@ -19,6 +21,7 @@ import manufacture.entity.user.User;
 import manufacture.ifacade.cart.ICartSpecificCustomer;
 import manufacture.ifacade.catalog.ICatalog;
 import manufacture.web.user.UserBean;
+
 import org.apache.log4j.Logger;
 
 @ManagedBean(name = "mbCart")
@@ -36,7 +39,6 @@ public class ManagedBeanCart {
 	@ManagedProperty(value="#{userBean}")
 	private UserBean userBean;
 
-	//	@ManagedProperty(value = "#{specificUserCart}")
 	private Cart specificUserCart;
 
 	private int idSelectedProduct;
@@ -49,6 +51,8 @@ public class ManagedBeanCart {
 	private int productStock;
 
 	private List<CartProduct> panier = new ArrayList<CartProduct>();
+	private Delivery moyenTransport;
+	private PaymentType moyenPaiement;
 	
 	@PostConstruct
 	void init() {
@@ -58,6 +62,15 @@ public class ManagedBeanCart {
 			specificUserCart = new Cart();
 		}
 		listeProductBrute = proxyCatalog.getAllConstructorProduct();
+		
+		moyenPaiement = new PaymentType();
+		moyenPaiement.setIdPayment(1);
+
+		moyenTransport = new Delivery();
+		moyenTransport.setIdDelivery(1);
+		
+		specificUserCart.setDelivery(moyenTransport);
+		specificUserCart.setPaymentType(moyenPaiement);
 	}
 
 	public Cart getCurrentUserCart() {

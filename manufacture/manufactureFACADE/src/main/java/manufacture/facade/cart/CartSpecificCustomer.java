@@ -6,6 +6,7 @@ import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import manufacture.entity.cart.Cart;
 import manufacture.entity.cart.CartProduct;
 import manufacture.entity.cart.Delivery;
 import manufacture.entity.cart.PaymentType;
@@ -70,8 +71,8 @@ public class CartSpecificCustomer implements ICartSpecificCustomer {
 	}
 
 	@Override
-	public void orderCommande(int idCart) {
-		proxyCart.orderSpecificCommande(idCart);
+	public void orderCommande(Cart cart) {
+		proxyCart.orderSpecificCommande(cart);
 	}
 
 	@Override

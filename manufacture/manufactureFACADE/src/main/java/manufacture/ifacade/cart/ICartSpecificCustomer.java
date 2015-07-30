@@ -35,7 +35,7 @@ public interface ICartSpecificCustomer {
 	List<Delivery> getAllDeliveryType();
 	
 	//Validation du panier = passer la commande
-	void orderCommande(int idCart);
+	void orderCommande(Cart cart);
 	
 	void createNewCart(int idUser);
 

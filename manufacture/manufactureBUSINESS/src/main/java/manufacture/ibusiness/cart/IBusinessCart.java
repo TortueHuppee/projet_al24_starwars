@@ -33,7 +33,7 @@ public interface IBusinessCart {
 	
 	void orderProfessionalCommande(int idCart);
 	
-	void orderSpecificCommande(int idCart);
+	void orderSpecificCommande(Cart cart);
 	
 	Cart validatePayment(Cart cart);
 	

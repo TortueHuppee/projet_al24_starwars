@@ -77,6 +77,10 @@ public class BusinessCart implements IBusinessCart {
 		return proxyProductCart.getSubTotalPrice(idCartProduct);
 	}
 
+	/**
+	 * Méthode permettant de valider la panier du professionnel sans payer la commande.
+	 * @param idCart l'identifiant du panier.
+	 */
 	@Override
 	public void orderProfessionalCommande(int idCart) {
 		//dateCommande, isValidated
@@ -86,14 +90,28 @@ public class BusinessCart implements IBusinessCart {
 		proxyCart.updateCart(commande);
 	}
 
+	/**
+	 * Méthode permettant au particulier de valider son panier et de payer la commande.
+	 * @param idCart l'identifiant du panier.
+	 */
 	@Override
-	public void orderSpecificCommande(int idCart) {
-		// valider le payment
-		//dateCommande, isValidated
-		Cart commande = proxyCart.getCartByIdCart(idCart);
+	public void orderSpecificCommande(Cart commande) {
+	    
 		commande.setDateCommande(new Date());
 		commande.setIsValidated(true);
-		proxyCart.updateCart(commande);
+		
+		if(commande.getIdCart( ) == null)
+		{
+		    proxyCart.addCart(commande);
+		    for(CartProduct cp : commande.getCartProducts())
+		    {
+		        cp.setCart(commande);
+		        proxyProductCart.addProductToCart(cp);
+		        proxyProduct.updateProductStock(cp.getProduct().getIdProduct() , cp.getQuantity());
+		    }
+		}
+
+		proxyCart.validatePayment(commande);
 	}
 
 	@Override

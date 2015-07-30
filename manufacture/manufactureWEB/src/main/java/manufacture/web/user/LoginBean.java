@@ -90,6 +90,7 @@ public class LoginBean {
 	
 	public String doLogout(){
 		userBean.setUser(null);
+		mbCart.setSpecificUserCart(new Cart());
 		LOGGER.info("user reseted");
 		return null;
 	}

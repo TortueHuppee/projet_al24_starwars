@@ -25,5 +25,7 @@ public interface IDaoCart {
 	Cart getCartByIdCart(int idCart);
 	
 	void updateCart(Cart cart);
+
+    void addCart(Cart cart);
 	
 }

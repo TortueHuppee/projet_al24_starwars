@@ -1,6 +1,5 @@
 package manufacture.web.user;
 
-import java.util.ArrayList;
 import java.util.Date;
 
 import javax.annotation.PostConstruct;
@@ -10,10 +9,7 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 
-import manufacture.entity.user.Address;
-import manufacture.entity.user.Administrator;
 import manufacture.entity.user.Artisan;
-import manufacture.entity.user.City;
 import manufacture.entity.user.Civility;
 import manufacture.entity.user.ProfessionnalCustomer;
 import manufacture.entity.user.SpecificCustomer;
@@ -71,6 +67,7 @@ public class SignUpBean {
 	void init(){
 		user = new User();
 		civilite = new Civility();
+		civilite.setIdCivility(1);
 		
 		messageErreurLogin = "";
 		messageErreurMotDePasse = "";
@@ -111,6 +108,7 @@ public class SignUpBean {
 	        particulier.setUserFirstName(prenom);
 	        particulier.setCreateTime(new Date());
 	        particulier.setBlackListed(false);
+	        particulier.setCivility(civilite);
 	        
 	        user = proxyInscription.createAccount(particulier);
 	    }
@@ -124,6 +122,7 @@ public class SignUpBean {
 	        professionnel.setUserFirstName(prenom);
 	        professionnel.setCreateTime(new Date());
 	        professionnel.setBlackListed(false);
+	        professionnel.setCivility(civilite);
 	        
 	        professionnel.setCompanyName(companyName);
 	        professionnel.setActivityDomain(domaineActivite);
@@ -140,6 +139,7 @@ public class SignUpBean {
             artisan.setUserFirstName(prenom);
             artisan.setCreateTime(new Date());
             artisan.setBlackListed(false);
+            artisan.setCivility(civilite);
             
             artisan.setCompanyName(companyName);
             artisan.setActivityDomain(domaineActivite);
