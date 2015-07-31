@@ -38,7 +38,7 @@
 								value="#{mbCatalog.listeCouleurs}"
 								itemLabel="#{item.colorName}"
 								itemValue="#{item.idColor}"/>
-				<f:ajax event="change" listener="#{mbCatalog.initialisationListeAffichee()}" render=":myForm"/>
+				<f:ajax event="change" listener="#{mbCatalog.initialisationListesAffichees()}" render=":myForm"/>
 			</p:selectOneMenu>
 			
 			<!-- Filtre Matériaux -->
@@ -49,7 +49,7 @@
 											value="#{mbCatalog.listeMateriaux}"
 											itemLabel="#{item.materialName}"
 											itemValue="#{item.idMaterial}"/>
-				<f:ajax event="change" listener="#{mbCatalog.initialisationListeAffichee()}" render=":myForm"/>
+				<f:ajax event="change" listener="#{mbCatalog.initialisationListesAffichees()}" render=":myForm"/>
 			</p:selectOneMenu>
 						
 			<!-- Filtre Vaisseaux -->
@@ -60,7 +60,7 @@
 											value="#{mbCatalog.listeVaisseaux}"
 											itemLabel="#{item.spaceshipName}"
 											itemValue="#{item.idSpaceshipRef}"/>
-				<f:ajax event="change" listener="#{mbCatalog.initialisationListeAffichee()}" render=":myForm"/>
+				<f:ajax event="change" listener="#{mbCatalog.initialisationListesAffichees()}" render=":myForm"/>
 			</p:selectOneMenu>
 						
 			<!-- Filtre Constructeurs -->
@@ -71,7 +71,7 @@
 											value="#{mbCatalog.listeConstructeurs}"
 											itemLabel="#{item.constructorName}"
 											itemValue="#{item.idConstructor}"/>
-				<f:ajax event="change" listener="#{mbCatalog.initialisationListeAffichee()}" render=":myForm"/>
+				<f:ajax event="change" listener="#{mbCatalog.initialisationListesAffichees()}" render=":myForm"/>
 			</p:selectOneMenu>
 
 		</h:form>

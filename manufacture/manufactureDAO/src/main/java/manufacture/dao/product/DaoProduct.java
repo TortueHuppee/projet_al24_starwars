@@ -12,11 +12,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import manufacture.entity.cart.Cart;
+import manufacture.entity.product.ArtisanProduct;
 import manufacture.entity.product.Category;
 import manufacture.entity.product.Color;
 import manufacture.entity.product.ConstructorProduct;
 import manufacture.entity.product.Product;
 import manufacture.entity.product.ProductRef;
+import manufacture.entity.product.UsedProduct;
 import manufacture.idao.product.IDaoColor;
 import manufacture.idao.product.IDaoProduct;
 
@@ -107,6 +109,44 @@ public class DaoProduct implements IDaoProduct {
 		    return resultat;
 		}
 	}
+	
+    @Override
+    public List<ArtisanProduct> getAllArtisanProduct() {
+        Session session = sf.getCurrentSession();       
+        //Requete à partir de la valeur discriminatrice
+        //String requete = "SELECT DISTINCT p.productRef FROM Product p WHERE p.class='constructor_product'";
+        String requete = "SELECT p FROM Product p WHERE p.class='artisan_product'";
+        Query hql = session.createQuery(requete);
+        List<ArtisanProduct> resultat = hql.list();
+        
+        if (resultat.size() == 0)
+        {
+            return new ArrayList<ArtisanProduct>();
+        }
+        else
+        {
+            return resultat;
+        }
+    }
+
+    @Override
+    public List<UsedProduct> getAllUsedProduct() {
+        Session session = sf.getCurrentSession();       
+        //Requete à partir de la valeur discriminatrice
+        //String requete = "SELECT DISTINCT p.productRef FROM Product p WHERE p.class='constructor_product'";
+        String requete = "SELECT p FROM Product p WHERE p.class='used_product'";
+        Query hql = session.createQuery(requete);
+        List<UsedProduct> resultat = hql.list();
+        
+        if (resultat.size() == 0)
+        {
+            return new ArrayList<UsedProduct>();
+        }
+        else
+        {
+            return resultat;
+        }
+    }
 
 	//Getters et Setters
 	public SessionFactory getSf() {
@@ -117,5 +157,4 @@ public class DaoProduct implements IDaoProduct {
 	public void setSf(SessionFactory sf) {
 		this.sf = sf;
 	}
-
 }

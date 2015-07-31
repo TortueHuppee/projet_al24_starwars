@@ -2,6 +2,7 @@ package manufacture.facade.catalog;
 
 import java.util.List;
 
+import manufacture.entity.product.ArtisanProduct;
 import manufacture.entity.product.Category;
 import manufacture.entity.product.Color;
 import manufacture.entity.product.Constructor;
@@ -11,6 +12,7 @@ import manufacture.entity.product.Product;
 import manufacture.entity.product.ProductRef;
 import manufacture.entity.product.SpaceshipProduct;
 import manufacture.entity.product.SpaceshipRef;
+import manufacture.entity.product.UsedProduct;
 import manufacture.facade.util.ClassPathLoader;
 import manufacture.ibusiness.catalog.IBusinessCatalog;
 import manufacture.ifacade.catalog.ICatalog;
@@ -110,6 +112,16 @@ public class Catalog implements ICatalog {
 		return proxyCatalog.getProductRefById(idProductRef);
 	}
 
+    @Override
+    public List<ArtisanProduct> getAllArtisanProduct() {
+        return proxyCatalog.getAllArtisanProduct();
+    }
+
+    @Override
+    public List<UsedProduct> getAllUsedProduct() {
+        return proxyCatalog.getAllUsedProduct();
+    }
+
 	public IBusinessCatalog getProxyColor() {
 		return proxyCatalog;
 	}
@@ -118,4 +130,5 @@ public class Catalog implements ICatalog {
 	public void setProxyColor(IBusinessCatalog proxyColor) {
 		this.proxyCatalog = proxyColor;
 	}
+
 }
