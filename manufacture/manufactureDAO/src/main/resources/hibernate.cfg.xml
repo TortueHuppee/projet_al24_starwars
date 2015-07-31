@@ -40,6 +40,7 @@
 		<mapping class="manufacture.entity.report.ReportingDecision" />
 
 		<mapping class="manufacture.entity.user.User" />
+		<mapping class="manufacture.entity.Cart.RelayPoint" />
 		
 	</session-factory>
 </hibernate-configuration>

@@ -1,6 +1,7 @@
 package manufacture.entity.user;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,7 +10,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import manufacture.entity.cart.RelayPoint;
 
 @Entity
 @Table(name="address")
@@ -40,9 +44,9 @@ public class Address implements Serializable {
 	@JoinColumn(name="id_city")
 	private City city;
 
-//	//bi-directional many-to-one association to User
-//	@OneToMany(mappedBy="address")
-//	private List<User> users;
+	//bi-directional many-to-one association to User
+	@OneToMany(mappedBy="addresse")
+	private List<RelayPoint> relayPoints;
 	
 	//bi-directional many-to-one association to Adress
 	@ManyToOne
@@ -100,27 +104,27 @@ public class Address implements Serializable {
 		this.city = city;
 	}
 
-//	public List<User> getUsers() {
-//		return this.users;
-//	}
-//
-//	public void setUsers(List<User> users) {
-//		this.users = users;
-//	}
-//
-//	public User addUser(User user) {
-//		getUsers().add(user);
-//		user.setAddress(this);
-//
-//		return user;
-//	}
-//
-//	public User removeUser(User user) {
-//		getUsers().remove(user);
-//		user.setAddress(null);
-//
-//		return user;
-//	}
+	public List<RelayPoint> getRelayPoints() {
+		return this.relayPoints;
+	}
+
+	public void setRelayPoints(List<RelayPoint> relayPoints) {
+		this.relayPoints = relayPoints;
+	}
+
+	public RelayPoint addRelayPoint(RelayPoint relayPoint) {
+		getRelayPoints().add(relayPoint);
+		relayPoint.setAddresse(this);
+
+		return relayPoint;
+	}
+
+	public RelayPoint removeRelayPoint(RelayPoint relayPoint) {
+		getRelayPoints().remove(relayPoint);
+		relayPoint.setAddresse(null);
+
+		return relayPoint;
+	}
 
 	public User getUser() {
 		return user;
