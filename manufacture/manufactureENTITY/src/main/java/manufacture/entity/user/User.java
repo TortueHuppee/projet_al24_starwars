@@ -32,10 +32,10 @@ import manufacture.entity.report.Reporting;
  */
 @Entity
 @Table(name = "user")
-//Héritage :
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-//Pour distinguer nos entités qui sont réunies dans une seule table :
-@DiscriminatorColumn(name = "user_role")
+////Héritage :
+//@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+////Pour distinguer nos entités qui sont réunies dans une seule table :
+//@DiscriminatorColumn(name = "user_role")
 public class User implements Serializable {
 
     private static final long serialVersionUID  =  1L;
@@ -105,14 +105,30 @@ public class User implements Serializable {
     @ManyToOne
     @JoinColumn(name = "id_civility")
     private Civility civility;
+    
+    //bi-directional many-to-one association to Civility
+    @ManyToOne
+    @JoinColumn(name = "id_user_role")
+    private UserRole userRole;
 
     //bi-directional many-to-one association to Reporting
     @OneToMany(mappedBy = "user")
     private List<Address> addresses;
+    
+    @Column(name = "number_recall")
+    private int nbRecall ;
 
     public User() {
     }
 
+    public int getNbRecall() {
+        return nbRecall;
+    }
+
+    public void setNbRecall(int nbRecall) {
+        this.nbRecall = nbRecall;
+    }
+    
     public Integer getIdUser() {
         return this.idUser;
     }
@@ -351,18 +367,19 @@ public class User implements Serializable {
         return address;
     }
 
-    /**
-     * @return the isBlackListed
-     */
     public boolean isBlackListed() {
         return isBlackListed;
     }
 
-    /**
-     * @param paramIsBlackListed the isBlackListed to set
-     */
     public void setBlackListed(boolean paramIsBlackListed) {
         isBlackListed = paramIsBlackListed;
     }
 
+    public UserRole getUserRole() {
+        return userRole;
+    }
+
+    public void setUserRole(UserRole paramUserRole) {
+        userRole = paramUserRole;
+    }
 }

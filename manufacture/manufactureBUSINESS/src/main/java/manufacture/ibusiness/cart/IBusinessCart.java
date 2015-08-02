@@ -14,12 +14,6 @@ import manufacture.entity.user.User;
 public interface IBusinessCart {
 
 	//Gestion du panier
-	void addProductToCart(CartProduct cartProduct);
-	
-	void deleteProductFromCart(CartProduct cartProduct);
-	
-	void cleanCart(int idCart);
-	
 	void updateOptionsProduct(int idCartProduct, Product newProduct);
 	
 	void updateQuantityProduct(int idCartProduct, int newQuantity);
@@ -31,13 +25,13 @@ public interface IBusinessCart {
 	
 	double getSubTotalPrice(int idCartProduct);
 	
-	void orderProfessionalCommande(int idCart);
+	void orderProfessionalCommande(Cart cart);
 	
-	void orderSpecificCommande(int idCart);
+	void orderSpecificCommande(Cart cart);
 	
 	Cart validatePayment(Cart cart);
 	
-	void createNewCart(int idUser);
+//	void createNewCart(int idUser);
 	
 	void sendRecall(int idUser);
 	
@@ -46,10 +40,6 @@ public interface IBusinessCart {
 	
 	List<Delivery> getAllDeliveryType();
 	
-	void updateProductStock(int idProduct, int quantitySend);
-	
 	void checkProductStock(int idProduct);
 
-	void deleteProductFromCart(int idCartProduct);
-	
 }

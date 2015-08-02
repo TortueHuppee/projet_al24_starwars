@@ -7,6 +7,7 @@
 		<class>manufacture.entity.cart.CartProduct</class>
 		<class>manufacture.entity.product.Category</class>
 		<class>manufacture.entity.user.City</class>
+		<class>manufacture.entity.user.UserRole</class>
 		<class>manufacture.entity.user.Civility</class>
 		<class>manufacture.entity.product.Color</class>
 		<class>manufacture.entity.product.Constructor</class>
@@ -26,8 +27,7 @@
 		<class>manufacture.entity.product.SpaceshipProduct</class>
 		<class>manufacture.entity.product.SpaceshipRef</class>
 		<class>manufacture.entity.user.User</class>
-		<class>manufacture.entity.user.UserProfil</class>
-		
+				
 		<properties>  
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
 			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://127.0.0.1:3306/manufacture"/>

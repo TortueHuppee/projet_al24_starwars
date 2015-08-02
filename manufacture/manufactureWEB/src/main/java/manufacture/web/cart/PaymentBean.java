@@ -9,11 +9,14 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 
+import manufacture.entity.cart.Cart;
 import manufacture.entity.cart.CartProduct;
+import manufacture.entity.user.User;
 import manufacture.ifacade.cart.IPaiement;
 import manufacture.web.user.LoginBean;
 import manufacture.web.user.UserBean;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -21,6 +24,8 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 @SessionScoped
 public class PaymentBean {
 
+    private Logger log = Logger.getLogger(PaymentBean.class);
+    
 	private String cardNumber = "";
 	private String pin;
 	private String expirationDate;
@@ -38,30 +43,6 @@ public class PaymentBean {
 
 	@ManagedProperty(value="#{paiement}")
 	private IPaiement paiementFacade;
-	
-	public String getCardNumber() {
-		return cardNumber;
-	}
-
-	public void setCardNumber(String cardNumber) {
-		this.cardNumber = cardNumber;
-	}
-
-	public String getPin() {
-		return pin;
-	}
-
-	public void setPin(String pin) {
-		this.pin = pin;
-	}
-
-	public String getReponse() {
-		return reponse;
-	}
-
-	public void setReponse(String reponse) {
-		this.reponse = reponse;
-	}
 
 	@PostConstruct
 	public void init() {
@@ -72,11 +53,19 @@ public class PaymentBean {
 		cardOwnerName = "";
 	}
 
+	//Méthodes
+	
 	public String valider() {
-		getMbCart().getSpecificUserCart().setCartProducts(getMbCart().getPanier());
-		paiementFacade.processPaiement(getMbCart().getSpecificUserCart());
-		mbCart.setSpecificUserCart(mbCart.generateCart(userBean.getUser()));
-		userBean.getUser().getCarts().add(mbCart.getSpecificUserCart());
+	    Cart commande = mbCart.getCart();
+	    User user = userBean.getUser();
+	    commande.setUser(user);	    
+	    commande.setCartProducts(mbCart.getPanier());
+	    
+		paiementFacade.processPaiement(commande);
+		
+//		mbCart.setSpecificUserCart(mbCart.generateCart(userBean.getUser()));
+//		userBean.getUser().getCarts().add(mbCart.getSpecificUserCart());
+		
 		mbCart.setPanier(new ArrayList<CartProduct>());
 		return "paymentSuccess.xhtml";
 	}
@@ -96,6 +85,8 @@ public class PaymentBean {
 		return " ** " + "Paiement : " + cardNumber + " ** " + pin + " ** ";
 	}
 
+	//Getters et Setters
+	
 	public String getExpirationDate() {
 		return expirationDate;
 	}
@@ -143,5 +134,29 @@ public class PaymentBean {
 	public void setLoginBean(LoginBean loginBean) {
 		this.loginBean = loginBean;
 	}
+	
+	public String getCardNumber() {
+        return cardNumber;
+    }
+
+    public void setCardNumber(String cardNumber) {
+        this.cardNumber = cardNumber;
+    }
+
+    public String getPin() {
+        return pin;
+    }
+
+    public void setPin(String pin) {
+        this.pin = pin;
+    }
+
+    public String getReponse() {
+        return reponse;
+    }
+
+    public void setReponse(String reponse) {
+        this.reponse = reponse;
+    }
 
 }

@@ -2,29 +2,12 @@ package manufacture.business.inscription;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.List;
 
-import manufacture.business.util.ClassPathLoader;
-import manufacture.entity.product.Category;
-import manufacture.entity.product.Color;
-import manufacture.entity.product.Constructor;
-import manufacture.entity.product.Material;
-import manufacture.entity.product.Product;
-import manufacture.entity.product.ProductRef;
-import manufacture.entity.product.SpaceshipRef;
-import manufacture.entity.user.Address;
-import manufacture.entity.user.Administrator;
-import manufacture.entity.user.Artisan;
-import manufacture.entity.user.ProfessionnalCustomer;
-import manufacture.entity.user.SpecificCustomer;
 import manufacture.entity.user.User;
-import manufacture.ibusiness.catalog.IBusinessCatalog;
 import manufacture.ibusiness.user.IBusinessConnection;
-import manufacture.ibusiness.user.IBusinessInscription;
 import manufacture.idao.user.IDaoUser;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Service;
 
 @Service

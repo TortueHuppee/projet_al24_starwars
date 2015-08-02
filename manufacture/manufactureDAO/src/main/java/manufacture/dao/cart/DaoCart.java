@@ -26,6 +26,7 @@ public class DaoCart implements IDaoCart {
 
     @Override
     public Cart validatePayment(Cart cart) {
+
         Session session = sf.getCurrentSession();
         cart.setDatePayment(new Date());
         cart.setIsPaid(true);
@@ -34,16 +35,7 @@ public class DaoCart implements IDaoCart {
         Random rand = new Random();
         int transactionNumber = rand.nextInt(999999999 - 100000000 + 1) + 100000000;
         cart.setTransactionNumber(transactionNumber);
-
-        if(cart.getIdCart( ) == 0){
-            session.save(cart);
-            for(CartProduct cp : cart.getCartProducts()){
-                cp.setCart(cart);
-                session.save(cp);
-            }
-        }else{ 
-            session.update(cart);
-        }
+        session.update(cart);
         return cart; 
     } 
 
@@ -106,6 +98,12 @@ public class DaoCart implements IDaoCart {
     public void updateCart(Cart cart) {
         Session session = sf.getCurrentSession();
         session.update(cart);
+    }
+    
+    @Override
+    public void addCart(Cart cart) {
+        Session session = sf.getCurrentSession();
+        session.save(cart);
     }
     
     @Autowired

@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import manufacture.entity.product.ConstructorProduct;
+import manufacture.entity.product.ProductRef;
 import manufacture.entity.user.City;
 import manufacture.ibusiness.dataloading.IBusinessDataLoading;
 import manufacture.idao.dataloading.IDaoCity;

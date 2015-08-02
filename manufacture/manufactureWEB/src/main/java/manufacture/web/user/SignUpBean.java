@@ -1,6 +1,7 @@
 package manufacture.web.user;
 
-import java.util.ArrayList;
+import java.util.Date;
+
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -8,13 +9,9 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 
-import manufacture.entity.user.Address;
-import manufacture.entity.user.Administrator;
-import manufacture.entity.user.Artisan;
-import manufacture.entity.user.City;
-import manufacture.entity.user.ProfessionnalCustomer;
-import manufacture.entity.user.SpecificCustomer;
+import manufacture.entity.user.Civility;
 import manufacture.entity.user.User;
+import manufacture.entity.user.UserRole;
 import manufacture.ifacade.user.IInscription;
 
 import org.apache.log4j.Logger;
@@ -26,10 +23,6 @@ public class SignUpBean {
 	private static Logger LOGGER = Logger.getLogger(SignUpBean.class);
 	
 	private User user;
-	private SpecificCustomer clientParticulier;
-	private ProfessionnalCustomer clientProfesionnel;
-	private Administrator administrateur;
-	private Artisan artisan;
 	
 	@ManagedProperty(value="#{inscription}")
 	private IInscription proxyInscription;
@@ -37,11 +30,15 @@ public class SignUpBean {
 	@ManagedProperty(value="#{userBean}")
 	private UserBean userBean;
 	
+	/**
+	 * Informations à renseigner sur l'utilisateur :
+	 */
 	private String userType;
-	private Address addresse;
+	private Civility civilite;
+	private UserRole role;
 	
 	/**
-	 * Informations rentrées par l'utilisateur
+	 * Informations rentrées par l'utilisateur :
 	 */
 	private String login;
 	private String motDePasse;
@@ -50,6 +47,7 @@ public class SignUpBean {
 	private String email;
 	
 	private String companyName;
+	private String domaineActivite;
 	
 	
 	/**
@@ -62,12 +60,15 @@ public class SignUpBean {
 	private String messageErreurEmail;
 	
 	private String messageErreurCompanyName;
+	private String messageErreurDomaineActivite;
 
 	@PostConstruct
 	void init(){
 		user = new User();
-		addresse = new Address();
-		addresse.setCity(new City());
+		civilite = new Civility();
+		civilite.setIdCivility(1);
+		role = new UserRole();
+		role.setIdUserRole(1);
 		
 		messageErreurLogin = "";
 		messageErreurMotDePasse = "";
@@ -75,6 +76,7 @@ public class SignUpBean {
 		messageErreurNomFamille = "";
 		messageErreurEmail = "";
 		messageErreurCompanyName = "";
+		messageErreurDomaineActivite = "";
 		
 		login = "";
 		motDePasse = "";
@@ -83,6 +85,7 @@ public class SignUpBean {
 		email = "";
 		
 		companyName = "";
+		domaineActivite = "";
 		
 		userType = "particulier";
 	}
@@ -90,26 +93,33 @@ public class SignUpBean {
 	//Méthodes
 	
 	/**
-	 * Verifie que l'utilisateur est unique et l'enregistre automatiquement.
+	 * Vérifie que l'utilisateur est unique et l'enregistre automatiquement.
 	 * Connecte automatiquement l'utilisateur si la création se fait.
 	 * @return String
 	 */
-	public String createUser(){
-	    
-		user.setLogin(login);
-		user.setPassword(motDePasse);
-		user.setEmail(email);
-		user.setUserName(nomFamille);
-		user.setUserFirstName(prenom);
-		
-	    user.setAddresses(new ArrayList<Address>());
-        user.addAddress(addresse);
+	public String createUser()
+	{        
+	    user.setLogin(login);
+	    user.setPassword(motDePasse);
+	    user.setEmail(email);
+	    user.setUserName(nomFamille);
+	    user.setUserFirstName(prenom);
+	    user.setCreateTime(new Date());
+        user.setBlackListed(false);
+        user.setCivility(civilite);
+        user.setUserRole(role);
         
-		user = proxyInscription.createAccount(user);
-		
+        if (!userType.equals("particulier"))
+	    {
+            user.setCompanyName(companyName);
+            user.setActivityDomain(domaineActivite);
+            user.setNbRecall(0);
+	    }
+        
+        proxyInscription.createAccount(user);
+        
 		if(user.getIdUser() != null){
 			getUserBean().setUser(user); //Realise la connexion automatique au site
-			
 			return "index.xhtml?faces-redirect=true"; 
 		} else {
 
@@ -138,9 +148,15 @@ public class SignUpBean {
 		nombreErreur += validationPrenom();
 		nombreErreur += validationMail();
 		
+		if (!userType.equals("particulier"))
+		{
+		    nombreErreur += validationCompanyName();
+		    nombreErreur += validationDomaineActivite();
+		}
+
 		if (nombreErreur == 0)
 		{
-			createUser();
+			return createUser();
 		}
 		return null;
 	}
@@ -239,6 +255,34 @@ public class SignUpBean {
 		}
 	}
 	
+	public int validationCompanyName()
+    {
+        if (companyName.equals(""))
+        {
+            messageErreurCompanyName = "Veuillez indiquer le nom de votre companie";
+            return 1;
+        }
+        else
+        {
+            messageErreurCompanyName = "";
+            return 0;
+        }
+    }
+	
+	public int validationDomaineActivite()
+    {
+        if (domaineActivite.equals(""))
+        {
+            messageErreurDomaineActivite = "Veuillez indiquer votre domaine d'activité";
+            return 1;
+        }
+        else
+        {
+            messageErreurDomaineActivite = "";
+            return 0;
+        }
+    }
+	
 	//Getters et Setters
 
 	public User getUser() {
@@ -271,46 +315,6 @@ public class SignUpBean {
 
 	public void setUserBean(UserBean userBean) {
 		this.userBean = userBean;
-	}
-
-    public Address getAddresse() {
-        return addresse;
-    }
-
-    public void setAddresse(Address paramAddresse) {
-        addresse = paramAddresse;
-    }
-
-	public SpecificCustomer getClientParticulier() {
-		return clientParticulier;
-	}
-
-	public void setClientParticulier(SpecificCustomer clientParticulier) {
-		this.clientParticulier = clientParticulier;
-	}
-
-	public ProfessionnalCustomer getClientProfesionnel() {
-		return clientProfesionnel;
-	}
-
-	public void setClientProfesionnel(ProfessionnalCustomer clientProfesionnel) {
-		this.clientProfesionnel = clientProfesionnel;
-	}
-
-	public Administrator getAdministrateur() {
-		return administrateur;
-	}
-
-	public void setAdministrateur(Administrator administrateur) {
-		this.administrateur = administrateur;
-	}
-
-	public Artisan getArtisan() {
-		return artisan;
-	}
-
-	public void setArtisan(Artisan artisan) {
-		this.artisan = artisan;
 	}
 
 	public String getMessageErreurLogin() {
@@ -408,4 +412,29 @@ public class SignUpBean {
 	public void setMessageErreurCompanyName(String messageErreurCompanyName) {
 		this.messageErreurCompanyName = messageErreurCompanyName;
 	}
+
+    public Civility getCivilite() {
+        return civilite;
+    }
+
+    public void setCivilite(Civility paramCivilite) {
+        civilite = paramCivilite;
+    }
+
+    public String getDomaineActivite() {
+        return domaineActivite;
+    }
+
+    public void setDomaineActivite(String paramDomaineActivite) {
+        domaineActivite = paramDomaineActivite;
+    }
+
+    public String getMessageErreurDomaineActivite() {
+        return messageErreurDomaineActivite;
+    }
+
+    public void setMessageErreurDomaineActivite(
+            String paramMessageErreurDomaineActivite) {
+        messageErreurDomaineActivite = paramMessageErreurDomaineActivite;
+    }
 }

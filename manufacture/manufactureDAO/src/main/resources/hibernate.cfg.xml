@@ -18,6 +18,7 @@
 		<mapping class="manufacture.entity.product.Category" />
 		<mapping class="manufacture.entity.user.City" />
 		<mapping class="manufacture.entity.user.Civility" />
+		<mapping class="manufacture.entity.user.UserRole" />
 		<mapping class="manufacture.entity.product.Color" />
 		<mapping class="manufacture.entity.product.Constructor" />
 		<mapping class="manufacture.entity.user.Country" />
@@ -39,10 +40,7 @@
 		<mapping class="manufacture.entity.report.ReportingDecision" />
 
 		<mapping class="manufacture.entity.user.User" />
-		<mapping class="manufacture.entity.user.Artisan" />
-		<mapping class="manufacture.entity.user.Administrator" />
-		<mapping class="manufacture.entity.user.ProfessionnalCustomer" />
-		<mapping class="manufacture.entity.user.SpecificCustomer" />
+		<mapping class="manufacture.entity.Cart.RelayPoint" />
 		
 	</session-factory>
 </hibernate-configuration>

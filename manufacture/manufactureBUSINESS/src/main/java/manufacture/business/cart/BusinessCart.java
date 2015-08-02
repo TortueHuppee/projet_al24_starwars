@@ -3,11 +3,6 @@ package manufacture.business.cart;
 import java.util.Date;
 import java.util.List;
 
-import org.springframework.beans.factory.BeanFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import manufacture.business.util.ClassPathLoader;
 import manufacture.entity.cart.Cart;
 import manufacture.entity.cart.CartProduct;
 import manufacture.entity.cart.Delivery;
@@ -19,31 +14,19 @@ import manufacture.idao.cart.IDaoPaymentAndDelivery;
 import manufacture.idao.cart.IDaoProductCart;
 import manufacture.idao.product.IDaoProduct;
 
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 @Service
 public class BusinessCart implements IBusinessCart {
 			
-	IDaoCart proxyCart;
-	IDaoProductCart proxyProductCart;
-	IDaoPaymentAndDelivery proxyPaymentAndDelivery;
-	IDaoProduct proxyProduct;
-
-	@Override
-	public void addProductToCart(CartProduct cartProduct) {
-		proxyProductCart.addProductToCart(cartProduct);
-	}
-
-	@Override
-	public void deleteProductFromCart(CartProduct cartProduct) {
-		proxyProductCart.deleteProductFromCart(cartProduct);
-	}
-
-	@Override
-	public void cleanCart(int idCart) {
-		List<CartProduct> listCartProduct = proxyCart.getAllCartProductByCart(idCart);
-		for (CartProduct cartProduct : listCartProduct) {
-			proxyProductCart.deleteProductFromCart(cartProduct);
-		}
-	}
+    private Logger log = Logger.getLogger(BusinessCart.class);
+    
+    private IDaoCart proxyCart;
+    private IDaoProductCart proxyProductCart;
+    private IDaoPaymentAndDelivery proxyPaymentAndDelivery;
+    private IDaoProduct proxyProduct;
 
 	@Override
 	public void updateOptionsProduct(int idCartProduct, Product newProduct) {
@@ -76,34 +59,70 @@ public class BusinessCart implements IBusinessCart {
 		return proxyProductCart.getSubTotalPrice(idCartProduct);
 	}
 
+	/**
+	 * Méthode permettant de valider la panier du professionnel sans payer la commande.
+	 * @param idCart l'identifiant du panier.
+	 */
 	@Override
-	public void orderProfessionalCommande(int idCart) {
-		//dateCommande, isValidated
-		Cart commande = proxyCart.getCartByIdCart(idCart);
-		commande.setDateCommande(new Date());
-		commande.setIsValidated(true);
-		proxyCart.updateCart(commande);
+	public void orderProfessionalCommande(Cart commande) {
+
+	    commande.setDateCommande(new Date());
+        commande.setIsValidated(true);
+        
+        if(commande.getIdCart( ) == null)
+        {
+            proxyCart.addCart(commande);
+            for(CartProduct cp : commande.getCartProducts())
+            {
+                cp.setCart(commande);
+                proxyProductCart.addProductToCart(cp);
+                proxyProduct.updateProductStock(cp.getProduct().getIdProduct() , cp.getQuantity());
+            }
+        }
+        
+        if (commande.getPaymentType().getName().equals("Paiement immédiat"))
+        {
+            proxyCart.validatePayment(commande);
+        }
 	}
 
+	/**
+	 * Méthode permettant au particulier de valider son panier et de payer la commande.
+	 * @param idCart l'identifiant du panier.
+	 */
 	@Override
-	public void orderSpecificCommande(int idCart) {
-		// valider le payment
-		//dateCommande, isValidated
-		Cart commande = proxyCart.getCartByIdCart(idCart);
+	public void orderSpecificCommande(Cart commande) {
+
 		commande.setDateCommande(new Date());
 		commande.setIsValidated(true);
-		proxyCart.updateCart(commande);
+		
+		if(commande.getIdCart( ) == null)
+		{
+		    proxyCart.addCart(commande);
+		    for(CartProduct cp : commande.getCartProducts())
+		    {
+		        cp.setCart(commande);
+		        proxyProductCart.addProductToCart(cp);
+		        proxyProduct.updateProductStock(cp.getProduct().getIdProduct() , cp.getQuantity());
+		    }
+		}
+
+		proxyCart.validatePayment(commande);
 	}
 
+	/**
+	 * Méthode pour payer une commande dans le cas des clients professionnels.
+	 * Et si l'option Paiement différé a été choisie.
+	 */
 	@Override
 	public Cart validatePayment(Cart cart) {
 		return proxyCart.validatePayment(cart);
 	}
 
-	@Override
-	public void createNewCart(int idUser) {
-		proxyCart.createNewCart(idUser);
-	}
+//	@Override
+//	public void createNewCart(int idUser) {
+//		proxyCart.createNewCart(idUser);
+//	}
 
 	@Override
 	public void sendRecall(int idUser) {
@@ -118,11 +137,6 @@ public class BusinessCart implements IBusinessCart {
 	@Override
 	public List<Delivery> getAllDeliveryType() {
 		return proxyPaymentAndDelivery.getAllDeliveryType();
-	}
-
-	@Override
-	public void updateProductStock(int idProduct, int quantitySend) {
-		proxyProduct.updateProductStock(idProduct, quantitySend);
 	}
 
 	@Override
@@ -167,11 +181,4 @@ public class BusinessCart implements IBusinessCart {
 		this.proxyProduct = proxyProduct;
 	}
 
-	@Override
-	public void deleteProductFromCart(int idCartProduct) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	
 }

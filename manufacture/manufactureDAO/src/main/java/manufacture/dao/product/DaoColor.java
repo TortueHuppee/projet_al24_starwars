@@ -20,16 +20,6 @@ public class DaoColor implements IDaoColor {
 	private Logger log = Logger.getLogger(DaoColor.class);
 	private SessionFactory sf;
 
-//	public Animal getAnimalsById(int idAnimal)
-//	{
-//		Session session = sf.getCurrentSession();
-//		String requete = "SELECT a FROM Animal a WHERE a.idAnimal = :paramId";
-//		Query hql = session.createQuery(requete);
-//		hql.setParameter("paramId", idAnimal);
-//		List<Animal> resultat = hql.list();
-//		return resultat.get(0);
-//	}
-	
 	@Override
 	public List<Color> getAllColor() {
 		Session session = sf.getCurrentSession();

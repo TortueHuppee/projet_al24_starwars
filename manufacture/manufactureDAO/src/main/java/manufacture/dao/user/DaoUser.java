@@ -3,10 +3,6 @@ package manufacture.dao.user;
 import java.util.List;
 
 import manufacture.entity.product.Color;
-import manufacture.entity.user.Administrator;
-import manufacture.entity.user.Artisan;
-import manufacture.entity.user.ProfessionnalCustomer;
-import manufacture.entity.user.SpecificCustomer;
 import manufacture.entity.user.User;
 import manufacture.idao.user.IDaoUser;
 
@@ -78,46 +74,24 @@ public class DaoUser implements IDaoUser {
 		// TODO Auto-generated method stub
 		
 	}
+	
 	@Override
 	public void getPasswordByEmail(String email) {
 		// TODO Auto-generated method stub
-		
 	}
-	@Override
-	public void createAdministrator(Administrator admin) {
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
-	public void createArtisan(Artisan artisan) {
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
-	public void createProfessionalCustomer(
-			ProfessionnalCustomer professionalCustomer) {
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
-	public void createSpecificCustomer(SpecificCustomer specificCustomer) {
-		// TODO Auto-generated method stub
-		
-	}
+
 	@Override
 	public void closeAccount(User user) {
 		// TODO Auto-generated method stub
-		
 	}
+	
 	@Override
 	public User openAccount(User user) {
 		Session session = sf.getCurrentSession();
-		LOGGER.info("user pre save : "+user.getIdUser());
-//		session.save(user.getAddress());
 		session.save(user);
-		LOGGER.info("user saved : "+user.getIdUser());
 		return user;		
 	}
+	
 	@Override
 	public List<User> getUserByUserName(String userName) {
 		Session session = sf.getCurrentSession();

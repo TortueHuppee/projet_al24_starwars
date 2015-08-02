@@ -32,11 +32,15 @@
 								<f:selectItem itemLabel="professionnel" itemValue="professionnel" />
 							</p:selectOneRadio>
 
-						<h:outputPanel id="companyName">
+						<p:outputPanel id="companyName">
 							<h:outputLabel for="signup_companyName"	value="Nom de la compagnie : " rendered="#{not(signUpBean.userType eq 'particulier')}"/>
-							<h:inputText value="#{signUpBean.companyName}" id="signup_companyName" />
-							<h:outputLabel class="messageErreur" value="#{signUpBean.messageErreurCompanyName}" />
-						</h:outputPanel>
+							<h:inputText value="#{signUpBean.companyName}" id="signup_companyName" rendered="#{not(signUpBean.userType eq 'particulier')}"/>
+							<h:outputLabel class="messageErreur" value="#{signUpBean.messageErreurCompanyName}" rendered="#{not(signUpBean.userType eq 'particulier')}"/>
+							
+							<h:outputLabel for="signup_activityDomain"	value="Domaine d'activité : " rendered="#{not(signUpBean.userType eq 'particulier')}"/>
+							<h:inputText value="#{signUpBean.domaineActivite}" id="signup_activityDomain" rendered="#{not(signUpBean.userType eq 'particulier')}"/>
+							<h:outputLabel class="messageErreur" value="#{signUpBean.messageErreurDomaineActivite}" rendered="#{not(signUpBean.userType eq 'particulier')}"/>
+						</p:outputPanel>
 					</fieldset>
 				</div>
 				
@@ -57,40 +61,28 @@
 						<h:outputLabel for="signup_password" value="Mot de passe : "/>
 						<h:inputSecret value="#{signUpBean.motDePasse}" id="signup_password" />
 						<h:outputLabel class="messageErreur" value="#{signUpBean.messageErreurMotDePasse}" />
-
-						<h:outputLabel for="signup_firstName" value="Prénom : "/>
-						<h:inputText value="#{signUpBean.prenom}" id="signup_firstName" />
-						<h:outputLabel class="messageErreur" value="#{signUpBean.messageErreurPrenom}" />
-
+						
 						<h:outputLabel for="signup_lastName" value="Nom de famille : "/>
 						<h:inputText value="#{signUpBean.nomFamille}" id="signup_lastName" />
 						<h:outputLabel class="messageErreur" value="#{signUpBean.messageErreurNomFamille}" />
+						
+						<h:outputLabel for="signup_firstName" value="Prénom : "/>
+						<h:inputText value="#{signUpBean.prenom}" id="signup_firstName" />
+						<h:outputLabel class="messageErreur" value="#{signUpBean.messageErreurPrenom}" />
+						
+						<h:outputLabel for="signup_civility" value="Civilité : "/>
+							<p:selectOneRadio id="signup_civility"
+								value="#{signUpBean.civilite.idCivility}">
+								<f:selectItem itemLabel="Mr" itemValue="1" />
+								<f:selectItem itemLabel="Mme" itemValue="1" />
+								<f:selectItem itemLabel="Mlle" itemValue="1" />
+							</p:selectOneRadio>
 						
 						<h:outputLabel for="signup_email" value="Email : "/>
 						<h:inputText value="#{signUpBean.email}" id="signup_email" />
 						<h:outputLabel class="messageErreur" value="#{signUpBean.messageErreurEmail}" />
 
 					</fieldset>
-				</div>
-
-				<div class="sign-address">
-					<fieldset>
-						<legend>Adresse</legend>
-
-						<h:outputLabel for="signup_number" value="N°rue : "/>
-						<h:inputText id="signup_number" value="#{signUpBean.addresse.number}"/>
-
-						<h:outputLabel for="signup_street" value="Rue : "/>
-						<h:inputText id="signup_street" value="#{signUpBean.addresse.street}"/>
-
-						<h:outputLabel for="signup_city" value="Ville"/>
-						<h:selectOneMenu id="signup_city" value="#{signUpBean.addresse.city.idCity}">
-							<f:selectItems value="#{mbDataLoader.listCity}" var="city"
-										itemLabel="#{city.cityName}" itemValue="#{city.idCity}"/>
-						</h:selectOneMenu>
-
-					</fieldset>
-
 				</div>
 			
 				<div style="margin-left: 40%">

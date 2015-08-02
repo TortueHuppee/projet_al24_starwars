@@ -6,6 +6,7 @@ import manufacture.entity.cart.Cart;
 import manufacture.entity.cart.CartProduct;
 import manufacture.entity.cart.Delivery;
 import manufacture.entity.cart.PaymentType;
+import manufacture.entity.product.ArtisanProduct;
 import manufacture.entity.product.Category;
 import manufacture.entity.product.Color;
 import manufacture.entity.product.Constructor;
@@ -15,6 +16,7 @@ import manufacture.entity.product.Product;
 import manufacture.entity.product.ProductRef;
 import manufacture.entity.product.SpaceshipProduct;
 import manufacture.entity.product.SpaceshipRef;
+import manufacture.entity.product.UsedProduct;
 import manufacture.entity.user.User;
 
 public interface ICatalog {
@@ -48,6 +50,10 @@ public interface ICatalog {
 	List<ConstructorProduct> getAllProductByProductRef(int idProducRef);
 
 	List<ConstructorProduct> getAllConstructorProduct();
+	
+	List<ArtisanProduct> getAllArtisanProduct();
+	
+	List<UsedProduct> getAllUsedProduct();
 
 	List<SpaceshipProduct> getSpaceShipProductByProduct(ProductRef productRef);
 

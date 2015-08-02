@@ -30,14 +30,15 @@ public class UsedProduct extends Product {
 	@JoinColumn(name="seller_id_user")
 	private User user;
 
-	public UsedProduct(Date datePublication, String sellerComment, User user) {
-		super();
-		this.datePublication = datePublication;
-		this.sellerComment = sellerComment;
-		this.user = user;
-	}
-	
-	public UsedProduct()
+    public UsedProduct(Date paramDatePublication, String paramSellerComment,
+            User paramUser) {
+        super();
+        datePublication = paramDatePublication;
+        sellerComment = paramSellerComment;
+        user = paramUser;
+    }
+
+    public UsedProduct()
 	{
 		
 	}

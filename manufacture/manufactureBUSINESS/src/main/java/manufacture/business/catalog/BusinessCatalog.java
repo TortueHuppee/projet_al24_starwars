@@ -9,6 +9,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Service;
 
 import manufacture.business.util.ClassPathLoader;
+import manufacture.entity.product.ArtisanProduct;
 import manufacture.entity.product.Category;
 import manufacture.entity.product.Color;
 import manufacture.entity.product.Constructor;
@@ -18,6 +19,7 @@ import manufacture.entity.product.Product;
 import manufacture.entity.product.ProductRef;
 import manufacture.entity.product.SpaceshipProduct;
 import manufacture.entity.product.SpaceshipRef;
+import manufacture.entity.product.UsedProduct;
 import manufacture.ibusiness.catalog.IBusinessCatalog;
 import manufacture.idao.product.IDaoCategory;
 import manufacture.idao.product.IDaoColor;
@@ -136,6 +138,39 @@ public class BusinessCatalog implements IBusinessCatalog {
 	public IDaoColor getProxyColor() {
 		return proxyColor;
 	}
+	
+
+    @Override
+    public List<ArtisanProduct> getAllArtisanProduct() {
+      //Récupère seulement les produits en stock
+        List<ArtisanProduct> listeComplete = proxyProduct.getAllArtisanProduct();
+        List<ArtisanProduct> listeProduitsEnStock = new ArrayList<ArtisanProduct>();
+        for (ArtisanProduct product : listeComplete)
+        {
+            if (product.getStock() != 0)
+            {
+                listeProduitsEnStock.add(product);
+            }
+        }
+        return listeProduitsEnStock;
+    }
+
+    @Override
+    public List<UsedProduct> getAllUsedProduct() {
+      //Récupère seulement les produits en stock
+        List<UsedProduct> listeComplete = proxyProduct.getAllUsedProduct();
+        List<UsedProduct> listeProduitsEnStock = new ArrayList<UsedProduct>();
+        for (UsedProduct product : listeComplete)
+        {
+            if (product.getStock() != 0)
+            {
+                listeProduitsEnStock.add(product);
+            }
+        }
+        return listeProduitsEnStock;
+    }
+    
+    //Proxy
 
 	@Autowired
 	public void setProxyColor(IDaoColor proxyColor) {
@@ -195,4 +230,5 @@ public class BusinessCatalog implements IBusinessCatalog {
 	public void setProxySpaceShip(IDaoSpaceShipRef proxySpaceShip) {
 		this.proxySpaceShip = proxySpaceShip;
 	}
+
 }

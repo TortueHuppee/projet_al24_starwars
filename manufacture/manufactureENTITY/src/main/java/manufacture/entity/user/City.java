@@ -33,7 +33,7 @@ public class City implements Serializable {
 
 	//bi-directional many-to-one association to Country
 	@ManyToOne
-	@JoinColumn(name="country_id_country")
+	@JoinColumn(name="id_country")
 	private Country country;
 
 	public City() {
