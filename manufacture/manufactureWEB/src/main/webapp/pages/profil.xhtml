@@ -4,7 +4,7 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 <ui:define name="stylesheets">
-	<h:outputStylesheet name="panierCss.css" library="css"/>
+	<h:outputStylesheet name="signInCss.css" library="css"/>
 </ui:define>
 
 	<ui:define name="main-body">
@@ -23,9 +23,9 @@
 			<div class="address">
 				<h2>Adresse</h2>
 				<h:outputLabel value="N°Rue : "/>
-				<h:outputText value="#{profilBean.userBean.adress.number}"/><br />
+				<h:outputText value="profilBean.userBean.address.number"/><br />
 				<h:outputLabel value="Rue : "/>
-				<h:outputText value="#{profilBean.userBean.adress.street}"/><br />
+				<h:outputText value="profilBean.userBean.address.street"/><br />
 				
 				
 			</div>
