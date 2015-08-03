@@ -4,30 +4,37 @@
 	xmlns:composite="http://java.sun.com/jsf/composite"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
-	<div class="left_zone">
-		<div id="logo">  
-		<a href="index.xhtml" style="display: inline; width: auto;;">
-			<img src="../resources/images/logo.png" alt="logo" />
-			<label>GalaxZon</label>
-		</a> 
-		</div> 
-	</div>
-	<div class="right_zone">
-		<div id="membership_zone">
-			<h:form> 
-			    <h:outputLink value="#" rendered="#{userBean.user == null}" id="loginLink">  
-		     <h:outputText value="Se connecter" />  
-		    </h:outputLink>  	
-								<p:overlayPanel id="imagePanel" for="loginLink" hideEffect="fade">
+
+	<div class="ui-grid ui-grid-responsive">
+		<div class="ui-grid-row">
+			<div class="ui-grid-col-6">
+				<div class="left_zone">
+					<div id="logo">
+						<a href="index.xhtml" style="display: inline; width: auto;"> <img
+							src="../resources/images/logo.png" alt="logo" /> <label>GalaxZon</label>
+						</a>
+					</div>
+				</div>
+			</div>
+			<div class="ui-grid-col-6">
+
+				<div class="right_zone">
+					<div id="membership_zone">
+						<h:form>
+							<h:outputLink value="#" rendered="#{userBean.user == null}"
+								id="loginLink">
+								<h:outputText value="Se connecter" />
+							</h:outputLink>
+							<p:overlayPanel id="imagePanel" for="loginLink" hideEffect="fade">
 
 								<!-- DESCRIPTION 
 	de cette balise jusq'à celle de fin , le texte est à copier tel quel de connexion.xhtml dans menu.xhtml afin de faire la petite fenetre de connexion
 	ceci rend plus simple l'implementation (pour nosu en tous cas) et plus propre
-	 --> 
-	 
+	 -->
+
 								<div id="divDeConnexion">
 									<div class="labelInputConnexion">
-										<div class="divLabelConnexion"> 
+										<div class="divLabelConnexion">
 											<span class="labelConnexion">Nom d'utilisateur :</span>
 										</div>
 										<div class="divInputConnexion">
@@ -40,15 +47,15 @@
 											<span class="labelConnexion">Mot de passe :</span>
 										</div>
 										<div class="divInputConnexion">
-											<h:inputSecret styleClass="ui-inputfield ui-inputtext ui-widget ui-state-default ui-corner-all inputConnexion"
+											<h:inputSecret
+												styleClass="ui-inputfield ui-inputtext ui-widget ui-state-default ui-corner-all inputConnexion"
 												value="#{loginBean.user.password}" />
 										</div>
 									</div>
 									<div class="labelConnexion">
 										<div class="divBoutonConnexion">
 											<p:commandButton value="Se connecter" id="btnVallider"
-												styleClass="boutonConnexion"
-												action="#{loginBean.doLogin()}" />
+												styleClass="boutonConnexion" action="#{loginBean.doLogin()}" />
 										</div>
 										<h:outputText value="#{mbConnexion.reponse}" />
 									</div>
@@ -56,20 +63,24 @@
 								<!-- Balise de fin -->
 
 							</p:overlayPanel>
-				<h:commandLink value="S'inscrire" action="signin.xhtml?faces-redirect=true"
-					rendered="#{userBean.user == null}" /> 
-				<h:commandLink value="Se deconnecter"
-					action="#{loginBean.doLogout()}" rendered="#{userBean.user != null}" />
-			</h:form>
+							<h:commandLink value="S'inscrire"
+								action="signin.xhtml?faces-redirect=true"
+								rendered="#{userBean.user == null}" />
+							<h:commandLink value="Se deconnecter"
+								action="#{loginBean.doLogout()}"
+								rendered="#{userBean.user != null}" />
+						</h:form>
 
+					</div>
+					<div id="searchBar">
+						<h:form>
+							<h:inputText value="#{globalSearchBean.searchedTerm}" />
+							<h:commandButton action="#{globalSearchBean.doSearch()}"
+								value="Rechercher" />
+						</h:form>
+					</div>
+				</div>
+			</div>
 		</div>
-		<div id="searchBar"> 
-			<h:form>
-				<h:inputText value="#{globalSearchBean.searchedTerm}" />
-				<h:commandButton action="#{globalSearchBean.doSearch()}"
-					value="Rechercher" />
-			</h:form>
-		</div>
-
 	</div>
 </ui:composition>

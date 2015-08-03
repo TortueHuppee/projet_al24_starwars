@@ -14,6 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.mysql.jdbc.log.Log;
+
 @Service
 @Transactional
 public class DaoUser implements IDaoUser {
@@ -60,8 +62,8 @@ public class DaoUser implements IDaoUser {
 	@Override
 	public User getUserLogin(User user){
 		Session session = sf.getCurrentSession();
-		String requete = "FROM User u WHERE u.password = :password AND u.userName = :username";
-		Query hql = session.createQuery(requete).setParameter("password", user.getPassword()).setParameter("username", user.getUserName());
+		String requete = "FROM User u WHERE u.password = :password AND u.login = :username";
+		Query hql = session.createQuery(requete).setParameter("password", user.getPassword()).setParameter("username", user.getLogin());
 		List<User> resultat = hql.list();
 		if(resultat.size() == 0 || resultat.size() >= 2){
 			return null;

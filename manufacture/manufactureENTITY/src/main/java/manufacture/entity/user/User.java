@@ -116,16 +116,16 @@ public class User implements Serializable {
     private List<Address> addresses;
     
     @Column(name = "number_recall")
-    private int nbRecall ;
+    private Integer nbRecall ;
 
     public User() {
     }
 
-    public int getNbRecall() {
+    public Integer getNbRecall() {
         return nbRecall;
     }
 
-    public void setNbRecall(int nbRecall) {
+    public void setNbRecall(Integer nbRecall) {
         this.nbRecall = nbRecall;
     }
     

@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
@@ -15,7 +16,6 @@ import manufacture.entity.product.Color;
 import manufacture.entity.product.Constructor;
 import manufacture.entity.product.ConstructorProduct;
 import manufacture.entity.product.Material;
-import manufacture.entity.product.Product;
 import manufacture.entity.product.SpaceshipProduct;
 import manufacture.entity.product.SpaceshipRef;
 import manufacture.entity.product.UsedProduct;
@@ -23,13 +23,10 @@ import manufacture.ifacade.catalog.ICatalog;
 
 import org.apache.log4j.Logger;
 
-import manufacture.web.util.ClassPathLoader;
 import manufacture.web.util.RepeatPaginator;
 
-import org.springframework.beans.factory.BeanFactory;
-
 @ManagedBean(name="mbCatalog")
-@SessionScoped
+@ApplicationScoped
 public class CatalogManagedBean {
 
     private Logger log = Logger.getLogger(CatalogManagedBean.class);
@@ -80,12 +77,12 @@ public class CatalogManagedBean {
     @PostConstruct
     void init()
     {
-        listeConstructorProductBrute = proxyCatalog.getAllConstructorProduct();
+        listeConstructorProductBrute = proxyCatalog.getAllConstructorProduct();    
         listeArtisanProductBrute = proxyCatalog.getAllArtisanProduct();
         listeUsedProductBrute = proxyCatalog.getAllUsedProduct();
 
         initialisationFiltres();
-
+        initialisationListesBrutes();
         initialisationListesAffichees();
     }
 
@@ -128,12 +125,11 @@ public class CatalogManagedBean {
         paginatedListUsedProduct = new RepeatPaginator(listeProduitOccasionAffichee, 24);
     }
     
-
     public void initialisationListesBrutes()
     {
         listeProduitConstructeurBrute = new ArrayList<Produit>();
-        listeProduitArtisanBrute = new ArrayList<>();
-        listeProduitOccasionBrute = new ArrayList<>();
+        listeProduitArtisanBrute = new ArrayList<Produit>();
+        listeProduitOccasionBrute = new ArrayList<Produit>();
 
         for (ConstructorProduct product : listeConstructorProductBrute)
         {  
@@ -473,14 +469,6 @@ public class CatalogManagedBean {
         this.listeConstructorProductBrute = listeProductBrute;
     }
 
-    public RepeatPaginator getPaginatedList() {
-        return paginatedListConstructorProduct;
-    }
-
-    public void setPaginatedList(RepeatPaginator paginatedList) {
-        this.paginatedListConstructorProduct = paginatedList;
-    }
-
     public List<ConstructorProduct> getListeConstructorProductBrute() {
         return listeConstructorProductBrute;
     }
@@ -523,6 +511,84 @@ public class CatalogManagedBean {
     public void setProxyCatalog(ICatalog proxyCatalog) {
         this.proxyCatalog = proxyCatalog;
     }
+    
+	public List<Produit> getListeProduitConstructeurBrute() {
+		return listeProduitConstructeurBrute;
+	}
+
+	public void setListeProduitConstructeurBrute(
+			List<Produit> listeProduitConstructeurBrute) {
+		this.listeProduitConstructeurBrute = listeProduitConstructeurBrute;
+	}
+
+	public List<Produit> getListeProduitConstructeurAffichee() {
+		return listeProduitConstructeurAffichee;
+	}
+
+	public void setListeProduitConstructeurAffichee(
+			List<Produit> listeProduitConstructeurAffichee) {
+		this.listeProduitConstructeurAffichee = listeProduitConstructeurAffichee;
+	}
+
+	public List<Produit> getListeProduitArtisanBrute() {
+		return listeProduitArtisanBrute;
+	}
+
+	public void setListeProduitArtisanBrute(List<Produit> listeProduitArtisanBrute) {
+		this.listeProduitArtisanBrute = listeProduitArtisanBrute;
+	}
+
+	public List<Produit> getListeProduitArtisanAffichee() {
+		return listeProduitArtisanAffichee;
+	}
+
+	public void setListeProduitArtisanAffichee(
+			List<Produit> listeProduitArtisanAffichee) {
+		this.listeProduitArtisanAffichee = listeProduitArtisanAffichee;
+	}
+
+	public List<Produit> getListeProduitOccasionBrute() {
+		return listeProduitOccasionBrute;
+	}
+
+	public void setListeProduitOccasionBrute(List<Produit> listeProduitOccasionBrute) {
+		this.listeProduitOccasionBrute = listeProduitOccasionBrute;
+	}
+
+	public List<Produit> getListeProduitOccasionAffichee() {
+		return listeProduitOccasionAffichee;
+	}
+
+	public void setListeProduitOccasionAffichee(
+			List<Produit> listeProduitOccasionAffichee) {
+		this.listeProduitOccasionAffichee = listeProduitOccasionAffichee;
+	}
+
+	public RepeatPaginator getPaginatedListConstructorProduct() {
+		return paginatedListConstructorProduct;
+	}
+
+	public void setPaginatedListConstructorProduct(
+			RepeatPaginator paginatedListConstructorProduct) {
+		this.paginatedListConstructorProduct = paginatedListConstructorProduct;
+	}
+
+	public RepeatPaginator getPaginatedListArtisanProduct() {
+		return paginatedListArtisanProduct;
+	}
+
+	public void setPaginatedListArtisanProduct(
+			RepeatPaginator paginatedListArtisanProduct) {
+		this.paginatedListArtisanProduct = paginatedListArtisanProduct;
+	}
+
+	public RepeatPaginator getPaginatedListUsedProduct() {
+		return paginatedListUsedProduct;
+	}
+
+	public void setPaginatedListUsedProduct(RepeatPaginator paginatedListUsedProduct) {
+		this.paginatedListUsedProduct = paginatedListUsedProduct;
+	}
 
     //Classe interne	
     public class Produit implements Comparable<Produit>

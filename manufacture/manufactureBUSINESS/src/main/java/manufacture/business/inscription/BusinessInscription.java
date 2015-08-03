@@ -1,5 +1,7 @@
 package manufacture.business.inscription;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 import manufacture.entity.user.Address;
@@ -17,7 +19,8 @@ public class BusinessInscription implements IBusinessInscription {
 
     @Override
     public User createAccount(User user) {
-        return proxyUser.openAccount(user);
+    	user.setPassword(sha256(user.getPassword()));
+    	return proxyUser.openAccount(user);
     }
 
     @Override
@@ -43,6 +46,22 @@ public class BusinessInscription implements IBusinessInscription {
         List<User> userFound = proxyUser.getUserByEmail(email);
         return userFound.size() == 0 ? false:true;
     }
+    
+    public static String sha256(String input) {
+		MessageDigest mDigest;
+		try {
+			mDigest = MessageDigest.getInstance("SHA-256");
+			byte[] result = mDigest.digest(input.getBytes());
+			StringBuffer sb = new StringBuffer();
+			for (int i = 0; i < result.length; i++) {
+				sb.append(Integer.toString((result[i] & 0xff) + 0x100, 16).substring(1));
+			}
+			return sb.toString();	
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+			return input;
+		}
+	}
 
     @Autowired
     public void setProxyUser(IDaoUser proxyUser) {

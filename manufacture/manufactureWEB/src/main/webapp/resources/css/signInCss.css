@@ -1,0 +1,82 @@
+#body-content
+{
+	margin-top: 20px;
+	padding-bottom:20px;
+	background:linear-gradient(white, #E0E6F8);
+}
+
+.ui-panel-titlebar
+{
+	text-align:center;
+	color:#10507B;
+	font-size:larger;
+}
+
+.ui-panel
+{
+	border:1px solid #e5e5e5;
+}
+
+.ui-panel-content
+{
+	padding-top:5px !important;
+	padding-left:0px !important;
+	padding-right:0px !important;
+	padding-bottom:0px !important;
+}
+
+.ui-panel-content > table
+{
+	width:100% !important;
+}
+
+td, tr
+{
+	border:none !important;
+	height: 50px;
+}
+
+td label:first-of-type
+{
+	display:inline-block !important;
+	width:20% !important;
+}
+
+td input
+{
+	display:inline-block !important;
+	width:40% !important;
+	border:1px solid #bdc7d8;
+	border-radius:5px;
+	height:30px;
+}
+
+.ui-selectoneradio td
+{
+	width:20px !important;	
+	padding-left:0 !important;
+	padding-right:0 !important;
+}
+
+.ui-widget-content table
+{
+	width:50%;
+}
+
+.messageErreur
+{
+	color:red;
+	font-size:12px;
+	margin-left:10px;
+}
+
+.ui-panel-content > table tr:last-of-type
+{
+	text-align:center;
+	height:50px;
+}
+
+.ui-button
+{
+	width:200px !important;
+}

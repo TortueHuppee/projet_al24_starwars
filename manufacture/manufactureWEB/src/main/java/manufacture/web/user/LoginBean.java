@@ -11,7 +11,6 @@ import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 
 import manufacture.entity.cart.Cart;
-import manufacture.entity.cart.CartProduct;
 import manufacture.entity.user.User;
 import manufacture.ifacade.user.IConnection;
 import manufacture.web.cart.ManagedBeanCart;
@@ -43,7 +42,8 @@ public class LoginBean {
 	    
 		LOGGER.info("enter login bean");
 		User userTmp = proxyConnection.connectUser(user);
-		if(userTmp==null)
+
+		if(userTmp == null)
 		{
             FacesMessage message = new FacesMessage("Utilisateur non trouvé");
             FacesContext context = FacesContext.getCurrentInstance();
@@ -54,6 +54,7 @@ public class LoginBean {
 		userBean.setUser(userTmp);
 //		mergeCarts();
 		String toPage = null;
+		
 		if(redirect != null)
 		{
 			toPage = redirect;
@@ -61,6 +62,9 @@ public class LoginBean {
 		}
 		else
 		{
+			//En attendant que Vincent nous explique cette partie là du code :
+			toPage = "compte.xhtml?faces-redirect=true";
+			
 		    ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
 		    try {
 				ec.redirect(((HttpServletRequest) ec.getRequest()).getRequestURI());

@@ -29,9 +29,6 @@ public class ManagedBeanCart {
 
 	private Logger log = Logger.getLogger(ManagedBeanCart.class);
 
-	@ManagedProperty(value = "#{mbCatalog}")
-	private CatalogManagedBean mbCatalog;
-	
 	@ManagedProperty(value = "#{mbProduct}")
     private ProductManagedBean mbProduct;
 	
@@ -313,14 +310,6 @@ public class ManagedBeanCart {
 
     public void setMoyenPaiement(PaymentType paramMoyenPaiement) {
         moyenPaiement = paramMoyenPaiement;
-    }
-
-    public CatalogManagedBean getMbCatalog() {
-        return mbCatalog;
-    }
-
-    public void setMbCatalog(CatalogManagedBean paramMbCatalog) {
-        mbCatalog = paramMbCatalog;
     }
 
     public ProductManagedBean getMbProduct() {

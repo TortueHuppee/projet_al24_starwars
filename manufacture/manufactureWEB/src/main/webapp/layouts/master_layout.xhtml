@@ -18,10 +18,16 @@
 
 </h:head>
 <h:body>
-	<div id="header">
-		<ui:include src="parts/header.xhtml" />
+
+	<div id="header" class="ui-grid ui-grid-responsive">
+		<div class="ui-grid-row">
+			<div class="ui-grid-col-12">
+				<ui:include src="parts/header.xhtml" />
+			</div>
+		</div>
 	</div>
-	<div id="menu"> 
+	
+	<div id="menu">
 		<ui:include src="parts/menu.xhtml" />
 	</div>
 

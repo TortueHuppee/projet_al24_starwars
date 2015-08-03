@@ -85,7 +85,7 @@ public class DaoProduct implements IDaoProduct {
 	@Override
 	public List<Product> getAllProduct() {
 		Session session = sf.getCurrentSession();
-		String requete = "FROM Product a JOIN a.productRef pr";
+		String requete = "FROM Product a";
 		Query hql = session.createQuery(requete);
 		List<Product> resultat = hql.list();
 		return resultat;
@@ -103,6 +103,7 @@ public class DaoProduct implements IDaoProduct {
 		if (resultat.size() == 0)
 		{
 		    return new ArrayList<ConstructorProduct>();
+		    
 		}
 		else
 		{

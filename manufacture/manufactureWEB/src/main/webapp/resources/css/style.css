@@ -217,7 +217,9 @@
 	text-decoration: none;
 }
 
-#menu a:visited,a:link,a:active {
+#menu a:visited,
+#menu a:link,
+#menu a:active {
 	text-decoration: none;
 }
 
@@ -267,15 +269,6 @@
 }
 
 /* Inscription */
-#signinForm label {
-	display: block; 
-	width:100%;
-}
-
-.login-part input, #signinForm input, #signinform select {
-	display: block; 
-	width:50%; 
-}
 .center-body {
 	margin-left: 20%;
 	width:60%;
@@ -290,15 +283,6 @@
 }
 
 /* index css */
-
-.paginator{ 
-    clear: both !important;
-    display: block;
-    font-size: 1.3em;
-    margin-left: auto;
-    margin-right: auto;
-    width: 30%;
-}
 .login-part label{
 	font-weight:bold;
 	font-size:1.1em;

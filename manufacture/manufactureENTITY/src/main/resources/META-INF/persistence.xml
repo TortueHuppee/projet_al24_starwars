@@ -27,6 +27,7 @@
 		<class>manufacture.entity.product.SpaceshipProduct</class>
 		<class>manufacture.entity.product.SpaceshipRef</class>
 		<class>manufacture.entity.user.User</class>
+		<class>manufacture.entity.cart.RelayPoint</class>
 				
 		<properties>  
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>

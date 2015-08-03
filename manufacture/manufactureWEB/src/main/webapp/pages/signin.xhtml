@@ -10,84 +10,130 @@
 	</ui:define>
 
 	<ui:define name="stylesheets">
-		<h:outputStylesheet name="panierCss.css" library="css" />
+		<h:outputStylesheet name="signInCss.css" library="css" />
 	</ui:define>
 
 	<ui:define name="main-body">
 		<h:form id="signinForm">
 			<div class="center-body">
-				<h1>Création de compte</h1>
-				
-				<div class="sign-company">
-					<fieldset>
-						<legend>Type de compte</legend>
 
-						<h:outputLabel for="signup_companyType" value="Type de compte : "/>
-							<p:selectOneRadio id="signup_companyType"
-								value="#{signUpBean.userType}">
-								<f:ajax event="change" render="companyName"
-									execute="signup_companyType" />
-								<f:selectItem itemLabel="particulier" itemValue="particulier" />
-								<f:selectItem itemLabel="artisan" itemValue="artisan" />
-								<f:selectItem itemLabel="professionnel" itemValue="professionnel" />
-							</p:selectOneRadio>
+				<p:panel header="Création de compte">
+					<p:panelGrid>
+						<p:row>
+							<p:column>
+								<h:outputLabel value="Nom utilisateur : " />
+								<h:inputText value="#{signUpBean.login}" id="signup_login" />
+								<h:outputLabel class="messageErreur"
+									value="#{signUpBean.messageErreurLogin}" />
+							</p:column>
+						</p:row>
 
-						<p:outputPanel id="companyName">
-							<h:outputLabel for="signup_companyName"	value="Nom de la compagnie : " rendered="#{not(signUpBean.userType eq 'particulier')}"/>
-							<h:inputText value="#{signUpBean.companyName}" id="signup_companyName" rendered="#{not(signUpBean.userType eq 'particulier')}"/>
-							<h:outputLabel class="messageErreur" value="#{signUpBean.messageErreurCompanyName}" rendered="#{not(signUpBean.userType eq 'particulier')}"/>
-							
-							<h:outputLabel for="signup_activityDomain"	value="Domaine d'activité : " rendered="#{not(signUpBean.userType eq 'particulier')}"/>
-							<h:inputText value="#{signUpBean.domaineActivite}" id="signup_activityDomain" rendered="#{not(signUpBean.userType eq 'particulier')}"/>
-							<h:outputLabel class="messageErreur" value="#{signUpBean.messageErreurDomaineActivite}" rendered="#{not(signUpBean.userType eq 'particulier')}"/>
-						</p:outputPanel>
-					</fieldset>
-				</div>
-				
-				<div class="sign-identity">
-				
-<!-- 				<p:panel header="Validate"> -->
-<!--         <h:panelGrid id="grid" columns="4" cellpadding="5"> -->
-<!--         </h:panelGrid> -->
- 
-<!--     </p:panel> -->
-					<fieldset>
-						<legend>Identité</legend>
+						<p:row>
+							<p:column>
+								<h:outputLabel for="signup_password" value="Mot de passe : " />
+								<h:inputSecret value="#{signUpBean.motDePasse}"
+									id="signup_password" />
+								<h:outputLabel class="messageErreur"
+									value="#{signUpBean.messageErreurMotDePasse}" />
+							</p:column>
+						</p:row>
 
-						<h:outputLabel value="Nom utilisateur : "/>
-						<h:inputText value="#{signUpBean.login}" id="signup_login"/>
-						<h:outputLabel class="messageErreur" value="#{signUpBean.messageErreurLogin}" />
-						
-						<h:outputLabel for="signup_password" value="Mot de passe : "/>
-						<h:inputSecret value="#{signUpBean.motDePasse}" id="signup_password" />
-						<h:outputLabel class="messageErreur" value="#{signUpBean.messageErreurMotDePasse}" />
-						
-						<h:outputLabel for="signup_lastName" value="Nom de famille : "/>
-						<h:inputText value="#{signUpBean.nomFamille}" id="signup_lastName" />
-						<h:outputLabel class="messageErreur" value="#{signUpBean.messageErreurNomFamille}" />
-						
-						<h:outputLabel for="signup_firstName" value="Prénom : "/>
-						<h:inputText value="#{signUpBean.prenom}" id="signup_firstName" />
-						<h:outputLabel class="messageErreur" value="#{signUpBean.messageErreurPrenom}" />
-						
-						<h:outputLabel for="signup_civility" value="Civilité : "/>
-							<p:selectOneRadio id="signup_civility"
-								value="#{signUpBean.civilite.idCivility}">
-								<f:selectItem itemLabel="Mr" itemValue="1" />
-								<f:selectItem itemLabel="Mme" itemValue="1" />
-								<f:selectItem itemLabel="Mlle" itemValue="1" />
-							</p:selectOneRadio>
-						
-						<h:outputLabel for="signup_email" value="Email : "/>
-						<h:inputText value="#{signUpBean.email}" id="signup_email" />
-						<h:outputLabel class="messageErreur" value="#{signUpBean.messageErreurEmail}" />
+						<p:row>
+							<p:column>
+								<h:outputLabel for="signup_lastName" value="Nom de famille : " />
+								<h:inputText value="#{signUpBean.nomFamille}"
+									id="signup_lastName" />
+								<h:outputLabel class="messageErreur"
+									value="#{signUpBean.messageErreurNomFamille}" />
+							</p:column>
+						</p:row>
 
-					</fieldset>
-				</div>
-			
-				<div style="margin-left: 40%">
-					<p:commandButton action="#{signUpBean.validationFormulaire()}" value="S'inscrire" update="signinForm"/>
-				</div>
+						<p:row>
+							<p:column>
+								<h:outputLabel for="signup_firstName" value="Prénom : " />
+								<h:inputText value="#{signUpBean.prenom}" id="signup_firstName" />
+								<h:outputLabel class="messageErreur"
+									value="#{signUpBean.messageErreurPrenom}" />
+							</p:column>
+						</p:row>
+
+						<p:row>
+							<p:column>
+								<h:outputLabel for="signup_civility" value="Civilité : " />
+								<p:selectOneRadio id="signup_civility"
+									value="#{signUpBean.civilite.idCivility}">
+									<f:selectItem itemLabel="Mr" itemValue="1" />
+									<f:selectItem itemLabel="Mme" itemValue="2" />
+									<f:selectItem itemLabel="Mlle" itemValue="3" />
+								</p:selectOneRadio>
+							</p:column>
+						</p:row>
+
+						<p:row>
+							<p:column>
+								<h:outputLabel for="signup_email" value="Email : " />
+								<h:inputText value="#{signUpBean.email}" id="signup_email" />
+								<h:outputLabel class="messageErreur"
+									value="#{signUpBean.messageErreurEmail}" />
+							</p:column>
+						</p:row>
+
+						<p:row>
+							<p:column>
+								<h:outputLabel for="signup_companyType" value="Vous êtes un : " />
+								<p:selectOneRadio id="signup_companyType"
+									value="#{signUpBean.userType}">
+									<f:ajax event="change" render="companyName activityDomain"
+										execute="signup_companyType" />
+									<f:selectItem itemLabel="particulier" itemValue="particulier" />
+									<f:selectItem itemLabel="artisan" itemValue="artisan" />
+									<f:selectItem itemLabel="professionnel"
+										itemValue="professionnel" />
+								</p:selectOneRadio>
+							</p:column>
+						</p:row>
+
+						<p:row>
+							<p:column>
+								<p:outputPanel id="companyName">
+									<h:outputLabel for="signup_companyName"
+										value="Nom de la compagnie : "
+										rendered="#{not(signUpBean.userType eq 'particulier')}" />
+									<h:inputText value="#{signUpBean.companyName}"
+										id="signup_companyName"
+										rendered="#{not(signUpBean.userType eq 'particulier')}" />
+									<h:outputLabel class="messageErreur"
+										value="#{signUpBean.messageErreurCompanyName}"
+										rendered="#{not(signUpBean.userType eq 'particulier')}" />
+								</p:outputPanel>
+							</p:column>
+						</p:row>
+
+						<p:row>
+							<p:column colspan="2">
+								<p:outputPanel id="activityDomain">
+									<h:outputLabel for="signup_activityDomain"
+										value="Domaine d'activité : "
+										rendered="#{not(signUpBean.userType eq 'particulier')}" />
+									<h:inputText value="#{signUpBean.domaineActivite}"
+										id="signup_activityDomain"
+										rendered="#{not(signUpBean.userType eq 'particulier')}" />
+									<h:outputLabel class="messageErreur"
+										value="#{signUpBean.messageErreurDomaineActivite}"
+										rendered="#{not(signUpBean.userType eq 'particulier')}" />
+								</p:outputPanel>
+							</p:column>
+						</p:row>
+
+						<p:row>
+							<p:column>
+								<p:commandButton action="#{signUpBean.validationFormulaire()}"
+									value="S'inscrire" update="signinForm" />
+							</p:column>
+						</p:row>
+
+					</p:panelGrid>
+				</p:panel>
 			</div>
 		</h:form>
 	</ui:define>

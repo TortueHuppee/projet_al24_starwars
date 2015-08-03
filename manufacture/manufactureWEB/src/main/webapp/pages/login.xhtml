@@ -2,29 +2,58 @@
 	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:p="http://primefaces.org/ui" 
+	xmlns:p="http://primefaces.org/ui"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
-<ui:define name="stylesheets">
-	<h:outputStylesheet name="panierCss.css" library="css"/>
-</ui:define>
+	<ui:define name="stylesheets">
+		<h:outputStylesheet name="signUpCss.css" library="css" />
+	</ui:define>
 
 	<ui:define name="main-body">
- 
-		<div class="center-body login-part">
-		<h1>Connexion : </h1>
-			<h:form> 
-				<h:messages></h:messages>
-				<h:outputLabel for="login_username" value="Nom utilisateur : " />
-				<h:inputText value="#{loginBean.user.userName}" id="login_username"
-					required="true" requiredMessage="Champs obligatoire" styleClass="inputConnexion" />
-				<h:outputLabel for="login_password" value="Mot de passe : " /> 
-				<h:inputSecret value="#{loginBean.user.password}" id="login_password"
-					required="true" requiredMessage="Champs obligatoire" styleClass="inputConnexion"/>
-				<h:outputText value="Pas de compte ?"/><h:commandLink value="Inscrivez vous !" action="signin.xhtml&amp;faces-redirect=true" /><br />
-				<p:commandButton value="se connecter" 
-					action="#{loginBean.doLogin()}" /> 
-			</h:form>
-		</div> 
+
+		<h:form id="signinForm">
+			<div class="connexion">
+
+				<p:panel header="Se connecter">
+					<p:panelGrid>
+						<p:row>
+							<p:column>
+								<h:messages></h:messages>
+								<h:outputLabel for="login_username" value="Nom utilisateur : " />
+								<h:inputText value="#{loginBean.user.login}" id="login_username"
+									required="true" requiredMessage="Champs obligatoire"
+									styleClass="inputConnexion" />
+							</p:column>
+						</p:row>
+						
+						<p:row>
+							<p:column>
+								<h:outputLabel for="login_password" value="Mot de passe : " />
+								<h:inputSecret value="#{loginBean.user.password}"
+									id="login_password" required="true"
+									requiredMessage="Champs obligatoire"
+									styleClass="inputConnexion" />
+							</p:column>
+						</p:row>
+						
+						<p:row>
+							<p:column>
+								<p:commandButton value="Se connecter"
+									action="#{loginBean.doLogin()}" />
+							</p:column>
+						</p:row>
+						
+						<p:row>				
+							<p:column>
+								<h:outputLabel value="Pas de compte ?" />
+								<h:commandLink value="Inscrivez vous !"
+									action="signin.xhtml&amp;faces-redirect=true" />
+							</p:column>
+						</p:row>
+						
+					</p:panelGrid>
+				</p:panel>
+			</div>
+		</h:form>
 		<div class="signup-part"></div>
 	</ui:define>
-</ui:composition> 
+</ui:composition>
