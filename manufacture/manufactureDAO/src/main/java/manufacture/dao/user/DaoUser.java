@@ -103,6 +103,13 @@ public class DaoUser implements IDaoUser {
 		return resultat;
 	}
 	
+	@Override
+	public User editUser(User user) {
+		Session session = sf.getCurrentSession();
+		session.update(user);
+		return user;
+	}
+	
 	//Getters et Setters
 	public SessionFactory getSf() {
 		return sf;

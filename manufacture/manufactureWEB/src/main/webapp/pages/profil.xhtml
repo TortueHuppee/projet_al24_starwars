@@ -2,36 +2,150 @@
 	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 <ui:define name="stylesheets">
-	<h:outputStylesheet name="signInCss.css" library="css"/>
+	<h:outputStylesheet name="profilCss.css" library="css"/>
 </ui:define>
 
 	<ui:define name="main-body">
 		<div class="center-body">
-			<h1>Mon profil</h1>
-			<div class="identity">
-				<h2>Identite</h2>
-				<h:outputLabel value="Prenom : "/>
-				<h:outputText value="#{profilBean.userBean.user.userFirstName}"/><br />
-				<h:outputLabel value="Nom : "/>
-				<h:outputText value="#{profilBean.userBean.user.userName}"/><br />
-				<h:outputLabel value="Date d'inscription : "/>
-				<h:outputText value="#{profilBean.userBean.user.createTime.date}"/><br />
+<h:form>
+		<p:panel>
+			<f:facet name="header">
+        		<h:outputLabel value="#{profilBean.userBean.user.login}" /><br/>
+        		<h:outputLabel value="#{profilBean.userBean.user.userRole.role}" />
+    		</f:facet>  
+			<p:tabView orientation="left">
+			
+				<!-- Informations personnelles -->
+				<p:tab>
 				
-			</div> 
-			<div class="address">
-				<h2>Adresse</h2>
-				<h:outputLabel value="N°Rue : "/>
-				<h:outputText value="profilBean.userBean.address.number"/><br />
-				<h:outputLabel value="Rue : "/>
-				<h:outputText value="profilBean.userBean.address.street"/><br />
+					<f:facet name="title">
+               			<h:outputLabel value="Informations personnelles"/>
+               			<p:graphicImage value="/resources/images/logo.png" width="150px"/>
+            		</f:facet>
+            		
+            		<p:outputPanel>
+            		<h:commandLink action="#{editBean.editModePersonnel()}" value="Editer - Un command link le temps de faire l'image" rendered="#{not editBean.editModePersonnel}" />
+            		</p:outputPanel>
+            		
+            		<p:outputPanel>
+            		<h:commandLink action="#{editBean.saveUser()}" value="Sauvegarder - Un command link le temps de faire l'image" rendered="#{editBean.editModePersonnel}"/>
+            		<h:commandLink action="#{editBean.cancelModePersonnel()}" value="Annuler - Un command link le temps de faire l'image" rendered="#{editBean.editModePersonnel}"/>
+            		</p:outputPanel>
+            		
+					<div class="identity">
+						<h2>Identité</h2>
+						<h:outputLabel value="Nom"/> :
+       					<h:outputLabel value="#{userBean.user.userName}" rendered="#{not editBean.editModePersonnel}" />
+						<h:inputText value="#{userBean.user.userName}" rendered="#{editBean.editModePersonnel}" />
+						
+						<h:outputLabel value="Prénom"/> :
+						<h:outputLabel value="#{userBean.user.userFirstName}" rendered="#{not editBean.editModePersonnel}" />
+						<h:inputText value="#{userBean.user.userFirstName}" rendered="#{editBean.editModePersonnel}" />
+						
+						<h:outputLabel value="Civilité"/> :
+						<h:outputLabel value="#{userBean.user.civility.civility}" rendered="#{not editBean.editModePersonnel}" />
+						<p:selectOneRadio id="signup_civility" rendered="#{editBean.editModePersonnel}"
+									value="#{userBean.user.civility.idCivility}">
+									<f:selectItem itemLabel="Mr" itemValue="1" />
+									<f:selectItem itemLabel="Mme" itemValue="2" />
+									<f:selectItem itemLabel="Mlle" itemValue="3" />
+						</p:selectOneRadio>
+						
+						<!-- Pour l'email et le login, la modification peut être autorisée à conditions qu'ils ne soient -->
+						<!-- pas déjà utilisés par un autre utilisateur et qu'ils sont valides. -->
+						<h:outputLabel value="Email"/> :
+						<h:outputLabel value="#{userBean.user.email}"/>
+<!-- 						<h:outputLabel value="#{userBean.user.email}" rendered="#{not editBean.editModePersonnel}" /> -->
+<!-- 						<h:inputText value="#{userBean.user.email}" rendered="#{editBean.editModePersonnel}" /> -->
+						
+						<h:outputLabel value="Login"/> :
+						<h:outputLabel value="#{userBean.user.login}"/>
+<!-- 						<h:outputLabel value="#{userBean.user.login}" rendered="#{not editBean.editModePersonnel}" /> -->
+<!-- 						<h:inputText value="#{userBean.user.login}" rendered="#{editBean.editModePersonnel}" /> -->
+						
+						<h:outputLabel value="Date d'inscription"/> :
+						<h:outputLabel value="#{profilBean.sdf.format(userBean.user.createTime)}"/>
+						
+						<h:outputLabel value="Mot de passe"/> :
+						<h:outputLabel value="***********" rendered="#{not editBean.editModePersonnel}" />
+						<h:inputSecret value="#{userBean.user.password}" rendered="#{editBean.editModePersonnel}" />
+						
+					</div>
+					
+					<div class="identity" >
+						<p:outputPanel id="companyName" rendered="#{not(userBean.user.userRole.role eq 'Particulier')}">
+						<h2>Companie</h2>						
+							<h:outputLabel value="Nom de la compagnie"/> :
+							<h:outputLabel value="#{userBean.user.companyName}" rendered="#{not editBean.editModePersonnel}" />
+							<h:inputText value="#{userBean.user.companyName}" rendered="#{editBean.editModePersonnel}" />
+									
+							<h:outputLabel value="Nom de la compagnie" /> :
+							<h:outputLabel value="#{userBean.user.activityDomain}" rendered="#{not editBean.editModePersonnel}" />
+							<h:inputText value="#{userBean.user.activityDomain}" rendered="#{editBean.editModePersonnel}" />
+						</p:outputPanel>
+					</div> 
+					
+				</p:tab>
 				
+				<!-- Adresse(s) -->
+				<p:tab rendered="#{profilBean.userBean.user.userRole.role eq 'Particulier' or profilBean.userBean.user.userRole.role eq 'Professionnel'}">
+					<f:facet name="title">
+               			<h:outputLabel value="Adresses enregistrées"/>
+               			<p:graphicImage value="/resources/images/logo.png" width="150px"/>
+            		</f:facet>
+            		
+            		<p:panelGrid>
+            			<p:row>
+            				<p:column>
+            					<f:facet name="header">
+            						Adresse(s) de livraison
+            					</f:facet>
+            					
+            					<div class="address">
+            						<h:outputLabel value="Nom"/> :
+       								<h:outputLabel value="#{userBean.user.userName}" rendered="#{not editBean.editModeAdresse}" />
+									<h:inputText value="#{userBean.user.userName}" rendered="#{editBean.editModeAdresse}" />
+            					</div>
+            				</p:column>
+            			
+            				<p:column>
+            					<f:facet name="header">
+            						Adresse(s) de livraison
+            					</f:facet>
+            					
+            					<div class="address">
+            						<h:outputLabel value="Nom"/> :
+       								<h:outputLabel value="#{userBean.user.userName}" rendered="#{not editBean.editModeAdresse}" />
+									<h:inputText value="#{userBean.user.userName}" rendered="#{editBean.editModeAdresse}" />
+            					</div>
+            				</p:column>
+            			</p:row>
+            		</p:panelGrid>
+            		
+				</p:tab>
 				
-			</div>
-			<div class="lastBuy"> 
-				<h2>Derniers achats</h2>
-			</div>
+				<!-- Vente(s) -->
+				<p:tab rendered="#{profilBean.userBean.user.userRole.role eq 'Particulier' or profilBean.userBean.user.userRole.role eq 'Artisan'}">
+					<f:facet name="title">
+               			<h:outputLabel value="Mes ventes"/>
+               			<p:graphicImage value="/resources/images/logo.png" width="150px"/>
+            		</f:facet>
+				</p:tab>
+				
+				<!-- Achat(s) -->
+				<p:tab rendered="#{profilBean.userBean.user.userRole.role eq 'Particulier' or profilBean.userBean.user.userRole.role eq 'Professionnel'}">
+					<f:facet name="title">
+               			<h:outputLabel value="Mes commandes passées"/>
+               			<p:graphicImage value="/resources/images/logo.png" width="150px"/>
+            		</f:facet>
+				</p:tab>
+			</p:tabView>
+			
+			</p:panel>
+			</h:form>
 		</div>
 	</ui:define>
 </ui:composition>

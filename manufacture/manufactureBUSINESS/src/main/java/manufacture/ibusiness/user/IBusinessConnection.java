@@ -17,4 +17,6 @@ public interface IBusinessConnection {
 
 	User logUser(User user);
 
+	User editUser(User user);
+
 }

@@ -28,4 +28,6 @@ public interface IDaoUser {
 	User getUserLogin(User user);
 
 	List<User> getUserByUserName(String userName);
+
+	User editUser(User user);
 }

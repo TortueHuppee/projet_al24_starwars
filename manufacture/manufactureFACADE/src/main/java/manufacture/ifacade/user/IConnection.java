@@ -15,4 +15,7 @@ public interface IConnection {
 	boolean getLogin(String email);
 
 	User connectUser(User user);
+	
+	//Modification des informations
+	User editUser(User user);
 }

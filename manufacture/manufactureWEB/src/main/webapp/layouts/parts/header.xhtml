@@ -39,7 +39,7 @@
 										</div>
 										<div class="divInputConnexion">
 											<p:inputText styleClass="inputConnexion"
-												value="#{loginBean.user.userName}" />
+												value="#{loginBean.user.login}" />
 										</div>
 									</div>
 									<div class="labelConnexion">
@@ -55,7 +55,7 @@
 									<div class="labelConnexion">
 										<div class="divBoutonConnexion">
 											<p:commandButton value="Se connecter" id="btnVallider"
-												styleClass="boutonConnexion" action="#{loginBean.doLogin()}" />
+												styleClass="boutonConnexion" actionListener="#{loginBean.doLogin()}" />
 										</div>
 										<h:outputText value="#{mbConnexion.reponse}" />
 									</div>

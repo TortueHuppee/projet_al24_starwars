@@ -60,6 +60,11 @@ public class BusinessConnection implements IBusinessConnection {
 		}
 	}
 	
+	@Override
+	public User editUser(User user) {
+		return proxyUser.editUser(user);
+	}
+	
 	public IDaoUser getProxyUser() {
 		return proxyUser;
 	}

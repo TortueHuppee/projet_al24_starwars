@@ -34,6 +34,7 @@ public class LoginBean {
 	
 	private User user;
 	private String redirect;
+	
 	public LoginBean(){
 		user = new User(); 
 	}
@@ -63,7 +64,7 @@ public class LoginBean {
 		else
 		{
 			//En attendant que Vincent nous explique cette partie là du code :
-			toPage = "compte.xhtml?faces-redirect=true";
+			toPage = "profil.xhtml?faces-redirect=true";
 			
 		    ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
 		    try {

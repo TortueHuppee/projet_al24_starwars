@@ -37,8 +37,7 @@
 						
 						<p:row>
 							<p:column>
-								<p:commandButton value="Se connecter"
-									action="#{loginBean.doLogin()}" />
+									<p:commandButton value="Se connecter" actionListener="#{loginBean.doLogin()}" />
 							</p:column>
 						</p:row>
 						
@@ -54,6 +53,5 @@
 				</p:panel>
 			</div>
 		</h:form>
-		<div class="signup-part"></div>
 	</ui:define>
 </ui:composition>

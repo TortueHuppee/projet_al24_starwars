@@ -40,6 +40,11 @@ public class Connection implements IConnection{
 	public User connectUser(User user) {
 		return proxyConnection.logUser(user);
 	}
+	
+	@Override
+	public User editUser(User user) {
+		return proxyConnection.editUser(user);
+	}
 
 	public IBusinessConnection getProxyConnection() {
 		return proxyConnection;
