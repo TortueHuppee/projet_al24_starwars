@@ -91,39 +91,76 @@
 				</p:tab>
 				
 				<!-- Adresse(s) -->
-				<p:tab rendered="#{profilBean.userBean.user.userRole.role eq 'Particulier' or profilBean.userBean.user.userRole.role eq 'Professionnel'}">
+				<p:tab rendered="#{profilBean.userBean.user.userRole.role eq 'Particulier' or profilBean.userBean.user.userRole.role eq 'Professionnel'}" id="addresses">
 					<f:facet name="title">
                			<h:outputLabel value="Adresses enregistrées"/>
                			<p:graphicImage value="/resources/images/logo.png" width="150px"/>
             		</f:facet>
             		
-            		<p:panelGrid>
-            			<p:row>
-            				<p:column>
+            		<h:dataTable var="address" value="#{profilBean.adressesFacturation}" >
+            				<h:column>
             					<f:facet name="header">
-            						Adresse(s) de livraison
-            					</f:facet>
-            					
+               				 		<h2>Adresse(s) de facturation</h2>
+               					</f:facet>
+               					
             					<div class="address">
-            						<h:outputLabel value="Nom"/> :
-       								<h:outputLabel value="#{userBean.user.userName}" rendered="#{not editBean.editModeAdresse}" />
-									<h:inputText value="#{userBean.user.userName}" rendered="#{editBean.editModeAdresse}" />
+            						<h:outputLabel value="Rue"/>
+       								<h:outputLabel value="#{address.street}" rendered="#{not(editBean.editModeAdresse)}" />
+									<h:inputText value="#{address.street}" rendered="#{editBean.editModeAdresse}" />
+									
+									<h:outputLabel value=""/>
+       								<h:outputLabel value="#{address.number}" rendered="#{not(editBean.editModeAdresse)}" />
+									<h:inputText value="#{address.number}" rendered="#{editBean.editModeAdresse}" />
+									
+									<h:outputLabel value="Ville"/>
+									<h:outputLabel value="#{address.city.postalCode}" rendered="#{not(editBean.editModeAdresse)}" />
+       								<h:outputLabel value="#{address.city.cityName}" rendered="#{not(editBean.editModeAdresse)}" />
+       								<p:selectOneMenu rendered="#{editBean.editModeAdresse}" 
+       												 value="#{address.city.idCity}">
+       									<f:selectItems var="item"
+       												   value="#{mbDataLoader.listCity}"
+       												   itemLabel="#{item.cityName}"
+       												   itemValue="#{item.idCity}"/>
+       								</p:selectOneMenu>
+       								
+       								<h:outputLabel value="Pays"/>
+									<h:outputLabel value="#{address.city.country.countryName}" rendered="#{not(editBean.editModeAdresse)}" />
+									<p:selectOneMenu rendered="#{editBean.editModeAdresse}" 
+       												 value="#{address.city.country.idCountry}">
+       									<f:selectItems var="item"
+       												   value="#{mbDataLoader.listCountry}"
+       												   itemLabel="#{item.countryName}"
+       												   itemValue="#{item.idCountry}"/>
+       								</p:selectOneMenu>
+       								
+									<h:outputLabel value="Planète"/>
+									<h:outputLabel value="#{address.city.country.planet.planetName}" rendered="#{not(editBean.editModeAdresse)}" />
+									<p:selectOneMenu rendered="#{editBean.editModeAdresse}" 
+       												 value="#{address.city.country.planet.idPlanet}">
+       									<f:selectItems var="item"
+       												   value="#{mbDataLoader.listPlanet}"
+       												   itemLabel="#{item.planetName}"
+       												   itemValue="#{item.idPlanet}"/>
+       								</p:selectOneMenu>
+									
             					</div>
-            				</p:column>
+            				</h:column>
+            		</h:dataTable>
+            		
+            		<h:dataTable var="address" value="#{profilBean.adressesLivraison}">
+            				<h:column> 
+            					<f:facet name="header">
+               				 		<h2>Adresse(s) de livraison</h2>
+               					</f:facet>
+               					
+            					<div class="address">
+            						<h:outputLabel value="Rue" rendered="#{address.isBillingaddress}"/>
+       								<h:outputLabel value="#{address.street}" rendered="#{not(editBean.editModeAdresse)}" />
+									<h:inputText value="#{address.street}" rendered="#{editBean.editModeAdresse}" />
+            					</div>
+            				</h:column>
             			
-            				<p:column>
-            					<f:facet name="header">
-            						Adresse(s) de livraison
-            					</f:facet>
-            					
-            					<div class="address">
-            						<h:outputLabel value="Nom"/> :
-       								<h:outputLabel value="#{userBean.user.userName}" rendered="#{not editBean.editModeAdresse}" />
-									<h:inputText value="#{userBean.user.userName}" rendered="#{editBean.editModeAdresse}" />
-            					</div>
-            				</p:column>
-            			</p:row>
-            		</p:panelGrid>
+            		</h:dataTable>
             		
 				</p:tab>
 				

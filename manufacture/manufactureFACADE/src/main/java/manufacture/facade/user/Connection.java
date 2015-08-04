@@ -1,8 +1,11 @@
 package manufacture.facade.user;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import manufacture.entity.user.Address;
 import manufacture.entity.user.User;
 import manufacture.ibusiness.user.IBusinessConnection;
 import manufacture.ifacade.user.IConnection;
@@ -44,6 +47,11 @@ public class Connection implements IConnection{
 	@Override
 	public User editUser(User user) {
 		return proxyConnection.editUser(user);
+	}
+	
+	@Override
+	public List<Address> getAllAdressByUser(User user) {
+		return proxyConnection.getAllAdressByUser(user);
 	}
 
 	public IBusinessConnection getProxyConnection() {

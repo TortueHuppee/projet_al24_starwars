@@ -2,9 +2,12 @@ package manufacture.business.inscription;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.List;
 
+import manufacture.entity.user.Address;
 import manufacture.entity.user.User;
 import manufacture.ibusiness.user.IBusinessConnection;
+import manufacture.idao.user.IDaoAdress;
 import manufacture.idao.user.IDaoUser;
 
 import org.apache.log4j.Logger;
@@ -17,6 +20,8 @@ public class BusinessConnection implements IBusinessConnection {
 	private static Logger log = Logger.getLogger(BusinessConnection.class);
 	
 	IDaoUser proxyUser;
+	
+	IDaoAdress proxyAddress;
 	
 	@Override
 	public User getSignInUser(String login, String password) {
@@ -62,7 +67,21 @@ public class BusinessConnection implements IBusinessConnection {
 	
 	@Override
 	public User editUser(User user) {
+		
+		String newPassword = user.getPassword(); //codé en SHA-256 si non changé, sinon pas codé
+		String oldPassword = proxyUser.getPasswordByLogin(user.getLogin()); //codé en SHA-256
+		
+		if (!newPassword.equals(oldPassword))
+		{
+			user.setPassword(sha256(newPassword));
+		}
+		
 		return proxyUser.editUser(user);
+	}
+	
+	@Override
+	public List<Address> getAllAdressByUser(User user) {
+		return proxyAddress.getAllAdressByUser(user);
 	}
 	
 	public IDaoUser getProxyUser() {
@@ -73,10 +92,21 @@ public class BusinessConnection implements IBusinessConnection {
 	public void setProxyUser(IDaoUser proxyUser) {
 		this.proxyUser = proxyUser;
 	}
+	
 	public Logger getLog() {
 		return log;
 	}
+	
 	public void setLog(Logger log) {
 		this.log = log;
+	}
+	
+	public IDaoAdress getProxyAddress() {
+		return proxyAddress;
+	}
+	
+	@Autowired
+	public void setProxyAddress(IDaoAdress proxyAddress) {
+		this.proxyAddress = proxyAddress;
 	}
 }

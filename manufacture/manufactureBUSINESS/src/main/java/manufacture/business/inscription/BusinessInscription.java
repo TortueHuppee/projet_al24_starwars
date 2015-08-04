@@ -55,6 +55,7 @@ public class BusinessInscription implements IBusinessInscription {
 			StringBuffer sb = new StringBuffer();
 			for (int i = 0; i < result.length; i++) {
 				sb.append(Integer.toString((result[i] & 0xff) + 0x100, 16).substring(1));
+				System.out.println(sb.toString());
 			}
 			return sb.toString();	
 		} catch (NoSuchAlgorithmException e) {

@@ -1,5 +1,8 @@
 package manufacture.ibusiness.user;
 
+import java.util.List;
+
+import manufacture.entity.user.Address;
 import manufacture.entity.user.User;
 
 
@@ -18,5 +21,7 @@ public interface IBusinessConnection {
 	User logUser(User user);
 
 	User editUser(User user);
+
+	List<Address> getAllAdressByUser(User user);
 
 }

@@ -1,8 +1,10 @@
 package manufacture.dao.user;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import manufacture.entity.product.Color;
+import manufacture.entity.user.Address;
 import manufacture.entity.user.User;
 import manufacture.idao.user.IDaoUser;
 
@@ -31,6 +33,7 @@ public class DaoUser implements IDaoUser {
 		List<String> resultat = hql.list();
 		return resultat;
 	}
+	
 	@Override
 	public List<String> getAllEmail() {
 		Session session = sf.getCurrentSession();
@@ -49,6 +52,7 @@ public class DaoUser implements IDaoUser {
 		List<User> resultat = hql.list();
 		return resultat;
 	}
+	
 	@Override
 	public List<User> getUserByEmail(String email) {
 		Session session = sf.getCurrentSession();
@@ -72,9 +76,15 @@ public class DaoUser implements IDaoUser {
 	}
 	
 	@Override
-	public void getPasswordByLogin(String login) {
-		// TODO Auto-generated method stub
-		
+	public String getPasswordByLogin(String login) {
+		Session session = sf.getCurrentSession();
+		String requete = "SELECT u.password FROM User u WHERE u.login = :paramLogin";
+		Query hql = session.createQuery(requete).setParameter("paramLogin", login);
+		List<String> resultat = hql.list();
+		if(resultat.size() == 0 || resultat.size() >= 2){
+			return null;
+		}
+		return resultat.get(0);
 	}
 	
 	@Override
@@ -109,7 +119,7 @@ public class DaoUser implements IDaoUser {
 		session.update(user);
 		return user;
 	}
-	
+		
 	//Getters et Setters
 	public SessionFactory getSf() {
 		return sf;

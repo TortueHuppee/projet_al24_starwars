@@ -128,38 +128,9 @@ input
 {
 	margin-bottom:15px;
 	border-bottom:1px solid #10507B;
-	color:#10507B;
+	color:#333;
 }
 
-/*Address*/
-
-
-
-/*autres*/
-td label:first-of-type
-{
-	display:inline-block !important;
-	width:20% !important;
-}
-
-.identity input
-{
-	width:40% !important;
-}
-
-.address input
-{
-	width:60% !important;
-}
-
-input
-{
-	display:inline-block !important;
-	border:1px solid #bdc7d8;
-	border-radius:5px;
-	height:30px;
-	padding-left:5px;
-}
 
 .ui-selectoneradio
 {
@@ -173,10 +144,63 @@ input
 	padding-right:5px !important;
 }
 
-.ui-widget-content table:not(.ui-selectoneradio)
+/*Address*/
+.address input
 {
-	width:100%;
+	width:60% !important;
 }
+
+#j_idt44\3a j_idt49\3a addresses table
+{
+	display:inline-block;
+	width:45%;
+	min-height:600px;
+}
+
+#j_idt44\3a j_idt49\3a addresses table td
+{
+	border:none !important;
+}
+
+#j_idt44\3a j_idt49\3a addresses table h2
+{
+	margin-bottom:15px;
+	border-bottom:1px solid #10507B;
+}
+
+#j_idt44\3a j_idt49\3a addresses table td
+{
+	height:70px;
+	border-bottom:1px solid lightgrey !important;
+}
+
+#j_idt44\3a j_idt49\3a addresses tbody tr:last-of-type td
+{
+	border-bottom:none !important;
+}
+
+
+/*autres*/
+#j_idt44\3a j_idt49\3a addresses table td label:first-of-type
+{
+	display:inline-block !important;
+	width:20% !important;
+}
+
+.identity input
+{
+	width:40% !important;
+}
+
+input
+{
+	display:inline-block !important;
+	border:1px solid #bdc7d8;
+	border-radius:5px;
+	height:30px;
+	padding-left:5px;
+}
+
 
 .ui-button
 {
