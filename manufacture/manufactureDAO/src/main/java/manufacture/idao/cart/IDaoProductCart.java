@@ -30,4 +30,6 @@ public interface IDaoProductCart {
 	
 	double getSubTotalPrice(int idCartProduct);
 	
+	//Profil utilisateur
+	List<CartProduct> getCartSendByUser(User user);
 }

@@ -124,7 +124,7 @@ public class DaoCart implements IDaoCart {
             return resultat;
         }
 	}
-    
+
     @Autowired
     public void setSf(SessionFactory sf) {
         this.sf = sf;

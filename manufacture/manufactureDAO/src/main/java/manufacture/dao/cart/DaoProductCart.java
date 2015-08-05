@@ -1,5 +1,6 @@
 package manufacture.dao.cart;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -11,9 +12,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import manufacture.dao.product.DaoColor;
+import manufacture.entity.cart.Cart;
 import manufacture.entity.cart.CartProduct;
 import manufacture.entity.product.ConstructorProduct;
 import manufacture.entity.product.Product;
+import manufacture.entity.user.User;
 import manufacture.idao.cart.IDaoProductCart;
 
 @Service
@@ -109,14 +112,23 @@ public class DaoProductCart implements IDaoProductCart {
 		
 		return resultat;
 	}
-
-	public SessionFactory getSf() {
-		return sf;
-	}
-
-	@Autowired
-	public void setSf(SessionFactory sf) {
-		this.sf = sf;
+	
+	
+	@Override
+	public List<CartProduct> getCartSendByUser(User user) {
+		Session session = sf.getCurrentSession();
+        Query hql = session.createQuery("SELECT c FROM CartProduct c WHERE c.product.user.idUser = :paramId");
+        hql.setParameter("paramId", user.getIdUser());
+        List<CartProduct> resultat = hql.list();
+        
+        if (resultat.size() == 0)
+        {
+            return new ArrayList<CartProduct>();
+        }
+        else
+        {
+            return resultat;
+        }
 	}
 
 	@Override
@@ -133,5 +145,12 @@ public class DaoProductCart implements IDaoProductCart {
 		return result;
 	}
 
+	public SessionFactory getSf() {
+		return sf;
+	}
 
+	@Autowired
+	public void setSf(SessionFactory sf) {
+		this.sf = sf;
+	}
 }

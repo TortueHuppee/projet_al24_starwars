@@ -12,6 +12,7 @@ import javax.faces.bean.SessionScoped;
 import org.apache.log4j.Logger;
 
 import manufacture.entity.cart.Cart;
+import manufacture.entity.cart.CartProduct;
 import manufacture.entity.product.Product;
 import manufacture.entity.user.Address;
 import manufacture.ifacade.user.IConnection;
@@ -38,6 +39,8 @@ public class ProfilBean {
 	
 	private List<Product> listeProduitsVendus = new ArrayList<Product>();
 	
+	private List<CartProduct> listeCommandesVendus = new ArrayList<CartProduct>();
+	
 	private List<Cart> listeCommandesPassees = new ArrayList<Cart>();
 
 	private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
@@ -55,6 +58,8 @@ public class ProfilBean {
 			userBean.getUser().setAddresses(adressesTotales);
 			
 			listeProduitsVendus = proxyProfil.getProductSendByUser(userBean.getUser());
+			
+			listeCommandesVendus = proxyProfil.getCartSendByUser(userBean.getUser());
 			
 			listeCommandesPassees = proxyProfil.getCartByUser(userBean.getUser());
 			
@@ -143,5 +148,11 @@ public class ProfilBean {
 	}
 	public void setListeCommandesPassees(List<Cart> listeCommandesPassees) {
 		this.listeCommandesPassees = listeCommandesPassees;
+	}
+	public List<CartProduct> getListeCommandesVendus() {
+		return listeCommandesVendus;
+	}
+	public void setListeCommandesVendus(List<CartProduct> listeCommandesVendus) {
+		this.listeCommandesVendus = listeCommandesVendus;
 	}
 }

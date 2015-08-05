@@ -5,12 +5,14 @@ import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 import manufacture.entity.cart.Cart;
+import manufacture.entity.cart.CartProduct;
 import manufacture.entity.product.Product;
 import manufacture.entity.user.Address;
 import manufacture.entity.user.User;
 import manufacture.ibusiness.user.IBusinessConnection;
 import manufacture.ibusiness.user.IBusinessProfil;
 import manufacture.idao.cart.IDaoCart;
+import manufacture.idao.cart.IDaoProductCart;
 import manufacture.idao.product.IDaoProduct;
 import manufacture.idao.user.IDaoAdress;
 import manufacture.idao.user.IDaoUser;
@@ -31,6 +33,8 @@ public class BusinessProfil implements IBusinessProfil {
 	private IDaoProduct proxyProduct;
 	
 	private IDaoCart proxyCart;
+	
+	private IDaoProductCart proxyCartProduct;
 	
 	public static String sha256(String input) {
 		MessageDigest mDigest;
@@ -87,6 +91,11 @@ public class BusinessProfil implements IBusinessProfil {
 		return proxyCart.getCartByUser(user);
 	}
 	
+	@Override
+	public List<CartProduct> getCartSendByUser(User user) {
+		return proxyCartProduct.getCartSendByUser(user);
+	}
+	
 	public IDaoUser getProxyUser() {
 		return proxyUser;
 	}
@@ -131,4 +140,12 @@ public class BusinessProfil implements IBusinessProfil {
 		this.proxyCart = proxyCart;
 	}
 
+	public IDaoProductCart getProxyCartProduct() {
+		return proxyCartProduct;
+	}
+
+	@Autowired
+	public void setProxyCartProduct(IDaoProductCart proxyCartProduct) {
+		this.proxyCartProduct = proxyCartProduct;
+	}
 }

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import manufacture.entity.cart.Cart;
+import manufacture.entity.cart.CartProduct;
 import manufacture.entity.product.Product;
 import manufacture.entity.user.Address;
 import manufacture.entity.user.User;
@@ -50,6 +51,11 @@ public class Profil implements IProfil{
 	public List<Cart> getCartByUser(User user) {
 		return proxyProfil.getCartByUser(user);
 	}
+	
+	@Override
+	public List<CartProduct> getCartSendByUser(User user) {
+		return proxyProfil.getCartSendByUser(user);
+	}
 
 	public IBusinessConnection getProxyConnection() {
 		return proxyConnection;
@@ -68,4 +74,5 @@ public class Profil implements IProfil{
 	public void setProxyProfil(IBusinessProfil proxyProfil) {
 		this.proxyProfil = proxyProfil;
 	}
+
 }

@@ -314,13 +314,35 @@
             		<div class="ventes">
 						<h2>Mes produits vendus</h2>
 						
-						<h:dataTable var="produit" value="#{profilBean.adressesFacturation}" >
+						<p:dataTable var="productCart" value="#{profilBean.listeCommandesVendus}" emptyMessage="Aucun produit vendu">
             				<h:column>
             					<f:facet name="header">
-               				 		<h2>Adresse(s) de facturation</h2>
+               				 		<h2>Nom du produit</h2>
                					</f:facet>
+               					<h:outputLabel value="#{productCart.product.productRef.productName}" />
                				</h:column>
-               			</h:dataTable>
+               				
+               				<h:column>
+            					<f:facet name="header">
+               				 		<h2>Quantité</h2>
+               					</f:facet>
+               					<h:outputLabel value="#{productCart.quantity}" />
+               				</h:column>
+               				
+               				<h:column>
+            					<f:facet name="header">
+               				 		<h2>Prix (crédits)</h2>
+               					</f:facet>
+               					<h:outputLabel value="#{productCart.product.price}" />
+               				</h:column>
+               				
+               				<h:column>
+            					<f:facet name="header">
+               				 		<h2>Date</h2>
+               					</f:facet>
+               					<h:outputLabel value="#{profilBean.sdf.format(productCart.cart.dateCommande)}" />
+               				</h:column>
+               			</p:dataTable>
 						
 					</div>
 					
@@ -332,6 +354,44 @@
                			<h:outputLabel value="Mes commandes passées"/>
                			<p:graphicImage value="/resources/images/logo.png" width="150px"/>
             		</f:facet>
+            		
+            		<div class="ventes">
+						<h2>Mes commandes</h2>
+						
+						
+						<p:dataTable var="cart" value="#{profilBean.listeCommandesPassees}" emptyMessage="Aucun article acheté">
+							<ui:repeat var="productCart" value="#{cart.cartProducts}">
+            				<h:column>
+            					<f:facet name="header">
+               				 		<h2>Nom du produit</h2>
+               					</f:facet>
+               					<h:outputLabel value="#{productCart.product.productRef.productName}" />
+               				</h:column>
+               				
+               				<h:column>
+            					<f:facet name="header">
+               				 		<h2>Quantité</h2>
+               					</f:facet>
+               					<h:outputLabel value="#{productCart.quantity}" />
+               				</h:column>
+               				
+               				<h:column>
+            					<f:facet name="header">
+               				 		<h2>Prix (crédits)</h2>
+               					</f:facet>
+               					<h:outputLabel value="#{productCart.product.price}" />
+               				</h:column>
+               				
+               				<h:column>
+            					<f:facet name="header">
+               				 		<h2>Date</h2>
+               					</f:facet>
+               					<h:outputLabel value="#{profilBean.sdf.format(productCart.cart.dateCommande)}" />
+               				</h:column>
+               				</ui:repeat>
+               			</p:dataTable>
+						
+					</div>
 				</p:tab>
 			</p:tabView>
 			
