@@ -97,6 +97,59 @@
                			<p:graphicImage value="/resources/images/logo.png" width="150px"/>
             		</f:facet>
             		
+            		<p:commandButton value="Ajouter une adresse" type="button" onclick="PF('addAddress').show();"
+           								actionListener="#{editBean.cancelModeAdresse()}" />
+           			<br/>
+           			
+           			<p:dialog header="Ajouter une adresse" widgetVar="addAddress" modal="true" height="100">
+    									<h2>Nouvelle adresse</h2>
+    									
+    									<h:outputLabel value="Rue" class="dialogLabel"/> :
+										<h:inputText value="#{editBean.nouvelleAdresse.street}" class="dialogInput"/>
+									
+										<h:outputLabel value="                " class="dialogLabel"/>
+										<h:inputText value="#{editBean.nouvelleAdresse.number}" class="dialogInput"/>
+									
+										<h:outputLabel value="Code postal" class="dialogLabel"/> :
+										<input type="number" value="#{editBean.nouvelleAdresse.city.postalCode}" class="dialogInput"/>
+										
+										<h:outputLabel value="Ville" class="dialogLabel" /> :
+    									<p:selectOneMenu value="#{editBean.ville.idCity}" style="width:400px">
+       										<f:selectItems var="item"
+       												   value="#{mbDataLoader.listCity}"
+       												   itemLabel="#{item.cityName}"
+       												   itemValue="#{item.idCity}"/>
+       									</p:selectOneMenu>
+       								
+       								<h:outputLabel value="Pays" class="dialogLabel"/> :
+									<p:selectOneMenu style="width:400px">
+       									<f:selectItems var="item"
+       												   value="#{mbDataLoader.listCountry}"
+       												   itemLabel="#{item.countryName}"
+       												   itemValue="#{item.idCountry}"/>
+       								</p:selectOneMenu>
+       								
+									<h:outputLabel value="Planète" class="dialogLabel"/> :
+									<p:selectOneMenu style="width:400px">
+       									<f:selectItems var="item"
+       												   value="#{mbDataLoader.listPlanet}"
+       												   itemLabel="#{item.planetName}"
+       												   itemValue="#{item.idPlanet}"/>
+       								</p:selectOneMenu>
+       								
+       								<h:outputLabel value="Adresse de facturation" class="dialogCheckBox"/> :
+       								<p:selectBooleanCheckbox value="#{editBean.nouvelleAdresse.isBillingaddress}" />
+       								
+       								<h:outputLabel value="Adresse de livraison" class="dialogCheckBox"/> :
+       								<p:selectBooleanCheckbox value="#{editBean.nouvelleAdresse.isDeliveryaddress}" />
+       								
+       								<p:commandButton value="Annuler" type="button" onclick="PF('addAddress').hide();"
+           								actionListener="#{editBean.cancelModeAdresse()}" />
+           								
+           							<p:commandButton value="Enregistrer" type="button" onclick="PF('addAddress').hide();"
+           								actionListener="#{editBean.saveAdresse(address)}" />
+           						</p:dialog>
+           								
             		<h:dataTable var="address" value="#{profilBean.adressesFacturation}" >
             				<h:column>
             					<f:facet name="header">
@@ -104,45 +157,71 @@
                					</f:facet>
                					
             					<div class="address">
-            						<h:outputLabel value="Rue"/>
-       								<h:outputLabel value="#{address.street}" rendered="#{not(editBean.editModeAdresse)}" />
-									<h:inputText value="#{address.street}" rendered="#{editBean.editModeAdresse}" />
+            						<h:outputLabel value="Rue" class="adresseLabel"/>
+       								<h:outputLabel value="#{address.street}" class="adresseValue"/>
 									
-									<h:outputLabel value=""/>
-       								<h:outputLabel value="#{address.number}" rendered="#{not(editBean.editModeAdresse)}" />
-									<h:inputText value="#{address.number}" rendered="#{editBean.editModeAdresse}" />
+									<h:outputLabel value="                 " class="adresseLabel"/>
+       								<h:outputLabel value="#{address.number}" class="adresseValue"/>
 									
-									<h:outputLabel value="Ville"/>
-									<h:outputLabel value="#{address.city.postalCode}" rendered="#{not(editBean.editModeAdresse)}" />
-       								<h:outputLabel value="#{address.city.cityName}" rendered="#{not(editBean.editModeAdresse)}" />
-       								<p:selectOneMenu rendered="#{editBean.editModeAdresse}" 
-       												 value="#{address.city.idCity}">
-       									<f:selectItems var="item"
+									<h:outputLabel value="Code psotal" class="adresseLabel"/>
+									<h:outputLabel value="#{address.city.postalCode}" class="adresseValue"/>
+									
+									<h:outputLabel value="Ville" class="adresseLabel"/>
+       								<h:outputLabel value="#{address.city.cityName}" class="adresseValue"/>
+       								
+       								<p:commandButton value="Modifier" type="button" onclick="PF('changeAddress').show();"
+           								actionListener="#{editBean.editModeAdresse(address)}" />
+           								
+
+									<p:dialog header="Modifier l'adresse" widgetVar="changeAddress" modal="true" height="100">
+    									<h2>Adresse enregistrée</h2>
+    									
+    									<h:outputLabel value="Rue" class="dialogLabel"/> :
+										<h:inputText value="#{address.street}" class="dialogInput"/>
+									
+										<h:outputLabel value="                " class="dialogLabel"/>
+										<h:inputText value="#{address.number}" class="dialogInput"/>
+									
+										<h:outputLabel value="Code postal" class="dialogLabel"/> :
+										<input type="number" value="#{address.city.postalCode}" class="dialogInput"/>
+										
+										<h:outputLabel value="Ville" class="dialogLabel" /> :
+    									<p:selectOneMenu value="#{address.city.idCity}" style="width:400px">
+       										<f:selectItems var="item"
        												   value="#{mbDataLoader.listCity}"
        												   itemLabel="#{item.cityName}"
        												   itemValue="#{item.idCity}"/>
-       								</p:selectOneMenu>
+       									</p:selectOneMenu>
        								
-       								<h:outputLabel value="Pays"/>
-									<h:outputLabel value="#{address.city.country.countryName}" rendered="#{not(editBean.editModeAdresse)}" />
-									<p:selectOneMenu rendered="#{editBean.editModeAdresse}" 
-       												 value="#{address.city.country.idCountry}">
+       								<h:outputLabel value="Pays" class="dialogLabel"/> :
+									<p:selectOneMenu value="#{address.city.country.idCountry}" style="width:400px">
        									<f:selectItems var="item"
        												   value="#{mbDataLoader.listCountry}"
        												   itemLabel="#{item.countryName}"
        												   itemValue="#{item.idCountry}"/>
        								</p:selectOneMenu>
        								
-									<h:outputLabel value="Planète"/>
-									<h:outputLabel value="#{address.city.country.planet.planetName}" rendered="#{not(editBean.editModeAdresse)}" />
-									<p:selectOneMenu rendered="#{editBean.editModeAdresse}" 
-       												 value="#{address.city.country.planet.idPlanet}">
+									<h:outputLabel value="Planète" class="dialogLabel"/> :
+									<p:selectOneMenu value="#{address.city.country.planet.idPlanet}" style="width:400px">
        									<f:selectItems var="item"
        												   value="#{mbDataLoader.listPlanet}"
        												   itemLabel="#{item.planetName}"
        												   itemValue="#{item.idPlanet}"/>
        								</p:selectOneMenu>
-									
+       								
+       								<h:outputLabel value="Adresse de facturation" class="dialogCheckBox"/> :
+       								<p:selectBooleanCheckbox value="#{adresse.isBillingaddress}" />
+       								
+       								<h:outputLabel value="Adresse de livraison" class="dialogCheckBox"/> :
+       								<p:selectBooleanCheckbox value="#{adresse.isDeliveryaddress}" />
+       								
+       								<p:commandButton value="Annuler" type="button" onclick="PF('changeAddress').hide();"
+           								actionListener="#{editBean.cancelModeAdresse()}" />
+           								
+           							<p:commandButton value="Enregistrer" type="button" onclick="PF('changeAddress').hide();"
+           								actionListener="#{editBean.saveAdresse(address)}" />
+           								
+									</p:dialog>
             					</div>
             				</h:column>
             		</h:dataTable>
@@ -154,9 +233,70 @@
                					</f:facet>
                					
             					<div class="address">
-            						<h:outputLabel value="Rue" rendered="#{address.isBillingaddress}"/>
-       								<h:outputLabel value="#{address.street}" rendered="#{not(editBean.editModeAdresse)}" />
-									<h:inputText value="#{address.street}" rendered="#{editBean.editModeAdresse}" />
+            						<h:outputLabel value="Rue" class="adresseLabel"/>
+       								<h:outputLabel value="#{address.street}" class="adresseValue"/>
+									
+									<h:outputLabel value="                 " class="adresseLabel"/>
+       								<h:outputLabel value="#{address.number}" class="adresseValue"/>
+									
+									<h:outputLabel value="Code psotal" class="adresseLabel"/>
+									<h:outputLabel value="#{address.city.postalCode}" class="adresseValue"/>
+									
+									<h:outputLabel value="Ville" class="adresseLabel"/>
+       								<h:outputLabel value="#{address.city.cityName}" class="adresseValue"/>
+       								
+       								<p:commandButton value="Modifier" type="button" onclick="PF('changeAddress').show();"
+           								actionListener="#{editBean.editModeAdresse(address)}" />
+           								
+									<p:dialog header="Modifier l'adresse" widgetVar="changeAddress" modal="true" height="100">
+    									<h2>Adresse enregistrée</h2>
+    									
+    									<h:outputLabel value="Rue" class="dialogLabel"/> :
+										<h:inputText value="#{address.street}" class="dialogInput"/>
+									
+										<h:outputLabel value="                " class="dialogLabel"/>
+										<h:inputText value="#{address.number}" class="dialogInput"/>
+									
+										<h:outputLabel value="Code postal" class="dialogLabel"/> :
+										<input type="number" value="#{address.city.postalCode}" class="dialogInput"/>
+										
+										<h:outputLabel value="Ville" class="dialogLabel" /> :
+    									<p:selectOneMenu value="#{address.city.idCity}" style="width:400px">
+       										<f:selectItems var="item"
+       												   value="#{mbDataLoader.listCity}"
+       												   itemLabel="#{item.cityName}"
+       												   itemValue="#{item.idCity}"/>
+       									</p:selectOneMenu>
+       								
+       								<h:outputLabel value="Pays" class="dialogLabel"/> :
+									<p:selectOneMenu value="#{address.city.country.idCountry}" style="width:400px">
+       									<f:selectItems var="item"
+       												   value="#{mbDataLoader.listCountry}"
+       												   itemLabel="#{item.countryName}"
+       												   itemValue="#{item.idCountry}"/>
+       								</p:selectOneMenu>
+       								
+									<h:outputLabel value="Planète" class="dialogLabel"/> :
+									<p:selectOneMenu value="#{address.city.country.planet.idPlanet}" style="width:400px">
+       									<f:selectItems var="item"
+       												   value="#{mbDataLoader.listPlanet}"
+       												   itemLabel="#{item.planetName}"
+       												   itemValue="#{item.idPlanet}"/>
+       								</p:selectOneMenu>
+       								
+       								<h:outputLabel value="Adresse de facturation" class="dialogCheckBox"/> :
+       								<p:selectBooleanCheckbox value="#{adresse.isBillingaddress}" />
+       								
+       								<h:outputLabel value="Adresse de livraison" class="dialogCheckBox"/> :
+       								<p:selectBooleanCheckbox value="#{adresse.isDeliveryaddress}" />
+       								
+       								<p:commandButton value="Annuler" type="button" onclick="PF('changeAddress').hide();"
+           								actionListener="#{editBean.cancelModeAdresse()}" />
+           								
+           							<p:commandButton value="Enregistrer" type="button" onclick="PF('changeAddress').hide();"
+           								actionListener="#{editBean.saveAdresse(address)}" />
+           								
+									</p:dialog>
             					</div>
             				</h:column>
             			

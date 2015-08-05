@@ -13,6 +13,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import manufacture.entity.cart.Cart;
 import manufacture.entity.cart.RelayPoint;
 
 @Entity
@@ -44,9 +45,14 @@ public class Address implements Serializable {
 	@JoinColumn(name="id_city")
 	private City city;
 
-	//bi-directional many-to-one association to User
 	@OneToMany(mappedBy="addresse")
 	private List<RelayPoint> relayPoints;
+	
+	@OneToMany(mappedBy="addressDelivery")
+	private List<Cart> cartsDelivery;
+
+	@OneToMany(mappedBy="addressBilling")
+	private List<Cart> cartsBilling;
 	
 	//bi-directional many-to-one association to Adress
 	@ManyToOne
@@ -144,6 +150,54 @@ public class Address implements Serializable {
 
 	public void setDeliveryaddress(boolean isDeliveryaddress) {
 		this.isDeliveryaddress = isDeliveryaddress;
+	}
+
+	public List<Cart> getCartsDelivery() {
+		return cartsDelivery;
+	}
+
+	public void setCartsDelivery(List<Cart> cartsDelivery) {
+		this.cartsDelivery = cartsDelivery;
+	}
+
+	public List<Cart> getCartsBilling() {
+		return cartsBilling;
+	}
+
+	public void setCartsBilling(List<Cart> cartsBilling) {
+		this.cartsBilling = cartsBilling;
+	}
+
+	public void setIdAddress(Integer idAddress) {
+		this.idAddress = idAddress;
+	}
+	
+	public Cart addCartDelivery(Cart cart) {
+		getCartsDelivery().add(cart);
+		cart.setAddressDelivery(this);
+
+		return cart;
+	}
+
+	public Cart removeCartDelivery(Cart cart) {
+		getCartsDelivery().remove(cart);
+		cart.setAddressDelivery(null);
+
+		return cart;
+	}
+	
+	public Cart addCartBilling(Cart cart) {
+		getCartsBilling().add(cart);
+		cart.setAddressBilling(this);
+
+		return cart;
+	}
+
+	public Cart removeCartBilling(Cart cart) {
+		getCartsBilling().remove(cart);
+		cart.setAddressBilling(null);
+
+		return cart;
 	}
 
 }

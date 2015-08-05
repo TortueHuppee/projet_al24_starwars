@@ -53,6 +53,16 @@ public class Connection implements IConnection{
 	public List<Address> getAllAdressByUser(User user) {
 		return proxyConnection.getAllAdressByUser(user);
 	}
+	
+	@Override
+	public void editAddress(Address addresse) {
+		proxyConnection.editAddress(addresse);
+	}
+	
+	@Override
+	public void saveAddress(Address nouvelleAdresse) {
+		proxyConnection.saveAddress(nouvelleAdresse);
+	}
 
 	public IBusinessConnection getProxyConnection() {
 		return proxyConnection;

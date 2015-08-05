@@ -84,6 +84,16 @@ public class BusinessConnection implements IBusinessConnection {
 		return proxyAddress.getAllAdressByUser(user);
 	}
 	
+	@Override
+	public void editAddress(Address addresse) {
+		proxyAddress.updateAddress(addresse);
+	}
+	
+	@Override
+	public void saveAddress(Address nouvelleAdresse) {
+		proxyAddress.createAddress(nouvelleAdresse);
+	}
+	
 	public IDaoUser getProxyUser() {
 		return proxyUser;
 	}

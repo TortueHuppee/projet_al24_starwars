@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import javax.persistence.*;
 
+import manufacture.entity.user.Address;
 import manufacture.entity.user.User;
 
 import java.util.Date;
@@ -97,6 +98,16 @@ public class Cart implements Serializable {
     //bi-directional many-to-one association to CartProduct
     @OneToMany(mappedBy = "cart")
     private List<CartProduct> cartProducts;
+    
+  //bi-directional many-to-one association to User
+    @ManyToOne
+    @JoinColumn(name = "id_address_delivery")
+    private Address addressDelivery;
+    
+  //bi-directional many-to-one association to User
+    @ManyToOne
+    @JoinColumn(name = "id_address_billing")
+    private Address addressBilling;
 
     public Cart() {
     }
@@ -216,5 +227,21 @@ public class Cart implements Serializable {
 
         return cartProduct;
     }
+
+	public Address getAddressDelivery() {
+		return addressDelivery;
+	}
+
+	public void setAddressDelivery(Address addressDelivery) {
+		this.addressDelivery = addressDelivery;
+	}
+
+	public Address getAddressBilling() {
+		return addressBilling;
+	}
+
+	public void setAddressBilling(Address addressBilling) {
+		this.addressBilling = addressBilling;
+	}
 
 }

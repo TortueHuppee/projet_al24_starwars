@@ -32,13 +32,17 @@ public class ProfilBean {
 	private List<Address> adressesTotales;
 	private List<Address> adressesFacturation = new ArrayList<Address>();
 	private List<Address> adressesLivraison = new ArrayList<Address>();
-	
+
 	private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 	private Date date = new Date();
-	
+
+	//Méthodes
+		
 	public String accessProfil(){
 		if(userBean.isLogged()){
 			adressesTotales = proxyConnection.getAllAdressByUser(userBean.getUser());
+			adressesFacturation = new ArrayList<Address>();
+			adressesLivraison = new ArrayList<Address>();
 			userBean.getUser().setAddresses(adressesTotales);
 			date = userBean.getUser().getCreateTime();
 			
@@ -107,5 +111,11 @@ public class ProfilBean {
 	}
 	public void setAdressesTotales(List<Address> adressesTotales) {
 		this.adressesTotales = adressesTotales;
+	}
+	public Date getDate() {
+		return date;
+	}
+	public void setDate(Date date) {
+		this.date = date;
 	}
 }

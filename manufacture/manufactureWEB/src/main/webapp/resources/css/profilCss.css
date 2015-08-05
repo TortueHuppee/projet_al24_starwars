@@ -66,20 +66,20 @@
 	text-shadow:0 0 0 0 !important;
 }
 
-.ui-state-default
+.ui-corner-left
 {
 	border-radius:3px;
 	height:150px;
 }
 
-.ui-state-default:not(.ui-tabs-selected)
+.ui-corner-left:not(.ui-tabs-selected)
 {
 	background:none !important;
 	border:1px solid #bdc7d8 !important;
 	background-color:#e3e3e3 !important;
 }
 
-.ui-state-default:not(.ui-tabs-selected):hover
+.ui-corner-left:not(.ui-tabs-selected):hover
 {
 	-moz-box-shadow:inset 0px 1px 0px 0px #ffffff !important;
 	-webkit-box-shadow:inset 0px 1px 0px 0px #ffffff !important;
@@ -101,7 +101,8 @@
 }
 
 .identity label,
-.address label
+.adresseLabel,
+.adresseValue
 {
 	display:inline-block;
 	width:43%;
@@ -110,21 +111,23 @@
 }
 
 .identity label:nth-child(2n+2),
-.address label:nth-child(2n+1)
+.adresseLabel
 {
 	font-weight:bold;
 }
 
+input,
 .identity label:nth-child(2n+1),
-.address label:nth-child(2n+2),
-input
+.adresseValue,
+.ui-selectonemenu label,
+.dialogCheckBox
 {
-	color:#10507B;
+	color:#10507B !important;
 	font-size:smaller !important;
 	font-style:italic;
 }
 
-.identity h2
+h2
 {
 	margin-bottom:15px;
 	border-bottom:1px solid #10507B;
@@ -145,7 +148,7 @@ input
 }
 
 /*Address*/
-.address input
+.address input:not(.ui-dialog input)
 {
 	width:60% !important;
 }
@@ -153,6 +156,7 @@ input
 #j_idt44\3a j_idt49\3a addresses table
 {
 	display:inline-block;
+	float:left;
 	width:45%;
 	min-height:600px;
 }
@@ -160,12 +164,6 @@ input
 #j_idt44\3a j_idt49\3a addresses table td
 {
 	border:none !important;
-}
-
-#j_idt44\3a j_idt49\3a addresses table h2
-{
-	margin-bottom:15px;
-	border-bottom:1px solid #10507B;
 }
 
 #j_idt44\3a j_idt49\3a addresses table td
@@ -181,7 +179,7 @@ input
 
 
 /*autres*/
-#j_idt44\3a j_idt49\3a addresses table td label:first-of-type
+#j_idt44\3a j_idt49\3a addresses table td label:first-of-type:not(.ui-dialog label)
 {
 	display:inline-block !important;
 	width:20% !important;
@@ -201,8 +199,74 @@ input
 	padding-left:5px;
 }
 
-
 .ui-button
 {
-	width:200px !important;
+	clear:both;
+	height:35px;
+}
+
+.ui-button:first-child
+{
+	display:block;
+	float:right;
+	margin-left:60%;
+	margin-bottom:20px;
+}
+
+/*Fen�tre de dialogue*/
+.ui-dialog-content
+{
+	width:600px !important;
+	min-height:420px;
+}
+
+.ui-dialog-content h2
+{
+	margin-bottom:30px;
+}
+
+.dialogLabel
+{
+	display:inline-block;
+	font-weight:bold;
+	color:#4f4f4f !important;
+	font-style:normal !important;
+	width:150px;
+	margin-bottom:10px;
+
+}
+
+.dialogInput
+{
+	display:inline-block;
+	width:400px;
+	margin-left:10px;
+	margin-bottom:10px;
+}
+
+.dialogInput:nth-of-type(2)
+{
+	margin-left:24px;
+}
+
+.ui-selectonemenu
+{
+	margin-left:10px;
+}
+
+.dialogCheckBox
+{
+	margin-left:40px;
+}
+.ui-dialog-content button
+{
+	margin-left:16%;
+	margin-top:20px;
+	width:150px;
+}
+
+.ui-dialog .ui-chkbox-box
+{
+	margin-right:50px;
+	margin-left:20px;
 }

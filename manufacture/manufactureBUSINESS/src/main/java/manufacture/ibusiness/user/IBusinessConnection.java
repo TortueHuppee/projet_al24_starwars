@@ -24,4 +24,8 @@ public interface IBusinessConnection {
 
 	List<Address> getAllAdressByUser(User user);
 
+	void editAddress(Address addresse);
+
+	void saveAddress(Address nouvelleAdresse);
+
 }

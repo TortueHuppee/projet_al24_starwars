@@ -4,6 +4,10 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 
+import manufacture.entity.user.Address;
+import manufacture.entity.user.City;
+import manufacture.entity.user.Country;
+import manufacture.entity.user.Planet;
 import manufacture.ifacade.user.IConnection;
 
 @ManagedBean(name="editBean")
@@ -19,6 +23,18 @@ public class EditManagedBean {
 	@ManagedProperty(value="#{userBean}")
 	private UserBean userBean;
 	
+	private Address nouvelleAdresse = new Address();
+	private City ville = new City();
+	
+	//Méthodes
+	
+	public void saveNewAddress()
+	{
+		nouvelleAdresse.setUser(userBean.getUser());
+		nouvelleAdresse.setCity(ville);
+		proxyConnection.saveAddress(nouvelleAdresse);
+	}
+	
 	public void editModePersonnel() {
 		editModePersonnel = true;
 	}
@@ -27,7 +43,7 @@ public class EditManagedBean {
 		editModePersonnel = false;
 	}
 	
-	public void editModeAdresse() {
+	public void editModeAdresse(Address addresse) {
 		editModeAdresse = true;
 	}
 	
@@ -40,11 +56,13 @@ public class EditManagedBean {
 	   editModePersonnel = false;
 	}
 	
-	public void saveAdresse() {
-		   //proxyConnection.editUser(userBean.getUser());
-		   editModeAdresse = false;
-		}
+	public void saveAdresse(Address addresse) {
+		proxyConnection.editAddress(addresse);
+		editModeAdresse = false;
+	}
 
+	//Getters et Setters
+	
 	public UserBean getUserBean() {
 		return userBean;
 	}
@@ -75,5 +93,21 @@ public class EditManagedBean {
 
 	public void setEditModeAdresse(boolean editModeAdresse) {
 		this.editModeAdresse = editModeAdresse;
+	}
+
+	public Address getNouvelleAdresse() {
+		return nouvelleAdresse;
+	}
+
+	public void setNouvelleAdresse(Address nouvelleAdresse) {
+		this.nouvelleAdresse = nouvelleAdresse;
+	}
+
+	public City getVille() {
+		return ville;
+	}
+
+	public void setVille(City ville) {
+		this.ville = ville;
 	}
 }
