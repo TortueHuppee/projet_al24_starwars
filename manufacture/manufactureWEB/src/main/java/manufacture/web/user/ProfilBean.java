@@ -11,8 +11,11 @@ import javax.faces.bean.SessionScoped;
 
 import org.apache.log4j.Logger;
 
+import manufacture.entity.cart.Cart;
+import manufacture.entity.product.Product;
 import manufacture.entity.user.Address;
 import manufacture.ifacade.user.IConnection;
+import manufacture.ifacade.user.IProfil;
 
 @ManagedBean(name="profilBean")
 @SessionScoped
@@ -26,12 +29,16 @@ public class ProfilBean {
 	@ManagedProperty(value="#{loginBean}")
 	private LoginBean loginBean;
 	
-	@ManagedProperty(value="#{connection}")
-	private IConnection proxyConnection; 
+	@ManagedProperty(value="#{profil}")
+	private IProfil proxyProfil; 
 	
 	private List<Address> adressesTotales;
 	private List<Address> adressesFacturation = new ArrayList<Address>();
 	private List<Address> adressesLivraison = new ArrayList<Address>();
+	
+	private List<Product> listeProduitsVendus = new ArrayList<Product>();
+	
+	private List<Cart> listeCommandesPassees = new ArrayList<Cart>();
 
 	private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 	private Date date = new Date();
@@ -40,10 +47,17 @@ public class ProfilBean {
 		
 	public String accessProfil(){
 		if(userBean.isLogged()){
-			adressesTotales = proxyConnection.getAllAdressByUser(userBean.getUser());
+			
+			adressesTotales = proxyProfil.getAllAdressByUser(userBean.getUser());
 			adressesFacturation = new ArrayList<Address>();
 			adressesLivraison = new ArrayList<Address>();
+			
 			userBean.getUser().setAddresses(adressesTotales);
+			
+			listeProduitsVendus = proxyProfil.getProductSendByUser(userBean.getUser());
+			
+			listeCommandesPassees = proxyProfil.getCartByUser(userBean.getUser());
+			
 			date = userBean.getUser().getCreateTime();
 			
 			for (Address adresse : adressesTotales)
@@ -88,11 +102,11 @@ public class ProfilBean {
 	public void setSdf(SimpleDateFormat sdf) {
 		this.sdf = sdf;
 	}
-	public IConnection getProxyConnection() {
-		return proxyConnection;
+	public IProfil getProxyProfil() {
+		return proxyProfil;
 	}
-	public void setProxyConnection(IConnection proxyConnection) {
-		this.proxyConnection = proxyConnection;
+	public void setProxyProfil(IProfil proxyProfil) {
+		this.proxyProfil = proxyProfil;
 	}
 	public List<Address> getAdressesFacturation() {
 		return adressesFacturation;
@@ -117,5 +131,17 @@ public class ProfilBean {
 	}
 	public void setDate(Date date) {
 		this.date = date;
+	}
+	public List<Product> getListeProduitsVendus() {
+		return listeProduitsVendus;
+	}
+	public void setListeProduitsVendus(List<Product> listeProduitsVendus) {
+		this.listeProduitsVendus = listeProduitsVendus;
+	}
+	public List<Cart> getListeCommandesPassees() {
+		return listeCommandesPassees;
+	}
+	public void setListeCommandesPassees(List<Cart> listeCommandesPassees) {
+		this.listeCommandesPassees = listeCommandesPassees;
 	}
 }

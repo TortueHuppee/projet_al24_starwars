@@ -32,13 +32,13 @@ import manufacture.idao.product.IDaoSpaceShipRef;
 @Service
 public class BusinessCatalog implements IBusinessCatalog {
 
-	IDaoColor proxyColor ;
-	IDaoCategory proxyCategory;
-	IDaoConstructor proxyConstructor;
-	IDaoMaterial proxyMaterial;
-	IDaoProduct proxyProduct;
-	IDaoProductRef proxyProductRef;
-	IDaoSpaceShipRef proxySpaceShip;
+	private IDaoColor proxyColor ;
+	private IDaoCategory proxyCategory;
+	private IDaoConstructor proxyConstructor;
+	private IDaoMaterial proxyMaterial;
+	private IDaoProduct proxyProduct;
+	private IDaoProductRef proxyProductRef;
+	private IDaoSpaceShipRef proxySpaceShip;
 	
 	@Override
 	public List<ProductRef> getAllProductRef() {

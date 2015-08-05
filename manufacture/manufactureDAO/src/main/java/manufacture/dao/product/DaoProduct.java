@@ -19,6 +19,7 @@ import manufacture.entity.product.ConstructorProduct;
 import manufacture.entity.product.Product;
 import manufacture.entity.product.ProductRef;
 import manufacture.entity.product.UsedProduct;
+import manufacture.entity.user.User;
 import manufacture.idao.product.IDaoColor;
 import manufacture.idao.product.IDaoProduct;
 
@@ -148,6 +149,24 @@ public class DaoProduct implements IDaoProduct {
             return resultat;
         }
     }
+    
+	@Override
+	public List<Product> getProductSendByUser(User user) {
+		Session session = sf.getCurrentSession();       
+        String requete = "SELECT p.product FROM CartProduct p WHERE p.product.user.idUser = :paramId";
+        Query hql = session.createQuery(requete);        
+        hql.setParameter("paramId", user.getIdUser());
+        List<Product> resultat = hql.list();
+        
+        if (resultat.size() == 0)
+        {
+            return new ArrayList<Product>();
+        }
+        else
+        {
+            return resultat;
+        }
+	}
 
 	//Getters et Setters
 	public SessionFactory getSf() {
@@ -158,4 +177,5 @@ public class DaoProduct implements IDaoProduct {
 	public void setSf(SessionFactory sf) {
 		this.sf = sf;
 	}
+
 }

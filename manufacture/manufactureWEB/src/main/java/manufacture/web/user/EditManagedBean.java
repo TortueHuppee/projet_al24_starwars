@@ -9,6 +9,7 @@ import manufacture.entity.user.City;
 import manufacture.entity.user.Country;
 import manufacture.entity.user.Planet;
 import manufacture.ifacade.user.IConnection;
+import manufacture.ifacade.user.IProfil;
 
 @ManagedBean(name="editBean")
 @ViewScoped
@@ -17,8 +18,8 @@ public class EditManagedBean {
 	private boolean editModePersonnel;
 	private boolean editModeAdresse;
 
-	@ManagedProperty(value="#{connection}")
-	private IConnection proxyConnection;
+	@ManagedProperty(value="#{profil}")
+	private IProfil proxyProfil;
 	
 	@ManagedProperty(value="#{userBean}")
 	private UserBean userBean;
@@ -32,7 +33,7 @@ public class EditManagedBean {
 	{
 		nouvelleAdresse.setUser(userBean.getUser());
 		nouvelleAdresse.setCity(ville);
-		proxyConnection.saveAddress(nouvelleAdresse);
+		proxyProfil.saveAddress(nouvelleAdresse);
 	}
 	
 	public void editModePersonnel() {
@@ -52,12 +53,12 @@ public class EditManagedBean {
 	}
 
 	public void saveUser() {
-	   proxyConnection.editUser(userBean.getUser());
+	   proxyProfil.editUser(userBean.getUser());
 	   editModePersonnel = false;
 	}
 	
 	public void saveAdresse(Address addresse) {
-		proxyConnection.editAddress(addresse);
+		proxyProfil.editAddress(addresse);
 		editModeAdresse = false;
 	}
 
@@ -69,14 +70,6 @@ public class EditManagedBean {
 
 	public void setUserBean(UserBean userBean) {
 		this.userBean = userBean;
-	}
-
-	public IConnection getProxyConnection() {
-		return proxyConnection;
-	}
-
-	public void setProxyConnection(IConnection proxyConnection) {
-		this.proxyConnection = proxyConnection;
 	}
 
 	public boolean isEditModePersonnel() {
@@ -109,5 +102,13 @@ public class EditManagedBean {
 
 	public void setVille(City ville) {
 		this.ville = ville;
+	}
+
+	public IProfil getProxyProfil() {
+		return proxyProfil;
+	}
+
+	public void setProxyProfil(IProfil proxyProfil) {
+		this.proxyProfil = proxyProfil;
 	}
 }

@@ -1,4 +1,4 @@
-package manufacture.business.inscription;
+package manufacture.business.user;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class BusinessInscription implements IBusinessInscription {
 
-    IDaoUser proxyUser;
+    private IDaoUser proxyUser;
 
     @Override
     public User createAccount(User user) {

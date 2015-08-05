@@ -16,7 +16,7 @@ public class GestionCart implements IGestionCart {
    
     private Logger log = Logger.getLogger(GestionCart.class);
     
-	IBusinessCart businessCart;
+    private IBusinessCart businessCart;
 
     @Override
     public List<Product> getAllProductByCart(int paramIdCart) {

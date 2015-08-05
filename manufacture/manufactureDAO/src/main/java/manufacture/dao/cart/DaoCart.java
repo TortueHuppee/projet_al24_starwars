@@ -1,11 +1,13 @@
 package manufacture.dao.cart;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
 import manufacture.entity.cart.Cart;
 import manufacture.entity.cart.CartProduct;
+import manufacture.entity.product.Product;
 import manufacture.entity.user.User;
 import manufacture.idao.cart.IDaoCart;
 
@@ -105,6 +107,23 @@ public class DaoCart implements IDaoCart {
         Session session = sf.getCurrentSession();
         session.save(cart);
     }
+    
+	@Override
+	public List<Cart> getCartByUser(User user) {
+		Session session = sf.getCurrentSession();
+        Query hql = session.createQuery("SELECT c FROM Cart c WHERE c.user.idUser = :paramId");
+        hql.setParameter("paramId", user.getIdUser());
+        List<Cart> resultat = hql.list();
+        
+        if (resultat.size() == 0)
+        {
+            return new ArrayList<Cart>();
+        }
+        else
+        {
+            return resultat;
+        }
+	}
     
     @Autowired
     public void setSf(SessionFactory sf) {

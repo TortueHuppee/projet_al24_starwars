@@ -26,7 +26,7 @@ import manufacture.ifacade.user.IInscription;
 @Service
 public class Inscription implements IInscription {
 
-	IBusinessInscription proxyInscription;
+	private IBusinessInscription proxyInscription;
 	
 	@Override
 	public User createAccount(User user) {

@@ -25,7 +25,7 @@ import org.springframework.stereotype.Service;
 public class Catalog implements ICatalog {
 
 	@Autowired
-	IBusinessCatalog proxyCatalog;
+	private IBusinessCatalog proxyCatalog;
 	
 	public void setProxyCatalog(IBusinessCatalog proxyCatalog) {
 		this.proxyCatalog = proxyCatalog;

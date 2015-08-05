@@ -18,13 +18,4 @@ public interface IConnection {
 	boolean getLogin(String email);
 
 	User connectUser(User user);
-	
-	//Modification des informations / Consultation du profil
-	User editUser(User user);
-	
-	List<Address> getAllAdressByUser(User user);
-
-	void editAddress(Address addresse);
-
-	void saveAddress(Address nouvelleAdresse);
 }

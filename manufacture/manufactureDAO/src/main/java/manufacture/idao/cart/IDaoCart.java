@@ -26,5 +26,8 @@ public interface IDaoCart {
 	void updateCart(Cart cart);
 
     void addCart(Cart cart);
+
+    //Profil utilisateur
+	List<Cart> getCartByUser(User user);
 	
 }

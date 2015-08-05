@@ -27,6 +27,8 @@ public interface IDaoProduct {
 	void deleteProduct(Product product);
 	
 	void updateProduct(Product product);
+	
+	//Catalogue - Fiche détail d'un produit
 
 	List<Product> getAllProduct();
 
@@ -36,6 +38,10 @@ public interface IDaoProduct {
 
     List<UsedProduct> getAllUsedProduct();
 	
+    //Panier - Fiche détail d'un produit
 	Product getProductByIdProduct (int idProduct);
+
+	//Profil utilisateur
+	List<Product> getProductSendByUser(User user);
 	
 }

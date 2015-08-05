@@ -310,6 +310,20 @@
                			<h:outputLabel value="Mes ventes"/>
                			<p:graphicImage value="/resources/images/logo.png" width="150px"/>
             		</f:facet>
+            		
+            		<div class="ventes">
+						<h2>Mes produits vendus</h2>
+						
+						<h:dataTable var="produit" value="#{profilBean.adressesFacturation}" >
+            				<h:column>
+            					<f:facet name="header">
+               				 		<h2>Adresse(s) de facturation</h2>
+               					</f:facet>
+               				</h:column>
+               			</h:dataTable>
+						
+					</div>
+					
 				</p:tab>
 				
 				<!-- Achat(s) -->

@@ -13,7 +13,7 @@ import manufacture.ifacade.user.IConnection;
 @Service
 public class Connection implements IConnection{
 
-	IBusinessConnection proxyConnection;
+	private IBusinessConnection proxyConnection;
 	
 	@Override
 	public User getSignInUser(String login, String password) {
@@ -42,26 +42,6 @@ public class Connection implements IConnection{
 	@Override
 	public User connectUser(User user) {
 		return proxyConnection.logUser(user);
-	}
-	
-	@Override
-	public User editUser(User user) {
-		return proxyConnection.editUser(user);
-	}
-	
-	@Override
-	public List<Address> getAllAdressByUser(User user) {
-		return proxyConnection.getAllAdressByUser(user);
-	}
-	
-	@Override
-	public void editAddress(Address addresse) {
-		proxyConnection.editAddress(addresse);
-	}
-	
-	@Override
-	public void saveAddress(Address nouvelleAdresse) {
-		proxyConnection.saveAddress(nouvelleAdresse);
 	}
 
 	public IBusinessConnection getProxyConnection() {

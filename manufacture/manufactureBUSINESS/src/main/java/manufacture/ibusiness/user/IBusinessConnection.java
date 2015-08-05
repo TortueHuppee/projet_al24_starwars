@@ -20,12 +20,4 @@ public interface IBusinessConnection {
 
 	User logUser(User user);
 
-	User editUser(User user);
-
-	List<Address> getAllAdressByUser(User user);
-
-	void editAddress(Address addresse);
-
-	void saveAddress(Address nouvelleAdresse);
-
 }

@@ -1,4 +1,4 @@
-package manufacture.business.inscription;
+package manufacture.business.user;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -19,9 +19,9 @@ public class BusinessConnection implements IBusinessConnection {
 
 	private static Logger log = Logger.getLogger(BusinessConnection.class);
 	
-	IDaoUser proxyUser;
+	private IDaoUser proxyUser;
 	
-	IDaoAdress proxyAddress;
+	private IDaoAdress proxyAddress;
 	
 	@Override
 	public User getSignInUser(String login, String password) {
@@ -63,35 +63,6 @@ public class BusinessConnection implements IBusinessConnection {
 			e.printStackTrace();
 			return input;
 		}
-	}
-	
-	@Override
-	public User editUser(User user) {
-		
-		String newPassword = user.getPassword(); //codé en SHA-256 si non changé, sinon pas codé
-		String oldPassword = proxyUser.getPasswordByLogin(user.getLogin()); //codé en SHA-256
-		
-		if (!newPassword.equals(oldPassword))
-		{
-			user.setPassword(sha256(newPassword));
-		}
-		
-		return proxyUser.editUser(user);
-	}
-	
-	@Override
-	public List<Address> getAllAdressByUser(User user) {
-		return proxyAddress.getAllAdressByUser(user);
-	}
-	
-	@Override
-	public void editAddress(Address addresse) {
-		proxyAddress.updateAddress(addresse);
-	}
-	
-	@Override
-	public void saveAddress(Address nouvelleAdresse) {
-		proxyAddress.createAddress(nouvelleAdresse);
 	}
 	
 	public IDaoUser getProxyUser() {

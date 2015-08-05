@@ -16,7 +16,7 @@ public class Paiement implements IPaiement {
    
     private Logger log = Logger.getLogger(Paiement.class);
     
-	IBusinessCart businessCart;
+    private IBusinessCart businessCart;
 	
 	public Cart processPaiement(Cart cart) {
 	    return businessCart.validatePayment(cart);
