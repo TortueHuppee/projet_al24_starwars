@@ -121,6 +121,11 @@ public class Catalog implements ICatalog {
     public List<UsedProduct> getAllUsedProduct() {
         return proxyCatalog.getAllUsedProduct();
     }
+    
+	@Override
+	public List<SpaceshipProduct> getAllSpaceShipProduct() {
+		return proxyCatalog.getAllSpaceShipProduct();
+	}
 
 	public IBusinessCatalog getProxyColor() {
 		return proxyCatalog;
@@ -130,5 +135,4 @@ public class Catalog implements ICatalog {
 	public void setProxyColor(IBusinessCatalog proxyColor) {
 		this.proxyCatalog = proxyColor;
 	}
-
 }

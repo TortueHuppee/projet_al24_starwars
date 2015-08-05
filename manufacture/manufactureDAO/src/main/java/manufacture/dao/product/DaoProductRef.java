@@ -28,7 +28,7 @@ public class DaoProductRef implements IDaoProductRef {
 	@Override
 	public List<ProductRef> getAllProductRef() {
 		Session session = sf.getCurrentSession();
-		String requete = "FROM ProductRef a";
+		String requete = "SELECT p FROM ProductRef p";
 		Query hql = session.createQuery(requete);
 		List<ProductRef> resultat = hql.list();
 		return resultat;

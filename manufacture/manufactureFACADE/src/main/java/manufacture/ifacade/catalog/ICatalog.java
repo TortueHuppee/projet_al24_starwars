@@ -45,6 +45,8 @@ public interface ICatalog {
 	List<Material> getAllMaterial();
 	
 	List<Constructor> getAllConstructor();
+
+	List<SpaceshipProduct> getAllSpaceShipProduct();
 	
 	//Consultation du détail d'un produit
 	List<ConstructorProduct> getAllProductByProductRef(int idProducRef);
@@ -58,4 +60,5 @@ public interface ICatalog {
 	List<SpaceshipProduct> getSpaceShipProductByProduct(ProductRef productRef);
 
 	ProductRef getProductRefById(int idProductRef);
+
 }

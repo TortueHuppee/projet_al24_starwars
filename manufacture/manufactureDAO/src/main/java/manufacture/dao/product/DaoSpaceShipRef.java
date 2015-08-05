@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import manufacture.entity.product.Color;
+import manufacture.entity.product.SpaceshipProduct;
 import manufacture.entity.product.SpaceshipRef;
 import manufacture.idao.product.IDaoColor;
 import manufacture.idao.product.IDaoSpaceShipRef;
@@ -47,6 +48,15 @@ public class DaoSpaceShipRef implements IDaoSpaceShipRef {
 	public void updateSpaceShipRef(SpaceshipRef spaceShipRef) {
 		Session session = sf.getCurrentSession();
 		session.update(spaceShipRef);
+	}
+	
+	@Override
+	public List<SpaceshipProduct> getAllSpaceShipProduct() {
+		Session session = sf.getCurrentSession();
+		String requete = "FROM SpaceshipProduct a";
+		Query hql = session.createQuery(requete);
+		List<SpaceshipProduct> resultat = hql.list();
+		return resultat;
 	}
 	
 	//Getters et Setters

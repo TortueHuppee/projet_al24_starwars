@@ -170,6 +170,11 @@ public class BusinessCatalog implements IBusinessCatalog {
         return listeProduitsEnStock;
     }
     
+	@Override
+	public List<SpaceshipProduct> getAllSpaceShipProduct() {
+		return proxySpaceShip.getAllSpaceShipProduct();
+	}
+    
     //Proxy
 
 	@Autowired
@@ -230,5 +235,4 @@ public class BusinessCatalog implements IBusinessCatalog {
 	public void setProxySpaceShip(IDaoSpaceShipRef proxySpaceShip) {
 		this.proxySpaceShip = proxySpaceShip;
 	}
-
 }

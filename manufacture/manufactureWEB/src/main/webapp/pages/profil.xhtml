@@ -67,7 +67,7 @@
 <!-- 						<h:inputText value="#{userBean.user.login}" rendered="#{editBean.editModePersonnel}" /> -->
 						
 						<h:outputLabel value="Date d'inscription"/> :
-						<h:outputLabel value="#{profilBean.sdf.format(userBean.user.createTime)}"/>
+						<h:outputLabel value="#{profilBean.sdf.format(profilBean.date)}"/>
 						
 						<h:outputLabel value="Mot de passe"/> :
 						<h:outputLabel value="***********" rendered="#{not editBean.editModePersonnel}" />

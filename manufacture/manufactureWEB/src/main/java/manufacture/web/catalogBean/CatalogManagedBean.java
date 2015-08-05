@@ -16,6 +16,8 @@ import manufacture.entity.product.Color;
 import manufacture.entity.product.Constructor;
 import manufacture.entity.product.ConstructorProduct;
 import manufacture.entity.product.Material;
+import manufacture.entity.product.Product;
+import manufacture.entity.product.ProductRef;
 import manufacture.entity.product.SpaceshipProduct;
 import manufacture.entity.product.SpaceshipRef;
 import manufacture.entity.product.UsedProduct;
@@ -37,7 +39,6 @@ public class CatalogManagedBean {
     /**
      * Les listes de produits.
      */
-
     private List<ConstructorProduct> listeConstructorProductBrute;
     private List<ArtisanProduct> listeArtisanProductBrute;
     private List<UsedProduct> listeUsedProductBrute;
@@ -54,6 +55,8 @@ public class CatalogManagedBean {
     /**
      * Filtres communs aux trois listes de produit.
      */
+    private List<SpaceshipProduct> listeModèleVaisseauProduit;
+    
     private List<Category> listeCatégories;
     private List<Color> listeCouleurs;
     private List<Material> listeMateriaux;
@@ -80,6 +83,8 @@ public class CatalogManagedBean {
         listeConstructorProductBrute = proxyCatalog.getAllConstructorProduct();    
         listeArtisanProductBrute = proxyCatalog.getAllArtisanProduct();
         listeUsedProductBrute = proxyCatalog.getAllUsedProduct();
+        
+        listeModèleVaisseauProduit = proxyCatalog.getAllSpaceShipProduct();
 
         initialisationFiltres();
         initialisationListesBrutes();
@@ -130,6 +135,7 @@ public class CatalogManagedBean {
         listeProduitConstructeurBrute = new ArrayList<Produit>();
         listeProduitArtisanBrute = new ArrayList<Produit>();
         listeProduitOccasionBrute = new ArrayList<Produit>();
+        
 
         for (ConstructorProduct product : listeConstructorProductBrute)
         {  
@@ -144,14 +150,7 @@ public class CatalogManagedBean {
             String urlPhoto = product.getProductRef().getUrlImage();
             double prix = DoubleFormat(product.getPrice());
 
-            List<SpaceshipProduct> listeModèleVaisseauCompatibles = proxyCatalog.getSpaceShipProductByProduct(product.getProductRef());
-            List<Integer> listeIdVaisseau = new ArrayList<>();
-
-            for (SpaceshipProduct ssp : listeModèleVaisseauCompatibles)
-            {
-                listeIdVaisseau.add(ssp.getIdSpaceshipProduct());
-            }
-            Produit produit = new Produit(idProductRef, idProduct, idConstructeur, idCouleur, idMateriaux, idCategorie, nomProduct, urlPhoto, prix, listeIdVaisseau);
+            Produit produit = new Produit(idProductRef, idProduct, idConstructeur, idCouleur, idMateriaux, idCategorie, nomProduct, urlPhoto, prix);
 
             listeProduitConstructeurBrute.add(produit);
         }
@@ -169,14 +168,7 @@ public class CatalogManagedBean {
             String urlPhoto = product.getProductRef().getUrlImage();
             double prix = DoubleFormat(product.getPrice());
 
-            List<SpaceshipProduct> listeModèleVaisseauCompatibles = proxyCatalog.getSpaceShipProductByProduct(product.getProductRef());
-            List<Integer> listeIdVaisseau = new ArrayList<>();
-
-            for (SpaceshipProduct ssp : listeModèleVaisseauCompatibles)
-            {
-                listeIdVaisseau.add(ssp.getIdSpaceshipProduct());
-            }
-            Produit produit = new Produit(idProductRef, idProduct, idConstructeur, idCouleur, idMateriaux, idCategorie, nomProduct, urlPhoto, prix, listeIdVaisseau);
+            Produit produit = new Produit(idProductRef, idProduct, idConstructeur, idCouleur, idMateriaux, idCategorie, nomProduct, urlPhoto, prix);
 
             listeProduitArtisanBrute.add(produit);
         }
@@ -194,14 +186,7 @@ public class CatalogManagedBean {
             String urlPhoto = product.getProductRef().getUrlImage();
             double prix = DoubleFormat(product.getPrice());
 
-            List<SpaceshipProduct> listeModèleVaisseauCompatibles = proxyCatalog.getSpaceShipProductByProduct(product.getProductRef());
-            List<Integer> listeIdVaisseau = new ArrayList<>();
-
-            for (SpaceshipProduct ssp : listeModèleVaisseauCompatibles)
-            {
-                listeIdVaisseau.add(ssp.getIdSpaceshipProduct());
-            }
-            Produit produit = new Produit(idProductRef, idProduct, idConstructeur, idCouleur, idMateriaux, idCategorie, nomProduct, urlPhoto, prix, listeIdVaisseau);
+            Produit produit = new Produit(idProductRef, idProduct, idConstructeur, idCouleur, idMateriaux, idCategorie, nomProduct, urlPhoto, prix);
 
             listeProduitOccasionBrute.add(produit);
         }
@@ -305,15 +290,17 @@ public class CatalogManagedBean {
     public boolean filtreModèleVaisseau(Produit produit)
     {
         boolean ajout = false;
-
-        for (int idModeleVaisseau : produit.getListeModèleVaisseauCompatibles())
+        
+        for (SpaceshipProduct ssp : listeModèleVaisseauProduit)
         {
-            if (idModeleVaisseau == idSpaceShipSelected)
-            {
-                ajout = true;
-            }
+        	if (ssp.getProductRef().getIdProductRef() == produit.getIdProductRef())
+        	{
+        		if (ssp.getSpaceshipRef().getIdSpaceshipRef() == idSpaceShipSelected)
+        		{
+        			ajout = true;
+        		}
+        	}
         }
-
         return ajout;
     }
 
@@ -365,7 +352,16 @@ public class CatalogManagedBean {
     }
     //Getters et Setters	
 
-    public List<Produit> getListeProduitAffichee() {
+    public List<SpaceshipProduct> getListeModèleVaisseauProduit() {
+		return listeModèleVaisseauProduit;
+	}
+
+	public void setListeModèleVaisseauProduit(
+			List<SpaceshipProduct> listeModèleVaisseauProduit) {
+		this.listeModèleVaisseauProduit = listeModèleVaisseauProduit;
+	}
+
+	public List<Produit> getListeProduitAffichee() {
         return listeProduitConstructeurAffichee;
     }
 
@@ -602,13 +598,11 @@ public class CatalogManagedBean {
         private String nom;
         private String urlPhoto;
         private double prixMin;
-        private List<Integer> listeModèleVaisseauCompatibles;
 
         public Produit(int paramIdProductRef, int paramIdProduct,
                 int paramIdConcstructeur, int paramIdCouleur,
                 int paramIdMateriaux, int paramIdCategorie, String paramNom, String paramUrlPhoto,
-                double paramPrixMin,
-                List<Integer> paramListeModèleVaisseauCompatibles) {
+                double paramPrixMin) {
             super();
             idProductRef = paramIdProductRef;
             idProduct = paramIdProduct;
@@ -619,7 +613,6 @@ public class CatalogManagedBean {
             nom = paramNom;
             urlPhoto = paramUrlPhoto;
             prixMin = paramPrixMin;
-            listeModèleVaisseauCompatibles = paramListeModèleVaisseauCompatibles;
         }
 
         public int getIdProductRef() {
@@ -657,13 +650,6 @@ public class CatalogManagedBean {
         }
         public void setPrixMin(double prixMin) {
             this.prixMin = prixMin;
-        }
-        public List<Integer> getListeModèleVaisseauCompatibles() {
-            return listeModèleVaisseauCompatibles;
-        }
-        public void setListeModèleVaisseauCompatibles(
-                List<Integer> paramListeModèleVaisseauCompatibles) {
-            listeModèleVaisseauCompatibles = paramListeModèleVaisseauCompatibles;
         }
         public int getIdConcstructeur() {
             return idConcstructeur;

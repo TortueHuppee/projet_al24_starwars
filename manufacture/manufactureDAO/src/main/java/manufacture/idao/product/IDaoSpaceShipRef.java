@@ -4,6 +4,7 @@ import java.util.List;
 
 import manufacture.entity.product.Category;
 import manufacture.entity.product.ProductRef;
+import manufacture.entity.product.SpaceshipProduct;
 import manufacture.entity.product.SpaceshipRef;
 
 public interface IDaoSpaceShipRef {
@@ -17,5 +18,7 @@ public interface IDaoSpaceShipRef {
 	void deleteSpaceShipRef(SpaceshipRef spaceShipRef);
 	
 	void updateSpaceShipRef(SpaceshipRef spaceShipRef);
+
+	List<SpaceshipProduct> getAllSpaceShipProduct();
 	
 }

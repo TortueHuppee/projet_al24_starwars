@@ -33,7 +33,9 @@ public class ProductRef implements Serializable {
 	//bi-directional many-to-one association to Category
 	@ManyToOne
 	private Category category;
-
+	
+	//@OneToMany(fetch = FetchType.EAGER)
+	
 	//bi-directional many-to-one association to SpaceshipProduct
 	@OneToMany(mappedBy="productRef")
 	private List<SpaceshipProduct> spaceshipProducts;
