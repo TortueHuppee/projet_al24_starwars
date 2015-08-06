@@ -8,23 +8,22 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.SessionScoped;
+import javax.faces.model.SelectItem;
+import javax.faces.model.SelectItemGroup;
 
-import manufacture.entity.product.ArtisanProduct;
 import manufacture.entity.product.Category;
 import manufacture.entity.product.Color;
 import manufacture.entity.product.Constructor;
-import manufacture.entity.product.ConstructorProduct;
 import manufacture.entity.product.Material;
 import manufacture.entity.product.Product;
-import manufacture.entity.product.ProductRef;
 import manufacture.entity.product.SpaceshipProduct;
 import manufacture.entity.product.SpaceshipRef;
-import manufacture.entity.product.UsedProduct;
+import manufacture.entity.user.User;
 import manufacture.ifacade.catalog.ICatalog;
 
 import org.apache.log4j.Logger;
 
+import manufacture.web.datas.DataLoader;
 import manufacture.web.util.RepeatPaginator;
 
 @ManagedBean(name="mbCatalog")
@@ -35,13 +34,25 @@ public class CatalogManagedBean {
 
     @ManagedProperty(value="#{catalog}")
     private ICatalog proxyCatalog;
+    
+    @ManagedProperty(value="#{mbIndex}")
+    private IndexManagedBean indexManagedBean;
+    
+    @ManagedProperty(value="#{mbDataLoader}")
+    private DataLoader dataLoader;
 
+   /**
+    * Constantes
+    */
+    
+    private static final Integer PRODUCT_CONSTRUCTEUR_TYPE_ID = 1;
+    private static final Integer PRODUCT_ARTISAN_TYPE_ID = 2;
+    private static final Integer PRODUCT_OCCASION_TYPE_ID = 3;
+    
     /**
      * Les listes de produits.
      */
-    private List<ConstructorProduct> listeConstructorProductBrute;
-    private List<ArtisanProduct> listeArtisanProductBrute;
-    private List<UsedProduct> listeUsedProductBrute;
+    private List<Product> listeProductBrute;
 
     private List<Produit> listeProduitConstructeurBrute;
     private List<Produit> listeProduitConstructeurAffichee;
@@ -60,7 +71,9 @@ public class CatalogManagedBean {
     private List<Category> listeCatégories;
     private List<Color> listeCouleurs;
     private List<Material> listeMateriaux;
+    private List<SelectItem> listeItemConstructeur;
     private List<Constructor> listeConstructeurs;
+    private List<User> listeArtisans;
     private List<SpaceshipRef> listeVaisseaux;
 
     private int idCategorySelected;
@@ -80,9 +93,7 @@ public class CatalogManagedBean {
     @PostConstruct
     void init()
     {
-        listeConstructorProductBrute = proxyCatalog.getAllConstructorProduct();    
-        listeArtisanProductBrute = proxyCatalog.getAllArtisanProduct();
-        listeUsedProductBrute = proxyCatalog.getAllUsedProduct();
+    	listeProductBrute = indexManagedBean.getListeProduitBrute();
         
         listeModèleVaisseauProduit = proxyCatalog.getAllSpaceShipProduct();
 
@@ -101,11 +112,46 @@ public class CatalogManagedBean {
 
     public void initialisationFiltres() {
 
-        listeCatégories = proxyCatalog.getAllCategory();
-        listeCouleurs = proxyCatalog.getAllColor();
-        listeMateriaux = proxyCatalog.getAllMaterial();
-        listeConstructeurs = proxyCatalog.getAllConstructor();
-        listeVaisseaux = proxyCatalog.getAllSpaceShipRef();
+        listeCatégories = dataLoader.getListeCatégories();
+        listeCouleurs = dataLoader.getListeCouleurs();
+        listeMateriaux = dataLoader.getListeMateriaux();
+        listeConstructeurs = dataLoader.getListeConstructeurs();
+        listeArtisans = dataLoader.getListeArtisans();
+        
+        SelectItemGroup groupeConstructeur = new SelectItemGroup("Constructeurs");
+        SelectItemGroup groupeArtisan = new SelectItemGroup("Artisans");
+        
+        SelectItem[] tableauConstructeur = new SelectItem[listeConstructeurs.size()];
+        SelectItem[] tableauArtisan = new SelectItem[listeArtisans.size()];
+        
+        for (int i = 0; i < listeConstructeurs.size() ; i++)
+        {
+        	Constructor c = listeConstructeurs.get(i);
+        	SelectItem item = new SelectItem(c.getIdConstructor(), c.getConstructorName(), "Produit constructeur");
+        	tableauConstructeur[i] = item;
+        }
+        groupeConstructeur.setSelectItems(tableauConstructeur);
+        
+        for (int i = 0; i < listeArtisans.size() ; i++)
+        {
+        	User u = listeArtisans.get(i);
+        	SelectItem item = new SelectItem((u.getIdUser() * -1), u.getUserName(), "Produit artisan");
+        	tableauArtisan[i] = item;
+        }
+        groupeArtisan.setSelectItems(tableauArtisan);
+        
+        listeItemConstructeur = new ArrayList<SelectItem>();
+        
+        if (listeConstructeurs.size() > 0)
+        {
+        	listeItemConstructeur.add(groupeConstructeur);
+        }
+        
+        if (listeArtisans.size() > 0)
+        {
+        	listeItemConstructeur.add(groupeArtisan);
+        }
+        listeVaisseaux = dataLoader.getListeVaisseaux();
 
         idCategorySelected = 1;
         idColorSelected = 0;
@@ -113,7 +159,7 @@ public class CatalogManagedBean {
         idConstructorSelected = 0;
         idSpaceShipSelected = 0;
     }
-
+    
     public void initialisationListesAffichees()
     {
         listeProduitConstructeurAffichee = new ArrayList<Produit>();
@@ -121,12 +167,9 @@ public class CatalogManagedBean {
         listeProduitOccasionAffichee = new ArrayList<Produit>();
 
         tousLesFiltres(listeProduitConstructeurBrute , listeProduitConstructeurAffichee);
+        
         paginatedListConstructorProduct = new RepeatPaginator(listeProduitConstructeurAffichee, 24);
-        
-        tousLesFiltres(listeProduitArtisanBrute , listeProduitArtisanAffichee);
         paginatedListArtisanProduct = new RepeatPaginator(listeProduitArtisanAffichee, 24);
-        
-        tousLesFiltres(listeProduitOccasionBrute , listeProduitOccasionAffichee);  
         paginatedListUsedProduct = new RepeatPaginator(listeProduitOccasionAffichee, 24);
     }
     
@@ -136,13 +179,22 @@ public class CatalogManagedBean {
         listeProduitArtisanBrute = new ArrayList<Produit>();
         listeProduitOccasionBrute = new ArrayList<Produit>();
         
-
-        for (ConstructorProduct product : listeConstructorProductBrute)
+        for (Product product : listeProductBrute)
         {  
             int idProductRef = product.getProductRef().getIdProductRef();
             int idProduct = product.getIdProduct();
             int idCouleur = product.getColor().getIdColor();
-            int idConstructeur = product.getConstructor().getIdConstructor();
+            
+            int idConstructeur = 0;
+            if (product.getTypeProduct().getIdTypeProduct() == PRODUCT_CONSTRUCTEUR_TYPE_ID)
+            {
+            	idConstructeur = product.getConstructor().getIdConstructor();
+            }
+            else
+            {
+            	idConstructeur = product.getUser().getIdUser() * -1;
+            }
+            
             int idMateriaux = product.getMaterial().getIdMaterial();
             int idCategorie = product.getProductRef().getCategory().getIdCategory();
 
@@ -151,46 +203,14 @@ public class CatalogManagedBean {
             double prix = DoubleFormat(product.getPrice());
 
             Produit produit = new Produit(idProductRef, idProduct, idConstructeur, idCouleur, idMateriaux, idCategorie, nomProduct, urlPhoto, prix);
-
-            listeProduitConstructeurBrute.add(produit);
+            
+            switch (product.getTypeProduct().getIdTypeProduct()) {
+            case 1 : listeProduitConstructeurBrute.add(produit); break;
+            case 2 : listeProduitArtisanBrute.add(produit); break;
+            case 3 : listeProduitOccasionBrute.add(produit); break;
+			default: break;
+			}
         }
-
-        for (ArtisanProduct product : listeArtisanProductBrute)
-        {  
-            int idProductRef = product.getProductRef().getIdProductRef();
-            int idProduct = product.getIdProduct();
-            int idCouleur = product.getColor().getIdColor();
-            int idConstructeur = product.getUser().getIdUser();
-            int idMateriaux = product.getMaterial().getIdMaterial();
-            int idCategorie = product.getProductRef().getCategory().getIdCategory();
-
-            String nomProduct = product.getProductRef().getProductName();
-            String urlPhoto = product.getProductRef().getUrlImage();
-            double prix = DoubleFormat(product.getPrice());
-
-            Produit produit = new Produit(idProductRef, idProduct, idConstructeur, idCouleur, idMateriaux, idCategorie, nomProduct, urlPhoto, prix);
-
-            listeProduitArtisanBrute.add(produit);
-        }
-
-        for (UsedProduct product : listeUsedProductBrute)
-        {  
-            int idProductRef = product.getProductRef().getIdProductRef();
-            int idProduct = product.getIdProduct();
-            int idCouleur = product.getColor().getIdColor();
-            int idConstructeur = product.getUser().getIdUser();
-            int idMateriaux = product.getMaterial().getIdMaterial();
-            int idCategorie = product.getProductRef().getCategory().getIdCategory();
-
-            String nomProduct = product.getProductRef().getProductName();
-            String urlPhoto = product.getProductRef().getUrlImage();
-            double prix = DoubleFormat(product.getPrice());
-
-            Produit produit = new Produit(idProductRef, idProduct, idConstructeur, idCouleur, idMateriaux, idCategorie, nomProduct, urlPhoto, prix);
-
-            listeProduitOccasionBrute.add(produit);
-        }
-
     }
 
     //Filtres
@@ -230,7 +250,6 @@ public class CatalogManagedBean {
         }
     }
     
-    
     public boolean filtreCategorie(Produit produit)
     {
         if (produit.getIdCategorie() != idCategorySelected)
@@ -242,7 +261,6 @@ public class CatalogManagedBean {
             return true;
         }
     }
-
 
     public boolean filtreCouleur(Produit produit)
     {
@@ -256,7 +274,6 @@ public class CatalogManagedBean {
         }
     }
 
-
     public boolean filtreMateriaux(Produit produit)
     {
         if (produit.getIdMateriaux() != idMaterialSelected)
@@ -268,7 +285,6 @@ public class CatalogManagedBean {
             return true;
         }
     }
-
 
     public boolean filtreConstructeur(Produit produit)
     {
@@ -286,7 +302,6 @@ public class CatalogManagedBean {
         }
     }
 
-
     public boolean filtreModèleVaisseau(Produit produit)
     {
         boolean ajout = false;
@@ -303,7 +318,6 @@ public class CatalogManagedBean {
         }
         return ajout;
     }
-
 
     public boolean produitDejaDansLaListe(Produit produit, List<Produit> liste)
     {
@@ -360,22 +374,6 @@ public class CatalogManagedBean {
 			List<SpaceshipProduct> listeModèleVaisseauProduit) {
 		this.listeModèleVaisseauProduit = listeModèleVaisseauProduit;
 	}
-
-	public List<Produit> getListeProduitAffichee() {
-        return listeProduitConstructeurAffichee;
-    }
-
-    public void setListeProduitAffichee(List<Produit> listeProduitAffichee) {
-        this.listeProduitConstructeurAffichee = listeProduitAffichee;
-    }
-
-    public List<ConstructorProduct> getListeProduct() {
-        return listeConstructorProductBrute;
-    }
-
-    public void setListeProduct(List<ConstructorProduct> listeProduct) {
-        this.listeConstructorProductBrute = listeProduct;
-    }
 
     public List<Color> getListeCouleurs() {
         return listeCouleurs;
@@ -455,41 +453,6 @@ public class CatalogManagedBean {
 
     public void setIdSpaceShipSelected(int idSpaceShipSelected) {
         this.idSpaceShipSelected = idSpaceShipSelected;
-    }
-
-    public List<ConstructorProduct> getListeProductBrute() {
-        return listeConstructorProductBrute;
-    }
-
-    public void setListeProductBrute(List<ConstructorProduct> listeProductBrute) {
-        this.listeConstructorProductBrute = listeProductBrute;
-    }
-
-    public List<ConstructorProduct> getListeConstructorProductBrute() {
-        return listeConstructorProductBrute;
-    }
-
-    public void setListeConstructorProductBrute(
-            List<ConstructorProduct> paramListeConstructorProductBrute) {
-        listeConstructorProductBrute = paramListeConstructorProductBrute;
-    }
-
-    public List<ArtisanProduct> getListeArtisanProductBrute() {
-        return listeArtisanProductBrute;
-    }
-
-    public void setListeArtisanProductBrute(
-            List<ArtisanProduct> paramListeArtisanProductBrute) {
-        listeArtisanProductBrute = paramListeArtisanProductBrute;
-    }
-
-    public List<UsedProduct> getListeUsedProductBrute() {
-        return listeUsedProductBrute;
-    }
-
-    public void setListeUsedProductBrute(
-            List<UsedProduct> paramListeUsedProductBrute) {
-        listeUsedProductBrute = paramListeUsedProductBrute;
     }
 
     public List<Produit> getListeProduitBrute() {
@@ -586,99 +549,55 @@ public class CatalogManagedBean {
 		this.paginatedListUsedProduct = paginatedListUsedProduct;
 	}
 
-    //Classe interne	
-    public class Produit implements Comparable<Produit>
-    {
-        private int idProductRef;
-        private int idProduct;
-        private int idConcstructeur;
-        private int idCouleur;
-        private int idMateriaux;
-        private int idCategorie;
-        private String nom;
-        private String urlPhoto;
-        private double prixMin;
+    public IndexManagedBean getIndexManagedBean() {
+		return indexManagedBean;
+	}
 
-        public Produit(int paramIdProductRef, int paramIdProduct,
-                int paramIdConcstructeur, int paramIdCouleur,
-                int paramIdMateriaux, int paramIdCategorie, String paramNom, String paramUrlPhoto,
-                double paramPrixMin) {
-            super();
-            idProductRef = paramIdProductRef;
-            idProduct = paramIdProduct;
-            idConcstructeur = paramIdConcstructeur;
-            idCouleur = paramIdCouleur;
-            idMateriaux = paramIdMateriaux;
-            idCategorie = paramIdCategorie;
-            nom = paramNom;
-            urlPhoto = paramUrlPhoto;
-            prixMin = paramPrixMin;
-        }
+	public void setIndexManagedBean(IndexManagedBean indexManagedBean) {
+		this.indexManagedBean = indexManagedBean;
+	}
 
-        public int getIdProductRef() {
-            return idProductRef;
-        }
+	public List<Product> getListeProductBrute() {
+		return listeProductBrute;
+	}
 
-        public void setIdProductRef(int idProductRef) {
-            this.idProductRef = idProductRef;
-        }
+	public void setListeProductBrute(List<Product> listeProductBrute) {
+		this.listeProductBrute = listeProductBrute;
+	}
 
-        public int getIdProduct() {
-            return idProduct;
-        }
+	public static Integer getProductConstructeurTypeId() {
+		return PRODUCT_CONSTRUCTEUR_TYPE_ID;
+	}
 
-        public void setIdProduct(int idProduct) {
-            this.idProduct = idProduct;
-        }
+	public static Integer getProductArtisanTypeId() {
+		return PRODUCT_ARTISAN_TYPE_ID;
+	}
 
-        public String getNom() {
-            return nom;
-        }
+	public static Integer getProductOccasionTypeId() {
+		return PRODUCT_OCCASION_TYPE_ID;
+	}
 
-        public void setNom(String nom) {
-            this.nom = nom;
-        }
+	public List<SelectItem> getListeItemConstructeur() {
+		return listeItemConstructeur;
+	}
 
-        public String getUrlPhoto() {
-            return urlPhoto;
-        }
-        public void setUrlPhoto(String urlPhoto) {
-            this.urlPhoto = urlPhoto;
-        }
-        public double getPrixMin() {
-            return prixMin;
-        }
-        public void setPrixMin(double prixMin) {
-            this.prixMin = prixMin;
-        }
-        public int getIdConcstructeur() {
-            return idConcstructeur;
-        }
-        public void setIdConcstructeur(int paramIdConcstructeur) {
-            idConcstructeur = paramIdConcstructeur;
-        }
-        public int getIdCouleur() {
-            return idCouleur;
-        }
-        public void setIdCouleur(int paramIdCouleur) {
-            idCouleur = paramIdCouleur;
-        }
-        public int getIdMateriaux() {
-            return idMateriaux;
-        }
-        public void setIdMateriaux(int paramIdMateriaux) {
-            idMateriaux = paramIdMateriaux;
-        }
-        public int getIdCategorie() {
-            return idCategorie;
-        }
-        public void setIdCategorie(int paramIdCategorie) {
-            idCategorie = paramIdCategorie;
-        }
+	public void setListeItemConstructeur(List<SelectItem> listeItemConstructeur) {
+		this.listeItemConstructeur = listeItemConstructeur;
+	}
 
-        @Override
-        public int compareTo(Produit o) {
-            return this.prixMin > o.prixMin ? 1 : (this.prixMin < o.prixMin ? -1 : 0);
-        }
-    }
+	public List<User> getListeArtisans() {
+		return listeArtisans;
+	}
+
+	public void setListeArtisans(List<User> listeArtisans) {
+		this.listeArtisans = listeArtisans;
+	}
+
+	public DataLoader getDataLoader() {
+		return dataLoader;
+	}
+
+	public void setDataLoader(DataLoader dataLoader) {
+		this.dataLoader = dataLoader;
+	}
 }

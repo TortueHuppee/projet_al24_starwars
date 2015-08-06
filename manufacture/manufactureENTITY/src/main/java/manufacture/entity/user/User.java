@@ -21,9 +21,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import manufacture.entity.cart.Cart;
-import manufacture.entity.product.ArtisanProduct;
+import manufacture.entity.product.Product;
 import manufacture.entity.product.Rating;
-import manufacture.entity.product.UsedProduct;
 import manufacture.entity.report.Reporting;
 
 
@@ -80,10 +79,7 @@ public class User implements Serializable {
 
     //bi-directional many-to-one association to Product
     @OneToMany(mappedBy = "user")
-    private List<ArtisanProduct> artisanProducts;
-
-    @OneToMany(mappedBy = "user")
-    private List<UsedProduct> usedProducts;
+    private List<Product> products;
 
     //bi-directional many-to-one association to Rating
     @OneToMany(mappedBy = "user")
@@ -327,22 +323,6 @@ public class User implements Serializable {
         this.civility = civility;
     }
 
-    public List<ArtisanProduct> getArtisanProducts() {
-        return artisanProducts;
-    }
-
-    public void setArtisanProducts(List<ArtisanProduct> artisanProducts) {
-        this.artisanProducts = artisanProducts;
-    }
-
-    public List<UsedProduct> getUsedProducts() {
-        return usedProducts;
-    }
-
-    public void setUsedProducts(List<UsedProduct> usedProducts) {
-        this.usedProducts = usedProducts;
-    }
-
     public List<Address> getAddresses() {
         return addresses;
     }
@@ -382,4 +362,12 @@ public class User implements Serializable {
     public void setUserRole(UserRole paramUserRole) {
         userRole = paramUserRole;
     }
+
+	public List<Product> getProducts() {
+		return products;
+	}
+
+	public void setProducts(List<Product> products) {
+		this.products = products;
+	}
 }

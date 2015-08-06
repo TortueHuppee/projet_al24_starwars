@@ -28,5 +28,7 @@ public interface IProfil {
 	//Commandes passées
 	List<Cart> getCartByUser(User user);
 
+	List<Product> getProductNotSendByUser(User user);
+
 	
 }

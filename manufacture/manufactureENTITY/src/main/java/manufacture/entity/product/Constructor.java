@@ -21,7 +21,7 @@ public class Constructor implements Serializable {
 
 	//bi-directional many-to-one association to ConstructorProduct
 	@OneToMany(mappedBy="constructor")
-	private List<ConstructorProduct> products;
+	private List<Product> products;
 
 	public Constructor() {
 	}
@@ -48,21 +48,21 @@ public class Constructor implements Serializable {
 		this.constructorName = constructorName;
 	}
 
-	public List<ConstructorProduct> getProducts() {
+	public List<Product> getProducts() {
 		return this.products;
 	}
 
-	public void setProducts(List<ConstructorProduct> products) {
+	public void setProducts(List<Product> products) {
 		this.products = products;
 	}
 
-	public ConstructorProduct addProduct(ConstructorProduct product) {
+	public Product addProduct(Product product) {
 		getProducts().add(product);
 
 		return product;
 	}
 
-	public ConstructorProduct removeProduct(ConstructorProduct product) {
+	public Product removeProduct(Product product) {
 		getProducts().remove(product);
 
 		return product;

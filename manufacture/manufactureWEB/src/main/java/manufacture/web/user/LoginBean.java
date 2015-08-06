@@ -53,13 +53,28 @@ public class LoginBean {
 		}
 		
 		userBean.setUser(userTmp);
-//		mergeCarts();
 		String toPage = null;
 		
 		if(redirect != null)
 		{
-			toPage = redirect;
-			redirect = null;
+			if (redirect.equals("annonce.xhtml?faces-redirect=true"))
+			{
+				if (userTmp.getUserRole().getIdUserRole() == 1 || userTmp.getUserRole().getIdUserRole() == 3)
+				{
+					toPage = redirect;
+					redirect = null;
+				}
+				else
+				{
+					toPage = "annonceNonAutorisee.xhtml?faces-redirect=true";
+					redirect = null;
+				}
+			}
+			else
+			{
+				toPage = redirect;
+				redirect = null;
+			}
 		}
 		else
 		{
@@ -75,29 +90,6 @@ public class LoginBean {
 		} 
 		return toPage;
 	} 
-	
-	/**
-	 * Permet de melanger le cart de l'utilisateur existant, et le cart en cours afin d'obtenir un cart unique
-	 */
-//	private void mergeCarts(){
-//		Cart currentUserCart = mbCart.getCurrentUserCart();
-//		Cart currentCart = mbCart.getCart();
-//		if(currentUserCart.getCartProducts().size() > 0){
-//			if(currentCart.getCartProducts().size() == 0){
-//				mbCart.setCart(currentUserCart);
-//			}else{
-//				currentCart.setUser(userBean.getUser());
-//				for(CartProduct productUser : currentUserCart.getCartProducts()){
-//					for(CartProduct currentCartProduct: currentCart.getCartProducts()){
-//						if(productUser.getProduct().getIdProduct() == currentCartProduct.getProduct().getIdProduct()){
-//							currentCartProduct.setQuantity(currentCartProduct.getQuantity()+productUser.getQuantity());
-//						}
-//					}
-//				}
-//			} 
-//			mbCart.setCart(currentCart);
-//		}
-//	}
 	
 	public String doLogout(){
 		userBean.setUser(null);

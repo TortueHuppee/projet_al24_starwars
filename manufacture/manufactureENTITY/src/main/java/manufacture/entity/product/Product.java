@@ -1,6 +1,7 @@
 package manufacture.entity.product;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -15,9 +16,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import manufacture.entity.cart.CartProduct;
 import manufacture.entity.report.Reporting;
+import manufacture.entity.user.User;
 
 
 /**
@@ -26,10 +30,6 @@ import manufacture.entity.report.Reporting;
  */
 @Entity
 @Table(name="product")
-//Héritage :
-@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
-//Pour distinguer nos entités qui sont réunies dans une seule table :
-@DiscriminatorColumn(name="type_product")
 public class Product implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -54,6 +54,10 @@ public class Product implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="id_color")
 	private Color color;
+	
+	@ManyToOne
+	@JoinColumn(name="id_type_product")
+	private TypeProduct typeProduct;
 
 	//bi-directional many-to-one association to Material
 	@ManyToOne
@@ -72,6 +76,23 @@ public class Product implements Serializable {
 	//bi-directional many-to-one association to Reporting
 	@OneToMany(mappedBy="product")
 	private List<Reporting> reportings;
+	
+	//bi-directional many-to-one association to Constructor
+	@ManyToOne
+	@JoinColumn(name="id_constructor")
+	private Constructor constructor;
+	
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name="date_publication")
+	private Date datePublication;
+	
+	@Column(name="seller_comment")
+	private String sellerComment;
+	
+	//bi-directional many-to-one association to User
+	@ManyToOne
+	@JoinColumn(name="seller_id_user")
+	private User user;
 
 	public Product() {
 	}
@@ -197,5 +218,44 @@ public class Product implements Serializable {
 
 		return reporting;
 	}
+	
+	public Constructor getConstructor() {
+		return constructor;
+	}
 
+	public void setConstructor(Constructor constructor) {
+		this.constructor = constructor;
+	}
+	
+	public Date getDatePublication() {
+		return datePublication;
+	}
+
+	public void setDatePublication(Date datePublication) {
+		this.datePublication = datePublication;
+	}
+
+	public String getSellerComment() {
+		return sellerComment;
+	}
+
+	public void setSellerComment(String sellerComment) {
+		this.sellerComment = sellerComment;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public TypeProduct getTypeProduct() {
+		return typeProduct;
+	}
+
+	public void setTypeProduct(TypeProduct typeProduct) {
+		this.typeProduct = typeProduct;
+	}
 }

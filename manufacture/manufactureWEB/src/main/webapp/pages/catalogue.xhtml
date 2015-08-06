@@ -11,12 +11,18 @@
 			
 			<p:tabView>
 
-								
-					<p:tab title="Produits neufs" >	
-						<h:panelGrid columns="1" cellpadding="10" >
-						<div class="article-list">
+				<!-- Produits Constructeurs -->
+					<p:tab title="Produits neufs (#{mbCatalog.listeProduitConstructeurAffichee.size()})" >	
+						<h:panelGrid columns="1" cellpadding="10" rendered="#{empty mbCatalog.listeProduitConstructeurAffichee}">
+							<div class="aucunArticle">
+								<h:outputLabel value="Aucun résutat de recherche" />
+							</div>
+						</h:panelGrid>
+						
+						<h:panelGrid columns="1" cellpadding="10" rendered="#{not empty mbCatalog.listeProduitConstructeurAffichee}">
+						<div class="article-list" >
 
-								<div class="paginator">
+								<div class="paginator" >
 									<h:commandLink
 										action="#{mbCatalog.paginatedListConstructorProduct.goTo(mbCatalog.paginatedListConstructorProduct.getOne())}">
 										<span class="glyphicon glyphicon-fast-backward"></span>
@@ -103,8 +109,15 @@
 						</h:panelGrid>
 					</p:tab>
 						
-					<p:tab title="Produits artisanaux">
-						<h:panelGrid columns="1" cellpadding="10">
+					<!-- Produits Artisans -->
+					<p:tab title="Produits artisanaux (#{mbCatalog.listeProduitArtisanAffichee.size()})">
+						<h:panelGrid columns="1" cellpadding="10" rendered="#{empty mbCatalog.listeProduitArtisanAffichee}">
+							<div class="aucunArticle">
+								<h:outputLabel value="Aucun résutat de recherche" />
+							</div>
+						</h:panelGrid>
+						
+						<h:panelGrid columns="1" cellpadding="10" rendered="#{not empty mbCatalog.listeProduitArtisanAffichee}">
 							
 								<div class="paginator">
 									<h:commandLink
@@ -193,8 +206,15 @@
 						</h:panelGrid>
 					</p:tab>
 					
-					<p:tab title="Produits d'occasion">
-						<h:panelGrid columns="1" cellpadding="10">
+					<!-- Produits Occasion -->
+					<p:tab title="Produits d'occasion (#{mbCatalog.listeProduitOccasionAffichee.size()})" >
+						<h:panelGrid columns="1" cellpadding="10" rendered="#{empty mbCatalog.listeProduitOccasionAffichee}">
+							<div class="aucunArticle">
+								<h:outputLabel value="Aucun résutat de recherche" />
+							</div>
+						</h:panelGrid>
+						
+						<h:panelGrid columns="1" cellpadding="10" rendered="#{not empty mbCatalog.listeProduitOccasionAffichee}">
 
 							<div class="paginator">
 									<h:commandLink

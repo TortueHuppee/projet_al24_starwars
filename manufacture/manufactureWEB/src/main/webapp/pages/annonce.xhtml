@@ -2,66 +2,95 @@
 	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:p="http://primefaces.org/ui">
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
 
-	<ui:define name="panier-body">
-		<div class="itemCommande">
-			<p:fieldset styleClass="al24FielSetCommande">
-				<h:panelGrid columns="10" cellpadding="3">
-
-					<div class="itemLigneCommande">date de validation panier</div>
-					<div class="itemLigneCommande">
-						<p:commandLink id="aja1">
-							<h:outputText value="Detail Panier" />
-						</p:commandLink>
-					</div>
-					<div class="itemLigneCommande">quantite</div>
-					<div class="itemLigneCommande">total</div>
-					<div class="itemLigneCommande">etat</div>
-					<div class="itemLigneCommande">livraison</div>
-
-				</h:panelGrid>
-			</p:fieldset>
-		</div>
-				<div class="itemCommande">
-			<p:fieldset styleClass="al24FielSetCommande">
-				<h:panelGrid columns="10" cellpadding="3">
-
-					<div class="itemLigneCommande">date de validation panier</div>
-					<div class="itemLigneCommande">
-						<p:commandLink id="aja2">
-							<h:outputText value="Detail Panier" />
-						</p:commandLink>
-					</div>
-					<div class="itemLigneCommande">quantite</div>
-					<div class="itemLigneCommande">total</div>
-					<div class="itemLigneCommande">etat</div>
-					<div class="itemLigneCommande">livraison</div>
-
-				</h:panelGrid>
-			</p:fieldset>
-		</div>
-				<div class="itemCommande">
-			<p:fieldset styleClass="al24FielSetCommande">
-				<h:panelGrid columns="10" cellpadding="3">
-
-					<div class="itemLigneCommande">date de validation panier</div>
-					<div class="itemLigneCommande">
-						<p:commandLink id="aja3">
-							<h:outputText value="Detail Panier" />
-						</p:commandLink>
-					</div>
-					<div class="itemLigneCommande">quantite</div>
-					<div class="itemLigneCommande">total</div>
-					<div class="itemLigneCommande">etat</div>
-					<div class="itemLigneCommande">livraison</div>
-
-				</h:panelGrid>
-			</p:fieldset>
-		</div>
-
+	<ui:define name="stylesheets">
+		<h:outputStylesheet name="signInCss.css" library="css" />
 	</ui:define>
 
+	<ui:define name="main-body">
+		<h:form id="signinForm">
+			<div class="center-body">
+
+				<p:panel header="Déposer une annonce">
+					<p:panelGrid>
+						<p:row>
+							<p:column>
+								<h:outputLabel value="Référence du produit : " />
+								<p:selectOneMenu value="#{mbAnnonce.newProduct.productRef.idProductRef}">
+       									<f:selectItems var="item"
+       												   value="#{mbAnnonce.listeProduitRef}"
+       												   itemLabel="#{item.productName}"
+       												   itemValue="#{item.idProductRef}"/>
+       							</p:selectOneMenu>
+							</p:column>
+						</p:row>
+
+						<p:row>
+							<p:column>
+								<h:outputLabel value="Date de publication : " />
+								<h:inputText value="#{mbAnnonce.sdf.format(mbAnnonce.date)}" />
+							</p:column>
+						</p:row>
+						
+						<p:row>
+							<p:column>
+								<h:outputLabel value="Couleur du produit : " />
+								<p:selectOneMenu value="#{mbAnnonce.newProduct.color.idColor}">
+       									<f:selectItems var="item"
+       												   value="#{mbDataLoader.listeCouleurs}"
+       												   itemLabel="#{item.colorName}"
+       												   itemValue="#{item.idColor}"/>
+       							</p:selectOneMenu>
+							</p:column>
+						</p:row>
+										
+						<p:row>
+							<p:column>
+								<h:outputLabel value="Référence du produit : " />
+								<p:selectOneMenu value="#{mbAnnonce.newProduct.material.idMaterial}">
+       									<f:selectItems var="item"
+       												   value="#{mbDataLoader.listeMateriaux}"
+       												   itemLabel="#{item.materialName}"
+       												   itemValue="#{item.idMaterial}"/>
+       							</p:selectOneMenu>
+							</p:column>
+						</p:row>
+						
+						<p:row>
+							<p:column>
+								<h:outputLabel value="Prix (crédits) : " />
+								<input type="number" value="#{mbAnnonce.newProduct.price}" />
+							</p:column>
+						</p:row>
+						
+						<p:row>
+							<p:column>
+								<h:outputLabel value="Quantité : " />
+								<input type="number" value="#{mbAnnonce.newProduct.stock}" />
+							</p:column>
+						</p:row>
+						
+						<p:row>
+							<p:column>
+								<h:outputLabel value="Commentaire : " />
+								<h:inputText value="#{mbAnnonce.newProduct.sellerComment}" />
+								<h:outputLabel class="messageErreur" value="#{mbAnnonce.messageErreur}" />
+							</p:column>
+						</p:row>
+
+						<p:row>
+							<p:column>
+								<p:commandButton actionListener="#{mbAnnonce.validationFormulaire()}"
+									value="Déposer l'annonce" update="signinForm" />
+							</p:column>
+						</p:row>
+
+					</p:panelGrid>
+				</p:panel>
+			</div>
+		</h:form>
+	</ui:define>
 
 </ui:composition>

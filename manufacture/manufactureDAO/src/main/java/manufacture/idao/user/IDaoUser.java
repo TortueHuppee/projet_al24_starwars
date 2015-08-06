@@ -31,4 +31,7 @@ public interface IDaoUser {
 	List<User> getUserByUserName(String userName);
 
 	User editUser(User user);
+	
+
+	List<User> getAllArtisan();
 }

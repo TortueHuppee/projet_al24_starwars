@@ -17,9 +17,6 @@
 		<class>manufacture.entity.cart.PaymentType</class>
 		<class>manufacture.entity.user.Planet</class>
 		<class>manufacture.entity.product.Product</class>
-		<class>manufacture.entity.product.ConstructorProduct</class>
-		<class>manufacture.entity.product.ArtisanProduct</class>
-		<class>manufacture.entity.product.UsedProduct</class>
 		<class>manufacture.entity.product.ProductRef</class>
 		<class>manufacture.entity.product.Rating</class>
 		<class>manufacture.entity.report.Reporting</class>
@@ -28,6 +25,7 @@
 		<class>manufacture.entity.product.SpaceshipRef</class>
 		<class>manufacture.entity.user.User</class>
 		<class>manufacture.entity.cart.RelayPoint</class>
+		<class>manufacture.entity.product.TypeProduct</class>
 				
 		<properties>  
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>

@@ -2,11 +2,6 @@ package manufacture.business.dataloading;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import manufacture.entity.product.ConstructorProduct;
-import manufacture.entity.product.ProductRef;
 import manufacture.entity.user.City;
 import manufacture.entity.user.Country;
 import manufacture.entity.user.Planet;
@@ -14,6 +9,9 @@ import manufacture.ibusiness.dataloading.IBusinessDataLoading;
 import manufacture.idao.dataloading.IDaoCity;
 import manufacture.idao.dataloading.IDaoCountry;
 import manufacture.idao.dataloading.IDaoPlanet;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 @Service
 public class BusinessDataLoading implements IBusinessDataLoading {
 

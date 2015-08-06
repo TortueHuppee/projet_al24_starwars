@@ -31,10 +31,12 @@
 					<h:outputLabel value="#{mbProduct.productRef.category.categoryName}" />
 					
 					<h:outputLabel value="Prix :" />
-					<h:outputLabel  value="#{mbProduct.DoubleFormat(mbProduct.produitAffiche.price)} Crédits" />
+					<h:outputLabel  value="#{mbProduct.DoubleFormat(mbProduct.produitAffiche.price)*mbCart.quantity} Crédits" />
 
 					<h:outputLabel value="Quantité :" />
-					<p:spinner id="minMax" min="1"  max="#{mbProduct.quantiteDispo}" value="#{mbCart.quantity}" />
+					<p:spinner id="minMax" min="1"  max="#{mbProduct.quantiteDispo}" value="#{mbCart.quantity}">
+						 <p:ajax update="@form" process="@this" />
+					</p:spinner>
 
 					<h:outputLabel value="Description :" />
 					<h:outputLabel value="#{mbProduct.productRef.description}" />
@@ -53,7 +55,8 @@
 
 					<!-- Filtre Couleur -->
 					<h:outputLabel value="Couleur :" />
-					<h:selectOneMenu value="#{mbProduct.idColorSelected}">
+					<h:outputLabel value="#{mbProduct.listeCouleurs.get(0).colorName}" rendered="#{not (mbProduct.listeCouleurs.size() > 1)}"/>
+					<h:selectOneMenu value="#{mbProduct.idColorSelected}" rendered="#{mbProduct.listeCouleurs.size() > 1}">
 						<f:selectItems var="item" value="#{mbProduct.listeCouleurs}"
 							itemLabel="#{item.colorName}" itemValue="#{item.idColor}" />
 						<f:ajax event="change"
@@ -63,7 +66,8 @@
 
 					<!-- Filtre Matériaux -->
 					<h:outputLabel value="Matériaux :" />
-					<h:selectOneMenu value="#{mbProduct.idMaterialSelected}">
+					<h:outputLabel value="#{mbProduct.listeMateriaux.get(0).materialName}" rendered="#{not (mbProduct.listeMateriaux.size() > 1)}"/>
+					<h:selectOneMenu value="#{mbProduct.idMaterialSelected}" rendered="#{mbProduct.listeMateriaux.size() > 1}">
 						<f:selectItems var="item" value="#{mbProduct.listeMateriaux}"
 							itemLabel="#{item.materialName}" itemValue="#{item.idMaterial}" />
 						<f:ajax event="change"
@@ -73,7 +77,8 @@
 
 					<!-- Filtre Constructeur -->
 					<h:outputLabel value="Constructeur :" />
-					<h:selectOneMenu value="#{mbProduct.idConstructorSelected}">
+					<h:outputLabel value="#{mbProduct.listeConstructeurs.get(0).constructorName}" rendered="#{not (mbProduct.listeConstructeurs.size() > 1)}"/>
+					<h:selectOneMenu value="#{mbProduct.idConstructorSelected}" rendered="#{mbProduct.listeConstructeurs.size() > 1}">
 						<f:selectItems var="item" value="#{mbProduct.listeConstructeurs}"
 							itemLabel="#{item.constructorName}"
 							itemValue="#{item.idConstructor}" />

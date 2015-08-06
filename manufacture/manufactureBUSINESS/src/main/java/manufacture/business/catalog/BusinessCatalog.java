@@ -1,25 +1,19 @@
 package manufacture.business.catalog;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Service;
 
-import manufacture.business.util.ClassPathLoader;
-import manufacture.entity.product.ArtisanProduct;
 import manufacture.entity.product.Category;
 import manufacture.entity.product.Color;
 import manufacture.entity.product.Constructor;
-import manufacture.entity.product.ConstructorProduct;
 import manufacture.entity.product.Material;
 import manufacture.entity.product.Product;
 import manufacture.entity.product.ProductRef;
 import manufacture.entity.product.SpaceshipProduct;
 import manufacture.entity.product.SpaceshipRef;
-import manufacture.entity.product.UsedProduct;
+import manufacture.entity.user.User;
 import manufacture.ibusiness.catalog.IBusinessCatalog;
 import manufacture.idao.product.IDaoCategory;
 import manufacture.idao.product.IDaoColor;
@@ -28,6 +22,7 @@ import manufacture.idao.product.IDaoMaterial;
 import manufacture.idao.product.IDaoProduct;
 import manufacture.idao.product.IDaoProductRef;
 import manufacture.idao.product.IDaoSpaceShipRef;
+import manufacture.idao.user.IDaoUser;
 
 @Service
 public class BusinessCatalog implements IBusinessCatalog {
@@ -39,6 +34,7 @@ public class BusinessCatalog implements IBusinessCatalog {
 	private IDaoProduct proxyProduct;
 	private IDaoProductRef proxyProductRef;
 	private IDaoSpaceShipRef proxySpaceShip;
+	private IDaoUser proxyUser;
 	
 	@Override
 	public List<ProductRef> getAllProductRef() {
@@ -97,31 +93,13 @@ public class BusinessCatalog implements IBusinessCatalog {
 	}
 
 	@Override
-	public List<ConstructorProduct> getAllProductByProductRef(int idProducRef) {
+	public List<Product> getAllProductByProductRef(int idProducRef) {
 		return proxyProduct.getAllProductByProductRef(idProducRef);
 	}
 	
 	@Override
 	public List<Product> getAllProduct() {
 		return proxyProduct.getAllProduct();
-	}
-
-	@Override
-	public List<ConstructorProduct> getAllConstructorProduct() {
-		//Récupère tous les produits sans exceptions
-		//return proxyProduct.getAllConstructorProduct();
-		
-		//Récupère seulement les produits en stock
-		List<ConstructorProduct> listeComplete = proxyProduct.getAllConstructorProduct();
-		List<ConstructorProduct> listeProduitsEnStock = new ArrayList<ConstructorProduct>();
-		for (ConstructorProduct product : listeComplete)
-		{
-			if (product.getStock() != 0)
-			{
-				listeProduitsEnStock.add(product);
-			}
-		}
-		return listeProduitsEnStock;
 	}
 	
 	@Override
@@ -134,49 +112,23 @@ public class BusinessCatalog implements IBusinessCatalog {
 	public ProductRef getProductRefById(int idProductRef) {
 		return proxyProductRef.getProductRefById(idProductRef);
 	}
-	
-	public IDaoColor getProxyColor() {
-		return proxyColor;
-	}
-	
 
-    @Override
-    public List<ArtisanProduct> getAllArtisanProduct() {
-      //Récupère seulement les produits en stock
-        List<ArtisanProduct> listeComplete = proxyProduct.getAllArtisanProduct();
-        List<ArtisanProduct> listeProduitsEnStock = new ArrayList<ArtisanProduct>();
-        for (ArtisanProduct product : listeComplete)
-        {
-            if (product.getStock() != 0)
-            {
-                listeProduitsEnStock.add(product);
-            }
-        }
-        return listeProduitsEnStock;
-    }
-
-    @Override
-    public List<UsedProduct> getAllUsedProduct() {
-      //Récupère seulement les produits en stock
-        List<UsedProduct> listeComplete = proxyProduct.getAllUsedProduct();
-        List<UsedProduct> listeProduitsEnStock = new ArrayList<UsedProduct>();
-        for (UsedProduct product : listeComplete)
-        {
-            if (product.getStock() != 0)
-            {
-                listeProduitsEnStock.add(product);
-            }
-        }
-        return listeProduitsEnStock;
-    }
-    
 	@Override
 	public List<SpaceshipProduct> getAllSpaceShipProduct() {
 		return proxySpaceShip.getAllSpaceShipProduct();
 	}
+	
+	@Override
+	public List<User> getAllArtisan() {
+		return proxyUser.getAllArtisan();
+	}
     
     //Proxy
 
+	public IDaoColor getProxyColor() {
+		return proxyColor;
+	}
+	
 	@Autowired
 	public void setProxyColor(IDaoColor proxyColor) {
 		this.proxyColor = proxyColor;
@@ -234,5 +186,14 @@ public class BusinessCatalog implements IBusinessCatalog {
 	@Autowired
 	public void setProxySpaceShip(IDaoSpaceShipRef proxySpaceShip) {
 		this.proxySpaceShip = proxySpaceShip;
+	}
+
+	public IDaoUser getProxyUser() {
+		return proxyUser;
+	}
+
+	@Autowired
+	public void setProxyUser(IDaoUser proxyUser) {
+		this.proxyUser = proxyUser;
 	}
 }

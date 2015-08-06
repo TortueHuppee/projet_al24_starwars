@@ -28,4 +28,6 @@ public interface IBusinessProfil {
 	List<Cart> getCartByUser(User user);
 
 	List<CartProduct> getCartSendByUser(User user);
+
+	List<Product> getProductNotSendByUser(User user);
 }	

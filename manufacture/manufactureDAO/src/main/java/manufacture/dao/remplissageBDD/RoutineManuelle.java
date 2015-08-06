@@ -4,21 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import org.apache.log4j.Logger;
-import org.springframework.beans.factory.BeanFactory;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-
 import manufacture.entity.product.Category;
 import manufacture.entity.product.Color;
 import manufacture.entity.product.Constructor;
-import manufacture.entity.product.ConstructorProduct;
 import manufacture.entity.product.Material;
 import manufacture.entity.product.Product;
 import manufacture.entity.product.ProductRef;
 import manufacture.entity.product.SpaceshipProduct;
 import manufacture.entity.product.SpaceshipRef;
-import manufacture.entity.user.City;
-import manufacture.entity.user.Country;
 import manufacture.idao.product.IDaoCategory;
 import manufacture.idao.product.IDaoColor;
 import manufacture.idao.product.IDaoConstructor;
@@ -27,6 +20,10 @@ import manufacture.idao.product.IDaoProduct;
 import manufacture.idao.product.IDaoProductRef;
 import manufacture.idao.product.IDaoSpaceShipRef;
 import manufacture.idao.user.IDaoAdress;
+
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.BeanFactory;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class RoutineManuelle {
 
@@ -91,7 +88,7 @@ public class RoutineManuelle {
 									Color couleur = new Color();
 									couleur.setIdColor(l);
 									
-									ConstructorProduct produit = new ConstructorProduct();
+									Product produit = new Product();
 									produit.setProductRef(productRef);
 									produit.setColor(couleur);
 									produit.setConstructor(constructeur);

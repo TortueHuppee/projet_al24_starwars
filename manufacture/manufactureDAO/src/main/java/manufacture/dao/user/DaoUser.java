@@ -3,8 +3,6 @@ package manufacture.dao.user;
 import java.util.ArrayList;
 import java.util.List;
 
-import manufacture.entity.product.Color;
-import manufacture.entity.user.Address;
 import manufacture.entity.user.User;
 import manufacture.idao.user.IDaoUser;
 
@@ -15,8 +13,6 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import com.mysql.jdbc.log.Log;
 
 @Service
 @Transactional
@@ -118,6 +114,20 @@ public class DaoUser implements IDaoUser {
 		Session session = sf.getCurrentSession();
 		session.update(user);
 		return user;
+	}
+	
+	@Override
+	public List<User> getAllArtisan() {
+		Session session = sf.getCurrentSession();
+		String requete = "FROM User u WHERE u.userRole.idUserRole = 3";
+		Query hql = session.createQuery(requete);
+		List<User> resultat = hql.list();
+		
+		if (resultat.size() == 0 )
+		{
+			return new ArrayList<User>();
+		}
+		return resultat;
 	}
 		
 	//Getters et Setters

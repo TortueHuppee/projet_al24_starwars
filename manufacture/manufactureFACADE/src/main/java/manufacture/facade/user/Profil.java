@@ -2,9 +2,6 @@ package manufacture.facade.user;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import manufacture.entity.cart.Cart;
 import manufacture.entity.cart.CartProduct;
 import manufacture.entity.product.Product;
@@ -12,8 +9,10 @@ import manufacture.entity.user.Address;
 import manufacture.entity.user.User;
 import manufacture.ibusiness.user.IBusinessConnection;
 import manufacture.ibusiness.user.IBusinessProfil;
-import manufacture.ifacade.user.IConnection;
 import manufacture.ifacade.user.IProfil;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 @Service
 public class Profil implements IProfil{
@@ -56,6 +55,11 @@ public class Profil implements IProfil{
 	public List<CartProduct> getCartSendByUser(User user) {
 		return proxyProfil.getCartSendByUser(user);
 	}
+	
+	@Override
+	public List<Product> getProductNotSendByUser(User user) {
+		return proxyProfil.getProductNotSendByUser(user);
+	}
 
 	public IBusinessConnection getProxyConnection() {
 		return proxyConnection;
@@ -74,5 +78,4 @@ public class Profil implements IProfil{
 	public void setProxyProfil(IBusinessProfil proxyProfil) {
 		this.proxyProfil = proxyProfil;
 	}
-
 }

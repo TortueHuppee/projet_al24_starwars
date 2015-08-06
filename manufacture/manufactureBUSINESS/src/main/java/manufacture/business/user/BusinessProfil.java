@@ -96,6 +96,11 @@ public class BusinessProfil implements IBusinessProfil {
 		return proxyCartProduct.getCartSendByUser(user);
 	}
 	
+	@Override
+	public List<Product> getProductNotSendByUser(User user) {
+		return proxyProduct.getProductNotSendByUser(user);
+	}
+	
 	public IDaoUser getProxyUser() {
 		return proxyUser;
 	}

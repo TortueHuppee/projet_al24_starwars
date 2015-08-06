@@ -38,6 +38,7 @@ public class ProfilBean {
 	private List<Address> adressesLivraison = new ArrayList<Address>();
 	
 	private List<Product> listeProduitsVendus = new ArrayList<Product>();
+	private List<Product> listeProduitsNonVendus = new ArrayList<Product>();
 	
 	private List<CartProduct> listeCommandesVendus = new ArrayList<CartProduct>();
 	
@@ -58,6 +59,8 @@ public class ProfilBean {
 			userBean.getUser().setAddresses(adressesTotales);
 			
 			listeProduitsVendus = proxyProfil.getProductSendByUser(userBean.getUser());
+			
+			listeProduitsNonVendus = proxyProfil.getProductNotSendByUser(userBean.getUser());
 			
 			listeCommandesVendus = proxyProfil.getCartSendByUser(userBean.getUser());
 			
@@ -154,5 +157,11 @@ public class ProfilBean {
 	}
 	public void setListeCommandesVendus(List<CartProduct> listeCommandesVendus) {
 		this.listeCommandesVendus = listeCommandesVendus;
+	}
+	public List<Product> getListeProduitsNonVendus() {
+		return listeProduitsNonVendus;
+	}
+	public void setListeProduitsNonVendus(List<Product> listeProduitsNonVendus) {
+		this.listeProduitsNonVendus = listeProduitsNonVendus;
 	}
 }

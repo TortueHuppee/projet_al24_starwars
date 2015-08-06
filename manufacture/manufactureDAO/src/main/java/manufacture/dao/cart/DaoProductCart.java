@@ -3,6 +3,11 @@ package manufacture.dao.cart;
 import java.util.ArrayList;
 import java.util.List;
 
+import manufacture.entity.cart.CartProduct;
+import manufacture.entity.product.Product;
+import manufacture.entity.user.User;
+import manufacture.idao.cart.IDaoProductCart;
+
 import org.apache.log4j.Logger;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -10,14 +15,6 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import manufacture.dao.product.DaoColor;
-import manufacture.entity.cart.Cart;
-import manufacture.entity.cart.CartProduct;
-import manufacture.entity.product.ConstructorProduct;
-import manufacture.entity.product.Product;
-import manufacture.entity.user.User;
-import manufacture.idao.cart.IDaoProductCart;
 
 @Service
 @Transactional

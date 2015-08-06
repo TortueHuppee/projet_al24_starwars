@@ -65,12 +65,11 @@
 						
 			<!-- Filtre Constructeurs -->
 			<p:selectOneMenu value="#{mbCatalog.idConstructorSelected}" style="width:96%">
-				<f:selectItem	itemLabel="Sélectionner un constructeur"
-											itemValue="0"/>
+				<f:selectItem	itemLabel="Sélectionner un fabriquant"	itemValue="0"/>
 				<f:selectItems  var="item"
-											value="#{mbCatalog.listeConstructeurs}"
-											itemLabel="#{item.constructorName}"
-											itemValue="#{item.idConstructor}"/>
+								value="#{mbCatalog.listeItemConstructeur}"
+								itemLabel="#{item.label}"
+								itemValue="#{item.value}"/>
 				<f:ajax event="change" listener="#{mbCatalog.initialisationListesAffichees()}" render=":myForm"/>
 			</p:selectOneMenu>
 

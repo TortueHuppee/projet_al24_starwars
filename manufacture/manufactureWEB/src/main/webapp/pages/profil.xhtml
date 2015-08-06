@@ -127,6 +127,7 @@
        												   value="#{mbDataLoader.listCountry}"
        												   itemLabel="#{item.countryName}"
        												   itemValue="#{item.idCountry}"/>
+       									<f:ajax update="@form" process="@this"/>
        								</p:selectOneMenu>
        								
 									<h:outputLabel value="Planète" class="dialogLabel"/> :
@@ -135,6 +136,7 @@
        												   value="#{mbDataLoader.listPlanet}"
        												   itemLabel="#{item.planetName}"
        												   itemValue="#{item.idPlanet}"/>
+       									<f:ajax update="@form" process="@this"/>
        								</p:selectOneMenu>
        								
        								<h:outputLabel value="Adresse de facturation" class="dialogCheckBox"/> :
@@ -199,6 +201,7 @@
        												   value="#{mbDataLoader.listCountry}"
        												   itemLabel="#{item.countryName}"
        												   itemValue="#{item.idCountry}"/>
+       									<f:ajax update="@form" process="@this"/>
        								</p:selectOneMenu>
        								
 									<h:outputLabel value="Planète" class="dialogLabel"/> :
@@ -207,6 +210,7 @@
        												   value="#{mbDataLoader.listPlanet}"
        												   itemLabel="#{item.planetName}"
        												   itemValue="#{item.idPlanet}"/>
+       									<f:ajax update="@form" process="@this"/>
        								</p:selectOneMenu>
        								
        								<h:outputLabel value="Adresse de facturation" class="dialogCheckBox"/> :
@@ -274,6 +278,7 @@
        												   value="#{mbDataLoader.listCountry}"
        												   itemLabel="#{item.countryName}"
        												   itemValue="#{item.idCountry}"/>
+       									<f:ajax update="@form" process="@this"/>
        								</p:selectOneMenu>
        								
 									<h:outputLabel value="Planète" class="dialogLabel"/> :
@@ -282,6 +287,7 @@
        												   value="#{mbDataLoader.listPlanet}"
        												   itemLabel="#{item.planetName}"
        												   itemValue="#{item.idPlanet}"/>
+       									<f:ajax update="@form" process="@this"/>
        								</p:selectOneMenu>
        								
        								<h:outputLabel value="Adresse de facturation" class="dialogCheckBox"/> :
@@ -312,6 +318,43 @@
             		</f:facet>
             		
             		<div class="ventes">
+						<h2>Mes annonces en cours</h2>
+						
+						<p:dataTable var="product" value="#{profilBean.listeProduitsNonVendus}" emptyMessage="Aucune en cours">
+            				<h:column>
+            					<f:facet name="header">
+               				 		<h2>Nom du produit</h2>
+               					</f:facet>
+               					<h:outputLabel value="#{product.productRef.productName}" />
+               				</h:column>
+               				
+               				<h:column>
+            					<f:facet name="header">
+               				 		<h2>Stock</h2>
+               					</f:facet>
+               					<h:outputLabel value="#{product.stock}" />
+               				</h:column>
+               				
+               				<h:column>
+            					<f:facet name="header">
+               				 		<h2>Prix (crédits)</h2>
+               					</f:facet>
+               					<h:outputLabel value="#{product.price}" />
+               				</h:column>
+               				
+               				<h:column>
+            					<f:facet name="header">
+               				 		<h2>Date de publication</h2>
+               					</f:facet>
+               					<h:outputLabel value="#{profilBean.sdf.format(product.)}" />
+               				</h:column>
+               			</p:dataTable>
+						
+					</div>
+					
+				</p:tab>
+            		
+            		<div class="ventes">
 						<h2>Mes produits vendus</h2>
 						
 						<p:dataTable var="productCart" value="#{profilBean.listeCommandesVendus}" emptyMessage="Aucun produit vendu">
@@ -338,7 +381,7 @@
                				
                				<h:column>
             					<f:facet name="header">
-               				 		<h2>Date</h2>
+               				 		<h2>Date de vente</h2>
                					</f:facet>
                					<h:outputLabel value="#{profilBean.sdf.format(productCart.cart.dateCommande)}" />
                				</h:column>

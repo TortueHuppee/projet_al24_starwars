@@ -2,22 +2,18 @@ package manufacture.facade.catalog;
 
 import java.util.List;
 
-import manufacture.entity.product.ArtisanProduct;
 import manufacture.entity.product.Category;
 import manufacture.entity.product.Color;
 import manufacture.entity.product.Constructor;
-import manufacture.entity.product.ConstructorProduct;
 import manufacture.entity.product.Material;
 import manufacture.entity.product.Product;
 import manufacture.entity.product.ProductRef;
 import manufacture.entity.product.SpaceshipProduct;
 import manufacture.entity.product.SpaceshipRef;
-import manufacture.entity.product.UsedProduct;
-import manufacture.facade.util.ClassPathLoader;
+import manufacture.entity.user.User;
 import manufacture.ibusiness.catalog.IBusinessCatalog;
 import manufacture.ifacade.catalog.ICatalog;
 
-import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -88,7 +84,7 @@ public class Catalog implements ICatalog {
 	}
 
 	@Override
-	public List<ConstructorProduct> getAllProductByProductRef(int idProducRef) {
+	public List<Product> getAllProductByProductRef(int idProducRef) {
 		return proxyCatalog.getAllProductByProductRef(idProducRef);
 	}
 
@@ -96,12 +92,7 @@ public class Catalog implements ICatalog {
 	public List<Product> getAllProduct() {
 		return proxyCatalog.getAllProduct();
 	}
-	
-	@Override
-	public List<ConstructorProduct> getAllConstructorProduct() {
-		return proxyCatalog.getAllConstructorProduct();
-	}
-	
+
 	@Override
 	public List<SpaceshipProduct> getSpaceShipProductByProduct(ProductRef productRef) {
 		return proxyCatalog.getSpaceShipProductByProduct(productRef);
@@ -112,19 +103,14 @@ public class Catalog implements ICatalog {
 		return proxyCatalog.getProductRefById(idProductRef);
 	}
 
-    @Override
-    public List<ArtisanProduct> getAllArtisanProduct() {
-        return proxyCatalog.getAllArtisanProduct();
-    }
-
-    @Override
-    public List<UsedProduct> getAllUsedProduct() {
-        return proxyCatalog.getAllUsedProduct();
-    }
-    
 	@Override
 	public List<SpaceshipProduct> getAllSpaceShipProduct() {
 		return proxyCatalog.getAllSpaceShipProduct();
+	}
+	
+	@Override
+	public List<User> getAllArtisan() {
+		return proxyCatalog.getAllArtisan();
 	}
 
 	public IBusinessCatalog getProxyColor() {

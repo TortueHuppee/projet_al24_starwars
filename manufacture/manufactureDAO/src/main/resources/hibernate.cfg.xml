@@ -28,9 +28,7 @@
 		<mapping class="manufacture.entity.user.Planet" />
 
 		<mapping class="manufacture.entity.product.Product" />
-		<mapping class="manufacture.entity.product.ConstructorProduct" />
-		<mapping class="manufacture.entity.product.ArtisanProduct" />
-		<mapping class="manufacture.entity.product.UsedProduct" />
+		<mapping class="manufacture.entity.product.TypeProduct" />
 
 		<mapping class="manufacture.entity.product.ProductRef" />
 		<mapping class="manufacture.entity.product.Rating" />
