@@ -17,6 +17,7 @@ import manufacture.entity.cart.PaymentType;
 import manufacture.entity.product.Product;
 import manufacture.entity.user.User;
 import manufacture.ifacade.cart.IGestionCart;
+import manufacture.ifacade.user.IProfil;
 import manufacture.web.catalogBean.CatalogManagedBean;
 import manufacture.web.catalogBean.ProductManagedBean;
 import manufacture.web.user.UserBean;
@@ -67,7 +68,7 @@ public class ManagedBeanCart {
 		cart.setPaymentType(moyenPaiement);
 	}
 
-	public void addProductToCart(int idProductToAdd) {
+	public void addProductToCart(Product productToAdd) {
 		
 	    FacesContext context = FacesContext.getCurrentInstance();
 	    
@@ -78,7 +79,7 @@ public class ManagedBeanCart {
 	        for (CartProduct cp : panier)
 	        {
 	            //Si le produit est déjà présent dans le panier on met à jour la quantité (qui ne doit pas dépasser la quantité en stock du produit).
-	            if (cp.getProduct().getIdProduct() == idProductToAdd)
+	            if (cp.getProduct().getIdProduct() == productToAdd.getIdProduct())
 	            {
 	                int nouvelleQuantite = cp.getQuantity() + quantity;
 	                if (nouvelleQuantite >= mbProduct.getQuantiteDispo())
@@ -97,10 +98,8 @@ public class ManagedBeanCart {
 	            else
 	            {
 	                CartProduct cartProduct = new CartProduct();
-	                Product produit = new Product();
-	                produit.setIdProduct(idProductToAdd);
 	                cartProduct.setQuantity(quantity);
-	                cartProduct.setProduct(produit);
+	                cartProduct.setProduct(productToAdd);
 	                panier.add(cartProduct);
 	                
 	                context.addMessage(null, new FacesMessage("Produit(s) ajouté(s)", quantity+" "+mbProduct.getProductRef().getProductName()+" ajouté(s) au panier" ) );
@@ -111,10 +110,8 @@ public class ManagedBeanCart {
 	    else
 	    {
 	        CartProduct cartProduct = new CartProduct();
-	        Product produit = new Product();
-	        produit.setIdProduct(idProductToAdd);
 	        cartProduct.setQuantity(quantity);
-	        cartProduct.setProduct(produit);
+	        cartProduct.setProduct(productToAdd);
 	        panier.add(cartProduct);
 	        
 	        context.addMessage(null, new FacesMessage("Produit(s) ajouté(s)", quantity+" "+mbProduct.getProductRef().getProductName()+" ajouté(s) au panier" ) );

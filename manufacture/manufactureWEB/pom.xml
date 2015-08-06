@@ -10,17 +10,6 @@
 	<artifactId>manufactureWEB</artifactId>
 	<packaging>war</packaging>
 
-	<!-- Repository pour Primefaces -->
-	<repositories>
-		<!-- For 3.5 and older -->
-		<repository>
-			<id>prime-repo</id>
-			<name>PrimeFaces Maven Repository</name>
-			<url>http://repository.primefaces.org</url>
-			<layout>default</layout>
-		</repository>
-	</repositories>
-
 	<dependencies>
 		<dependency>
 			<groupId>fr.afcepf.al24.manufacture.entity</groupId>
@@ -63,7 +52,7 @@
 		<dependency>
 			<groupId>org.primefaces</groupId>
 			<artifactId>primefaces</artifactId>
-			<version>4.0</version>
+			<version>5.2</version>
 		</dependency>
 
 		<!-- JSF -->
@@ -110,8 +99,6 @@
 			<scope>test</scope>
 		</dependency>
 
-		<!-- PrimeFaces -->
-		
 		<dependency>
 			<groupId>javax</groupId>
 			<artifactId>javaee-api</artifactId>

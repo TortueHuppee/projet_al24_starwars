@@ -3,6 +3,7 @@ package manufacture.web.datas;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
@@ -20,7 +21,7 @@ import manufacture.entity.user.User;
 import manufacture.ifacade.dataloading.IDataLoading;
 
 @ManagedBean(name="mbDataLoader")
-@SessionScoped
+@ApplicationScoped
 public class DataLoader {
     
 	@ManagedProperty(value="#{dataLoading}") 

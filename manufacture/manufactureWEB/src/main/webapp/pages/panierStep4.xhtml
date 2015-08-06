@@ -1,0 +1,33 @@
+<ui:composition template="/layouts/master_layout.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+
+	<ui:define name="stylesheets">
+		<h:outputStylesheet name="panierCss.css" library="css" />
+	</ui:define>
+
+	<ui:define name="main-body">
+		<h:form id="myForm">
+			<div class="product-description">
+
+				<p:steps activeIndex="3" styleClass="custom" readonly="false">
+					<p:menuitem value="Mon panier" action="/pages/panierStep1" />
+					<p:menuitem value="Options" action="/pages/panierStep2" />
+					<p:menuitem value="Paiement" action="/pages/panierStep3" />
+					<p:menuitem value="Récapitulatif"  />
+				</p:steps>
+				
+				<h:outputLabel value="Commande validée en cours de préparation" />
+				on informe juste l'utilisateur que la commande a été passée avec succès (on fait le paiement refusé sur la même page ?)
+				et on met un récapitulatif de la commande passée : produit, prix total, prix produit, quantité,
+				moyen de transport, mode de paiement, date, adresses, nom, prénom, société de l'utilisateur				
+			</div>
+		</h:form>
+	</ui:define>
+
+
+</ui:composition>

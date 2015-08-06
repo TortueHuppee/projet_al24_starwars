@@ -3,6 +3,8 @@ package manufacture.facade.cart;
 import java.util.List;
 
 import manufacture.entity.cart.Cart;
+import manufacture.entity.cart.Delivery;
+import manufacture.entity.cart.RelayPoint;
 import manufacture.entity.product.Product;
 import manufacture.ibusiness.cart.IBusinessCart;
 import manufacture.ifacade.cart.IGestionCart;
@@ -45,6 +47,16 @@ public class GestionCart implements IGestionCart {
     public void validatePayment(Cart paramCart) {
         businessCart.validatePayment(paramCart);
     }
+    
+	@Override
+	public List<Delivery> getAllDelivery() {
+		return businessCart.getAllDeliveryType();
+	}
+	
+	@Override
+	public List<RelayPoint> getAllRelayPoints() {
+		return businessCart.getAllRelayPoints();
+	}
     
     @Autowired
     public void setBusinessCartCart(IBusinessCart paramBuCart) {

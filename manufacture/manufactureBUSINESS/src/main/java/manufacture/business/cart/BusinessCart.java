@@ -7,6 +7,7 @@ import manufacture.entity.cart.Cart;
 import manufacture.entity.cart.CartProduct;
 import manufacture.entity.cart.Delivery;
 import manufacture.entity.cart.PaymentType;
+import manufacture.entity.cart.RelayPoint;
 import manufacture.entity.product.Product;
 import manufacture.ibusiness.cart.IBusinessCart;
 import manufacture.idao.cart.IDaoCart;
@@ -143,6 +144,11 @@ public class BusinessCart implements IBusinessCart {
 	public void checkProductStock(int idProduct) {
 		proxyProduct.checkProductStock(idProduct);
 	}
+	
+	@Override
+	public List<RelayPoint> getAllRelayPoints() {
+		return proxyPaymentAndDelivery.getAllRelayPoints();
+	}
 
 	public IDaoCart getProxyCart() {
 		return proxyCart;
@@ -180,5 +186,4 @@ public class BusinessCart implements IBusinessCart {
 	public void setProxyProduct(IDaoProduct proxyProduct) {
 		this.proxyProduct = proxyProduct;
 	}
-
 }

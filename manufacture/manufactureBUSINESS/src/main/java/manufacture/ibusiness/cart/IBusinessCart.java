@@ -8,6 +8,7 @@ import manufacture.entity.cart.Cart;
 import manufacture.entity.cart.CartProduct;
 import manufacture.entity.cart.Delivery;
 import manufacture.entity.cart.PaymentType;
+import manufacture.entity.cart.RelayPoint;
 import manufacture.entity.product.Product;
 import manufacture.entity.user.User;
 
@@ -41,5 +42,7 @@ public interface IBusinessCart {
 	List<Delivery> getAllDeliveryType();
 	
 	void checkProductStock(int idProduct);
+
+	List<RelayPoint> getAllRelayPoints();
 
 }

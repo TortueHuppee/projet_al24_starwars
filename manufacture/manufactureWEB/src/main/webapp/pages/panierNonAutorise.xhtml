@@ -1,0 +1,20 @@
+<ui:composition template="/layouts/master_layout.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+
+	<ui:define name="stylesheets">
+		<h:outputStylesheet name="panierCss.css" library="css" />
+	</ui:define>
+
+	<ui:define name="main-body">
+		<div class="center-body">
+			<h:outputLabel value="Veuillez nous excuser. Vous n'avez pas les autorisations nécessaires pour acheter des articles." />
+		</div>
+	</ui:define>
+
+
+</ui:composition>

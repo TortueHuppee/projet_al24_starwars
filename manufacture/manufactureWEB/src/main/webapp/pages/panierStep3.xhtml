@@ -1,0 +1,34 @@
+<ui:composition template="/layouts/master_layout.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+
+	<ui:define name="stylesheets">
+		<h:outputStylesheet name="panierCss.css" library="css" />
+	</ui:define>
+
+	<ui:define name="main-body">
+		<h:form id="myForm">
+			<div class="product-description">
+
+				<p:steps activeIndex="2" styleClass="custom" readonly="false">
+					<p:menuitem value="Mon panier" action="/pages/panierStep1" />
+					<p:menuitem value="Options" action="/pages/panierStep2" />
+					<p:menuitem value="Paiement" />
+					<p:menuitem value="Récapitulatif" />
+				</p:steps>
+				
+				<h:outputLabel value="Choisir le mode de paiement" />
+				un select one menu ici si plusieurs mode de paiement sont disponibles selon le type d'utilisateur (pas pris en compte de la BDD mince)
+				
+				<p:commandButton value="Confirmer le paiement" action="/pages/paiement" />
+				
+			</div>
+		</h:form>
+	</ui:define>
+
+
+</ui:composition>

@@ -35,6 +35,10 @@ public class LoginBean {
 	private User user;
 	private String redirect;
 	
+	private static final Integer USER_PARTICULIER_ROLE_ID = 1;
+	private static final Integer USER_PROFESSIONNEL_ROLE_ID = 2;
+	private static final Integer USER_ARTISAN_ROLE_ID = 3;
+	
 	public LoginBean(){
 		user = new User(); 
 	}
@@ -55,11 +59,14 @@ public class LoginBean {
 		userBean.setUser(userTmp);
 		String toPage = null;
 		
+		//Redirection provenant d'une page de l'application pour laquelle il faut être connecté
 		if(redirect != null)
 		{
+			//Si la connection a été demandé par la page Déposer une annonce,
+			//il faut vérifier que l'utilisateur est un particulier ou un artisan
 			if (redirect.equals("annonce.xhtml?faces-redirect=true"))
 			{
-				if (userTmp.getUserRole().getIdUserRole() == 1 || userTmp.getUserRole().getIdUserRole() == 3)
+				if (userTmp.getUserRole().getIdUserRole() == USER_ARTISAN_ROLE_ID || userTmp.getUserRole().getIdUserRole() == USER_PARTICULIER_ROLE_ID)
 				{
 					toPage = redirect;
 					redirect = null;
@@ -70,6 +77,23 @@ public class LoginBean {
 					redirect = null;
 				}
 			}
+			//Si la connection a été demandé par la page Valider son panier,
+			//il faut vérifier que l'utilisateur est un particulier ou un professionnel
+			else if (redirect.equals("panierStep1.xhtml?faces-redirect=true"))
+			{
+				if (userTmp.getUserRole().getIdUserRole() == USER_PARTICULIER_ROLE_ID || userTmp.getUserRole().getIdUserRole() == USER_PROFESSIONNEL_ROLE_ID)
+				{
+					toPage = redirect;
+					redirect = null;
+				}
+				else
+				{
+					toPage = "annonceNonAutorisee.xhtml?faces-redirect=true";
+					redirect = null;
+				}
+			}
+			//Si la connection est demandée par une autre page de l'application
+			//On peut renvoyer sur la page, n'importe quel utilisateur a accès aux autres pages
 			else
 			{
 				toPage = redirect;
@@ -78,7 +102,6 @@ public class LoginBean {
 		}
 		else
 		{
-			//En attendant que Vincent nous explique cette partie là du code :
 			toPage = "profil.xhtml?faces-redirect=true";
 			
 		    ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();

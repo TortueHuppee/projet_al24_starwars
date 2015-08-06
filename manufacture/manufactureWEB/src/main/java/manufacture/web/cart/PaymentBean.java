@@ -67,17 +67,17 @@ public class PaymentBean {
 //		userBean.getUser().getCarts().add(mbCart.getSpecificUserCart());
 		
 		mbCart.setPanier(new ArrayList<CartProduct>());
-		return "paymentSuccess.xhtml";
+		return "panierStep4.xhtml";
 	}
 	
 	public String processPayment(){
 		if(!userBean.isLogged()){
 			FacesMessage fm = new FacesMessage("Erreur", "Vous devez vous connecter pour procéder au paiement");
 			FacesContext.getCurrentInstance().addMessage(null, fm);
-			loginBean.setRedirect("paiement.xhtml?faces-redirect=true");
+			loginBean.setRedirect("panierStep1.xhtml?faces-redirect=true");
 			return "login.xhtml?faces-redirect=true";
 		} 
-		return "paiement.xhtml?faces-redirect=true";
+		return "panierStep1.xhtml?faces-redirect=true";
 	}
 	
 	@Override

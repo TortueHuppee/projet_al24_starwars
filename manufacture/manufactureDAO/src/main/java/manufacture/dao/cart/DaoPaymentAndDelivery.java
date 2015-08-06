@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import manufacture.dao.product.DaoColor;
 import manufacture.entity.cart.Delivery;
 import manufacture.entity.cart.PaymentType;
+import manufacture.entity.cart.RelayPoint;
 import manufacture.entity.product.Product;
 import manufacture.idao.cart.IDaoPaymentAndDelivery;
 
@@ -38,10 +39,17 @@ public class DaoPaymentAndDelivery implements IDaoPaymentAndDelivery {
 		List<Delivery> resultat = hql.list();
 		return resultat;
 	}
+	
+	@Override
+	public List<RelayPoint> getAllRelayPoints() {
+		Session session = sf.getCurrentSession();
+		Query hql = session.createQuery("FROM RelayPoint d");
+		List<RelayPoint> resultat = hql.list();
+		return resultat;
+	}
 
 	@Autowired
 	public void setSf(SessionFactory sf) {
 		this.sf = sf;
 	}
-	
 }
