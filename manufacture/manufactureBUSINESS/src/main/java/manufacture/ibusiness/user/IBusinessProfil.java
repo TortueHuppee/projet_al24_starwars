@@ -20,6 +20,10 @@ public interface IBusinessProfil {
 	void editAddress(Address addresse);
 
 	void saveAddress(Address nouvelleAdresse);
+	
+	List<Address> getDeliveryAddressByUser(User user);
+
+	List<Address> getBillingAddressByUser(User user);
 
 	//Ventes
 	List<Product> getProductSendByUser(User user);

@@ -88,7 +88,14 @@ public class DaoProduct implements IDaoProduct {
 		List<Product> resultat = hql.list();
 		return resultat;
 	}
-
+	public List<Product> getAllProductConstructor(){
+		Session session = sf.getCurrentSession();
+		String requete = "SELECT a FROM Product a WHERE a.stock > 0";
+		Query hql = session.createQuery(requete);
+		List<Product> resultat = hql.list();
+		return resultat;
+	}
+	
 	@Override
 	public List<Product> getProductSendByUser(User user) {
 		Session session = sf.getCurrentSession();       

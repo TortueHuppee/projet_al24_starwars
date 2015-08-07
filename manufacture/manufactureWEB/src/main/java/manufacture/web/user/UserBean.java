@@ -1,7 +1,10 @@
 package manufacture.web.user;
 
+import java.io.IOException;
+
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 
 import manufacture.entity.user.User;
 
@@ -28,5 +31,16 @@ public class UserBean {
 	
 	public boolean isLogged(){
 		return user == null ? false : true; 
+	}
+	
+	public void checkLogin(){
+		if(isLogged()){
+			try {
+				FacesContext.getCurrentInstance().getExternalContext().redirect("profil.xhtml");
+			} catch (IOException e) { 
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	}
 }

@@ -23,6 +23,9 @@ public class EditManagedBean {
 	
 	@ManagedProperty(value="#{userBean}")
 	private UserBean userBean;
+
+	@ManagedProperty(value="#{profilBean}")
+	private ProfilBean profilBean;
 	
 	private Address nouvelleAdresse = new Address();
 	private City ville = new City();
@@ -34,6 +37,18 @@ public class EditManagedBean {
 		nouvelleAdresse.setUser(userBean.getUser());
 		nouvelleAdresse.setCity(ville);
 		proxyProfil.saveAddress(nouvelleAdresse);
+
+		if (nouvelleAdresse.getIsBillingaddress())
+		{
+			profilBean.getAdressesFacturation().add(nouvelleAdresse);
+		}
+		
+		if (nouvelleAdresse.getIsDeliveryaddress())
+		{
+			profilBean.getAdressesLivraison().add(nouvelleAdresse);
+		}
+			
+		nouvelleAdresse = new Address();
 	}
 	
 	public void editModePersonnel() {
@@ -110,5 +125,13 @@ public class EditManagedBean {
 
 	public void setProxyProfil(IProfil proxyProfil) {
 		this.proxyProfil = proxyProfil;
+	}
+
+	public ProfilBean getProfilBean() {
+		return profilBean;
+	}
+
+	public void setProfilBean(ProfilBean profilBean) {
+		this.profilBean = profilBean;
 	}
 }

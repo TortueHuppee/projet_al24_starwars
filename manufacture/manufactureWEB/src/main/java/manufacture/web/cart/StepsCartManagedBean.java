@@ -10,6 +10,8 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
+import org.apache.log4j.Logger;
+
 import manufacture.entity.cart.CartProduct;
 import manufacture.entity.cart.Delivery;
 import manufacture.entity.cart.RelayPoint;
@@ -17,6 +19,7 @@ import manufacture.entity.user.Address;
 import manufacture.ifacade.cart.IGestionCart;
 import manufacture.ifacade.user.IProfil;
 import manufacture.web.user.LoginBean;
+import manufacture.web.user.ProfilBean;
 import manufacture.web.user.UserBean;
 
 @ManagedBean(name = "mbSteps")
@@ -29,6 +32,9 @@ public class StepsCartManagedBean {
 	@ManagedProperty(value="#{loginBean}")
 	private LoginBean loginBean;
 	
+	@ManagedProperty(value="#{profilBean}")
+	private ProfilBean profilBean;
+	
 	@ManagedProperty(value="#{mbCart}")
 	private ManagedBeanCart mbCart;
 	
@@ -38,6 +44,7 @@ public class StepsCartManagedBean {
 	@ManagedProperty(value="#{profil}")
 	private IProfil proxyProfil;
 
+	private static Logger log = Logger.getLogger(StepsCartManagedBean.class);
 	
 	//Step 1
 	
@@ -56,13 +63,18 @@ public class StepsCartManagedBean {
 	
 	//Step 2
 	
+	private static final Integer DELIVERY_RELAY_POINTS_ID = 4;
+	
 	private List<Delivery> moyensDeLivraisons;
-	private List<Address> listeAdresses;
 	private List<RelayPoint> listePointsRelais;
+	private Address adresseLivraison;
+	private int idTest1 = 0;
+	private int idtest = 0;
 	
 	//Step 3
 	
 	private double totalPrice;
+	private Address adresseFacturation;
 	
 	//Step 4
 	
@@ -75,6 +87,28 @@ public class StepsCartManagedBean {
 	}
 	
 	// Méthodes
+	
+	public void test()
+	{
+		log.info("Mode de livraison choisi : " + mbCart.getCart().getDelivery().getIdDelivery());
+		log.info("ID adresse sélectionnée " + adresseLivraison.getIdAddress());
+	}
+	
+	public double calculePrixTotal()
+	{
+		double prixTransport = 0;
+		
+		for (Delivery d : moyensDeLivraisons)
+		{
+			if (d.getIdDelivery() == mbCart.getCart().getDelivery().getIdDelivery())
+			{
+				prixTransport = d.getDeliveryPrice();
+			}
+		}
+		totalPrice = cartPrice + prixTransport;
+		return totalPrice;
+	}
+	
 	public void initialisationDonnees()
 	{
 		if (userBean.getUser().getUserRole().getIdUserRole() == USER_PARTICULIER_ROLE_ID)
@@ -96,6 +130,35 @@ public class StepsCartManagedBean {
 				}
 			}
 		}
+		
+		if (!profilBean.isDonneesInitialisees())
+		{
+			profilBean.initialiseDonnees();
+			profilBean.setDonneesInitialisees(true); ;
+		}
+		
+		if (mbCart.getCart().getDelivery().getIdDelivery() != DELIVERY_RELAY_POINTS_ID)
+		{
+			//Adresse de livraison
+			if (profilBean.getAdressesLivraison().size() > 0)
+			{
+				adresseLivraison = profilBean.getAdressesLivraison().get(0);
+			}
+			else
+			{
+				adresseLivraison = new Address();
+			}
+			
+			//Adresse de facturation
+			if (profilBean.getAdressesFacturation().size() > 0)
+			{
+				adresseFacturation = profilBean.getAdressesFacturation().get(0);
+			}
+			else
+			{
+				adresseFacturation = new Address();
+			}
+		}
 	}
 	
 	public String goToStep1(){
@@ -104,10 +167,17 @@ public class StepsCartManagedBean {
 			FacesContext.getCurrentInstance().addMessage(null, fm);
 			loginBean.setRedirect("panierStep1.xhtml?faces-redirect=true");
 			return "login.xhtml?faces-redirect=true";
-		} 
-		initialisationDonnees();
-		listeAdresses = proxyProfil.getAllAdressByUser(userBean.getUser());
-		return "panierStep1.xhtml?faces-redirect=true";
+		}
+		
+		if (userBean.getUser().getUserRole().getIdUserRole() == USER_PARTICULIER_ROLE_ID || userBean.getUser().getUserRole().getIdUserRole() == USER_PROFESSIONNEL_ROLE_ID)
+		{
+			initialisationDonnees();
+			return "panierStep1.xhtml?faces-redirect=true";
+		}
+		else
+		{
+			return "panierNonAutorise.xhtml?faces-redirect=true";
+		}
 	}
 
 	public void augmenterQuantite(int idProduct)
@@ -209,19 +279,59 @@ public class StepsCartManagedBean {
 		this.moyensDeLivraisons = moyensDeLivraisons;
 	}
 
-	public List<Address> getListeAdresses() {
-		return listeAdresses;
-	}
-
-	public void setListeAdresses(List<Address> listeAdresses) {
-		this.listeAdresses = listeAdresses;
-	}
-
 	public List<RelayPoint> getListePointsRelais() {
 		return listePointsRelais;
 	}
 
 	public void setListePointsRelais(List<RelayPoint> listePointsRelais) {
 		this.listePointsRelais = listePointsRelais;
+	}
+
+	public IProfil getProxyProfil() {
+		return proxyProfil;
+	}
+
+	public void setProxyProfil(IProfil proxyProfil) {
+		this.proxyProfil = proxyProfil;
+	}
+
+	public ProfilBean getProfilBean() {
+		return profilBean;
+	}
+
+	public void setProfilBean(ProfilBean profilBean) {
+		this.profilBean = profilBean;
+	}
+
+	public Address getAdresseLivraison() {
+		return adresseLivraison;
+	}
+
+	public void setAdresseLivraison(Address adresseLivraison) {
+		this.adresseLivraison = adresseLivraison;
+	}
+
+	public Address getAdresseFacturation() {
+		return adresseFacturation;
+	}
+
+	public void setAdresseFacturation(Address adresseFacturation) {
+		this.adresseFacturation = adresseFacturation;
+	}
+
+	public int getIdtest() {
+		return idtest;
+	}
+
+	public void setIdtest(int idtest) {
+		this.idtest = idtest;
+	}
+
+	public int getIdTest1() {
+		return idTest1;
+	}
+
+	public void setIdTest1(int idTest1) {
+		this.idTest1 = idTest1;
 	}
 }

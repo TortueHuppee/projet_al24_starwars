@@ -20,6 +20,10 @@ public interface IProfil {
 
 	void saveAddress(Address nouvelleAdresse);
 	
+	List<Address> getBillingAddressByUser(User user);
+
+	List<Address> getDeliveryAddressByUser(User user);
+	
 	//Ventes
 	List<Product> getProductSendByUser(User user);
 	
@@ -29,6 +33,4 @@ public interface IProfil {
 	List<Cart> getCartByUser(User user);
 
 	List<Product> getProductNotSendByUser(User user);
-
-	
 }

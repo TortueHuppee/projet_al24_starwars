@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
@@ -46,42 +47,57 @@ public class ProfilBean {
 
 	private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 	private Date date = new Date();
+	
+	private boolean donneesInitialisees = false;
 
+	@PostConstruct
+	public void init() {
+		if(userBean.isLogged()){
+			initialiseDonnees();
+			donneesInitialisees = true;
+		}
+	}
+	
 	//Méthodes
+	public void initialiseDonnees()
+	{
+		adressesTotales = proxyProfil.getAllAdressByUser(userBean.getUser());
+		adressesFacturation = new ArrayList<Address>();
+		adressesLivraison = new ArrayList<Address>();
 		
+		userBean.getUser().setAddresses(adressesTotales);
+		
+		listeProduitsVendus = proxyProfil.getProductSendByUser(userBean.getUser());
+		
+		listeProduitsNonVendus = proxyProfil.getProductNotSendByUser(userBean.getUser());
+		
+		listeCommandesVendus = proxyProfil.getCartSendByUser(userBean.getUser());
+		
+		listeCommandesPassees = proxyProfil.getCartByUser(userBean.getUser());
+		
+		date = userBean.getUser().getCreateTime();
+		
+		for (Address adresse : adressesTotales)
+		{
+			if (adresse.getIsBillingaddress())
+			{
+				adressesFacturation.add(adresse);
+				log.info("Facturation : " + adresse.getStreet());
+			}
+			if (adresse.getIsDeliveryaddress())
+			{
+				adressesLivraison.add(adresse);
+				log.info("Livraison : " + adresse.getStreet());
+			}
+		}
+	}
+	
 	public String accessProfil(){
 		if(userBean.isLogged()){
-			
-			adressesTotales = proxyProfil.getAllAdressByUser(userBean.getUser());
-			adressesFacturation = new ArrayList<Address>();
-			adressesLivraison = new ArrayList<Address>();
-			
-			userBean.getUser().setAddresses(adressesTotales);
-			
-			listeProduitsVendus = proxyProfil.getProductSendByUser(userBean.getUser());
-			
-			listeProduitsNonVendus = proxyProfil.getProductNotSendByUser(userBean.getUser());
-			
-			listeCommandesVendus = proxyProfil.getCartSendByUser(userBean.getUser());
-			
-			listeCommandesPassees = proxyProfil.getCartByUser(userBean.getUser());
-			
-			date = userBean.getUser().getCreateTime();
-			
-			for (Address adresse : adressesTotales)
+			if (!donneesInitialisees)
 			{
-				if (adresse.getIsBillingaddress())
-				{
-					adressesFacturation.add(adresse);
-					log.info("Facturation : " + adresse.getStreet());
-				}
-				if (adresse.getIsDeliveryaddress())
-				{
-					adressesLivraison.add(adresse);
-					log.info("Livraison : " + adresse.getStreet());
-				}
+				initialiseDonnees();
 			}
-			
 			return "profil.xhtml?faces-redirect=true";
 		}else{
 			date = new Date();
@@ -118,12 +134,14 @@ public class ProfilBean {
 	}
 	public List<Address> getAdressesFacturation() {
 		return adressesFacturation;
+//		return proxyProfil.getBillingAddressByUser(userBean.getUser());
 	}
 	public void setAdressesFacturation(List<Address> adressesFacturation) {
 		this.adressesFacturation = adressesFacturation;
 	}
 	public List<Address> getAdressesLivraison() {
 		return adressesLivraison;
+//		return proxyProfil.getDeliveryAddressByUser(userBean.getUser());
 	}
 	public void setAdressesLivraison(List<Address> adressesLivraison) {
 		this.adressesLivraison = adressesLivraison;
@@ -163,5 +181,13 @@ public class ProfilBean {
 	}
 	public void setListeProduitsNonVendus(List<Product> listeProduitsNonVendus) {
 		this.listeProduitsNonVendus = listeProduitsNonVendus;
+	}
+
+	public boolean isDonneesInitialisees() {
+		return donneesInitialisees;
+	}
+
+	public void setDonneesInitialisees(boolean donneesInitialisees) {
+		this.donneesInitialisees = donneesInitialisees;
 	}
 }

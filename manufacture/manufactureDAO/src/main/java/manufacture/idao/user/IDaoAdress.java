@@ -15,4 +15,8 @@ public interface IDaoAdress {
 	void deleteAddress(Address address);
 
 	List<Address> getAllAdressByUser(User user);
+
+	List<Address> getDeliveryAddressByUser(User user);
+
+	List<Address> getBillingAddressByUser(User user);
 }

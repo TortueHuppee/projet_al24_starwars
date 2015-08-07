@@ -1,10 +1,13 @@
-function closeDialog(){
-	var dialogVisible = document.getElementsByClassName("ui-widgtet-overlay");
-	
-	for (var i = 0; i<dialogVisible.length ; i++)
-		{
-			//dialogVisible[i].style.visibility = "hidden";
-		}
-	
-	//widgtetWarDialog.hide();
+function loadModal(){
+	PF('changeAddress').show();
+	$(".ui-widget-overlay").click(function(){
+		PF('changeAddress').hide();
+	})	
+}
+
+function loadModal2(){
+	PF('addAddress').show();
+	$(".ui-widget-overlay").click(function(){
+		PF('addAddress').hide();
+	})	
 }

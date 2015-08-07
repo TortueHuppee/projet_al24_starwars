@@ -51,8 +51,44 @@ public class DaoAdress implements IDaoAdress {
 		Session session = sf.getCurrentSession();
 		String requete = "SELECT u FROM Address u WHERE u.user.idUser = :paramId";
 		Query hql = session.createQuery(requete).setParameter("paramId",user.getIdUser());
-		List<Address> resultat = new ArrayList<Address>();
-		resultat = hql.list();
+		List<Address> resultat = hql.list();
+		
+		if (resultat.size() == 0)
+		{
+			return new ArrayList<Address>();
+		}
+		return resultat;
+	}
+	
+	@Override
+	public List<Address> getDeliveryAddressByUser(User user) {
+		Session session = sf.getCurrentSession();
+		String requete = "SELECT u FROM Address u WHERE u.user.idUser = :paramId AND u.isDeliveryaddress = :paramBoolean";
+		Query hql = session.createQuery(requete);
+		hql.setParameter("paramId",user.getIdUser());
+		hql.setParameter("paramBoolean",Boolean.TRUE);
+		List<Address> resultat = hql.list();
+		
+		if (resultat.size() == 0)
+		{
+			return new ArrayList<Address>();
+		}
+		return resultat;
+	}
+
+	@Override
+	public List<Address> getBillingAddressByUser(User user) {
+		Session session = sf.getCurrentSession();
+		String requete = "SELECT u FROM Address u WHERE u.user.idUser = :paramId AND u.isBillingaddress = :paramBoolean";
+		Query hql = session.createQuery(requete);
+		hql.setParameter("paramId",user.getIdUser());
+		hql.setParameter("paramBoolean",Boolean.TRUE);
+		List<Address> resultat = hql.list();
+		
+		if (resultat.size() == 0)
+		{
+			return new ArrayList<Address>();
+		}
 		return resultat;
 	}
 

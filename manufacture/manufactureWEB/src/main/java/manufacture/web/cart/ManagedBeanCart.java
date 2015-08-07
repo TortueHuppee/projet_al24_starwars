@@ -17,8 +17,6 @@ import manufacture.entity.cart.PaymentType;
 import manufacture.entity.product.Product;
 import manufacture.entity.user.User;
 import manufacture.ifacade.cart.IGestionCart;
-import manufacture.ifacade.user.IProfil;
-import manufacture.web.catalogBean.CatalogManagedBean;
 import manufacture.web.catalogBean.ProductManagedBean;
 import manufacture.web.user.UserBean;
 
@@ -48,15 +46,16 @@ public class ManagedBeanCart {
 
 	private int productStock;
 
-	private List<CartProduct> panier = new ArrayList<CartProduct>();
+	private List<CartProduct> panier;
 	private Delivery moyenTransport;
 	private PaymentType moyenPaiement;
 	
 	@PostConstruct
-	void init() {
+	public void init() {
 
 		cart = new Cart();
-		cart.setCartProducts(new ArrayList<CartProduct>());
+		panier = new ArrayList<CartProduct>();
+		cart.setCartProducts(panier);
 
 		moyenPaiement = new PaymentType();
 		moyenPaiement.setIdPayment(1);

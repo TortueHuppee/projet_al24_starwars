@@ -101,6 +101,18 @@ public class BusinessProfil implements IBusinessProfil {
 		return proxyProduct.getProductNotSendByUser(user);
 	}
 	
+	@Override
+	public List<Address> getDeliveryAddressByUser(User user) {
+		return proxyAddress.getDeliveryAddressByUser(user);
+	}
+
+	@Override
+	public List<Address> getBillingAddressByUser(User user) {
+		return proxyAddress.getBillingAddressByUser(user);
+	}
+	
+	//Proxy
+	
 	public IDaoUser getProxyUser() {
 		return proxyUser;
 	}

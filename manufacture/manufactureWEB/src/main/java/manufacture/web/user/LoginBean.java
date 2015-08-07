@@ -88,7 +88,7 @@ public class LoginBean {
 				}
 				else
 				{
-					toPage = "annonceNonAutorisee.xhtml?faces-redirect=true";
+					toPage = "panierNonAutorise.xhtml?faces-redirect=true";
 					redirect = null;
 				}
 			}
@@ -116,7 +116,7 @@ public class LoginBean {
 	
 	public String doLogout(){
 		userBean.setUser(null);
-		mbCart.setCart(new Cart());
+		mbCart.init();
 		LOGGER.info("user reseted");
 		return null;
 	}

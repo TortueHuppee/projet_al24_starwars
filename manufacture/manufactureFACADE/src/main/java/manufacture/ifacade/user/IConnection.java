@@ -1,8 +1,5 @@
 package manufacture.ifacade.user;
 
-import java.util.List;
-
-import manufacture.entity.user.Address;
 import manufacture.entity.user.User;
 
 public interface IConnection {

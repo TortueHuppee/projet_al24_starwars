@@ -16,7 +16,7 @@
 
 				<p:steps styleClass="custom" readonly="false">
 					<p:menuitem value="Mon panier" />
-					<p:menuitem value="Options" />
+					<p:menuitem value="Livraison" />
 					<p:menuitem value="Paiement" />
 					<p:menuitem value="Récapitulatif" />
 				</p:steps>
@@ -24,49 +24,10 @@
 
 				<h2>
 					<h:outputLabel value="Mon panier" />
-					<p:commandButton value="Vider le Panier" action="#{mbCart.cleanCart()}" update=":myForm" />
+					<p:commandButton value="Vider le Panier"
+						action="#{mbCart.cleanCart()}" update=":myForm" />
 				</h2>
 
-				<table class="produitsInterdits">
-					<tr>
-						<th>Produit</th>
-						<th>Options</th>
-						<th>Quantité</th>
-						<th>Sous-total (Crédits)</th>
-						<th></th>
-					</tr>
-
-					<ui:repeat var="produit" value="#{mbSteps.listeProduitsNonAutorises}">
-						<tr>
-							<td>
-								<img src="#{produit.product.productRef.urlImage}" />
-								<h:outputLabel value="#{produit.product.productRef.productName}" />
-								<br/>
-								<h:outputLabel value="#{mbProduct.DoubleFormat(produit.product.price)} Crédits" />
-							</td>
-							<td>
-								<h:outputLabel value="Catégorie :" />
-								<h:outputText value="#{produit.product.productRef.category.categoryName}" /><br />
-								<h:outputLabel value="Couleur :" />
-								<h:outputText value="#{produit.product.color.colorName}" /><br />
-								<h:outputLabel value="Matériaux :" />
-								<h:outputText value="#{produit.product.material.materialName}" /><br />
-							</td> 
-							<td>
-								<h:outputLabel value="#{produit.quantity}" />
-							</td>
-							<td>
-								<h:outputLabel value="#{mbProduct.DoubleFormat(mbCart.getSubTotalPrice(produit.product.idProduct))}" />
-							</td>
-						</tr>
-					</ui:repeat>
-					
-				</table>
-				
-				<h2>
-					<h:outputLabel value="Attention : vous n'avez pas la permission d'acheter les produits d'occasion ou artisanaux. Ceux-ci seront automatiquement retirés du panier lors de la validation de la commande." />
-				</h2>
-				
 				<table>
 					<tr>
 						<th>Produit</th>
@@ -76,48 +37,83 @@
 						<th></th>
 					</tr>
 
-					<ui:repeat var="produit" value="#{mbCart.panier}">
+					<ui:repeat var="produit" value="#{mbSteps.listeProduitsAutorises}">
 						<tr>
-							<td>
-								<img src="#{produit.product.productRef.urlImage}" />
-								<h:outputLabel value="#{produit.product.productRef.productName}" />
-								<br/>
-								<h:outputLabel value="#{mbProduct.DoubleFormat(produit.product.price)} Crédits" />
+							<td><img src="#{produit.product.productRef.urlImage}" /> <h:outputLabel
+									value="#{produit.product.productRef.productName}" /> <br /> <h:outputLabel
+									value="#{mbProduct.DoubleFormat(produit.product.price)} Crédits" />
 							</td>
-							<td>
-								<h:outputLabel value="Catégorie :" />
-								<h:outputText value="#{produit.product.productRef.category.categoryName}" /><br />
-								<h:outputLabel value="Couleur :" />
-								<h:outputText value="#{produit.product.color.colorName}" /><br />
-								<h:outputLabel value="Matériaux :" />
-								<h:outputText value="#{produit.product.material.materialName}" /><br />
-							</td> 
-							<td>
-								<h:commandButton value="-"
+							<td><h:outputLabel value="Catégorie :" /> <h:outputText
+									value="#{produit.product.productRef.category.categoryName}" /><br />
+								<h:outputLabel value="Couleur :" /> <h:outputText
+									value="#{produit.product.color.colorName}" /><br /> <h:outputLabel
+									value="Matériaux :" /> <h:outputText
+									value="#{produit.product.material.materialName}" /><br /></td>
+							<td><h:commandButton value="-"
 									action="#{mbCart.decrementProductQuantity(produit.product.idProduct)}" />
-								<h:outputLabel value="#{produit.quantity}" />
-								<h:commandButton value="+"
+								<h:outputLabel value="#{produit.quantity}" /> <h:commandButton
+									value="+"
 									action="#{mbCart.incrementProductQuantity(produit.product.idProduct)}" />
 							</td>
-							<td>
-								<h:outputLabel value="#{mbProduct.DoubleFormat(mbCart.getSubTotalPrice(produit.product.idProduct))}" />
+							<td><h:outputLabel
+									value="#{mbProduct.DoubleFormat(mbCart.getSubTotalPrice(produit.product.idProduct))}" />
 							</td>
-							<td>
-								<h:commandButton image="../resources/images/delete.png"
+							<td><h:commandButton image="../resources/images/delete.png"
 									action="#{mbCart.deleteProductFromCart(produit.product.idProduct)}"
-									update=":myForm" />
-							</td>						
+									update=":myForm" /></td>
 						</tr>
 					</ui:repeat>
-					
+
 				</table>
+
+				<h:panelGrid
+					rendered="#{not empty mbSteps.listeProduitsNonAutorises}">
+
+					<h2>
+						<h:outputLabel
+							value="Attention : vous n'avez pas la permission d'acheter les produits d'occasion ou artisanaux. Ceux-ci seront automatiquement retirés du panier lors de la validation de la commande." />
+					</h2>
+
+					<table class="produitsInterdits">
+						<tr>
+							<th>Produit</th>
+							<th>Options</th>
+							<th>Quantité</th>
+							<th>Sous-total (Crédits)</th>
+							<th></th>
+						</tr>
+
+						<ui:repeat var="produit" value="#{mbSteps.listeProduitsNonAutorises}">
+							<tr>
+								<td><img src="#{produit.product.productRef.urlImage}" /> <h:outputLabel
+										value="#{produit.product.productRef.productName}" /> <br />
+									<h:outputLabel
+										value="#{mbProduct.DoubleFormat(produit.product.price)} Crédits" />
+								</td>
+								<td><h:outputLabel value="Catégorie :" /> <h:outputText
+										value="#{produit.product.productRef.category.categoryName}" /><br />
+									<h:outputLabel value="Couleur :" /> <h:outputText
+										value="#{produit.product.color.colorName}" /><br /> <h:outputLabel
+										value="Matériaux :" /> <h:outputText
+										value="#{produit.product.material.materialName}" /><br /></td>
+								<td><h:outputLabel value="#{produit.quantity}" /></td>
+								<td><h:outputLabel
+										value="#{mbProduct.DoubleFormat(mbCart.getSubTotalPrice(produit.product.idProduct))}" />
+								</td>
+							</tr>
+						</ui:repeat>
+
+					</table>
+
+				</h:panelGrid>
 
 				<div class="recapCommande">
 					<h:outputLabel value="Prix total (crédits) :" />
-					<h:outputLabel value="#{mbProduct.DoubleFormat(mbSteps.getTotalPrice())}" />
-					<br/>
-					<p:commandButton value="Valider mon panier" action="/pages/panierStep2" />
-				</div>  
+					<h:outputLabel
+						value="#{mbProduct.DoubleFormat(mbSteps.getTotalPrice())}" />
+					<br />
+					<p:commandButton value="Valider mon panier"	action="/pages/panierStep2" />
+				</div>
 
 
 			</div>

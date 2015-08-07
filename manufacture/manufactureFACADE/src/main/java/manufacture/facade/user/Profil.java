@@ -60,6 +60,18 @@ public class Profil implements IProfil{
 	public List<Product> getProductNotSendByUser(User user) {
 		return proxyProfil.getProductNotSendByUser(user);
 	}
+	
+	@Override
+	public List<Address> getBillingAddressByUser(User user) {
+		return proxyProfil.getBillingAddressByUser(user);
+	}
+
+	@Override
+	public List<Address> getDeliveryAddressByUser(User user) {
+		return proxyProfil.getDeliveryAddressByUser(user);
+	}
+	
+	//Proxy
 
 	public IBusinessConnection getProxyConnection() {
 		return proxyConnection;

@@ -1,11 +1,8 @@
 package manufacture.facade.user;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import manufacture.entity.user.Address;
 import manufacture.entity.user.User;
 import manufacture.ibusiness.user.IBusinessConnection;
 import manufacture.ifacade.user.IConnection;
