@@ -29,6 +29,8 @@ public interface IDaoProduct {
 
 	List<Product> getAllProduct();
 	
+	List<Product> getAllProductBySpaceShipRef(int idSpaceShipSelected);
+	
     //Panier - Fiche détail d'un produit
 	Product getProductByIdProduct (int idProduct);
 
@@ -36,5 +38,4 @@ public interface IDaoProduct {
 	List<Product> getProductSendByUser(User user);
 
 	List<Product> getProductNotSendByUser(User user);
-	
 }

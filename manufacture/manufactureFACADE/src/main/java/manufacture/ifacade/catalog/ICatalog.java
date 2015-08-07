@@ -43,6 +43,8 @@ public interface ICatalog {
 
 	List<SpaceshipProduct> getAllSpaceShipProduct();
 	
+	List<Product> getAllProductBySpaceShipRef(int idSpaceShipSelected);
+	
 	//Consultation du détail d'un produit
 	List<Product> getAllProductByProductRef(int idProducRef);
 

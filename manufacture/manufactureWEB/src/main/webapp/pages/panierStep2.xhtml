@@ -114,7 +114,7 @@
 							</p:dialog>
 
 							<h:panelGrid columns="1">
-								<p:selectOneRadio value="#{mbSteps.idTest1}"
+								<p:selectOneRadio value="#{mbSteps.idAdressePersonnelle}"
 									columns="1">
 									<f:selectItems var="item"
 										value="#{profilBean.adressesLivraison}"
@@ -157,7 +157,7 @@
 
 					<h:panelGrid rendered="#{mbCart.cart.delivery.idDelivery == 4}">
 						<h:panelGrid columns="1">
-							<p:selectOneRadio value="#{mbSteps.idtest}" layout="grid"
+							<p:selectOneRadio value="#{mbSteps.idAdressePointRelais}" layout="grid"
 								columns="1">
 								<f:selectItems var="item" value="#{mbSteps.listePointsRelais}"
 									itemValue="#{item.addresse.idAddress}" itemLabel=" " />
@@ -199,8 +199,8 @@
 						<h:outputLabel value="Prix total (crédits)" /> :
 						<h:outputLabel value="#{mbSteps.calculePrixTotal()}" />
 						<p:commandButton id="boutonContinuer" value="Continuer"
-							update=":myForm" action="/pages/panierStep3"
-							disabled="#{(mbSteps.idTest1 == 0) and (mbSteps.idtest == 0)}" />
+							update=":myForm" action="#{mbSteps.goToStep3()}"
+							disabled="#{(mbSteps.idAdressePersonnelle == 0) and (mbSteps.idAdressePointRelais == 0)}" />
 					</h:panelGrid>
 				</div>
 			</h:form>

@@ -68,8 +68,8 @@ public class StepsCartManagedBean {
 	private List<Delivery> moyensDeLivraisons;
 	private List<RelayPoint> listePointsRelais;
 	private Address adresseLivraison;
-	private int idTest1 = 0;
-	private int idtest = 0;
+	private int idAdressePersonnelle = 0;
+	private int idAdressePointRelais = 0;
 	
 	//Step 3
 	
@@ -88,10 +88,20 @@ public class StepsCartManagedBean {
 	
 	// Méthodes
 	
-	public void test()
+	public String goToStep3()
 	{
-		log.info("Mode de livraison choisi : " + mbCart.getCart().getDelivery().getIdDelivery());
-		log.info("ID adresse sélectionnée " + adresseLivraison.getIdAddress());
+		adresseLivraison = new Address();
+		
+		if (mbCart.getCart().getDelivery().getIdDelivery() == DELIVERY_RELAY_POINTS_ID)
+		{
+			adresseLivraison.setIdAddress(idAdressePointRelais);
+		}
+		else
+		{
+			adresseLivraison.setIdAddress(idAdressePersonnelle);
+		}
+		
+		return "panierStep3.xhtml?faces-redirect=true";
 	}
 	
 	public double calculePrixTotal()
@@ -319,19 +329,20 @@ public class StepsCartManagedBean {
 		this.adresseFacturation = adresseFacturation;
 	}
 
-	public int getIdtest() {
-		return idtest;
+	public int getIdAdressePersonnelle() {
+		return idAdressePersonnelle;
 	}
 
-	public void setIdtest(int idtest) {
-		this.idtest = idtest;
+	public void setIdAdressePersonnelle(int idAdressePersonnelle) {
+		this.idAdressePersonnelle = idAdressePersonnelle;
 	}
 
-	public int getIdTest1() {
-		return idTest1;
+	public int getIdAdressePointRelais() {
+		return idAdressePointRelais;
 	}
 
-	public void setIdTest1(int idTest1) {
-		this.idTest1 = idTest1;
+	public void setIdAdressePointRelais(int idAdressePointRelais) {
+		this.idAdressePointRelais = idAdressePointRelais;
 	}
+
 }

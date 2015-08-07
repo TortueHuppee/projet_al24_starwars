@@ -112,6 +112,11 @@ public class Catalog implements ICatalog {
 	public List<User> getAllArtisan() {
 		return proxyCatalog.getAllArtisan();
 	}
+	
+	@Override
+	public List<Product> getAllProductBySpaceShipRef(int idSpaceShipSelected) {
+		return proxyCatalog.getAllProductBySpaceShipRef(idSpaceShipSelected);
+	}
 
 	public IBusinessCatalog getProxyColor() {
 		return proxyCatalog;

@@ -131,6 +131,25 @@ public class DaoProduct implements IDaoProduct {
             return resultat;
         }
 	}
+	
+	@Override
+	public List<Product> getAllProductBySpaceShipRef(int idSpaceShipSelected) {
+		Session session = sf.getCurrentSession();       
+        //String requete = "SELECT p FROM Product p INNER JOIN SpaceshipProduct ssp WHERE p.productRef.idProductRef = ssp.productRef.idProductRef AND ssp.spaceshipRef.idSpaceshipRef = :paramId";
+        String requete = "SELECT p FROM Product p, SpaceshipProduct ssp WHERE p.productRef.idProductRef = ssp.productRef.idProductRef AND ssp.spaceshipRef.idSpaceshipRef = :paramId";
+        Query hql = session.createQuery(requete);        
+        hql.setParameter("paramId", idSpaceShipSelected);
+        List<Product> resultat = hql.list();
+        
+        if (resultat.size() == 0)
+        {
+            return new ArrayList<Product>();
+        }
+        else
+        {
+            return resultat;
+        }
+	}
 
 	//Getters et Setters
 	public SessionFactory getSf() {

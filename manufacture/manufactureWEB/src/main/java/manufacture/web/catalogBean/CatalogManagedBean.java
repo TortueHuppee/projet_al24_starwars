@@ -66,7 +66,7 @@ public class CatalogManagedBean {
     /**
      * Filtres communs aux trois listes de produit.
      */
-    private List<SpaceshipProduct> listeModèleVaisseauProduit;
+//    private List<SpaceshipProduct> listeModèleVaisseauProduit;
     
     private List<Category> listeCatégories;
     private List<Color> listeCouleurs;
@@ -95,10 +95,9 @@ public class CatalogManagedBean {
     {
     	listeProductBrute = indexManagedBean.getListeProduitBrute();
         
-        listeModèleVaisseauProduit = proxyCatalog.getAllSpaceShipProduct();
+//        listeModèleVaisseauProduit = proxyCatalog.getAllSpaceShipProduct();
 
         initialisationFiltres();
-        initialisationListesBrutes();
         initialisationListesAffichees();
     }
 
@@ -162,11 +161,24 @@ public class CatalogManagedBean {
     
     public void initialisationListesAffichees()
     {
+        if (idSpaceShipSelected != 0)
+        {
+        	listeProductBrute = proxyCatalog.getAllProductBySpaceShipRef(idSpaceShipSelected);
+        	initialisationListesBrutes();
+        }
+        else
+        {
+        	listeProductBrute = indexManagedBean.getListeProduitBrute();
+        	initialisationListesBrutes();
+        }
+        
         listeProduitConstructeurAffichee = new ArrayList<Produit>();
         listeProduitArtisanAffichee = new ArrayList<Produit>();
         listeProduitOccasionAffichee = new ArrayList<Produit>();
 
-        tousLesFiltres(listeProduitConstructeurBrute , listeProduitConstructeurAffichee);
+        filtrage(listeProduitConstructeurBrute , listeProduitConstructeurAffichee);
+        filtrage(listeProduitArtisanBrute , listeProduitArtisanAffichee);
+        filtrage(listeProduitOccasionBrute , listeProduitOccasionAffichee);
         
         paginatedListConstructorProduct = new RepeatPaginator(listeProduitConstructeurAffichee, 24);
         paginatedListArtisanProduct = new RepeatPaginator(listeProduitArtisanAffichee, 24);
@@ -214,9 +226,10 @@ public class CatalogManagedBean {
     }
 
     //Filtres
-    public void tousLesFiltres(List<Produit> listeBrute, List<Produit> listeAffichée)
+    
+    public void filtrage(List<Produit> listeBrute, List<Produit> listeAffichée)
     {
-        for (Produit produit : listeBrute)
+    	for (Produit produit : listeBrute)
         {
             boolean ajout = true;
 
@@ -232,10 +245,6 @@ public class CatalogManagedBean {
 
             if (idConstructorSelected != 0 && ajout){
                 ajout = filtreConstructeur(produit);
-            }
-
-            if (idSpaceShipSelected != 0 && ajout){
-                ajout = filtreModèleVaisseau(produit);
             }
 
             if (ajout){
@@ -302,22 +311,22 @@ public class CatalogManagedBean {
         }
     }
 
-    public boolean filtreModèleVaisseau(Produit produit)
-    {
-        boolean ajout = false;
-        
-        for (SpaceshipProduct ssp : listeModèleVaisseauProduit)
-        {
-        	if (ssp.getProductRef().getIdProductRef() == produit.getIdProductRef())
-        	{
-        		if (ssp.getSpaceshipRef().getIdSpaceshipRef() == idSpaceShipSelected)
-        		{
-        			ajout = true;
-        		}
-        	}
-        }
-        return ajout;
-    }
+//    public boolean filtreModèleVaisseau(Produit produit)
+//    {
+//        boolean ajout = false;
+//        
+//        for (SpaceshipProduct ssp : listeModèleVaisseauProduit)
+//        {
+//        	if (ssp.getProductRef().getIdProductRef() == produit.getIdProductRef())
+//        	{
+//        		if (ssp.getSpaceshipRef().getIdSpaceshipRef() == idSpaceShipSelected)
+//        		{
+//        			ajout = true;
+//        		}
+//        	}
+//        }
+//        return ajout;
+//    }
 
     public boolean produitDejaDansLaListe(Produit produit, List<Produit> liste)
     {
@@ -366,14 +375,14 @@ public class CatalogManagedBean {
     }
     //Getters et Setters	
 
-    public List<SpaceshipProduct> getListeModèleVaisseauProduit() {
-		return listeModèleVaisseauProduit;
-	}
-
-	public void setListeModèleVaisseauProduit(
-			List<SpaceshipProduct> listeModèleVaisseauProduit) {
-		this.listeModèleVaisseauProduit = listeModèleVaisseauProduit;
-	}
+//    public List<SpaceshipProduct> getListeModèleVaisseauProduit() {
+//		return listeModèleVaisseauProduit;
+//	}
+//
+//	public void setListeModèleVaisseauProduit(
+//			List<SpaceshipProduct> listeModèleVaisseauProduit) {
+//		this.listeModèleVaisseauProduit = listeModèleVaisseauProduit;
+//	}
 
     public List<Color> getListeCouleurs() {
         return listeCouleurs;

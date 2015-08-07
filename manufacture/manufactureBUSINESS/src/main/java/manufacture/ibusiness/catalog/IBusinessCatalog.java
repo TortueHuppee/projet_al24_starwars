@@ -44,6 +44,8 @@ public interface IBusinessCatalog {
     List<User> getAllArtisan();
 
     List<SpaceshipProduct> getAllSpaceShipProduct();
+    
+    List<Product> getAllProductBySpaceShipRef(int idSpaceShipSelected);
 
     //Consultation du détail d'un produit
     List<Product> getAllProductByProductRef(int idProducRef);
