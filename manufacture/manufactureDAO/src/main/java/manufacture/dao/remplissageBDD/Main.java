@@ -1,6 +1,5 @@
 package manufacture.dao.remplissageBDD;
 
-import manufacture.entity.user.User;
 
 public class Main {
 

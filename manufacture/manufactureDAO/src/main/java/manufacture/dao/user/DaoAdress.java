@@ -12,13 +12,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import manufacture.dao.product.DaoColor;
-import manufacture.entity.product.Color;
 import manufacture.entity.user.Address;
-import manufacture.entity.user.City;
-import manufacture.entity.user.Country;
-import manufacture.entity.user.Planet;
 import manufacture.entity.user.User;
-import manufacture.idao.dataloading.IDaoCity;
 import manufacture.idao.user.IDaoAdress;
 
 @Service

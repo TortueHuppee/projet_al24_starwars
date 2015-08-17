@@ -2,8 +2,6 @@ package manufacture.idao.product;
 
 import java.util.List;
 
-import manufacture.entity.product.Category;
-import manufacture.entity.product.ProductRef;
 import manufacture.entity.product.SpaceshipProduct;
 import manufacture.entity.product.SpaceshipRef;
 

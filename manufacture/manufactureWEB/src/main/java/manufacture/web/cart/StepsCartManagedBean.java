@@ -345,4 +345,40 @@ public class StepsCartManagedBean {
 		this.idAdressePointRelais = idAdressePointRelais;
 	}
 
+    public static Logger getLog() {
+        return log;
+    }
+
+    public static void setLog(Logger paramLog) {
+        log = paramLog;
+    }
+
+    public static Integer getUserParticulierRoleId() {
+        return USER_PARTICULIER_ROLE_ID;
+    }
+
+    public static Integer getUserProfessionnelRoleId() {
+        return USER_PROFESSIONNEL_ROLE_ID;
+    }
+
+    public static Integer getUserArtisanRoleId() {
+        return USER_ARTISAN_ROLE_ID;
+    }
+
+    public static Integer getProductConstructeurTypeId() {
+        return PRODUCT_CONSTRUCTEUR_TYPE_ID;
+    }
+
+    public static Integer getProductArtisanTypeId() {
+        return PRODUCT_ARTISAN_TYPE_ID;
+    }
+
+    public static Integer getProductOccasionTypeId() {
+        return PRODUCT_OCCASION_TYPE_ID;
+    }
+
+    public static Integer getDeliveryRelayPointsId() {
+        return DELIVERY_RELAY_POINTS_ID;
+    }
+
 }

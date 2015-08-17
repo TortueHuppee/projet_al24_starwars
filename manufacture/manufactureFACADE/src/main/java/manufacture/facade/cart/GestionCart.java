@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class GestionCart implements IGestionCart {
    
-    private Logger log = Logger.getLogger(GestionCart.class);
+    private static Logger log = Logger.getLogger(GestionCart.class);
     
     private IBusinessCart businessCart;
 
@@ -57,9 +57,21 @@ public class GestionCart implements IGestionCart {
 	public List<RelayPoint> getAllRelayPoints() {
 		return businessCart.getAllRelayPoints();
 	}
-    
+
+    public static Logger getLog() {
+        return log;
+    }
+
+    public static void setLog(Logger paramLog) {
+        log = paramLog;
+    }
+
+    public IBusinessCart getBusinessCart() {
+        return businessCart;
+    }
+
     @Autowired
-    public void setBusinessCartCart(IBusinessCart paramBuCart) {
-        businessCart = paramBuCart;
+    public void setBusinessCart(IBusinessCart paramBusinessCart) {
+        businessCart = paramBusinessCart;
     }
 }

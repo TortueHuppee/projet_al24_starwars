@@ -19,7 +19,7 @@ public class Advert implements IAdvert {
 	@Autowired
 	private IBusinessAdvert proxyAdvert;
 	
-	private Logger log = Logger.getLogger(GestionCart.class);
+	private static Logger log = Logger.getLogger(GestionCart.class);
   
 	@Override
 	public void createAdvert(Product product) {
@@ -43,4 +43,12 @@ public class Advert implements IAdvert {
 	public IBusinessCatalog getProxyCatalog() {
 		return proxyCatalog;
 	}
+
+    public static Logger getLog() {
+        return log;
+    }
+
+    public static void setLog(Logger paramLog) {
+        log = paramLog;
+    }
 }

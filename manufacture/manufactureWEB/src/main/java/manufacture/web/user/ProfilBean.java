@@ -10,14 +10,13 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 
-import org.apache.log4j.Logger;
-
 import manufacture.entity.cart.Cart;
 import manufacture.entity.cart.CartProduct;
 import manufacture.entity.product.Product;
 import manufacture.entity.user.Address;
-import manufacture.ifacade.user.IConnection;
 import manufacture.ifacade.user.IProfil;
+
+import org.apache.log4j.Logger;
 
 @ManagedBean(name="profilBean")
 @SessionScoped
@@ -105,6 +104,7 @@ public class ProfilBean {
 			return "login.xhtml?faces-redirect=true";
 		}
 	}
+	
 	public UserBean getUserBean() {
 		return userBean;
 	}

@@ -1,14 +1,8 @@
 package manufacture.dao.remplissageBDD;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
 import manufacture.entity.product.Category;
 import manufacture.entity.product.Constructor;
 import manufacture.entity.product.ProductRef;
-import manufacture.entity.product.SpaceshipProduct;
 import manufacture.entity.product.SpaceshipRef;
 import manufacture.entity.user.Planet;
 import manufacture.idao.dataloading.IDaoPlanet;
@@ -18,8 +12,6 @@ import manufacture.idao.product.IDaoConstructor;
 import manufacture.idao.product.IDaoMaterial;
 import manufacture.idao.product.IDaoProductRef;
 import manufacture.idao.product.IDaoSpaceShipRef;
-import manufacture.idao.user.IDaoAdress;
-
 import org.apache.log4j.Logger;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;

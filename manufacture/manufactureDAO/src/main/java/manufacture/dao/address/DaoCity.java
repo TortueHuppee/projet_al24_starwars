@@ -9,9 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import manufacture.entity.product.Color;
 import manufacture.entity.user.City;
-import manufacture.entity.user.Country;
 import manufacture.idao.dataloading.IDaoCity;
 
 @Transactional

@@ -2,23 +2,15 @@ package manufacture.ibusiness.cart;
 
 import java.util.List;
 
-import org.springframework.stereotype.Service;
-
 import manufacture.entity.cart.Cart;
-import manufacture.entity.cart.CartProduct;
 import manufacture.entity.cart.Delivery;
 import manufacture.entity.cart.PaymentType;
 import manufacture.entity.cart.RelayPoint;
 import manufacture.entity.product.Product;
-import manufacture.entity.user.User;
 
 public interface IBusinessCart {
 
 	//Gestion du panier
-	void updateOptionsProduct(int idCartProduct, Product newProduct);
-	
-	void updateQuantityProduct(int idCartProduct, int newQuantity);
-	
 	List<Product> getAllProductByCart(int idCart);
 	
 	//Gestion de la commande

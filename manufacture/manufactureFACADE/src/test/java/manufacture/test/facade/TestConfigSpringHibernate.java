@@ -2,8 +2,6 @@ package manufacture.test.facade;
 
 import java.util.List;
 
-import manufacture.ibusiness.catalog.IBusinessCatalog;
-import manufacture.idao.product.IDaoColor;
 import manufacture.ifacade.catalog.ICatalog;
 import manufacture.entity.product.Color;
 
@@ -14,7 +12,8 @@ public class TestConfigSpringHibernate {
 
 	public static void main(String[] args) {
 		
-		BeanFactory bf = new ClassPathXmlApplicationContext("classpath:springFacade.xml");
+		@SuppressWarnings("resource")
+        BeanFactory bf = new ClassPathXmlApplicationContext("classpath:springFacade.xml");
 		ICatalog proxyCatalog = (ICatalog) bf.getBean(ICatalog.class);
 
 		List<Color> listeCouleur = proxyCatalog.getAllColor();

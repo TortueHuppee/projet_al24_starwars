@@ -2,7 +2,6 @@ package manufacture.idao.user;
 
 import java.util.List;
 
-import manufacture.entity.user.Address;
 import manufacture.entity.user.User;
 
 

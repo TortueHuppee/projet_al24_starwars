@@ -18,7 +18,6 @@ import manufacture.entity.product.ProductRef;
 import manufacture.entity.product.TypeProduct;
 import manufacture.ifacade.advert.IAdvert;
 import manufacture.ifacade.catalog.ICatalog;
-import manufacture.web.cart.PaymentBean;
 import manufacture.web.catalogBean.CatalogManagedBean;
 import manufacture.web.user.LoginBean;
 import manufacture.web.user.UserBean;
@@ -29,7 +28,7 @@ import org.apache.log4j.Logger;
 @SessionScoped
 public class AnnonceManagedBean {
 
-	private Logger log = Logger.getLogger(PaymentBean.class);
+	private static Logger log = Logger.getLogger(AnnonceManagedBean.class);
 
 	/**
 	 * Constantes
@@ -67,43 +66,63 @@ public class AnnonceManagedBean {
 	 * Messages d'erreurs :
 	 */
 	private String messageErreur = "";
+	
+	private boolean donneesInitialisees = false;
 
 	@PostConstruct
-	public void init()
+	public String init()
 	{
-		listeProduitRef = proxyCatalog.getAllProductRef();
-		
-		newProduct = new Product();
-		
-		newProduct.setUser(userBean.getUser());
-		newProduct.setTypeProduct(new TypeProduct());
-		if (userBean.getUser().getUserRole().getIdUserRole() == USER_PARTICULIER_ROLE_ID)
-		{
-			newProduct.getTypeProduct().setIdTypeProduct(PRODUCT_OCCASION_TYPE_ID);
-		}
-		else if (userBean.getUser().getUserRole().getIdUserRole() == USER_ARTISAN_ROLE_ID)
-		{
-			newProduct.getTypeProduct().setIdTypeProduct(PRODUCT_ARTISAN_TYPE_ID);
-		}
-		
-		newProduct.setProductRef(new ProductRef());
-		newProduct.setColor(new Color());
-		newProduct.setMaterial(new Material());
-		newProduct.setSellerComment("");
-		
-		newProduct.setPrice(1);
-		newProduct.setStock(1);
-				
-		newProduct.setDatePublication(date);
-		newProduct.setDisabled(false);
+	    if(userBean.isLogged()){
+	        if (userBean.getUser().getUserRole().getIdUserRole() == USER_ARTISAN_ROLE_ID || userBean.getUser().getUserRole().getIdUserRole() == USER_PARTICULIER_ROLE_ID)
+            {
+	            initialiseDonnees();
+	            donneesInitialisees = true;
+	            return "annonce.xhtml?faces-redirect=true";
+            }
+            else
+            {
+                return "annonceNonAutorisee.xhtml?faces-redirect=true";
+            }
+        }
+	    loginBean.setRedirect("annonce.xhtml?faces-redirect=true");
+        return "login.xhtml?faces-redirect=true";
 	}
 
 	// Méthodes
+	public void initialiseDonnees()
+    {
+	    listeProduitRef = proxyCatalog.getAllProductRef();
+        
+        newProduct = new Product();
+        
+        newProduct.setUser(userBean.getUser());
+        newProduct.setTypeProduct(new TypeProduct());
+        if (userBean.getUser().getUserRole().getIdUserRole() == USER_PARTICULIER_ROLE_ID)
+        {
+            newProduct.getTypeProduct().setIdTypeProduct(PRODUCT_OCCASION_TYPE_ID);
+        }
+        else if (userBean.getUser().getUserRole().getIdUserRole() == USER_ARTISAN_ROLE_ID)
+        {
+            newProduct.getTypeProduct().setIdTypeProduct(PRODUCT_ARTISAN_TYPE_ID);
+        }
+        
+        newProduct.setProductRef(new ProductRef());
+        newProduct.setColor(new Color());
+        newProduct.setMaterial(new Material());
+        newProduct.setSellerComment("");
+        
+        newProduct.setPrice(1);
+        newProduct.setStock(1);
+                
+        newProduct.setDatePublication(date);
+        newProduct.setDisabled(false);
+    }
+
 	public String validationFormulaire()
 	{
 		if (newProduct.getSellerComment().equals(""))
 		{
-			messageErreur = "Veuillez rentrer un commentaire pour écrire votre produit.";
+			messageErreur = "Veuillez rentrer un commentaire avant de publier l'annonce.";
 		}
 		else
 		{
@@ -117,8 +136,7 @@ public class AnnonceManagedBean {
 	{
 		proxyAdvert.createAdvert(newProduct);
 		catalogBean.getListeProductBrute().add(newProduct);
-		catalogBean.initialisationListesBrutes();
-		catalogBean.initialisationListesAffichees();
+		catalogBean.init();
 		
 		return "annonceEnregistree.xhtml?faces-redirect=true";
 	}
@@ -146,6 +164,25 @@ public class AnnonceManagedBean {
 		}
 	}
 
+	public String accessAdvert(){
+        if(userBean.isLogged()){
+            if (userBean.getUser().getUserRole().getIdUserRole() == USER_ARTISAN_ROLE_ID || userBean.getUser().getUserRole().getIdUserRole() == USER_PARTICULIER_ROLE_ID)
+            {
+                initialiseDonnees();
+                donneesInitialisees = true;
+                return "annonce.xhtml?faces-redirect=true";
+            }
+            else
+            {
+                return "annonceNonAutorisee.xhtml?faces-redirect=true";
+            }
+        }else{
+            date = new Date();
+            loginBean.setRedirect("annonce.xhtml?faces-redirect=true");
+            return "login.xhtml?faces-redirect=true";
+        }
+    }
+	
 	// Getters et Setters
 
 	public UserBean getUserBean() {
@@ -227,4 +264,36 @@ public class AnnonceManagedBean {
 	public void setCatalogBean(CatalogManagedBean catalogBean) {
 		this.catalogBean = catalogBean;
 	}
+
+    public static Logger getLog() {
+        return log;
+    }
+
+    public static void setLog(Logger paramLog) {
+        log = paramLog;
+    }
+
+    public static Integer getProductArtisanTypeId() {
+        return PRODUCT_ARTISAN_TYPE_ID;
+    }
+
+    public static Integer getProductOccasionTypeId() {
+        return PRODUCT_OCCASION_TYPE_ID;
+    }
+
+    public static Integer getUserArtisanRoleId() {
+        return USER_ARTISAN_ROLE_ID;
+    }
+
+    public static Integer getUserParticulierRoleId() {
+        return USER_PARTICULIER_ROLE_ID;
+    }
+
+    public boolean isDonneesInitialisees() {
+        return donneesInitialisees;
+    }
+
+    public void setDonneesInitialisees(boolean paramDonneesInitialisees) {
+        donneesInitialisees = paramDonneesInitialisees;
+    }
 }

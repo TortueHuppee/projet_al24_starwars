@@ -22,22 +22,12 @@ import org.springframework.stereotype.Service;
 @Service
 public class BusinessCart implements IBusinessCart {
 			
-    private Logger log = Logger.getLogger(BusinessCart.class);
+    private static Logger log = Logger.getLogger(BusinessCart.class);
     
     private IDaoCart proxyCart;
     private IDaoProductCart proxyProductCart;
     private IDaoPaymentAndDelivery proxyPaymentAndDelivery;
     private IDaoProduct proxyProduct;
-
-	@Override
-	public void updateOptionsProduct(int idCartProduct, Product newProduct) {
-		proxyProductCart.updateOptionsProduct(idCartProduct, newProduct);
-	}
-
-	@Override
-	public void updateQuantityProduct(int idCartProduct, int newQuantity) {
-		proxyProductCart.updateQuantityProduct(idCartProduct, newQuantity);
-	}
 
 	@Override
 	public List<Product> getAllProductByCart(int idCart) {
@@ -186,4 +176,12 @@ public class BusinessCart implements IBusinessCart {
 	public void setProxyProduct(IDaoProduct proxyProduct) {
 		this.proxyProduct = proxyProduct;
 	}
+
+    public static Logger getLog() {
+        return log;
+    }
+
+    public static void setLog(Logger paramLog) {
+        log = paramLog;
+    }
 }

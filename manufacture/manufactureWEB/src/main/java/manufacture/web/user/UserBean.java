@@ -38,9 +38,16 @@ public class UserBean {
 			try {
 				FacesContext.getCurrentInstance().getExternalContext().redirect("profil.xhtml");
 			} catch (IOException e) { 
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
 	}
+
+    public static Logger getLOGGER() {
+        return LOGGER;
+    }
+
+    public static void setLOGGER(Logger paramLOGGER) {
+        LOGGER = paramLOGGER;
+    }
 }

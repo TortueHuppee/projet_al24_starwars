@@ -16,21 +16,19 @@ import manufacture.entity.product.Color;
 import manufacture.entity.product.Constructor;
 import manufacture.entity.product.Material;
 import manufacture.entity.product.Product;
-import manufacture.entity.product.SpaceshipProduct;
 import manufacture.entity.product.SpaceshipRef;
 import manufacture.entity.user.User;
 import manufacture.ifacade.catalog.ICatalog;
-
-import org.apache.log4j.Logger;
-
 import manufacture.web.datas.DataLoader;
 import manufacture.web.util.RepeatPaginator;
+
+import org.apache.log4j.Logger;
 
 @ManagedBean(name="mbCatalog")
 @ApplicationScoped
 public class CatalogManagedBean {
 
-    private Logger log = Logger.getLogger(CatalogManagedBean.class);
+    private static Logger log = Logger.getLogger(CatalogManagedBean.class);
 
     @ManagedProperty(value="#{catalog}")
     private ICatalog proxyCatalog;
@@ -66,8 +64,6 @@ public class CatalogManagedBean {
     /**
      * Filtres communs aux trois listes de produit.
      */
-//    private List<SpaceshipProduct> listeModèleVaisseauProduit;
-    
     private List<Category> listeCatégories;
     private List<Color> listeCouleurs;
     private List<Material> listeMateriaux;
@@ -85,17 +81,15 @@ public class CatalogManagedBean {
     /**
      * Trois paginator pour chacune des listes.
      */
-    private RepeatPaginator paginatedListConstructorProduct;
-    private RepeatPaginator paginatedListArtisanProduct;
-    private RepeatPaginator paginatedListUsedProduct;
+    private RepeatPaginator<Produit> paginatedListConstructorProduct;
+    private RepeatPaginator<Produit> paginatedListArtisanProduct;
+    private RepeatPaginator<Produit> paginatedListUsedProduct;
 
 
     @PostConstruct
-    void init()
+    public void init()
     {
     	listeProductBrute = indexManagedBean.getListeProduitBrute();
-        
-//        listeModèleVaisseauProduit = proxyCatalog.getAllSpaceShipProduct();
 
         initialisationFiltres();
         initialisationListesAffichees();
@@ -105,7 +99,7 @@ public class CatalogManagedBean {
 
     public void choixCategorie(int idCategory)
     {
-        this.idCategorySelected = idCategory;
+        idCategorySelected = idCategory;
         initialisationListesAffichees();
     }
 
@@ -180,9 +174,9 @@ public class CatalogManagedBean {
         filtrage(listeProduitArtisanBrute , listeProduitArtisanAffichee);
         filtrage(listeProduitOccasionBrute , listeProduitOccasionAffichee);
         
-        paginatedListConstructorProduct = new RepeatPaginator(listeProduitConstructeurAffichee, 24);
-        paginatedListArtisanProduct = new RepeatPaginator(listeProduitArtisanAffichee, 24);
-        paginatedListUsedProduct = new RepeatPaginator(listeProduitOccasionAffichee, 24);
+        paginatedListConstructorProduct = new RepeatPaginator<Produit>(listeProduitConstructeurAffichee, 24);
+        paginatedListArtisanProduct = new RepeatPaginator<Produit>(listeProduitArtisanAffichee, 24);
+        paginatedListUsedProduct = new RepeatPaginator<Produit>(listeProduitOccasionAffichee, 24);
     }
     
     public void initialisationListesBrutes()
@@ -532,29 +526,29 @@ public class CatalogManagedBean {
 		this.listeProduitOccasionAffichee = listeProduitOccasionAffichee;
 	}
 
-	public RepeatPaginator getPaginatedListConstructorProduct() {
+	public RepeatPaginator<Produit> getPaginatedListConstructorProduct() {
 		return paginatedListConstructorProduct;
 	}
 
 	public void setPaginatedListConstructorProduct(
-			RepeatPaginator paginatedListConstructorProduct) {
+			RepeatPaginator<Produit> paginatedListConstructorProduct) {
 		this.paginatedListConstructorProduct = paginatedListConstructorProduct;
 	}
 
-	public RepeatPaginator getPaginatedListArtisanProduct() {
+	public RepeatPaginator<Produit> getPaginatedListArtisanProduct() {
 		return paginatedListArtisanProduct;
 	}
 
 	public void setPaginatedListArtisanProduct(
-			RepeatPaginator paginatedListArtisanProduct) {
+			RepeatPaginator<Produit> paginatedListArtisanProduct) {
 		this.paginatedListArtisanProduct = paginatedListArtisanProduct;
 	}
 
-	public RepeatPaginator getPaginatedListUsedProduct() {
+	public RepeatPaginator<Produit> getPaginatedListUsedProduct() {
 		return paginatedListUsedProduct;
 	}
 
-	public void setPaginatedListUsedProduct(RepeatPaginator paginatedListUsedProduct) {
+	public void setPaginatedListUsedProduct(RepeatPaginator<Produit> paginatedListUsedProduct) {
 		this.paginatedListUsedProduct = paginatedListUsedProduct;
 	}
 
@@ -609,4 +603,12 @@ public class CatalogManagedBean {
 	public void setDataLoader(DataLoader dataLoader) {
 		this.dataLoader = dataLoader;
 	}
+
+    public static Logger getLog() {
+        return log;
+    }
+
+    public static void setLog(Logger paramLog) {
+        log = paramLog;
+    }
 }

@@ -14,7 +14,7 @@ import manufacture.ifacade.cart.IPaiement;
 @Service
 public class Paiement implements IPaiement {
    
-    private Logger log = Logger.getLogger(Paiement.class);
+    private static Logger log = Logger.getLogger(Paiement.class);
     
     private IBusinessCart businessCart;
 	
@@ -30,9 +30,21 @@ public class Paiement implements IPaiement {
     public List<PaymentType> getAllPaymentType() {
         return businessCart.getAllPaymentType();
     }
-    
+
+    public static Logger getLog() {
+        return log;
+    }
+
+    public static void setLog(Logger paramLog) {
+        log = paramLog;
+    }
+
+    public IBusinessCart getBusinessCart() {
+        return businessCart;
+    }
+
     @Autowired
-    public void setBuCart(IBusinessCart paramBuCart) {
-        businessCart = paramBuCart;
+    public void setBusinessCart(IBusinessCart paramBusinessCart) {
+        businessCart = paramBusinessCart;
     }
 }

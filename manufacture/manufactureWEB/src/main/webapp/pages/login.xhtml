@@ -10,46 +10,29 @@
 
 	<ui:define name="main-body">
 		<h:form id="signinForm">
-			<div class="connexion">
+			<div class="center-body">
+				
+				<h:outputLabel value="#{loginBean.erreurConnexion}" class="messageErreur" />
+				
+				<div class="connexion">
+					<h2>Se connecter</h2>
+					<h:outputLabel value="Nom utilisateur : " />
+					<h:inputText value="#{loginBean.user.login}" 
+						required="true" requiredMessage="Champs obligatoire"
+						styleClass="inputConnexion" />
 
-				<p:panel header="Se connecter">
-					<p:panelGrid>
-						<p:row>
-							<p:column>
-								<h:messages></h:messages>
-								<h:outputLabel for="login_username" value="Nom utilisateur : " />
-								<h:inputText value="#{loginBean.user.login}" id="login_username"
-									required="true" requiredMessage="Champs obligatoire"
-									styleClass="inputConnexion" />
-							</p:column>
-						</p:row>
-						
-						<p:row>
-							<p:column>
-								<h:outputLabel for="login_password" value="Mot de passe : " />
-								<h:inputSecret value="#{loginBean.user.password}"
-									id="login_password" required="true"
-									requiredMessage="Champs obligatoire"
-									styleClass="inputConnexion" />
-							</p:column>
-						</p:row>
-						
-						<p:row>
-							<p:column>
-									<p:commandButton value="Se connecter" actionListener="#{loginBean.doLogin()}"/>
-							</p:column>
-						</p:row>
-						
-						<p:row>				
-							<p:column>
-								<h:outputLabel value="Pas de compte ?" />
-								<h:commandLink value="Inscrivez vous !"
-									action="signin.xhtml&amp;faces-redirect=true" />
-							</p:column>
-						</p:row>
-						
-					</p:panelGrid>
-				</p:panel>
+					<h:outputLabel value="Mot de passe : " />
+					<h:inputSecret value="#{loginBean.user.password}"
+						required="true"
+						requiredMessage="Champs obligatoire" styleClass="inputConnexion" />
+
+					<p:commandButton value="Se connecter"
+						actionListener="#{loginBean.doLogin()}" />
+
+					<h:outputLabel value="Pas de compte ?" />
+					<h:commandLink value="Inscrivez vous !"
+						action="signin.xhtml&amp;faces-redirect=true" />
+				</div>
 			</div>
 		</h:form>
 	</ui:define>

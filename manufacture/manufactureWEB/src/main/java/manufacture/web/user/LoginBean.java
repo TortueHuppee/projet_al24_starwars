@@ -10,7 +10,6 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 
-import manufacture.entity.cart.Cart;
 import manufacture.entity.user.User;
 import manufacture.ifacade.user.IConnection;
 import manufacture.web.cart.ManagedBeanCart;
@@ -39,6 +38,8 @@ public class LoginBean {
 	private static final Integer USER_PROFESSIONNEL_ROLE_ID = 2;
 	private static final Integer USER_ARTISAN_ROLE_ID = 3;
 	
+	private String erreurConnexion;
+	
 	public LoginBean(){
 		user = new User(); 
 	}
@@ -53,8 +54,11 @@ public class LoginBean {
             FacesMessage message = new FacesMessage("Utilisateur non trouvé");
             FacesContext context = FacesContext.getCurrentInstance();
             context.addMessage(null, message);		
+            erreurConnexion = "Erreur de connexion, utilisateur non trouvé";
             return "login.xhtml?faces-redirect=true";
 		}
+		
+		erreurConnexion = "";
 		
 		userBean.setUser(userTmp);
 		String toPage = null;
@@ -62,24 +66,9 @@ public class LoginBean {
 		//Redirection provenant d'une page de l'application pour laquelle il faut être connecté
 		if(redirect != null)
 		{
-			//Si la connection a été demandé par la page Déposer une annonce,
-			//il faut vérifier que l'utilisateur est un particulier ou un artisan
-			if (redirect.equals("annonce.xhtml?faces-redirect=true"))
-			{
-				if (userTmp.getUserRole().getIdUserRole() == USER_ARTISAN_ROLE_ID || userTmp.getUserRole().getIdUserRole() == USER_PARTICULIER_ROLE_ID)
-				{
-					toPage = redirect;
-					redirect = null;
-				}
-				else
-				{
-					toPage = "annonceNonAutorisee.xhtml?faces-redirect=true";
-					redirect = null;
-				}
-			}
 			//Si la connection a été demandé par la page Valider son panier,
 			//il faut vérifier que l'utilisateur est un particulier ou un professionnel
-			else if (redirect.equals("panierStep1.xhtml?faces-redirect=true"))
+			if (redirect.equals("panierStep1.xhtml?faces-redirect=true"))
 			{
 				if (userTmp.getUserRole().getIdUserRole() == USER_PARTICULIER_ROLE_ID || userTmp.getUserRole().getIdUserRole() == USER_PROFESSIONNEL_ROLE_ID)
 				{
@@ -118,7 +107,7 @@ public class LoginBean {
 		userBean.setUser(null);
 		mbCart.init();
 		LOGGER.info("user reseted");
-		return null;
+		return "index.xhtml?faces-redirect=true";
 	}
 
 	public UserBean getUserBean() {
@@ -163,5 +152,33 @@ public class LoginBean {
 
 	public void setRedirect(String redirect) {
 		this.redirect = redirect;
-	} 
+	}
+
+    public static Logger getLOGGER() {
+        return LOGGER;
+    }
+
+    public static void setLOGGER(Logger paramLOGGER) {
+        LOGGER = paramLOGGER;
+    }
+
+    public static Integer getUserParticulierRoleId() {
+        return USER_PARTICULIER_ROLE_ID;
+    }
+
+    public static Integer getUserProfessionnelRoleId() {
+        return USER_PROFESSIONNEL_ROLE_ID;
+    }
+
+    public static Integer getUserArtisanRoleId() {
+        return USER_ARTISAN_ROLE_ID;
+    }
+
+    public String getErreurConnexion() {
+        return erreurConnexion;
+    }
+
+    public void setErreurConnexion(String paramErreurConnexion) {
+        erreurConnexion = paramErreurConnexion;
+    } 
 }

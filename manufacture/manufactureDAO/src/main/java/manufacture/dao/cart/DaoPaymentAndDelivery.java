@@ -10,11 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import manufacture.dao.product.DaoColor;
 import manufacture.entity.cart.Delivery;
 import manufacture.entity.cart.PaymentType;
 import manufacture.entity.cart.RelayPoint;
-import manufacture.entity.product.Product;
 import manufacture.idao.cart.IDaoPaymentAndDelivery;
 
 @Service

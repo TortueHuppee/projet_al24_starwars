@@ -11,13 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import manufacture.entity.cart.Cart;
-import manufacture.entity.product.Category;
-import manufacture.entity.product.Color;
 import manufacture.entity.product.Product;
-import manufacture.entity.product.ProductRef;
 import manufacture.entity.user.User;
-import manufacture.idao.product.IDaoColor;
 import manufacture.idao.product.IDaoProduct;
 
 @Service

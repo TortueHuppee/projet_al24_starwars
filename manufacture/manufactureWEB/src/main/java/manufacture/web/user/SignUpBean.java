@@ -33,7 +33,6 @@ public class SignUpBean {
 	/**
 	 * Informations à renseigner sur l'utilisateur :
 	 */
-	private String userType;
 	private Civility civilite;
 	private UserRole role;
 	
@@ -86,8 +85,6 @@ public class SignUpBean {
 		
 		companyName = "";
 		domaineActivite = "";
-		
-		userType = "particulier";
 	}
 
 	//Méthodes
@@ -109,17 +106,17 @@ public class SignUpBean {
         user.setCivility(civilite);
         user.setUserRole(role);
         
-        if (!userType.equals("particulier"))
+        if (role.getIdUserRole() != 1)
 	    {
             user.setCompanyName(companyName);
             user.setActivityDomain(domaineActivite);
             user.setNbRecall(0);
 	    }
         
-        proxyInscription.createAccount(user);
+        userBean.setUser(proxyInscription.createAccount(user));
         
-		if(user.getIdUser() != null){
-			getUserBean().setUser(user); //Realise la connexion automatique au site
+		if(userBean.getUser().getIdUser() != null){
+			//getUserBean().setUser(user); //Realise la connexion automatique au site
 			return "index.xhtml?faces-redirect=true"; 
 		} else {
 
@@ -148,7 +145,7 @@ public class SignUpBean {
 		nombreErreur += validationPrenom();
 		nombreErreur += validationMail();
 		
-		if (!userType.equals("particulier"))
+		if (role.getIdUserRole() != 1)
 		{
 		    nombreErreur += validationCompanyName();
 		    nombreErreur += validationDomaineActivite();
@@ -293,14 +290,6 @@ public class SignUpBean {
 		this.user = user;
 	}
 
-	public String getUserType() {
-		return userType;
-	}
-
-	public void setUserType(String userType) {
-		this.userType = userType;
-	}
-
 	public IInscription getProxyInscription() {
 		return proxyInscription;
 	}
@@ -436,5 +425,21 @@ public class SignUpBean {
     public void setMessageErreurDomaineActivite(
             String paramMessageErreurDomaineActivite) {
         messageErreurDomaineActivite = paramMessageErreurDomaineActivite;
+    }
+
+    public static Logger getLOGGER() {
+        return LOGGER;
+    }
+
+    public static void setLOGGER(Logger paramLOGGER) {
+        LOGGER = paramLOGGER;
+    }
+
+    public UserRole getRole() {
+        return role;
+    }
+
+    public void setRole(UserRole paramRole) {
+        role = paramRole;
     }
 }

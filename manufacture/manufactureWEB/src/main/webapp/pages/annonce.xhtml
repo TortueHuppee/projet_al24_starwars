@@ -12,83 +12,48 @@
 	<ui:define name="main-body">
 		<h:form id="signinForm">
 			<div class="center-body">
+				<div class="creationCompte">
+					<h2>Déposer une annonce</h2>
+					
+					<h:outputLabel value="Date de publication : " class="advertLabel"/>
+					<h:outputLabel value="#{mbAnnonce.sdf.format(mbAnnonce.date)}" class="advertInput"/>
+					
+					<h:outputLabel value="Référence du produit : " class="advertLabel"/>
+					<p:selectOneMenu style="width: 50%;"
+						value="#{mbAnnonce.newProduct.productRef.idProductRef}">
+						<f:selectItems var="item" value="#{mbAnnonce.listeProduitRef}"
+							itemLabel="#{item.productName}" itemValue="#{item.idProductRef}" />
+					</p:selectOneMenu>
+					
+					<h:outputLabel value="Couleur du produit : " class="advertLabel"/>
+					<p:selectOneMenu value="#{mbAnnonce.newProduct.color.idColor}" style="width: 50%;">
+						<f:selectItems var="item" value="#{mbDataLoader.listeCouleurs}"
+							itemLabel="#{item.colorName}" itemValue="#{item.idColor}" />
+					</p:selectOneMenu>
 
-				<p:panel header="Déposer une annonce">
-					<p:panelGrid>
-						<p:row>
-							<p:column>
-								<h:outputLabel value="Référence du produit : " />
-								<p:selectOneMenu value="#{mbAnnonce.newProduct.productRef.idProductRef}">
-       									<f:selectItems var="item"
-       												   value="#{mbAnnonce.listeProduitRef}"
-       												   itemLabel="#{item.productName}"
-       												   itemValue="#{item.idProductRef}"/>
-       							</p:selectOneMenu>
-							</p:column>
-						</p:row>
+					<h:outputLabel value="Référence du produit : " class="advertLabel"/>
+					<p:selectOneMenu style="width: 50%;"
+						value="#{mbAnnonce.newProduct.material.idMaterial}">
+						<f:selectItems var="item" value="#{mbDataLoader.listeMateriaux}"
+							itemLabel="#{item.materialName}" itemValue="#{item.idMaterial}" />
+					</p:selectOneMenu>
 
-						<p:row>
-							<p:column>
-								<h:outputLabel value="Date de publication : " />
-								<h:inputText value="#{mbAnnonce.sdf.format(mbAnnonce.date)}" />
-							</p:column>
-						</p:row>
-						
-						<p:row>
-							<p:column>
-								<h:outputLabel value="Couleur du produit : " />
-								<p:selectOneMenu value="#{mbAnnonce.newProduct.color.idColor}">
-       									<f:selectItems var="item"
-       												   value="#{mbDataLoader.listeCouleurs}"
-       												   itemLabel="#{item.colorName}"
-       												   itemValue="#{item.idColor}"/>
-       							</p:selectOneMenu>
-							</p:column>
-						</p:row>
-										
-						<p:row>
-							<p:column>
-								<h:outputLabel value="Référence du produit : " />
-								<p:selectOneMenu value="#{mbAnnonce.newProduct.material.idMaterial}">
-       									<f:selectItems var="item"
-       												   value="#{mbDataLoader.listeMateriaux}"
-       												   itemLabel="#{item.materialName}"
-       												   itemValue="#{item.idMaterial}"/>
-       							</p:selectOneMenu>
-							</p:column>
-						</p:row>
-						
-						<p:row>
-							<p:column>
-								<h:outputLabel value="Prix (crédits) : " />
-								<input type="number" value="#{mbAnnonce.newProduct.price}" />
-							</p:column>
-						</p:row>
-						
-						<p:row>
-							<p:column>
-								<h:outputLabel value="Quantité : " />
-								<input type="number" value="#{mbAnnonce.newProduct.stock}" />
-							</p:column>
-						</p:row>
-						
-						<p:row>
-							<p:column>
-								<h:outputLabel value="Commentaire : " />
-								<h:inputText value="#{mbAnnonce.newProduct.sellerComment}" />
-								<h:outputLabel class="messageErreur" value="#{mbAnnonce.messageErreur}" />
-							</p:column>
-						</p:row>
+					<h:outputLabel value="Prix (crédits) : " class="advertLabel"/>
+					<input type="number" value="#{mbAnnonce.newProduct.price}" class="advertInput"/>
 
-						<p:row>
-							<p:column>
-								<p:commandButton actionListener="#{mbAnnonce.validationFormulaire()}"
-									value="Déposer l'annonce" update="signinForm" />
-							</p:column>
-						</p:row>
+					<h:outputLabel value="Quantité : " class="advertLabel"/>
+					<input type="number" value="#{mbAnnonce.newProduct.stock}" class="advertInput"/>
 
-					</p:panelGrid>
-				</p:panel>
+					<h:outputLabel value="Commentaire : " class="advertLabel" />
+					<h:inputTextarea value="#{mbAnnonce.newProduct.sellerComment}" class="advertInput" />
+					<h:outputLabel class="messageErreur" value="#{mbAnnonce.messageErreur}" />
+
+
+					<h:commandButton value="Déposer" action="#{mbAnnonce.validationFormulaire()}" update="signinForm"/>
+					<p:commandButton
+						actionListener="#{mbAnnonce.validationFormulaire()}"
+						value="Déposer l'annonce" update="signinForm" />
+				</div>
 			</div>
 		</h:form>
 	</ui:define>

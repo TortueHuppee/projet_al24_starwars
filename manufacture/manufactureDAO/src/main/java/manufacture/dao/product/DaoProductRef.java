@@ -10,19 +10,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import manufacture.entity.product.Color;
-import manufacture.entity.product.Product;
 import manufacture.entity.product.ProductRef;
 import manufacture.entity.product.SpaceshipProduct;
 import manufacture.entity.product.SpaceshipRef;
-import manufacture.idao.product.IDaoColor;
 import manufacture.idao.product.IDaoProductRef;
 
 @Service
 @Transactional
 public class DaoProductRef implements IDaoProductRef {
 
-	private Logger log = Logger.getLogger(DaoProductRef.class);
+	private static Logger log = Logger.getLogger(DaoProductRef.class);
 	private SessionFactory sf;
 	
 	@Override
@@ -146,4 +143,12 @@ public class DaoProductRef implements IDaoProductRef {
 	public void setSf(SessionFactory sf) {
 		this.sf = sf;
 	}
+
+    public static Logger getLog() {
+        return log;
+    }
+
+    public static void setLog(Logger paramLog) {
+        log = paramLog;
+    }
 }

@@ -16,124 +16,69 @@
 	<ui:define name="main-body">
 		<h:form id="signinForm">
 			<div class="center-body">
+				<div class="creationCompte">
+					<h2>Création de compte</h2>
 
-				<p:panel header="Création de compte">
-					<p:panelGrid>
-						<p:row>
-							<p:column>
-								<h:outputLabel value="Nom utilisateur : " />
-								<h:inputText value="#{signUpBean.login}" id="signup_login" />
-								<h:outputLabel class="messageErreur"
-									value="#{signUpBean.messageErreurLogin}" />
-							</p:column>
-						</p:row>
+					<h:outputLabel value="Nom utilisateur : " class="signInLabel" />
+					<h:inputText value="#{signUpBean.login}" class="signInInput" />
+					<h:outputLabel class="messageErreur"
+						value="#{signUpBean.messageErreurLogin}" />
 
-						<p:row>
-							<p:column>
-								<h:outputLabel for="signup_password" value="Mot de passe : " />
-								<h:inputSecret value="#{signUpBean.motDePasse}"
-									id="signup_password" />
-								<h:outputLabel class="messageErreur"
-									value="#{signUpBean.messageErreurMotDePasse}" />
-							</p:column>
-						</p:row>
+					<h:outputLabel value="Mot de passe : " class="signInLabel" />
+					<h:inputSecret value="#{signUpBean.motDePasse}" class="signInInput" />
+					<h:outputLabel class="messageErreur"
+						value="#{signUpBean.messageErreurMotDePasse}" />
 
-						<p:row>
-							<p:column>
-								<h:outputLabel for="signup_lastName" value="Nom de famille : " />
-								<h:inputText value="#{signUpBean.nomFamille}"
-									id="signup_lastName" />
-								<h:outputLabel class="messageErreur"
-									value="#{signUpBean.messageErreurNomFamille}" />
-							</p:column>
-						</p:row>
+					<h:outputLabel value="Nom de famille : " class="signInLabel" />
+					<h:inputText value="#{signUpBean.nomFamille}" class="signInInput" />
+					<h:outputLabel class="messageErreur"
+						value="#{signUpBean.messageErreurNomFamille}" />
 
-						<p:row>
-							<p:column>
-								<h:outputLabel for="signup_firstName" value="Prénom : " />
-								<h:inputText value="#{signUpBean.prenom}" id="signup_firstName" />
-								<h:outputLabel class="messageErreur"
-									value="#{signUpBean.messageErreurPrenom}" />
-							</p:column>
-						</p:row>
+					<h:outputLabel value="Prénom : " class="signInLabel" />
+					<h:inputText value="#{signUpBean.prenom}" class="signInInput" />
+					<h:outputLabel class="messageErreur"
+						value="#{signUpBean.messageErreurPrenom}" />
 
-						<p:row>
-							<p:column>
-								<h:outputLabel for="signup_civility" value="Civilité : " />
-								<p:selectOneRadio id="signup_civility"
-									value="#{signUpBean.civilite.idCivility}">
-									<f:selectItem itemLabel="Mr" itemValue="1" />
-									<f:selectItem itemLabel="Mme" itemValue="2" />
-									<f:selectItem itemLabel="Mlle" itemValue="3" />
-								</p:selectOneRadio>
-							</p:column>
-						</p:row>
+					<h:outputLabel value="Civilité : " class="signInLabel" />
+					<p:selectOneRadio value="#{signUpBean.civilite.idCivility}">
+						<f:selectItem itemLabel="Mr" itemValue="1" />
+						<f:selectItem itemLabel="Mme" itemValue="2" />
+						<f:selectItem itemLabel="Mlle" itemValue="3" />
+					</p:selectOneRadio>
 
-						<p:row>
-							<p:column>
-								<h:outputLabel for="signup_email" value="Email : " />
-								<h:inputText value="#{signUpBean.email}" id="signup_email" />
-								<h:outputLabel class="messageErreur"
-									value="#{signUpBean.messageErreurEmail}" />
-							</p:column>
-						</p:row>
+					<h:outputLabel value="Email : " class="signInLabel" />
+					<h:inputText value="#{signUpBean.email}" class="signInInput" />
+					<h:outputLabel class="messageErreur"
+						value="#{signUpBean.messageErreurEmail}" />
 
-						<p:row>
-							<p:column>
-								<h:outputLabel for="signup_companyType" value="Vous êtes un : " />
-								<p:selectOneRadio id="signup_companyType"
-									value="#{signUpBean.userType}">
-									<f:ajax event="change" render="companyName activityDomain"
-										execute="signup_companyType" />
-									<f:selectItem itemLabel="particulier" itemValue="particulier" />
-									<f:selectItem itemLabel="artisan" itemValue="artisan" />
-									<f:selectItem itemLabel="professionnel"
-										itemValue="professionnel" />
-								</p:selectOneRadio>
-							</p:column>
-						</p:row>
+					<h:outputLabel value="Vous êtes un : " class="signInLabel" />
+					<p:selectOneRadio value="#{signUpBean.role.idUserRole}">
+						<f:ajax event="change" render="signinForm" />
+						<f:selectItem itemLabel="particulier" itemValue="1" />
+						<f:selectItem itemLabel="artisan" itemValue="3" />
+						<f:selectItem itemLabel="professionnel" itemValue="2" />
+					</p:selectOneRadio>
 
-						<p:row>
-							<p:column>
-								<p:outputPanel id="companyName">
-									<h:outputLabel for="signup_companyName"
-										value="Nom de la compagnie : "
-										rendered="#{not(signUpBean.userType eq 'particulier')}" />
-									<h:inputText value="#{signUpBean.companyName}"
-										id="signup_companyName"
-										rendered="#{not(signUpBean.userType eq 'particulier')}" />
-									<h:outputLabel class="messageErreur"
-										value="#{signUpBean.messageErreurCompanyName}"
-										rendered="#{not(signUpBean.userType eq 'particulier')}" />
-								</p:outputPanel>
-							</p:column>
-						</p:row>
+					<h:outputLabel value="Nom de la compagnie : "
+						rendered="#{signUpBean.role.idUserRole > 1}" class="signInLabel" />
+					<h:inputText value="#{signUpBean.companyName}" class="signInInput"
+						rendered="#{signUpBean.role.idUserRole > 1}" />
+					<h:outputLabel class="messageErreur"
+						value="#{signUpBean.messageErreurCompanyName}"
+						rendered="#{signUpBean.role.idUserRole > 1}" />
 
-						<p:row>
-							<p:column colspan="2">
-								<p:outputPanel id="activityDomain">
-									<h:outputLabel for="signup_activityDomain"
-										value="Domaine d'activité : "
-										rendered="#{not(signUpBean.userType eq 'particulier')}" />
-									<h:inputText value="#{signUpBean.domaineActivite}"
-										id="signup_activityDomain"
-										rendered="#{not(signUpBean.userType eq 'particulier')}" />
-									<h:outputLabel class="messageErreur"
-										value="#{signUpBean.messageErreurDomaineActivite}"
-										rendered="#{not(signUpBean.userType eq 'particulier')}" />
-								</p:outputPanel>
-							</p:column>
-						</p:row>
+					<h:outputLabel value="Domaine d'activité : "
+						rendered="#{signUpBean.role.idUserRole > 1}" class="signInLabel" />
+					<h:inputText value="#{signUpBean.domaineActivite}"
+						class="signInInput" rendered="#{signUpBean.role.idUserRole > 1}" />
+					<h:outputLabel class="messageErreur"
+						value="#{signUpBean.messageErreurDomaineActivite}"
+						rendered="#{signUpBean.role.idUserRole > 1}" />
 
-						<p:row>
-							<p:column>
-								<p:commandButton actionListener="#{signUpBean.validationFormulaire()}"
-									value="S'inscrire" update="signinForm" />
-							</p:column>
-						</p:row>
-
-					</p:panelGrid>
-				</p:panel>
+					<p:commandButton
+						actionListener="#{signUpBean.validationFormulaire()}"
+						value="S'inscrire" update="signinForm" />
+				</div>
 			</div>
 		</h:form>
 	</ui:define>

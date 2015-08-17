@@ -2,10 +2,6 @@ package manufacture.ibusiness.catalog;
 
 import java.util.List;
 
-import manufacture.entity.cart.Cart;
-import manufacture.entity.cart.CartProduct;
-import manufacture.entity.cart.Delivery;
-import manufacture.entity.cart.PaymentType;
 import manufacture.entity.product.Category;
 import manufacture.entity.product.Color;
 import manufacture.entity.product.Constructor;

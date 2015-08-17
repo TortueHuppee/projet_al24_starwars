@@ -45,33 +45,6 @@ public class DaoProductCart implements IDaoProductCart {
 		session.delete(cartProduct);
 	}
 
-
-	@Override
-	public void updateOptionsProduct(int idCartProduct, Product newProduct) {
-
-		Session session = sf.getCurrentSession();
-		
-//		Query hql = session.createQuery(requestUpdateOptionsProduct);
-//		hql.setParameter("newProduct", newProduct);
-//		hql.setParameter("idCartProduct", idCartProduct);
-//		hql.executeUpdate();
-		
-		session.update(newProduct); // à tester
-	}
-
-	@Override
-	public void updateQuantityProduct(int idCartProduct, int newQuantity) {
-
-		Session session = sf.getCurrentSession();
-		
-//		Query hql = session.createQuery(requestUpdateQuantityProduct);
-//		hql.setParameter("newQuantity", newQuantity);
-//		hql.setParameter("idCartProduct", idCartProduct);
-//		hql.executeUpdate();
-		
-		session.update(newQuantity);
-	}
-
 	@Override
 	public List<Product> getAllProductByCart(int idCart) {
 		

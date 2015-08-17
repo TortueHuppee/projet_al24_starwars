@@ -7,7 +7,6 @@ import java.util.Random;
 
 import manufacture.entity.cart.Cart;
 import manufacture.entity.cart.CartProduct;
-import manufacture.entity.product.Product;
 import manufacture.entity.user.User;
 import manufacture.idao.cart.IDaoCart;
 

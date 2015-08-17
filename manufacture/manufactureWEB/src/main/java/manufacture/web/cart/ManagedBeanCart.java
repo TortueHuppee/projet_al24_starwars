@@ -185,7 +185,6 @@ public class ManagedBeanCart {
 	}
 
 	public void deleteProductFromCart(int idProduct){
-		CartProduct cartProduct = new CartProduct();
 		for (CartProduct cp : panier) {
 			if (cp.getProduct().getIdProduct() == idProduct) {
 				panier.remove(cp);

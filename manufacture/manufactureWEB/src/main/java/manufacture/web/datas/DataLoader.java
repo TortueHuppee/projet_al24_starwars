@@ -6,8 +6,6 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.SessionScoped;
-import javax.faces.model.SelectItem;
 
 import manufacture.entity.product.Category;
 import manufacture.entity.product.Color;
@@ -46,111 +44,111 @@ public class DataLoader {
 	public void init(){
 		idCountrySelected = 1;
 		idPlanetSelected = 1;
-		this.listCity = dataLoading.loadCityByCountry(idCountrySelected);
-		this.listCountry = dataLoading.loadCountryByPlanet(idPlanetSelected);
-		this.listPlanet = dataLoading.loadPlanet();
+		listCity = dataLoading.loadCityByCountry(idCountrySelected);
+		listCountry = dataLoading.loadCountryByPlanet(idPlanetSelected);
+		listPlanet = dataLoading.loadPlanet();
 		
-		this.listeCatégories = dataLoading.getAllCategory();
-		this.listeCouleurs = dataLoading.getAllColor();
-		this.listeMateriaux = dataLoading.getAllMaterial();
-		this.listeConstructeurs = dataLoading.getAllConstructor();
-		this.listeArtisans = dataLoading.getAllArtisan();
-		this.listeVaisseaux = dataLoading.getAllSpaceShipRef();
-	}
-	
-	public List<City> getListCity() {
-		return dataLoading.loadCityByCountry(idCountrySelected);
+		listeCatégories = dataLoading.getAllCategory();
+		listeCouleurs = dataLoading.getAllColor();
+		listeMateriaux = dataLoading.getAllMaterial();
+		listeConstructeurs = dataLoading.getAllConstructor();
+		listeArtisans = dataLoading.getAllArtisan();
+		listeVaisseaux = dataLoading.getAllSpaceShipRef();
 	}
 
-	public void setListCity(List<City> listCity) {
-		this.listCity = listCity;
-	}
+    public IDataLoading getDataLoading() {
+        return dataLoading;
+    }
 
-	public IDataLoading getDataLoading() {
-		return dataLoading;
-	}
-	
-	public void setDataLoading(IDataLoading dataLoading) {
-		this.dataLoading = dataLoading;
-	}
-	
-	public List<Country> getListCountry() {
-		return dataLoading.loadCountryByPlanet(idPlanetSelected);
-	}
-	
-	public void setListCountry(List<Country> listCountry) {
-		this.listCountry = listCountry;
-	}
-	
-	public List<Planet> getListPlanet() {
-		return listPlanet;
-	}
-	
-	public void setListPlanet(List<Planet> listPlanet) {
-		this.listPlanet = listPlanet;
-	}
+    public void setDataLoading(IDataLoading paramDataLoading) {
+        dataLoading = paramDataLoading;
+    }
 
-	public int getIdCountrySelected() {
-		return idCountrySelected;
-	}
+    public List<City> getListCity() {
+        return listCity;
+    }
 
-	public void setIdCountrySelected(int idCountrySelected) {
-		this.idCountrySelected = idCountrySelected;
-	}
+    public void setListCity(List<City> paramListCity) {
+        listCity = paramListCity;
+    }
 
-	public int getIdPlanetSelected() {
-		return idPlanetSelected;
-	}
+    public List<Country> getListCountry() {
+        return listCountry;
+    }
 
-	public void setIdPlanetSelected(int idPlanetSelected) {
-		this.idPlanetSelected = idPlanetSelected;
-	}
+    public void setListCountry(List<Country> paramListCountry) {
+        listCountry = paramListCountry;
+    }
 
-	public List<Category> getListeCatégories() {
-		return dataLoading.getAllCategory();
-	}
+    public int getIdCountrySelected() {
+        return idCountrySelected;
+    }
 
-	public void setListeCatégories(List<Category> listeCatégories) {
-		this.listeCatégories = listeCatégories;
-	}
+    public void setIdCountrySelected(int paramIdCountrySelected) {
+        idCountrySelected = paramIdCountrySelected;
+    }
 
-	public List<Color> getListeCouleurs() {
-		return dataLoading.getAllColor();
-	}
+    public List<Planet> getListPlanet() {
+        return listPlanet;
+    }
 
-	public void setListeCouleurs(List<Color> listeCouleurs) {
-		this.listeCouleurs = listeCouleurs;
-	}
+    public void setListPlanet(List<Planet> paramListPlanet) {
+        listPlanet = paramListPlanet;
+    }
 
-	public List<Material> getListeMateriaux() {
-		return dataLoading.getAllMaterial();
-	}
+    public int getIdPlanetSelected() {
+        return idPlanetSelected;
+    }
 
-	public void setListeMateriaux(List<Material> listeMateriaux) {
-		this.listeMateriaux = listeMateriaux;
-	}
+    public void setIdPlanetSelected(int paramIdPlanetSelected) {
+        idPlanetSelected = paramIdPlanetSelected;
+    }
 
-	public List<Constructor> getListeConstructeurs() {
-		return dataLoading.getAllConstructor();
-	}
+    public List<Category> getListeCatégories() {
+        return listeCatégories;
+    }
 
-	public void setListeConstructeurs(List<Constructor> listeConstructeurs) {
-		this.listeConstructeurs = listeConstructeurs;
-	}
+    public void setListeCatégories(List<Category> paramListeCatégories) {
+        listeCatégories = paramListeCatégories;
+    }
 
-	public List<User> getListeArtisans() {
-		return dataLoading.getAllArtisan();
-	}
+    public List<Color> getListeCouleurs() {
+        return listeCouleurs;
+    }
 
-	public void setListeArtisans(List<User> listeArtisans) {
-		this.listeArtisans = listeArtisans;
-	}
+    public void setListeCouleurs(List<Color> paramListeCouleurs) {
+        listeCouleurs = paramListeCouleurs;
+    }
 
-	public List<SpaceshipRef> getListeVaisseaux() {
-		return dataLoading.getAllSpaceShipRef();
-	}
+    public List<Material> getListeMateriaux() {
+        return listeMateriaux;
+    }
 
-	public void setListeVaisseaux(List<SpaceshipRef> listeVaisseaux) {
-		this.listeVaisseaux = listeVaisseaux;
-	}
+    public void setListeMateriaux(List<Material> paramListeMateriaux) {
+        listeMateriaux = paramListeMateriaux;
+    }
+
+    public List<Constructor> getListeConstructeurs() {
+        return listeConstructeurs;
+    }
+
+    public void setListeConstructeurs(List<Constructor> paramListeConstructeurs) {
+        listeConstructeurs = paramListeConstructeurs;
+    }
+
+    public List<User> getListeArtisans() {
+        return listeArtisans;
+    }
+
+    public void setListeArtisans(List<User> paramListeArtisans) {
+        listeArtisans = paramListeArtisans;
+    }
+
+    public List<SpaceshipRef> getListeVaisseaux() {
+        return listeVaisseaux;
+    }
+
+    public void setListeVaisseaux(List<SpaceshipRef> paramListeVaisseaux) {
+        listeVaisseaux = paramListeVaisseaux;
+    }
 }

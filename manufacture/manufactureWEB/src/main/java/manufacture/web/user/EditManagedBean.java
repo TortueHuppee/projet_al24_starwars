@@ -6,9 +6,6 @@ import javax.faces.bean.ViewScoped;
 
 import manufacture.entity.user.Address;
 import manufacture.entity.user.City;
-import manufacture.entity.user.Country;
-import manufacture.entity.user.Planet;
-import manufacture.ifacade.user.IConnection;
 import manufacture.ifacade.user.IProfil;
 
 @ManagedBean(name="editBean")

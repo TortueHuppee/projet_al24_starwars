@@ -2,9 +2,6 @@ package manufacture.business.user;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.List;
-
-import manufacture.entity.user.Address;
 import manufacture.entity.user.User;
 import manufacture.ibusiness.user.IBusinessConnection;
 import manufacture.idao.user.IDaoAdress;
@@ -24,25 +21,17 @@ public class BusinessConnection implements IBusinessConnection {
 	private IDaoAdress proxyAddress;
 	
 	@Override
-	public User getSignInUser(String login, String password) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	@Override
-	public void getSignOutUser(User user) {
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
 	public boolean resertPassword(String login) {
 		// TODO Auto-generated method stub
 		return false;
 	}
+	
 	@Override
 	public boolean getLogin(String email) {
 		// TODO Auto-generated method stub
 		return false;
 	}
+	
 	@Override
 	public User logUser(User user) {
 		user.setPassword(sha256(user.getPassword()));
@@ -79,7 +68,7 @@ public class BusinessConnection implements IBusinessConnection {
 	}
 	
 	public void setLog(Logger log) {
-		this.log = log;
+		BusinessConnection.log = log;
 	}
 	
 	public IDaoAdress getProxyAddress() {

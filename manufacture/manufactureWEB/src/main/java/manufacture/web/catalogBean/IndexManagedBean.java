@@ -18,7 +18,7 @@ import org.apache.log4j.Logger;
 @ApplicationScoped
 public class IndexManagedBean {
 
-	private Logger log = Logger.getLogger(IndexManagedBean.class);
+	private static Logger log = Logger.getLogger(IndexManagedBean.class);
 
 	@ManagedProperty(value="#{catalog}")
 	private ICatalog proxyCatalog;
@@ -70,5 +70,13 @@ public class IndexManagedBean {
 	public void setListeProduitBrute(List<Product> listeProduitBrute) {
 		this.listeProduitBrute = listeProduitBrute;
 	}
+
+    public static Logger getLog() {
+        return log;
+    }
+
+    public static void setLog(Logger paramLog) {
+        log = paramLog;
+    }
 
 }

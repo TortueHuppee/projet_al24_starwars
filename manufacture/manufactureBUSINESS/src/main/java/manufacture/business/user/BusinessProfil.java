@@ -9,7 +9,6 @@ import manufacture.entity.cart.CartProduct;
 import manufacture.entity.product.Product;
 import manufacture.entity.user.Address;
 import manufacture.entity.user.User;
-import manufacture.ibusiness.user.IBusinessConnection;
 import manufacture.ibusiness.user.IBusinessProfil;
 import manufacture.idao.cart.IDaoCart;
 import manufacture.idao.cart.IDaoProductCart;
@@ -127,7 +126,7 @@ public class BusinessProfil implements IBusinessProfil {
 	}
 	
 	public void setLog(Logger log) {
-		this.log = log;
+		BusinessProfil.log = log;
 	}
 	
 	public IDaoAdress getProxyAddress() {

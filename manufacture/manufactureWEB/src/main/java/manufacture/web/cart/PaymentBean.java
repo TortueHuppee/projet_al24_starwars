@@ -17,14 +17,12 @@ import manufacture.web.user.LoginBean;
 import manufacture.web.user.UserBean;
 
 import org.apache.log4j.Logger;
-import org.springframework.beans.factory.BeanFactory;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 @ManagedBean(name = "paymentBean")
 @SessionScoped
 public class PaymentBean {
 
-    private Logger log = Logger.getLogger(PaymentBean.class);
+    private static Logger log = Logger.getLogger(PaymentBean.class);
     
 	private String cardNumber = "";
 	private String pin;
@@ -157,6 +155,14 @@ public class PaymentBean {
 
     public void setReponse(String reponse) {
         this.reponse = reponse;
+    }
+
+    public static Logger getLog() {
+        return log;
+    }
+
+    public static void setLog(Logger paramLog) {
+        log = paramLog;
     }
 
 }
