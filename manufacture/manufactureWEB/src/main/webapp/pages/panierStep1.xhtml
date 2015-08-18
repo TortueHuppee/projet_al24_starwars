@@ -7,13 +7,13 @@
 
 
 	<ui:define name="stylesheets">
-		<h:outputStylesheet name="panierCss.css" library="css" />
+		<h:outputStylesheet name="panierCssStep1.css" library="css" />
 	</ui:define>
 
 	<ui:define name="main-body">
 		<h:form id="myForm">
 			<div class="product-description">
-
+				
 				<p:steps styleClass="custom" readonly="false">
 					<p:menuitem value="Mon panier" />
 					<p:menuitem value="Livraison" />
@@ -22,7 +22,7 @@
 				</p:steps>
 
 				<h2>
-					<h:outputLabel value="Mon panier" />
+					<h:outputLabel value="Je vérifie mon panier" />
 					<p:commandButton value="Vider le Panier"
 						action="#{mbCart.cleanCart()}" update=":myForm" />
 				</h2>

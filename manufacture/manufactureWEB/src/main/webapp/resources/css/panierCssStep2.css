@@ -9,7 +9,8 @@
 	display:none;
 }
 
-.product-description{
+.mode-livraison
+{
    background-color:#f1f1f1;
    border:1px solid #e5e5e5;
    border-radius:5px;
@@ -18,7 +19,7 @@
    width:99%;
 }
 
-.product-description h2
+.mode-livraison h2
 {
     font-family:Arial;
     margin:10px;
@@ -26,53 +27,7 @@
     border-bottom:1px solid lightgrey;
     padding-bottom:10px;
 }
-
-.product-description h2 button
-{
-    float:right;
-    font-size:small;
-}
-
-.product-description img
-{
-	height:100px;
-	margin:5px;
-	border:1px solid grey;
-	float:left;
-}
-
-/* TABLEAU */
-
-table, tr, td, th
-{
-	text-align:center;
-	border:1px solid lightgrey;
-}
-
-table
-{
-	border-spacing:0px;
-	border:1px solid grey;
-	margin:10px;
-	font-family:Arial;
-}
-
-table th
-{
-	height:50px;
-	font-size:larger;
-	border-bottom:1px solid grey;
-	background-color:silver;
-	width:25%;
-}
-
-table td
-{
-	width:25%;	
-	background-color:white;
-}
-
-label.titreArticle
+.product-description label.titreArticle
 {
 	font-weight:bold;
 	color:#10507B;
@@ -82,7 +37,7 @@ label.titreArticle
 	margin-bottom:10px;
 }
 
-label.prixArticle
+.product-description label.prixArticle
 {
 	display: inline-block;
 	width:50%;
@@ -90,21 +45,21 @@ label.prixArticle
 	text-align: center;
 }
 
-label.valeur
+.product-description label.valeur
 {
 	display:inline-block;
 	width:70%;
 	margin-bottom:10px;
 }
 
-label.titre
+.product-description label.titre
 {
 	font-weight:bold;
 	display:inline-block;
 	width:20%;
 }
 
-label.prix
+.product-description label.prix
 {
 	margin-left:20px;
 	margin-right:20px;
@@ -127,9 +82,10 @@ table input
 {
 	float:right;
 	padding:10px;
+	min-width:430px;
 }
 
-.recapCommande label.titre
+.recapCommande-titre
 {
 	font-weight:bold;
 	float:right;
@@ -145,7 +101,7 @@ table input
 	padding-top:15px;
 }
 
-.recapCommande label.prix
+.recapCommande-prix
 {
 	float:right;
 	font-size:larger;
@@ -195,3 +151,67 @@ table input
     margin-top: -10px;
     margin-bottom: 10px;
 }
+
+/*Mode de livraison*/
+.mode-livraison label.titre
+{
+	padding-top:50px;
+	margin-left:20px;
+	font-size:large;
+	display:inline-block;
+	width:20%;
+}
+
+.mode-livraison .ui-selectonemenu
+{
+		margin-right:50%;
+	margin-left:10px;
+}
+
+.mode-livraison .ui-selectonemenu-label
+{
+	color:#10507B;
+	padding-left:3px;
+	width:49.5%;
+	font-size: smaller;
+}
+
+.mode-livraison .ui-selectoneradio
+{
+	margin-left:20px;
+	border-collapse: collapse;
+	margin-top:20px;
+	margin-bottom:20px;
+}
+
+.mode-livraison .ui-selectoneradio label
+{
+	margin-right:30px;
+	margin-left:30px;
+	color:#10507B;
+	font-size:small;
+}
+
+.mode-livraison .ui-selectoneradio td:first-of-type
+{
+	text-align: center;
+	width:40px !important;
+	height:100px !important;
+}
+
+.mode-livraison .ui-selectoneradio td:nth-of-type(2)
+{
+	min-width: 97.35% !important;
+}
+
+.mode-livraison .ui-selectoneradio tr:hover
+{
+	background-color:white;
+}
+
+.mode-livraison > .ui-button
+{
+	font-size:small;
+	margin-left:10px;
+}
+
