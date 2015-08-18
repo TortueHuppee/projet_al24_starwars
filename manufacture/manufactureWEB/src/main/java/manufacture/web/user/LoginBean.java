@@ -91,7 +91,7 @@ public class LoginBean {
 		}
 		else
 		{
-			toPage = "profil.xhtml?faces-redirect=true";
+			toPage = "index.xhtml?faces-redirect=true";
 			
 		    ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
 		    try {

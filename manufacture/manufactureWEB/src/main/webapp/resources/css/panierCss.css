@@ -72,29 +72,39 @@ table td
 	background-color:white;
 }
 
-table td:first-of-type label:first-of-type
+label.titreArticle
 {
 	font-weight:bold;
-	float:left;
+	color:#10507B;
+	display: inline-block;
+	width:50%;
 	margin-top:25px;
 	margin-bottom:10px;
 }
 
-table td:nth-of-type(2) label
+label.prixArticle
 {
-	float:left;
-	width:150px;
+	display: inline-block;
+	width:50%;
+	font-size: small;
+	text-align: center;
 }
 
-table td:nth-of-type(2) label:nth-child(2n+1)
+label.valeur
+{
+	display:inline-block;
+	width:70%;
+	margin-bottom:10px;
+}
+
+label.titre
 {
 	font-weight:bold;
-	float:left;
-	width:150px;
+	display:inline-block;
+	width:20%;
 }
 
-table td:nth-of-type(3) label,
-table td:nth-of-type(4) label
+label.prix
 {
 	margin-left:20px;
 	margin-right:20px;
@@ -119,33 +129,34 @@ table input
 	padding:10px;
 }
 
-.recapCommande label:first-of-type
+.recapCommande label.titre
 {
 	font-weight:bold;
-	float:left;;
+	float:right;
 	font-size:larger;
 	background-color:silver;
 	height:40px;
-	width:210px;
+	width:49%;
 	border:1px solid grey;
-	display:inline-block;
 	border-radius:2px;
 	margin-bottom:30px;
+	margin-left:0px;
 	text-align:center;
 	padding-top:15px;
 }
 
-.recapCommande label:nth-of-type(2)
+.recapCommande label.prix
 {
-	float:left;;
+	float:right;
 	font-size:larger;
 	background-color:white;
 	height:40px;
-	width:237px;
+	width:50%;
 	border:1px solid grey;
-	display:inline-block;
 	border-radius:2px;
 	margin-bottom:30px;
+	margin-left:0px;
+	margin-right:0px;
 	text-align:center;
 	padding-top:15px;
 }
@@ -156,8 +167,10 @@ table input
 }
 
 /*ui.steps*/
-.ui-steps .ui-steps-item {
-    width: 24%;
+.ui-steps-item
+{
+	width:24.87%;
+	margin-bottom:15px;
 }
  
 .ui-state-highlight {
@@ -165,7 +178,7 @@ table input
 }
  
 .ui-steps.custom {
-    margin-bottom: 30px;
+    margin-bottom: 60px;
 }
  
 .ui-steps.custom .ui-steps-item .ui-menuitem-link {
