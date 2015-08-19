@@ -10,7 +10,8 @@ public class TestConfigSpringHibernate {
 
 	public static void main(String[] args) {
 		
-		BeanFactory bf = new ClassPathXmlApplicationContext("classpath:springData.xml");
+		@SuppressWarnings("resource")
+        BeanFactory bf = new ClassPathXmlApplicationContext("classpath:springData.xml");
 		IDaoColor proxyColor = (IDaoColor) bf.getBean(IDaoColor.class);
 		
 		Color color = new Color();

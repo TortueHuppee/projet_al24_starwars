@@ -10,52 +10,63 @@
 	</ui:define>
 
 	<ui:define name="main-body">
-		<h:form id="signinForm">
-			<div class="center-body">
-				<div class="creationCompte">
-					<h2>Déposer une annonce</h2>
-					
-					<h:outputLabel value="Date de publication : " class="advertLabel"/>
-					<h:outputLabel value="#{mbAnnonce.sdf.format(mbAnnonce.date)}" class="advertInput"/>
-					
-					<h:outputLabel value="Référence du produit : " class="advertLabel"/>
-					<p:selectOneMenu style="width: 50%;"
-						value="#{mbAnnonce.newProduct.productRef.idProductRef}">
-						<f:selectItems var="item" value="#{mbAnnonce.listeProduitRef}"
-							itemLabel="#{item.productName}" itemValue="#{item.idProductRef}" />
-					</p:selectOneMenu>
-					
-					<h:outputLabel value="Couleur du produit : " class="advertLabel"/>
-					<p:selectOneMenu value="#{mbAnnonce.newProduct.color.idColor}" style="width: 50%;">
-						<f:selectItems var="item" value="#{mbDataLoader.listeCouleurs}"
-							itemLabel="#{item.colorName}" itemValue="#{item.idColor}" />
-					</p:selectOneMenu>
+		<f:view>
+			<h:form id="signinForm">
+				<f:event listener="#{loginBean.doLogin()}" type="preRenderView" />
 
-					<h:outputLabel value="Référence du produit : " class="advertLabel"/>
-					<p:selectOneMenu style="width: 50%;"
-						value="#{mbAnnonce.newProduct.material.idMaterial}">
-						<f:selectItems var="item" value="#{mbDataLoader.listeMateriaux}"
-							itemLabel="#{item.materialName}" itemValue="#{item.idMaterial}" />
-					</p:selectOneMenu>
+				<div class="center-body">
+					<div class="creationCompte">
+						<h2>Déposer une annonce</h2>
 
-					<h:outputLabel value="Prix (crédits) : " class="advertLabel"/>
-					<input type="number" value="#{mbAnnonce.newProduct.price}" class="advertInput"/>
+						<h:outputLabel value="Date de publication : " class="advertLabel" />
+						<h:outputLabel value="#{mbAnnonce.sdf.format(mbAnnonce.date)}"
+							class="advertInput" />
 
-					<h:outputLabel value="Quantité : " class="advertLabel"/>
-					<input type="number" value="#{mbAnnonce.newProduct.stock}" class="advertInput"/>
+						<h:outputLabel value="Référence du produit : " class="advertLabel" />
+						<p:selectOneMenu style="width: 50%;"
+							value="#{mbAnnonce.newProduct.productRef.idProductRef}">
+							<f:selectItems var="item" value="#{mbAnnonce.listeProduitRef}"
+								itemLabel="#{item.productName}" itemValue="#{item.idProductRef}" />
+						</p:selectOneMenu>
 
-					<h:outputLabel value="Commentaire : " class="advertLabel" />
-					<h:inputTextarea value="#{mbAnnonce.newProduct.sellerComment}" class="advertInput" />
-					<h:outputLabel class="messageErreur" value="#{mbAnnonce.messageErreur}" />
+						<h:outputLabel value="Couleur du produit : " class="advertLabel" />
+						<p:selectOneMenu value="#{mbAnnonce.newProduct.color.idColor}"
+							style="width: 50%;">
+							<f:selectItems var="item" value="#{mbDataLoader.listeCouleurs}"
+								itemLabel="#{item.colorName}" itemValue="#{item.idColor}" />
+						</p:selectOneMenu>
+
+						<h:outputLabel value="Référence du produit : " class="advertLabel" />
+						<p:selectOneMenu style="width: 50%;"
+							value="#{mbAnnonce.newProduct.material.idMaterial}">
+							<f:selectItems var="item" value="#{mbDataLoader.listeMateriaux}"
+								itemLabel="#{item.materialName}" itemValue="#{item.idMaterial}" />
+						</p:selectOneMenu>
+
+						<h:outputLabel value="Prix (crédits) : " class="advertLabel" />
+						<input type="number" value="#{mbAnnonce.newProduct.price}"
+							class="advertInput" />
+
+						<h:outputLabel value="Quantité : " class="advertLabel" />
+						<input type="number" value="#{mbAnnonce.newProduct.stock}"
+							class="advertInput" />
+
+						<h:outputLabel value="Commentaire : " class="advertLabel" />
+						<h:inputTextarea value="#{mbAnnonce.newProduct.sellerComment}"
+							class="advertInput" />
+						<h:outputLabel class="messageErreur"
+							value="#{mbAnnonce.messageErreur}" />
 
 
-					<h:commandButton value="Déposer" action="#{mbAnnonce.validationFormulaire()}" update="signinForm"/>
-					<p:commandButton
-						actionListener="#{mbAnnonce.validationFormulaire()}"
-						value="Déposer l'annonce" update="signinForm" />
+						<h:commandButton value="Déposer"
+							action="#{mbAnnonce.validationFormulaire()}" update="signinForm" />
+						<p:commandButton
+							actionListener="#{mbAnnonce.validationFormulaire()}"
+							value="Déposer l'annonce" update="signinForm" />
+					</div>
 				</div>
-			</div>
-		</h:form>
+			</h:form>
+		</f:view>
 	</ui:define>
 
 </ui:composition>

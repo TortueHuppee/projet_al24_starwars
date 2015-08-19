@@ -9,7 +9,7 @@
 	display:none;
 }
 
-.mode-livraison
+.product-description
 {
    background-color:#f1f1f1;
    border:1px solid #e5e5e5;
@@ -19,7 +19,7 @@
    width:99%;
 }
 
-.mode-livraison h2
+.product-description h2
 {
     font-family:Arial;
     margin:10px;
@@ -27,22 +27,40 @@
     border-bottom:1px solid lightgrey;
     padding-bottom:10px;
 }
-.product-description label.titreArticle
+
+#adressefacturation,
+#infosPaiement
 {
-	font-weight:bold;
-	color:#10507B;
-	display: inline-block;
-	width:50%;
-	margin-top:25px;
-	margin-bottom:10px;
+	display:inline-block;
+	width:47%;
+	vertical-align: top;
+	background-color: white;
+	border-radius: 5px;
+	margin-left:15px;
+	margin-right:5px;
+	border:1px solid lightgrey;
 }
 
-.product-description label.prixArticle
+#adressefacturation,
+#infosPaiement
 {
-	display: inline-block;
-	width:50%;
-	font-size: small;
-	text-align: center;
+	min-height:500px;
+}
+
+#adressefacturation h3,
+#infosPaiement h3
+{
+	background-color: lightsteelblue;
+	border-bottom:1px solid lightgrey;
+	height:30px;
+	border-top-left-radius: 3px;
+	border-top-right-radius: 3px;
+	font-family: Arial,sans-serif;
+	font-style: normal;
+	font-size:medium;
+	padding-left:10px;
+	padding-top:10px;
+	margin-bottom:10px;
 }
 
 .product-description label.valeur
@@ -52,28 +70,37 @@
 	margin-bottom:10px;
 }
 
-.product-description label.titre
+.product-description label.titre,
+.product-description label.valeur
 {
-	font-weight:bold;
 	display:inline-block;
-	width:20%;
+	width:45%;
+	margin-bottom:10px;
+	font-family: Arial,sans-serif;
+	font-size:smaller;
 }
 
-.product-description label.prix
+label.titre
+{
+	text-align: right;
+}
+
+.product-description input.valeur,
+.product-description label.valeur
 {
 	margin-left:20px;
 	margin-right:20px;
-	font-size:large;
+	color:#10507B;
+	height:25px;
+	color:#10507B;
+	padding-left:3px;
+	width:30%;
 }
 
-table td:nth-of-type(3) input
+#infosPaiement input
 {
-	width:20px;
-	font-size:20px;
-}
-table input
-{
-	width:30px;
+	height:20px;
+	margin-bottom:5px;
 }
 
 /* BOUTONS DU BAS */
@@ -152,23 +179,18 @@ table input
     margin-bottom: 10px;
 }
 
-/*Mode de livraison*/
-.mode-livraison label.titre
+.product-description .ui-selectonemenu:first-of-type
 {
-	padding-top:50px;
-	margin-left:20px;
-	font-size:large;
-	display:inline-block;
-	width:20%;
+	margin-top:10px;
+	margin-right:50%;
 }
 
-.mode-livraison .ui-selectonemenu
+.product-description .ui-selectonemenu
 {
-		margin-right:50%;
 	margin-left:10px;
 }
 
-.mode-livraison .ui-selectonemenu-label
+.product-description .ui-selectonemenu-label
 {
 	color:#10507B;
 	padding-left:3px;
@@ -176,15 +198,15 @@ table input
 	font-size: smaller;
 }
 
-.mode-livraison .ui-selectoneradio
+#adressefacturation .ui-selectoneradio
 {
 	margin-left:20px;
 	border-collapse: collapse;
-	margin-top:20px;
+	margin-top:5px;
 	margin-bottom:20px;
 }
 
-.mode-livraison .ui-selectoneradio label
+#adressefacturation .ui-selectoneradio label
 {
 	margin-right:30px;
 	margin-left:30px;
@@ -192,26 +214,83 @@ table input
 	font-size:small;
 }
 
-.mode-livraison .ui-selectoneradio td:first-of-type
+#adressefacturation .ui-selectoneradio td:first-of-type
 {
 	text-align: center;
 	width:40px !important;
 	height:100px !important;
+	border-bottom:1px solid grey;
 }
 
-.mode-livraison .ui-selectoneradio td:nth-of-type(2)
+#adressefacturation .ui-selectoneradio td:nth-of-type(2)
 {
-	min-width: 97.35% !important;
+	min-width: 94.2% !important;
+	border-bottom:1px solid grey;
 }
 
-.mode-livraison .ui-selectoneradio tr:hover
+#adressefacturation .ui-selectoneradio tr:hover
 {
-	background-color:white;
+	background-color:lightgoldenrodyellow;
 }
 
-.mode-livraison > .ui-button
+#adressefacturation > .ui-button
 {
 	font-size:small;
 	margin-left:10px;
+	margin-top:10px;
 }
 
+#infosPaiement .ui-radiobutton-box
+{
+	height:10px !important;
+	width:10px !important;
+}
+
+#infosPaiement table label
+{
+	font-family: Arial,sans-serif;
+	font-size:small;
+	margin-left:40%;
+}
+
+#infosPaiement table td:nth-of-type(3)
+{
+	width:70%;
+	text-align: left;
+}
+
+#infosPaiement table td:nth-of-type(2)
+{
+	padding-left:10px;
+}
+
+#infosPaiement table
+{
+	margin-left:30%;
+	margin-bottom:10px;
+}
+
+input.dateExpi
+{
+	width:80px;
+	margin-left:20px;
+	padding-left:3px;
+	margin-right:20px;
+}
+
+.choixPaiement
+{
+	font-family: Arial,sans-serif;
+	margin-left:10px;
+	display:inline-block;
+	font-weight: bold;
+	font-size:small;
+	color:darkred;
+}
+
+#infosPaiement h4
+{
+	text-align:center;
+	margin-bottom:20px;
+	margin-top:20px;
+}

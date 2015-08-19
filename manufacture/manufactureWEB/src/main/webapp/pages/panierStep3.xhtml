@@ -21,103 +21,145 @@
 					<p:menuitem value="Récapitulatif" />
 				</p:steps>
 
-				<!-- Paiement uniquement par carte si l'utilisateur est un particulier -->
-				<h:panelGrid rendered="#{userBean.user.userRole.idUserRole == 1}"
-					columns="2">
-					<h:outputLabel value="Type de paiement" /> :
-					<h:panelGrid columns="2">
+				<h2>
+					<h:outputLabel value="Je choisis mon mode de livraison" />
+				</h2>
 
-							<p:selectOneRadio>
-								<f:selectItem itemValue="Carte bleue"/>
-								<f:selectItem itemValue="Visa" />
-								<f:selectItem itemValue="MasterCard" />
-								<f:selectItem itemValue="American Express" />
-							</p:selectOneRadio>
+				<div id="adressefacturation">
+					<!-- Liste de mes adresses -->
+					<h3>Mes adresses de facturation</h3>
 
-							<img src="../resources/images/carte_bleue.png" />
-							<img src="../resources/images/visa.gif" />
-							<img src="../resources/images/mastercard.png" />
-							<img src="../resources/images/amex.png" />
+					<!-- Ajout d'une adresse -->
+					<p:commandButton value="Ajouter une adresse" type="button"
+						onclick="loadModal2()"
+						actionListener="#{editBean.editModeAdresse()}" />
 
-					</h:panelGrid>
-
-					<h:outputLabel value="Nom du propriétaire de la carte" /> :
- 					<input type="text" />
-
-					<h:outputLabel value="Numéro de carte" /> :
- 					<input type="number" />
-
-					<h:outputLabel value="Date d'expiration" /> :
- 					<input type="number" /> / <input type="number" />
-
-					<h:outputLabel value="Cryptogramme visuel" /> :
- 					<input type="number" />
-
-				</h:panelGrid>
-
-				<!-- Paiement par carte ou par virement bancaire si l'utilisateur est un profesionnel -->
-				<h:panelGrid rendered="#{userBean.user.userRole.idUserRole == 2}">
-					<p:selectOneRadio value="#{mbCart.cart.paymentType.idPayment}">
-						<f:selectItem itemLabel="Paiement par carte" itemValue="1" />
-						<f:selectItem itemLabel="Virement bancaire (différé)" itemValue="3"/>
+					<p:selectOneRadio value="#{mbSteps.idAdressePersonnelle}"
+						layout="grid" columns="1"
+						rendered="#{not(profilBean.adressesFacturation.size() == 0)}">
+						<f:selectItems var="adresse"
+							value="#{profilBean.adressesFacturation}"
+							itemValue="#{adresse.idAddress}"
+							itemLabel="#{adresse.number}  #{adresse.street}&lt;br/&gt; 
+										   #{adresse.city.postalCode} #{adresse.city.cityName.toUpperCase()}&lt;br/&gt; 
+										   #{adresse.city.country.countryName.toUpperCase()}" />
+						<f:ajax render=":myForm" />
 					</p:selectOneRadio>
 
-					<h:panelGrid rendered="#{mbCart.cart.paymentType.idPayment == 1}"
-						columns="2">
-						<h:outputLabel value="Type de paiement" /> :
-					<h:panelGrid columns="2">
+					<!-- Aucune adresse d'enregistrée pour cet utilisateur -->
+					<h:outputLabel value="Aucun adresse enregistrée"
+						rendered="profilBean.adressesFacturation.size() == 0"
+						class="aucunResultat" />
+				</div>
 
-							<p:selectOneRadio>
-								<f:selectItem itemValue="Carte bleue" />
-								<f:selectItem itemValue="Visa" />
-								<f:selectItem itemValue="MasterCard.png" />
-								<f:selectItem itemValue="American Express.png" />
-							</p:selectOneRadio>
+				<div id="infosPaiement">
+					<h3>Informations relatives au paiement</h3>
+					<!-- Choix du mode de paiement (visible uniquement par les professionnels) -->
+					<h:outputLabel value="Choisir le mode de paiement" class="choixPaiement"
+						rendered="#{not(userBean.user.userRole.idUserRole == 2)}" />
+					:
+					<p:selectOneMenu value="#{mbCart.cart.paymentType.idPayment}"
+						rendered="#{not(userBean.user.userRole.idUserRole == 2)}">
+						<f:selectItem itemLabel="Paiment immédiat" itemValue="1" />
+						<f:selectItem itemLabel="Paiment différé" itemValue="2" />
+						<f:ajax render=":myForm" />
+					</p:selectOneMenu>
 
+					<!-- Paiement immédiat -->
+					<h:panelGroup rendered="#{mbCart.cart.paymentType.idPayment == 1}">
+
+						<h:outputLabel value="Pays" class="titre"/> :
+ 						<p:selectOneMenu>
+							<f:selectItems var="pays" value="#{mbDataLoader.listCountry}"
+								itemLabel="#{pays.countryName}" itemValue="#{pays.idCountry}" />
+						</p:selectOneMenu>
+
+						<h:outputLabel value="Nom" class="titre"/> :
+ 						<input type="text" class="valeur"/>
+
+						<h:outputLabel value="Prénom" class="titre"/> :
+ 						<input type="text" class="valeur"/>
+
+						<h:outputLabel value="Type de paiement" class="titre"/> :
+					
+						<p:selectOneRadio id="customRadio" layout="custom">
+							<f:selectItem itemValue="Carte bleue" />
+							<f:selectItem itemValue="Visa" />
+							<f:selectItem itemValue="MasterCard" />
+							<f:selectItem itemValue="American Express" />
+						</p:selectOneRadio>
+
+						<h:panelGrid columns="3">
+							<p:radioButton id="opt1" for="customRadio" itemIndex="0" />
 							<img src="../resources/images/carte_bleue.png" />
-							<img src="../resources/images/visa.gif" />
-							<img src="../resources/images/mastercard" />
-							<img src="../resources/images/amex" />
+							<h:outputLabel value="Carte bancaire" />
 
+							<p:radioButton id="opt2" for="customRadio" itemIndex="1" />
+							<img src="../resources/images/visa.gif" />
+							<h:outputLabel value="Visa" />
+
+							<p:radioButton id="opt3" for="customRadio" itemIndex="2" />
+							<img src="../resources/images/mastercard.png" />
+							<h:outputLabel value="MasterCard" />
+
+							<p:radioButton id="opt4" for="customRadio" itemIndex="3" />
+							<img src="../resources/images/amex.png" />
+							<h:outputLabel value="AmericanExpress" />
 						</h:panelGrid>
 
-						<h:outputLabel value="Nom du propriétaire de la carte" /> :
- 					<input type="text" />
+						<h:outputLabel value="Numéro de carte" class="titre"/> :
+ 						<input type="number" class="valeur"/>
 
-						<h:outputLabel value="Numéro de carte" /> :
- 					<input type="number" />
+						<h:outputLabel value="Date d'expiration" class="titre"/> :
+ 						<input type="number" min="1" max="12" class="dateExpi"/> / <input type="number"
+							min="2010" class="dateExpi"/>
 
-						<h:outputLabel value="Date d'expiration (mm/aaaa)" /> :
-						<p:spinner max="12" min="01"/> / <p:spinner min="2014"/>
+						<h:outputLabel value="Cryptogramme visuel" class="titre"/> :
+ 						<input type="number" min="100" maxlength="3" class="valeur"/>
 
-						<h:outputLabel value="Cryptogramme visuel" /> :
- 					<input type="number" />
+					</h:panelGroup>
 
-					</h:panelGrid>
+					<!-- Paiement immédiat -->
+					<h:panelGroup rendered="#{mbCart.cart.paymentType.idPayment == 2}">
 
-					<h:panelGrid rendered="#{mbCart.cart.paymentType.idPayment == 3}"
-						columns="2" columnClasses="label, value">
-						<h2>Références bancaires</h2>
-						<h:outputLabel value="Code banque" /> :
-						<h:outputLabel value="93024" />
-						
-						<h:outputLabel value="Code guichet" /> :
-						<h:outputLabel value="04044" />
-						
-						<h:outputLabel value="Numéro de compte" /> :
-						<h:outputLabel value="12345678910" />
-						
-						<h:outputLabel value="Clé RIB" /> :
-						<h:outputLabel value="333" />
-						
-						<h:outputLabel value="IBAN" /> :
-						<h:outputLabel value="UN456 9302 4040 4412 3456 7891 03 33" />
-						
-					</h:panelGrid>
-					
-				</h:panelGrid>
+<!-- 						<h3>Virement bancaire</h3> -->
 
-					<p:commandButton value="Confirmer le paiement" action="/pages/panierStep4" />
+						<h:outputLabel value="Date de virement" class="titre"/> :
+						<h:outputLabel value="19/08/2015" class="valeur"/>
+
+						<h4>Compte débiteur :</h4>
+
+						<h:outputLabel value="Numéro de compte" class="titre"/> :
+						<input type="number" class="valeur"/>
+
+						<h4>Compte bénéficiaire :</h4>
+
+						<h:outputLabel value="Code banque" class="titre"/> :
+						<h:outputLabel value="93024" class="valeur"/>
+
+						<h:outputLabel value="Code guichet" class="titre"/> :
+						<h:outputLabel value="04044" class="valeur"/>
+
+						<h:outputLabel value="Numéro de compte" class="titre"/> :
+						<h:outputLabel value="12345678910" class="valeur"/>
+
+						<h:outputLabel value="Clé RIB" class="titre"/> :
+						<h:outputLabel value="333" class="valeur"/>
+
+						<h:outputLabel value="IBAN" class="titre"/> :
+						<h:outputLabel value="UN456 9302 4040 4412 3456 7891 03 33" class="valeur"/>
+					</h:panelGroup>
+				</div>
+
+				<div class="recapCommande">
+					<h:outputLabel
+						value="#{mbProduct.DoubleFormat(mbSteps.calculePrixTotal())}"
+						class="recapCommande-prix" />
+					<h:outputLabel value="Prix total (crédits) :"
+						class="recapCommande-titre" />
+					<p:commandButton id="boutonContinuer" value="Confirmer le paiement"
+						action="/pages/panierStep4" />
+				</div>
 			</div>
 		</h:form>
 	</ui:define>
