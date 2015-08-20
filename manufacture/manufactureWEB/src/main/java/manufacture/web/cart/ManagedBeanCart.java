@@ -69,7 +69,10 @@ public class ManagedBeanCart {
 
 	public void addProductToCart(Product productToAdd) {
 		
+	    log.info("Produit à ajouter, id : " + productToAdd.getIdProduct());
+	    
 	    FacesContext context = FacesContext.getCurrentInstance();
+	    boolean ajoutPanier = true;
 	    
 	    //Si le panier n'est pas vide on rentre dans la méthode.
 	    if (panier.size() > 0)
@@ -77,36 +80,26 @@ public class ManagedBeanCart {
 	        //Sinon on vérifie si le produit est déjà présent dans le panier.
 	        for (CartProduct cp : panier)
 	        {
+	            log.info("Produit dans le panier, id : " + cp.getProduct().getIdProduct());
+	            
 	            //Si le produit est déjà présent dans le panier on met à jour la quantité (qui ne doit pas dépasser la quantité en stock du produit).
 	            if (cp.getProduct().getIdProduct() == productToAdd.getIdProduct())
 	            {
+	                ajoutPanier = false;
+	                
 	                int nouvelleQuantite = cp.getQuantity() + quantity;
 	                if (nouvelleQuantite >= mbProduct.getQuantiteDispo())
 	                {
 	                    nouvelleQuantite = mbProduct.getQuantiteDispo();
-	                    cp.setQuantity(nouvelleQuantite);
 	                }
-	                else
-	                {
-	                    cp.setQuantity(nouvelleQuantite);
-	                }
+	                cp.setQuantity(nouvelleQuantite);
 	                
 	                context.addMessage(null, new FacesMessage("Produit(s) ajouté(s)", nouvelleQuantite+" "+mbProduct.getProductRef().getProductName()+" ajouté(s) au panier" ) );
 	            }
-	            //Sinon on l'ajoute au panier.
-	            else
-	            {
-	                CartProduct cartProduct = new CartProduct();
-	                cartProduct.setQuantity(quantity);
-	                cartProduct.setProduct(productToAdd);
-	                panier.add(cartProduct);
-	                
-	                context.addMessage(null, new FacesMessage("Produit(s) ajouté(s)", quantity+" "+mbProduct.getProductRef().getProductName()+" ajouté(s) au panier" ) );
-	            }
 	        }
 	    }
-	  //Sinon on ajoute directement le produit au panier.
-	    else
+	    //Sinon on ajoute directement le produit au panier.
+	    if (ajoutPanier)
 	    {
 	        CartProduct cartProduct = new CartProduct();
 	        cartProduct.setQuantity(quantity);
@@ -184,12 +177,13 @@ public class ManagedBeanCart {
 		return totalPrice;
 	}
 
-	public void deleteProductFromCart(int idProduct){
-		for (CartProduct cp : panier) {
-			if (cp.getProduct().getIdProduct() == idProduct) {
-				panier.remove(cp);
-			}
-		}
+	public void deleteProductFromCart(CartProduct productToDelete){
+//		for (CartProduct cp : panier) {
+//			if (cp.getProduct().getIdProduct() == idProduct) {
+//				panier.remove(cp);
+//			}
+//		}
+	    panier.remove(productToDelete);
 	}
 
 	public void cleanCart (){

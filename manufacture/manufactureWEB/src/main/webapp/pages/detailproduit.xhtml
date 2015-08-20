@@ -31,7 +31,7 @@
 					<h:outputLabel value="#{mbProduct.productRef.category.categoryName}" />
 					
 					<h:outputLabel value="Prix :" />
-					<h:outputLabel  value="#{mbProduct.DoubleFormat(mbProduct.produitAffiche.price)*mbCart.quantity} Crédits" />
+					<h:outputLabel  value="#{mbProduct.DoubleFormat(mbProduct.produitAffiche.price*mbCart.quantity)} Crédits" />
 
 					<h:outputLabel value="Quantité :" />
 					<p:spinner id="minMax" min="1"  max="#{mbProduct.quantiteDispo}" value="#{mbCart.quantity}">
