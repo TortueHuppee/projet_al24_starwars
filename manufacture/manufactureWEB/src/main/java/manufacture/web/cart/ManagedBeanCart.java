@@ -69,8 +69,6 @@ public class ManagedBeanCart {
 
 	public void addProductToCart(Product productToAdd) {
 		
-	    log.info("Produit à ajouter, id : " + productToAdd.getIdProduct());
-	    
 	    FacesContext context = FacesContext.getCurrentInstance();
 	    boolean ajoutPanier = true;
 	    
@@ -80,10 +78,8 @@ public class ManagedBeanCart {
 	        //Sinon on vérifie si le produit est déjà présent dans le panier.
 	        for (CartProduct cp : panier)
 	        {
-	            log.info("Produit dans le panier, id : " + cp.getProduct().getIdProduct());
-	            
 	            //Si le produit est déjà présent dans le panier on met à jour la quantité (qui ne doit pas dépasser la quantité en stock du produit).
-	            if (cp.getProduct().getIdProduct() == productToAdd.getIdProduct())
+	            if (cp.getProduct().getIdProduct().equals(productToAdd.getIdProduct()))
 	            {
 	                ajoutPanier = false;
 	                
