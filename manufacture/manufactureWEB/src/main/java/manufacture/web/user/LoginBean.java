@@ -1,6 +1,7 @@
 package manufacture.web.user;
 
 import java.io.IOException;
+import java.util.Date;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -30,6 +31,9 @@ public class LoginBean {
 	
 	@ManagedProperty(value="#{mbCart}")
 	private ManagedBeanCart mbCart;
+	
+	@ManagedProperty(value="#{profilBean}")
+	private ProfilBean profilBean;
 	
 	private User user;
 	private String redirect;
@@ -61,6 +65,7 @@ public class LoginBean {
 		erreurConnexion = "";
 		
 		userBean.setUser(userTmp);
+		profilBean.init();
 		String toPage = null;
 		
 		//Redirection provenant d'une page de l'application pour laquelle il faut être connecté
@@ -109,6 +114,23 @@ public class LoginBean {
 		LOGGER.info("user reseted");
 		return "index.xhtml?faces-redirect=true";
 	}
+	
+	//Navigation
+	public String accessProfil(){
+        if(userBean.isLogged()){
+            if (!profilBean.isDonneesInitialisees())
+            {
+                profilBean.initialiseDonnees();
+            }
+            return "profil.xhtml?faces-redirect=true";
+        }else{
+            profilBean.setDate(new Date());
+            redirect = "profil.xhtml?faces-redirect=true";
+            return "login.xhtml?faces-redirect=true";
+        }
+    }
+	
+	//Getters et Setters
 
 	public UserBean getUserBean() {
 		return userBean;
@@ -180,5 +202,13 @@ public class LoginBean {
 
     public void setErreurConnexion(String paramErreurConnexion) {
         erreurConnexion = paramErreurConnexion;
-    } 
+    }
+
+    public ProfilBean getProfilBean() {
+        return profilBean;
+    }
+
+    public void setProfilBean(ProfilBean paramProfilBean) {
+        profilBean = paramProfilBean;
+    }
 }

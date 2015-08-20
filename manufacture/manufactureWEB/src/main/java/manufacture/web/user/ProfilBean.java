@@ -27,9 +27,6 @@ public class ProfilBean {
 	@ManagedProperty(value="#{userBean}")
 	private UserBean userBean;
 	
-	@ManagedProperty(value="#{loginBean}")
-	private LoginBean loginBean;
-	
 	@ManagedProperty(value="#{profil}")
 	private IProfil proxyProfil; 
 	
@@ -90,35 +87,12 @@ public class ProfilBean {
 			}
 		}
 	}
-	
-	public String accessProfil(){
-		if(userBean.isLogged()){
-			if (!donneesInitialisees)
-			{
-				initialiseDonnees();
-			}
-			return "profil.xhtml?faces-redirect=true";
-		}else{
-			date = new Date();
-			loginBean.setRedirect("profil.xhtml?faces-redirect=true");
-			return "login.xhtml?faces-redirect=true";
-		}
-	}
-	
+
 	public UserBean getUserBean() {
 		return userBean;
 	}
-
 	public void setUserBean(UserBean userBean) {
 		this.userBean = userBean;
-	}
-
-	public LoginBean getLoginBean() {
-		return loginBean;
-	}
-
-	public void setLoginBean(LoginBean loginBean) {
-		this.loginBean = loginBean;
 	}
 	public SimpleDateFormat getSdf() {
 		return sdf;

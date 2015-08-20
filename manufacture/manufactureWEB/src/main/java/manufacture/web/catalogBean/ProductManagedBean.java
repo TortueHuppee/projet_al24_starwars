@@ -188,10 +188,13 @@ public class ProductManagedBean {
             {
                 if (product.getMaterial().getIdMaterial() == idMaterialSelected)
                 {
-                    if (product.getConstructor().getIdConstructor() == idConstructorSelected)
+                    if (product.getTypeProduct().getIdTypeProduct() == 1)
                     {
-                        quantiteDispo += product.getStock();
-                        produitAffiche = product;
+                        if (product.getConstructor().getIdConstructor() == idConstructorSelected)
+                        {
+                            quantiteDispo += product.getStock();
+                            produitAffiche = product;
+                        }
                     }
                 }
             }	
@@ -227,16 +230,19 @@ public class ProductManagedBean {
                 //Constructeurs
                 if (product.getMaterial().getIdMaterial() == idMaterialSelected)
                 {
-                    for (Constructor constructeur : listeConstructeurs)
+                    if (product.getTypeProduct().getIdTypeProduct() == 1)
                     {
-                        if (constructeur.getIdConstructor() == product.getConstructor().getIdConstructor())
+                        for (Constructor constructeur : listeConstructeurs)
                         {
-                            ajoutConstructeur = false;
+                            if (constructeur.getIdConstructor() == product.getConstructor().getIdConstructor())
+                            {
+                                ajoutConstructeur = false;
+                            }
                         }
-                    }
-                    if (ajoutConstructeur)
-                    {
-                        listeConstructeurs.add(product.getConstructor());
+                        if (ajoutConstructeur)
+                        {
+                            listeConstructeurs.add(product.getConstructor());
+                        }
                     }
                 }
             }	

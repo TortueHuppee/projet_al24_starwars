@@ -1,5 +1,6 @@
 package manufacture.web.user;
 
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
@@ -27,12 +28,17 @@ public class EditManagedBean {
 	private Address nouvelleAdresse = new Address();
 	private City ville = new City();
 	
+	@PostConstruct
+	public void init()
+	{
+	    nouvelleAdresse.setUser(userBean.getUser());
+        nouvelleAdresse.setCity(ville);
+	}
+	
 	//Méthodes
 	
 	public void saveNewAddress()
 	{
-		nouvelleAdresse.setUser(userBean.getUser());
-		nouvelleAdresse.setCity(ville);
 		proxyProfil.saveAddress(nouvelleAdresse);
 
 		if (nouvelleAdresse.getIsBillingaddress())

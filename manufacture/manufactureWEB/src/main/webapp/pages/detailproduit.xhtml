@@ -77,7 +77,7 @@
 
 					<!-- Filtre Constructeur -->
 					<h:outputLabel value="Constructeur :" />
-					<h:outputLabel value="#{mbProduct.listeConstructeurs.get(0).constructorName}" rendered="#{not (mbProduct.listeConstructeurs.size() > 1)}"/>
+					<h:outputLabel value="#{mbProduct.listeConstructeurs.get(0).constructorName}" rendered="#{not (mbProduct.listeConstructeurs.size() > 1 or mbProduct.listeConstructeurs.size() == 0)}"/>
 					<h:selectOneMenu value="#{mbProduct.idConstructorSelected}" rendered="#{mbProduct.listeConstructeurs.size() > 1}">
 						<f:selectItems var="item" value="#{mbProduct.listeConstructeurs}"
 							itemLabel="#{item.constructorName}"

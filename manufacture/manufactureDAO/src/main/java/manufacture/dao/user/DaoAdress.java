@@ -26,6 +26,7 @@ public class DaoAdress implements IDaoAdress {
 	@Override
 	public void createAddress(Address address) {
 		Session session = sf.getCurrentSession();
+		log.info("Adresse enregistrée");
 		session.save(address);	
 	}
 
