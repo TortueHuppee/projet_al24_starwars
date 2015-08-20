@@ -1,0 +1,35 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<h:form>
+
+		<div class="options">Rubriques</div>
+
+		<h:commandLink value="Informations personnelles">
+			<f:ajax event="click" render=":myForm" listener="#{profilBean.chooseRubrique('Informations personnelles')}"/>
+		</h:commandLink>
+		
+		<h:commandLink value="Adresses enregistrées">
+			<f:ajax event="click" render=":myForm" listener="#{profilBean.chooseRubrique('Adresses enregistrées')}"/>
+		</h:commandLink>
+		
+		<h:commandLink value="Mes ventes" rendered="#{profilBean.userBean.user.userRole.role eq 'Particulier' or profilBean.userBean.user.userRole.role eq 'Artisan'}">
+			<f:ajax event="click" render=":myForm" listener="#{profilBean.chooseRubrique('Mes ventes')}"/>
+		</h:commandLink>
+		
+		<h:commandLink value="Mes achats">
+			<f:ajax event="click" render=":myForm" listener="#{profilBean.chooseRubrique('Mes achats')}"/>
+		</h:commandLink>
+
+		<div class="options">Des boutons à mettre ici ?</div>
+
+		<p:commandButton value="Un bouton">
+<!-- 			<f:ajax render=":myForm" event="click" /> -->
+		</p:commandButton>
+
+	</h:form>
+</ui:composition>

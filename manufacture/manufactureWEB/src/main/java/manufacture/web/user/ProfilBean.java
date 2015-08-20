@@ -44,17 +44,24 @@ public class ProfilBean {
 	private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 	private Date date = new Date();
 	
+	private String rubriqueChoisie;
+	
 	private boolean donneesInitialisees = false;
 
 	@PostConstruct
 	public void init() {
-		if(userBean.isLogged()){
+	    if(userBean.isLogged()){
 			initialiseDonnees();
 			donneesInitialisees = true;
 		}
 	}
 	
 	//Méthodes
+	public void chooseRubrique(String rubrique)
+	{
+	    rubriqueChoisie = rubrique;
+	}
+	
 	public void initialiseDonnees()
 	{
 		adressesTotales = proxyProfil.getAllAdressByUser(userBean.getUser());
@@ -164,4 +171,12 @@ public class ProfilBean {
 	public void setDonneesInitialisees(boolean donneesInitialisees) {
 		this.donneesInitialisees = donneesInitialisees;
 	}
+
+    public String getRubriqueChoisie() {
+        return rubriqueChoisie;
+    }
+
+    public void setRubriqueChoisie(String paramRubriqueChoisie) {
+        rubriqueChoisie = paramRubriqueChoisie;
+    }
 }

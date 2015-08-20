@@ -7,6 +7,7 @@ import javax.faces.bean.ViewScoped;
 
 import manufacture.entity.user.Address;
 import manufacture.entity.user.City;
+import manufacture.entity.user.User;
 import manufacture.ifacade.user.IProfil;
 
 @ManagedBean(name="editBean")
@@ -71,7 +72,8 @@ public class EditManagedBean {
 	}
 
 	public void saveUser() {
-	   proxyProfil.editUser(userBean.getUser());
+	   User newuser = proxyProfil.editUser(userBean.getUser());
+	   userBean.setUser(newuser);
 	   editModePersonnel = false;
 	}
 	
