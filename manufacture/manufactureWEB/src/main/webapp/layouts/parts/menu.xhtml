@@ -19,34 +19,37 @@
 			<h:commandLink action="/pages/index">
 					<img id="boutonAcceuil" onclick="#{mbNavigation.goToAccueil()}"
 						src="../resources/images/accueilGris.png"
-						onmousedown="this.src='../resources/images/accueilOrange.png';"
+						onmousedown="this.src='../resources/images/accueilJaune.png';"
 						onmouseover="this.src='../resources/images/accueilBleu.png';"
 						onmouseout="this.src='../resources/images/accueilGris.png';" />
 			</h:commandLink>
 			
 			<h:commandLink action="/pages/catalogue">
-			<img id="boutonCatalogue" src="../resources/images/catalogGris.png"
-				onmouseover="this.src='../resources/images/catalogBleu.png';"
-				onmouseout="this.src='../resources/images/catalogGris.png';"
-				onmousedown="this.src='../resources/images/catalogOrange.png';"/>
+			<img id="boutonCatalogue" src="../resources/images/catalogueGris.png"
+				onmouseover="this.src='../resources/images/catalogueBleu.png';"
+				onmouseout="this.src='../resources/images/catalogueGris.png';"
+				onmousedown="this.src='../resources/images/catalogueJaune.png';"/>
 			</h:commandLink>
 			
 			<h:commandLink action="#{mbAnnonce.accessAdvert()}">
-				<img id="boutonCatalogue" src="../resources/images/catalogOrange.png"/>
+				<img id="boutonCatalogue" src="../resources/images/annonceGris.png"
+				onmouseover="this.src='../resources/images/annonceBleu.png';"
+				onmouseout="this.src='../resources/images/annonceGris.png';"
+				onmousedown="this.src='../resources/images/annonceJaune.png';"/>
 			</h:commandLink>
 						
 			<h:commandLink action="#{loginBean.accessProfil()}"> 
-			<img id="boutonCompte" src="../resources/images/compteGris.png"
-				onmouseover="this.src='../resources/images/compteBleu.png';"
-				onmouseout="this.src='../resources/images/compteGris.png';"
-				onmousedown="this.src='../resources/images/compteOrange.png';"/>
+			<img id="boutonCompte" src="../resources/images/profilGris.png"
+				onmouseover="this.src='../resources/images/profilBleu.png';"
+				onmouseout="this.src='../resources/images/profilGris.png';"
+				onmousedown="this.src='../resources/images/profilJaune.png';"/>
 			</h:commandLink>
 			 
 			<h:commandLink action="/pages/panier">
 			<img id="boutonPanier" src="../resources/images/panierGris.png"
 				onmouseover="this.src='../resources/images/panierBleu.png';"
 				onmouseout="this.src='../resources/images/panierGris.png';"
-				onmousedown="this.src='../resources/images/panierOrange.png';"/>
+				onmousedown="this.src='../resources/images/panierJaune.png';"/>
 			</h:commandLink>
 
 			</div>

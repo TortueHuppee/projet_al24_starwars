@@ -31,15 +31,15 @@ public class ProfilBean {
 	private IProfil proxyProfil; 
 	
 	private List<Address> adressesTotales;
-	private List<Address> adressesFacturation = new ArrayList<Address>();
-	private List<Address> adressesLivraison = new ArrayList<Address>();
+	private List<Address> adressesFacturation;
+	private List<Address> adressesLivraison;
 	
-	private List<Product> listeProduitsVendus = new ArrayList<Product>();
-	private List<Product> listeProduitsNonVendus = new ArrayList<Product>();
+	private List<Product> listeProduitsVendus;
+	private List<Product> listeProduitsNonVendus;
 	
-	private List<CartProduct> listeCommandesVendus = new ArrayList<CartProduct>();
+	private List<CartProduct> listeCommandesVendus;
 	
-	private List<Cart> listeCommandesPassees = new ArrayList<Cart>();
+	private List<Cart> listeCommandesPassees;
 
 	private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 	private Date date = new Date();
@@ -64,9 +64,20 @@ public class ProfilBean {
 	
 	public void initialiseDonnees()
 	{
+	    adressesTotales = new ArrayList<Address>();
+	    adressesFacturation = new ArrayList<Address>();
+	    adressesLivraison = new ArrayList<Address>();
+	    
+	    listeCommandesPassees = new ArrayList<Cart>();
+	    listeCommandesVendus = new ArrayList<CartProduct>();
+	    
+	    listeProduitsNonVendus = new ArrayList<Product>();
+	    listeProduitsVendus = new ArrayList<Product>();
+	    
 		adressesTotales = proxyProfil.getAllAdressByUser(userBean.getUser());
-		adressesFacturation = new ArrayList<Address>();
-		adressesLivraison = new ArrayList<Address>();
+		
+		log.info(adressesTotales.size());
+		System.out.println(adressesTotales.size());
 		
 		userBean.getUser().setAddresses(adressesTotales);
 		

@@ -12,7 +12,6 @@
 	</ui:define>
 
 	<ui:define name="main-body">
-		<div class="center-body">
 			<h:form id="myForm">
 				<div class="profil">
 					<h2>
@@ -121,7 +120,7 @@
 						
 						<div class="listeAdresses">
 						
-							<h2>Adresses enregistrées</h2>
+							<h2>Adresses enregistrées (#{profilBean.adressesTotales.size()})</h2>
 							
 							<h:dataTable var="address" value="#{profilBean.adressesTotales}">
 								<h:column>
@@ -148,14 +147,14 @@
 									<f:facet name="header">
 										Adresse de livraison
 									</f:facet>
-									<h:graphicImage value="/manufactureWEB/src/main/webapp/resources/images/valider.png" rendered="#{address.isDeliveryaddress}"/>
+									<h:graphicImage value="../resources/images/valider.png" rendered="#{address.isDeliveryaddress}"/>
 								</h:column>	
 								
 								<h:column>
 									<f:facet name="header">
 										Adresse de facturation
 									</f:facet>
-									<h:graphicImage value="/manufactureWEB/src/main/webapp/resources/images/valider.png" rendered="#{address.isBillingaddress}"/>
+									<h:graphicImage value="../resources/images/valider.png" rendered="#{address.isBillingaddress}"/>
 								</h:column>	
 								
 								<h:column>
@@ -342,6 +341,5 @@
 				</div>
 			
 			</h:form>
-		</div>
 	</ui:define>
 </ui:composition>

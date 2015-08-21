@@ -5,7 +5,7 @@
 	background:linear-gradient(white, #E0E6F8);
 }
 
-/*Refonte*/
+/*Side bar*/
 .sidebar-left 
 {
    background-color:#f1f1f1;
@@ -68,99 +68,68 @@
   text-align:center;
 }
 
-/*Ancien*/
-
-
-.ui-panel-titlebar
+/*Body content profil*/
+.profil
 {
-	text-align:right;
-	color:#10507B;
-	font-size:larger;
-	height:50px;
+   background-color:#f1f1f1;
+   border:1px solid #e5e5e5;
+   border-radius:5px;
+   margin-right:20px;
+	 padding-bottom:20px;
+   display:inline-block;
+   width:99%;
 }
 
-.ui-panel-titlebar label:last-of-type
+.profil h2
 {
-	font-size:small;
-	font-style:italic;
+    font-family:Arial;
+    margin:10px;
+    margin-bottom:20px;
+    border-bottom:1px solid lightgrey;
+    padding-bottom:10px;
 }
 
-.ui-panel
+.profil h2 button
 {
-	padding:0 !important;
-	border:1px solid #e5e5e5;
+    float:right;
+    font-size:small;
 }
 
-.ui-tabs
+/**/
+
+.listeAdresses,
+.infosPersonnelles,
+.mesVentes,
+.mesAchats
 {
-	min-height:612px;
-	
+	width:97%;
+	vertical-align: top;
+	background-color: white;
+	border-radius: 5px;
+	margin-left:15px;
+	margin-right:5px;
+	border:1px solid lightgrey;
 }
 
-.ui-panel-content
+.listeAdresses h2,
+.infosPersonnelles h2,
+.mesVentes h2,
+.mesAchats h2
 {
-	padding-top:2px !important;
-	padding-left:0px !important;
-	padding-right:0px !important;
-	padding-bottom:0px !important;
+	background-color: lightsteelblue;
+	border-bottom:1px solid lightgrey;
+	height:30px;
+	border-top-left-radius: 3px;
+	border-top-right-radius: 3px;
+	font-family: Arial,sans-serif;
+	font-style: normal;
+	font-size:medium;
+	padding-left:10px;
+	padding-top:10px;
+	margin-bottom:10px;
 }
 
-.ui-panel-content > table
-{
-	width:100% !important;
-}
- /*Tabs*/
-.ui-tabs-selected
-{
-	-moz-box-shadow:inset 0px 1px 0px 0px #8cbdb6 !important;
-	-webkit-box-shadow:inset 0px 1px 0px 0px #8cbdb6 !important;
-	box-shadow:inset 0px 1px 0px 0px #8cbdb6 !important;
-	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #8cbdb6), color-stop(1, #72a39c)) v;
-	background:-moz-linear-gradient(top, #8cbdb6 5%, #72a39c 100%) !important;
-	background:-webkit-linear-gradient(top, #8cbdb6 5%, #72a39c 100%) !important;
-	background:-o-linear-gradient(top, #8cbdb6 5%, #72a39c 100%) !important;
-	background:-ms-linear-gradient(top, #8cbdb6 5%, #72a39c 100%) !important;
-	background:linear-gradient(to bottom, #8cbdb6 5%, #72a39c 100%) !important;
-	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#8cbdb6', endColorstr='#72a39c',GradientType=0) !important;
-	background-color:#8cbdb6 !important;	
-	border:1px solid #566963 !important;
-}
-
-.ui-tabs-selected a
-{
-	text-decoration: none !important;
-	text-shadow:0 0 0 0 !important;
-}
-
-.ui-corner-left
-{
-	border-radius:3px;
-	height:150px;
-}
-
-.ui-corner-left:not(.ui-tabs-selected)
-{
-	background:none !important;
-	border:1px solid #bdc7d8 !important;
-	background-color:#e3e3e3 !important;
-}
-
-.ui-corner-left:not(.ui-tabs-selected):hover
-{
-	-moz-box-shadow:inset 0px 1px 0px 0px #ffffff !important;
-	-webkit-box-shadow:inset 0px 1px 0px 0px #ffffff !important;
-	box-shadow:inset 0px 1px 0px 0px #ffffff !important;
-	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #ededed), color-stop(1, #dfdfdf)) !important;
-	background:-moz-linear-gradient(top, #ededed 5%, #dfdfdf 100%) !important;
-	background:-webkit-linear-gradient(top, #ededed 5%, #dfdfdf 100%) !important;
-	background:-o-linear-gradient(top, #ededed 5%, #dfdfdf 100%) !important;
-	background:-ms-linear-gradient(top, #ededed 5%, #dfdfdf 100%) !important;
-	background:linear-gradient(to bottom, #ededed 5%, #dfdfdf 100%) !important;
-	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ededed', endColorstr='#dfdfdf',GradientType=0) !important;
-	background-color:#ededed !important;
-}
-
-/*Content*/
+/*Content - Identity*/
 .identity
 {
 	margin-bottom:60px;
@@ -193,14 +162,6 @@ input,
 	font-style:italic;
 }
 
-h2
-{
-	margin-bottom:15px;
-	border-bottom:1px solid #10507B;
-	color:#333;
-}
-
-
 .ui-selectoneradio
 {
 	display:inline-block;
@@ -217,38 +178,6 @@ h2
 .address input:not(.ui-dialog input)
 {
 	width:60% !important;
-}
-
-#j_idt44\3a j_idt49\3a addresses table
-{
-	display:inline-block;
-	float:left;
-	width:45%;
-	min-height:600px;
-}
-
-#j_idt44\3a j_idt49\3a addresses table td
-{
-	border:none !important;
-}
-
-#j_idt44\3a j_idt49\3a addresses table td
-{
-	height:70px;
-	border-bottom:1px solid lightgrey !important;
-}
-
-#j_idt44\3a j_idt49\3a addresses tbody tr:last-of-type td
-{
-	border-bottom:none !important;
-}
-
-
-/*autres*/
-#j_idt44\3a j_idt49\3a addresses table td label:first-of-type:not(.ui-dialog label)
-{
-	display:inline-block !important;
-	width:20% !important;
 }
 
 .identity input
