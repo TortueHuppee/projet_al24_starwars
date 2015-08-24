@@ -33,7 +33,7 @@ public class DataLoader {
 	private List<Planet> listPlanet;
 	private int idPlanetSelected;
 	
-    private List<Category> listeCatégories;
+    private List<Category> listeCategories;
     private List<Color> listeCouleurs;
     private List<Material> listeMateriaux;
     private List<Constructor> listeConstructeurs;
@@ -48,7 +48,7 @@ public class DataLoader {
 		listCountry = dataLoading.loadCountryByPlanet(idPlanetSelected);
 		listPlanet = dataLoading.loadPlanet();
 		
-		listeCatégories = dataLoading.getAllCategory();
+		listeCategories = dataLoading.getAllCategory();
 		listeCouleurs = dataLoading.getAllColor();
 		listeMateriaux = dataLoading.getAllMaterial();
 		listeConstructeurs = dataLoading.getAllConstructor();
@@ -104,12 +104,12 @@ public class DataLoader {
         idPlanetSelected = paramIdPlanetSelected;
     }
 
-    public List<Category> getListeCatégories() {
-        return listeCatégories;
+    public List<Category> getListeCategories() {
+        return listeCategories;
     }
 
-    public void setListeCatégories(List<Category> paramListeCatégories) {
-        listeCatégories = paramListeCatégories;
+    public void setListeCategories(List<Category> paramListeCategories) {
+        listeCategories = paramListeCategories;
     }
 
     public List<Color> getListeCouleurs() {

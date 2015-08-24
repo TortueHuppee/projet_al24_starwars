@@ -34,6 +34,8 @@ public class EditManagedBean {
 	{
 	    nouvelleAdresse.setUser(userBean.getUser());
         nouvelleAdresse.setCity(ville);
+        editModeAdresse = false;
+        editModePersonnel = false;
 	}
 	
 	//Méthodes
@@ -55,7 +57,7 @@ public class EditManagedBean {
 		nouvelleAdresse = new Address();
 	}
 	
-	public void editModePersonnel() {
+	public void editionModePersonnel() {
 		editModePersonnel = true;
 	}
 	
@@ -63,7 +65,7 @@ public class EditManagedBean {
 		editModePersonnel = false;
 	}
 	
-	public void editModeAdresse(Address addresse) {
+	public void editionModeAdresse() {
 		editModeAdresse = true;
 	}
 	

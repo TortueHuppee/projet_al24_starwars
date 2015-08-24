@@ -14,7 +14,11 @@ import manufacture.entity.cart.Cart;
 import manufacture.entity.cart.CartProduct;
 import manufacture.entity.product.Product;
 import manufacture.entity.user.Address;
+import manufacture.entity.user.City;
+import manufacture.entity.user.Country;
+import manufacture.entity.user.Planet;
 import manufacture.ifacade.user.IProfil;
+import manufacture.web.datas.DataLoader;
 
 import org.apache.log4j.Logger;
 
@@ -29,6 +33,9 @@ public class ProfilBean {
 	
 	@ManagedProperty(value="#{profil}")
 	private IProfil proxyProfil; 
+	
+	@ManagedProperty(value="#{mbDataLoader}")
+	private DataLoader dataloader;
 	
 	private List<Address> adressesTotales;
 	private List<Address> adressesFacturation;
@@ -56,7 +63,17 @@ public class ProfilBean {
 		}
 	}
 	
-	//MÈthodes
+	//Methodes
+	public void afficherInformationsAdresses()
+	{
+	    for (Address ad : adressesTotales)
+	    {
+	        log.info("ID Ville : " + ad.getCity().getIdCity());
+	        log.info("ID Pays : " + ad.getCity().getCountry().getIdCountry());
+	        log.info("ID Plan√®te : " + ad.getCity().getCountry().getPlanet().getIdPlanet());
+	    }
+	}
+	
 	public void chooseRubrique(String rubrique)
 	{
 	    rubriqueChoisie = rubrique;
@@ -76,9 +93,6 @@ public class ProfilBean {
 	    
 		adressesTotales = proxyProfil.getAllAdressByUser(userBean.getUser());
 		
-		log.info(adressesTotales.size());
-		System.out.println(adressesTotales.size());
-		
 		userBean.getUser().setAddresses(adressesTotales);
 		
 		listeProduitsVendus = proxyProfil.getProductSendByUser(userBean.getUser());
@@ -96,13 +110,36 @@ public class ProfilBean {
 			if (adresse.getIsBillingaddress())
 			{
 				adressesFacturation.add(adresse);
-				log.info("Facturation : " + adresse.getStreet());
 			}
 			if (adresse.getIsDeliveryaddress())
 			{
 				adressesLivraison.add(adresse);
-				log.info("Livraison : " + adresse.getStreet());
 			}
+			
+//			for (City city : dataloader.getListCity())
+//			{
+//			    if (adresse.getCity().getIdCity() == city.getIdCity())
+//			    {
+//			        adresse.setCity(city);
+//			        log.info(city.getCityName());
+//			    }
+//			    
+//			    for (Country country : dataloader.getListCountry())
+//	            {
+//	                for (Planet planet : dataloader.getListPlanet())
+//	                {
+//	                    if (country.getPlanet().getIdPlanet() == planet.getIdPlanet())
+//	                    {
+//	                        country.setPlanet(planet);
+//	                    }
+//	                }
+//	                
+//	                if (city.getCountry().getIdCountry() == country.getIdCountry())
+//	                {
+//	                    city.setCountry(country);
+//	                }
+//	            }
+//			}
 		}
 	}
 
@@ -189,5 +226,21 @@ public class ProfilBean {
 
     public void setRubriqueChoisie(String paramRubriqueChoisie) {
         rubriqueChoisie = paramRubriqueChoisie;
+    }
+
+    public static Logger getLog() {
+        return log;
+    }
+
+    public static void setLog(Logger paramLog) {
+        log = paramLog;
+    }
+
+    public DataLoader getDataloader() {
+        return dataloader;
+    }
+
+    public void setDataloader(DataLoader paramDataloader) {
+        dataloader = paramDataloader;
     }
 }

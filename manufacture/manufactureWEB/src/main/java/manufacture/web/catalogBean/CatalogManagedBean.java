@@ -64,7 +64,7 @@ public class CatalogManagedBean {
     /**
      * Filtres communs aux trois listes de produit.
      */
-    private List<Category> listeCatégories;
+    private List<Category> listeCategories;
     private List<Color> listeCouleurs;
     private List<Material> listeMateriaux;
     private List<SelectItem> listeItemConstructeur;
@@ -95,7 +95,7 @@ public class CatalogManagedBean {
         initialisationListesAffichees();
     }
 
-    //Méthodes de tri et de filtres
+    //Mï¿½thodes de tri et de filtres
 
     public void choixCategorie(int idCategory)
     {
@@ -105,7 +105,7 @@ public class CatalogManagedBean {
 
     public void initialisationFiltres() {
 
-        listeCatégories = dataLoader.getListeCatégories();
+        listeCategories = dataLoader.getListeCategories();
         listeCouleurs = dataLoader.getListeCouleurs();
         listeMateriaux = dataLoader.getListeMateriaux();
         listeConstructeurs = dataLoader.getListeConstructeurs();
@@ -221,7 +221,7 @@ public class CatalogManagedBean {
 
     //Filtres
     
-    public void filtrage(List<Produit> listeBrute, List<Produit> listeAffichée)
+    public void filtrage(List<Produit> listeBrute, List<Produit> listeAffichee)
     {
     	for (Produit produit : listeBrute)
         {
@@ -242,13 +242,13 @@ public class CatalogManagedBean {
             }
 
             if (ajout){
-                ajout = produitDejaDansLaListe(produit, listeAffichée);
+                ajout = produitDejaDansLaListe(produit, listeAffichee);
             }
 
-            //Ajout du produit à la liste s'il répond aux critères
+            //Ajout du produit ï¿½ la liste s'il rï¿½pond aux critï¿½res
             if (ajout)
             {
-                listeAffichée.add(produit);
+                listeAffichee.add(produit);
             }
         }
     }
@@ -291,7 +291,7 @@ public class CatalogManagedBean {
 
     public boolean filtreConstructeur(Produit produit)
     {
-        //La notion de constructeur est généralisée ici :
+        //La notion de constructeur est gï¿½nï¿½ralisï¿½e ici :
         //constructeur = constructeur pour les produits constructeurs
         //constructeur = artisan pour les produits artisans
         //constructeur = particulier pour les produits d'occasion
@@ -305,11 +305,11 @@ public class CatalogManagedBean {
         }
     }
 
-//    public boolean filtreModèleVaisseau(Produit produit)
+//    public boolean filtreModï¿½leVaisseau(Produit produit)
 //    {
 //        boolean ajout = false;
 //        
-//        for (SpaceshipProduct ssp : listeModèleVaisseauProduit)
+//        for (SpaceshipProduct ssp : listeModï¿½leVaisseauProduit)
 //        {
 //        	if (ssp.getProductRef().getIdProductRef() == produit.getIdProductRef())
 //        	{
@@ -353,7 +353,7 @@ public class CatalogManagedBean {
         Collections.sort(listeProduitConstructeurAffichee, Collections.reverseOrder());
     }
 
-    //Réinitialisation de la listeAffichée
+    //Rï¿½initialisation de la listeAffichï¿½e
     public void reinitialiseListeAffichee()
     {
         initialisationListesAffichees();
@@ -369,13 +369,13 @@ public class CatalogManagedBean {
     }
     //Getters et Setters	
 
-//    public List<SpaceshipProduct> getListeModèleVaisseauProduit() {
-//		return listeModèleVaisseauProduit;
+//    public List<SpaceshipProduct> getListeModï¿½leVaisseauProduit() {
+//		return listeModï¿½leVaisseauProduit;
 //	}
 //
-//	public void setListeModèleVaisseauProduit(
-//			List<SpaceshipProduct> listeModèleVaisseauProduit) {
-//		this.listeModèleVaisseauProduit = listeModèleVaisseauProduit;
+//	public void setListeModï¿½leVaisseauProduit(
+//			List<SpaceshipProduct> listeModï¿½leVaisseauProduit) {
+//		this.listeModï¿½leVaisseauProduit = listeModï¿½leVaisseauProduit;
 //	}
 
     public List<Color> getListeCouleurs() {
@@ -402,12 +402,12 @@ public class CatalogManagedBean {
         this.listeConstructeurs = listeConstructeurs;
     }
 
-    public List<Category> getListeCatégories() {
-        return listeCatégories;
+    public List<Category> getListeCategories() {
+        return listeCategories;
     }
 
-    public void setListeCatégories(List<Category> listeCatégories) {
-        this.listeCatégories = listeCatégories;
+    public void setListeCategories(List<Category> listeCategories) {
+        this.listeCategories = listeCategories;
     }
 
     public List<SpaceshipRef> getListeVaisseaux() {

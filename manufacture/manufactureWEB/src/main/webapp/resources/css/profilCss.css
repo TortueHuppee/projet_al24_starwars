@@ -76,16 +76,15 @@
    border:1px solid #e5e5e5;
    border-radius:5px;
    margin-right:20px;
-	 padding-bottom:20px;
    display:inline-block;
    width:99%;
 }
 
-.profil h2{
+.profil > h2{
 	margin-bottom:10px;
 }
 
-.profil h2 label:first-of-type
+.profil h2 > label:first-of-type
 {
     font-family:Arial;
 		font-style:italic;
@@ -94,7 +93,7 @@
     padding-bottom:10px;
 }
 
-.profil h2 label:last-of-type
+.profil h2 > label:last-of-type
 {
     font-family:Arial;
 		font-size:smaller;
@@ -105,14 +104,15 @@
     padding-bottom:10px;
 }
 
-.profil h2 button
+.profil h2 > button
 {
     float:right;
     font-size:small;
 }
 
 /*Icones*/
-.infosPersonnelles img
+.infosPersonnelles img,
+.listeAdresses img
 {
 	height:30px;
 	float:right;
@@ -121,82 +121,6 @@
 }
 
 /*Commun*/
-
-.listeAdresses,
-.identity
-{
-	background-color: white;
-	border-radius: 5px;
-	margin:5px;
-	border:1px solid lightgrey;
-	padding-bottom:10px;
-}
-
-/*Identite et adresses*/
-
-.identity label:nth-child(2n+2),
-.adresseLabel
-{
-	font-weight:bold;
-}
-
-/*Adresses*/
-.ui-button
-{
-	clear:both;
-	height:45px;
-}
-
-.ui-button:first-child
-{
-	display:block;
-	float:right;
-	margin-left:60%;
-	margin-bottom:20px;
-}
-
-
-/**/
-.mesVentes,
-.mesAchats
-{
-	width:97%;
-	vertical-align: top;
-	background-color: white;
-	border-radius: 5px;
-	margin-left:15px;
-	margin-right:5px;
-	border:1px solid lightgrey;
-}
-
-.listeAdresses h2,
-.infosPersonnelles h2,
-.mesVentes h2,
-.mesAchats h2
-{
-	background-color: lightsteelblue;
-	border-bottom:1px solid lightgrey;
-	height:30px;
-	border-top-left-radius: 3px;
-	border-top-right-radius: 3px;
-	font-family: Arial,sans-serif;
-	font-style: normal;
-	font-size:medium;
-	padding-left:10px;
-	padding-top:10px;
-	margin-bottom:10px;
-}
-
-/*Content - Identity*/
-.identity label,
-.adresseLabel,
-.adresseValue
-{
-	display:inline-block;
-	width:43%;
-	margin-left:5%;
-	margin-top:20px;
-}
 
 input,
 .identity label:nth-child(2n+1),
@@ -221,15 +145,22 @@ input,
 	padding-right:5px !important;
 }
 
-/*Address*/
-.address input:not(.ui-dialog input)
+.listeAdresses h2,
+.infosPersonnelles h2,
+.mesVentes h2,
+.mesAchats h2
 {
-	width:60% !important;
-}
-
-.identity input
-{
-	width:40% !important;
+	background-color: lightsteelblue;
+	border-bottom:1px solid lightgrey;
+	height:30px;
+	border-top-left-radius: 3px;
+	border-top-right-radius: 3px;
+	font-family: Arial,sans-serif;
+	font-style: normal;
+	font-size:medium;
+	padding-left:10px;
+	padding-top:10px;
+	margin-bottom:10px;
 }
 
 input
@@ -241,6 +172,91 @@ input
 	padding-left:5px;
 }
 
+/*Identite*/
+
+.identity label
+{
+	display:inline-block;
+	width:43%;
+	margin-left:5%;
+	margin-top:20px;
+}
+
+.identity input
+{
+	width:40% !important;
+}
+
+/*Adresse et identite*/
+
+.listeAdresses,
+.identity
+{
+	font-family: Arial,sans-serif;
+	background-color: white;
+	border-radius: 5px;
+	margin:5px;
+	border:1px solid lightgrey;
+	padding-bottom:10px;
+}
+
+.identity label:nth-child(2n+2)
+{
+	font-weight:bold;
+}
+
+/*Adresses*/
+label.monAdresse 
+{
+	margin-left:15px;
+	font-size: small;
+}
+
+.listeAdresses table .ui-button
+{
+	margin-right:5px;
+}
+
+.listeAdresses table
+{
+	width:100%;
+	border-collapse: collapse;
+}
+
+.listeAdresses th
+{
+	height:30px;
+	background-color:darkgrey;
+}
+
+.listeAdresses tr
+{
+	height:60px;
+}
+
+.listeAdresses tr:nth-of-type(2n+2)
+{
+	background-color:lavender;
+}
+
+.listeAdresses th:last-child
+{
+	width:10%;
+}
+
+/**/
+
+.mesVentes,
+.mesAchats
+{
+	width:97%;
+	vertical-align: top;
+	background-color: white;
+	border-radius: 5px;
+	margin-left:15px;
+	margin-right:5px;
+	border:1px solid lightgrey;
+}
 
 /*Fen�tre de dialogue*/
 .ui-dialog-content
