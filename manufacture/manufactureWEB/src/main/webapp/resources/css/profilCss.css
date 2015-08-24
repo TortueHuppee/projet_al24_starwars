@@ -1,6 +1,7 @@
 #body-content
 {
 	margin-top: 20px;
+	margin-left:10px;
 	padding-bottom:20px;
 	background:linear-gradient(white, #E0E6F8);
 }
@@ -26,7 +27,7 @@
   margin:5px;
   text-align:center;
   padding-top:15px;
-  margin-top:10px;
+  margin-top:5px;
 }
 
 .sidebar-left a:visited, .sidebar-left a:active, .sidebar-left a:link
@@ -80,12 +81,27 @@
    width:99%;
 }
 
-.profil h2
+.profil h2{
+	margin-bottom:10px;
+}
+
+.profil h2 label:first-of-type
 {
     font-family:Arial;
+		font-style:italic;
     margin:10px;
     margin-bottom:20px;
-    border-bottom:1px solid lightgrey;
+    padding-bottom:10px;
+}
+
+.profil h2 label:last-of-type
+{
+    font-family:Arial;
+		font-size:smaller;
+		font-style:italic;
+		font-weight:normal;
+    margin:10px;
+    margin-bottom:20px;
     padding-bottom:10px;
 }
 
@@ -95,10 +111,52 @@
     font-size:small;
 }
 
-/**/
+/*Icones*/
+.infosPersonnelles img
+{
+	height:30px;
+	float:right;
+	margin-top:-5px;
+	margin-right:10px;
+}
+
+/*Commun*/
 
 .listeAdresses,
-.infosPersonnelles,
+.identity
+{
+	background-color: white;
+	border-radius: 5px;
+	margin:5px;
+	border:1px solid lightgrey;
+	padding-bottom:10px;
+}
+
+/*Identite et adresses*/
+
+.identity label:nth-child(2n+2),
+.adresseLabel
+{
+	font-weight:bold;
+}
+
+/*Adresses*/
+.ui-button
+{
+	clear:both;
+	height:45px;
+}
+
+.ui-button:first-child
+{
+	display:block;
+	float:right;
+	margin-left:60%;
+	margin-bottom:20px;
+}
+
+
+/**/
 .mesVentes,
 .mesAchats
 {
@@ -130,11 +188,6 @@
 }
 
 /*Content - Identity*/
-.identity
-{
-	margin-bottom:60px;
-}
-
 .identity label,
 .adresseLabel,
 .adresseValue
@@ -143,12 +196,6 @@
 	width:43%;
 	margin-left:5%;
 	margin-top:20px;
-}
-
-.identity label:nth-child(2n+2),
-.adresseLabel
-{
-	font-weight:bold;
 }
 
 input,
@@ -194,19 +241,6 @@ input
 	padding-left:5px;
 }
 
-.ui-button
-{
-	clear:both;
-	height:35px;
-}
-
-.ui-button:first-child
-{
-	display:block;
-	float:right;
-	margin-left:60%;
-	margin-bottom:20px;
-}
 
 /*Fen�tre de dialogue*/
 .ui-dialog-content
