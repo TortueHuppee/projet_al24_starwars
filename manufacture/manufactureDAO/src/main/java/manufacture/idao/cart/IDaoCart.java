@@ -12,8 +12,6 @@ public interface IDaoCart {
 	
 	Cart validatePayment(Cart cart); // change boolean to true
 	
-	int createNewCart(int idUser);  // if user connected
-	
 	void sendRecall(int idUser); // increment nb recall
 	
 	List<CartProduct> getAllCartProductByCart(int idCart);

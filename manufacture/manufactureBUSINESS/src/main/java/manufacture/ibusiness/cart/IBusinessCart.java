@@ -18,9 +18,9 @@ public interface IBusinessCart {
 	
 	double getSubTotalPrice(int idCartProduct);
 	
-	void orderProfessionalCommande(Cart cart);
+	Cart orderProfessionalCommande(Cart cart);
 	
-	void orderSpecificCommande(Cart cart);
+	Cart orderSpecificCommande(Cart cart);
 	
 	Cart validatePayment(Cart cart);
 	

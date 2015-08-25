@@ -14,9 +14,6 @@ import manufacture.entity.cart.Cart;
 import manufacture.entity.cart.CartProduct;
 import manufacture.entity.product.Product;
 import manufacture.entity.user.Address;
-import manufacture.entity.user.City;
-import manufacture.entity.user.Country;
-import manufacture.entity.user.Planet;
 import manufacture.ifacade.user.IProfil;
 import manufacture.web.datas.DataLoader;
 
@@ -64,16 +61,6 @@ public class ProfilBean {
 	}
 	
 	//Methodes
-	public void afficherInformationsAdresses()
-	{
-	    for (Address ad : adressesTotales)
-	    {
-	        log.info("ID Ville : " + ad.getCity().getIdCity());
-	        log.info("ID Pays : " + ad.getCity().getCountry().getIdCountry());
-	        log.info("ID Planète : " + ad.getCity().getCountry().getPlanet().getIdPlanet());
-	    }
-	}
-	
 	public void chooseRubrique(String rubrique)
 	{
 	    rubriqueChoisie = rubrique;
@@ -81,67 +68,58 @@ public class ProfilBean {
 	
 	public void initialiseDonnees()
 	{
-	    adressesTotales = new ArrayList<Address>();
-	    adressesFacturation = new ArrayList<Address>();
-	    adressesLivraison = new ArrayList<Address>();
-	    
-	    listeCommandesPassees = new ArrayList<Cart>();
-	    listeCommandesVendus = new ArrayList<CartProduct>();
-	    
-	    listeProduitsNonVendus = new ArrayList<Product>();
-	    listeProduitsVendus = new ArrayList<Product>();
-	    
-		adressesTotales = proxyProfil.getAllAdressByUser(userBean.getUser());
-		
-		userBean.getUser().setAddresses(adressesTotales);
-		
-		listeProduitsVendus = proxyProfil.getProductSendByUser(userBean.getUser());
-		
-		listeProduitsNonVendus = proxyProfil.getProductNotSendByUser(userBean.getUser());
-		
-		listeCommandesVendus = proxyProfil.getCartSendByUser(userBean.getUser());
-		
-		listeCommandesPassees = proxyProfil.getCartByUser(userBean.getUser());
-		
 		date = userBean.getUser().getCreateTime();
 		
-		for (Address adresse : adressesTotales)
-		{
-			if (adresse.getIsBillingaddress())
-			{
-				adressesFacturation.add(adresse);
-			}
-			if (adresse.getIsDeliveryaddress())
-			{
-				adressesLivraison.add(adresse);
-			}
-			
-//			for (City city : dataloader.getListCity())
-//			{
-//			    if (adresse.getCity().getIdCity() == city.getIdCity())
-//			    {
-//			        adresse.setCity(city);
-//			        log.info(city.getCityName());
-//			    }
-//			    
-//			    for (Country country : dataloader.getListCountry())
-//	            {
-//	                for (Planet planet : dataloader.getListPlanet())
-//	                {
-//	                    if (country.getPlanet().getIdPlanet() == planet.getIdPlanet())
-//	                    {
-//	                        country.setPlanet(planet);
-//	                    }
-//	                }
-//	                
-//	                if (city.getCountry().getIdCountry() == country.getIdCountry())
-//	                {
-//	                    city.setCountry(country);
-//	                }
-//	            }
-//			}
-		}
+		initialiserAchats();
+		initialiserAdresses();
+		initialiserVentes();
 	}
+	
+	public void initialiserVentes()
+	{
+	    listeCommandesVendus = new ArrayList<CartProduct>();
+        
+        listeProduitsNonVendus = new ArrayList<Product>();
+        listeProduitsVendus = new ArrayList<Product>();
+        
+        listeProduitsVendus = proxyProfil.getProductSendByUser(userBean.getUser());
+        
+        listeProduitsNonVendus = proxyProfil.getProductNotSendByUser(userBean.getUser());
+        
+        listeCommandesVendus = proxyProfil.getCartSendByUser(userBean.getUser());
+	}
+	
+	public void initialiserAchats()
+	{
+	    listeCommandesPassees = new ArrayList<Cart>();
+        
+        listeCommandesPassees = proxyProfil.getCartByUser(userBean.getUser());
+	}
+	
+	public void initialiserAdresses()
+	{
+	    adressesTotales = new ArrayList<Address>();
+        adressesFacturation = new ArrayList<Address>();
+        adressesLivraison = new ArrayList<Address>();
+        
+        adressesTotales = proxyProfil.getAllAdressByUser(userBean.getUser());
+        
+        userBean.getUser().setAddresses(adressesTotales);
+        
+        for (Address adresse : adressesTotales)
+        {
+            if (adresse.getIsBillingaddress())
+            {
+                adressesFacturation.add(adresse);
+            }
+            if (adresse.getIsDeliveryaddress())
+            {
+                adressesLivraison.add(adresse);
+            }
+        }
+	}
+	
+	//Getters et Setters
 
 	public UserBean getUserBean() {
 		return userBean;

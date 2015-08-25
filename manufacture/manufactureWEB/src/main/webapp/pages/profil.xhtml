@@ -124,7 +124,6 @@
 						<div class="listeAdresses">
 						
 							<h2>Adresses enregistrées (#{profilBean.adressesTotales.size()})
-<!-- 								<h:commandLink action="#{editBean.editionModeAdresse()}" rendered="#{not editBean.editModeAdresse}"> -->
 								<p:commandLink onclick="loadModal2();return false;" type="button">
 									<img src="../resources/images/icones_profil/ajouter-defaut.png" 
 									onmousedown="this.src='../resources/images/icones_profil/ajouter-clic.png';"
@@ -134,7 +133,7 @@
 								<p:dialog header="Ajouter une adresse" widgetVar="addAddress"
 									modal="true" height="100">
 									
-									<h2>Adresse enregistrée</h2>
+									<h2>Enregistrer une nouvelle adresse</h2>
 
 									<h:outputLabel value="Rue" class="dialogLabel" /> :
 										<h:inputText value="#{editBean.nouvelleAdresse.street}" class="dialogInput" />
@@ -143,11 +142,11 @@
 									<h:inputText value="#{editBean.nouvelleAdresse.number}" class="dialogInput" />
 
 									<h:outputLabel value="Code postal" class="dialogLabel" /> :
-										<input type="number" value="#{editBean.nouvelleAdresse.city.postalCode}"
+										<input type="number" value="#{editBean.ville.postalCode}"
 										class="dialogInput" />
 
 									<h:outputLabel value="Ville" class="dialogLabel" /> :
-    									<p:selectOneMenu value="#{editBean.nouvelleAdresse.city.idCity}"
+    									<p:selectOneMenu value="#{editBean.idCityNouvelleAdresse}"
 										style="width:400px">
 										<f:selectItems var="item" value="#{mbDataLoader.listCity}"
 											itemLabel="#{item.cityName}" itemValue="#{item.idCity}" />
@@ -185,14 +184,16 @@
 
 									<p:commandButton value="Enregistrer" type="button"
 										onclick="PF('changeAddress').hide();"
-										actionListener="#{editBean.saveNewAddress()}" />
-
+										actionListener="#{editBean.saveNewAddress()}"
+										update=":myForm" />
+									
+									<h:commandButton action="#{editBean.saveNewAddress()}" value="SaveNewAddress" />
 									</p:dialog>
 									
 							</h2>
 							
-							<h:dataTable var="address" value="#{profilBean.adressesTotales}">
-								<h:column>
+							<p:dataTable var="address" value="#{profilBean.adressesTotales}" emptyMessage="Aucune adresse enregistrée">
+								<p:column>
 									<f:facet name="header">
 										Adresse
 									</f:facet>
@@ -203,32 +204,32 @@
 										value="#{address.city.postalCode} #{address.city.cityName.toUpperCase()}&lt;br/&gt;"/>
 										<h:outputLabel class="monAdresse" escape="false"
 										value="#{address.city.country.countryName.toUpperCase()}"/>
-								</h:column>
+								</p:column>
 								
-								<h:column>
+								<p:column>
 									<f:facet name="header">
 										Adresse de livraison
 									</f:facet>
 									<h:graphicImage value="../resources/images/valider.png" rendered="#{address.isDeliveryaddress}"/>
-								</h:column>	
+								</p:column>	
 								
-								<h:column>
+								<p:column>
 									<f:facet name="header">
 										Adresse de facturation
 									</f:facet>
 									<h:graphicImage value="../resources/images/valider.png" rendered="#{address.isBillingaddress}"/>
-								</h:column>	
+								</p:column>	
 								
-								<h:column>
+								<p:column>
 								
-									<p:commandLink actionListener="#{profilBean.afficherInformationsAdresses()}">
+									<p:commandLink>
 										<img src="../resources/images/icones_profil/supprimer-no-selected.png" 
 										onmousedown="this.src='../resources/images/icones_profil/supprimer-selected.png';"
 										onmouseout="this.src='../resources/images/icones_profil/supprimer-no-selected.png';"/>
 									</p:commandLink>
 									
 									<p:commandLink onclick="loadModal();return false;" 
-										type="button" actionListener="#{editBean.editionModeAdresse()}">
+										type="button" actionListener="#{editBean.editionModeAdresse(address)}">
 										<img src="../resources/images/icones_profil/editer-no-selected.png" 
 										onmousedown="this.src='../resources/images/icones_profil/editer-selected.png';"
 										onmouseout="this.src='../resources/images/icones_profil/editer-no-selected.png';"/>
@@ -240,17 +241,17 @@
 									<h2>Adresse enregistrée</h2>
 
 									<h:outputLabel value="Rue" class="dialogLabel" /> :
-										<h:inputText value="#{address.street}" class="dialogInput" />
+										<h:inputText value="#{editBean.adresseAModifier.street}" class="dialogInput" />
 
 									<h:outputLabel value="                " class="dialogLabel" />
-									<h:inputText value="#{address.number}" class="dialogInput" />
+									<h:inputText value="#{editBean.adresseAModifier.number}" class="dialogInput" />
 
 									<h:outputLabel value="Code postal" class="dialogLabel" /> :
-										<input type="number" value="#{address.city.postalCode}"
+										<input type="number" value="#{editBean.ville.postalCode}"
 										class="dialogInput" />
 
 									<h:outputLabel value="Ville" class="dialogLabel" /> :
-    									<p:selectOneMenu value="#{address.city.idCity}"
+    								<p:selectOneMenu value="#{editBean.idCityAdresseAModifier}"
 										style="width:400px">
 										<f:selectItems var="item" value="#{mbDataLoader.listCity}"
 											itemLabel="#{item.cityName}" itemValue="#{item.idCity}" />
@@ -275,12 +276,12 @@
 									<h:outputLabel value="Adresse de facturation"
 										class="dialogCheckBox" /> :
        								<p:selectBooleanCheckbox
-										value="#{address.isBillingaddress}" />
+										value="#{editBean.adresseAModifier.isBillingaddress}" />
 
 									<h:outputLabel value="Adresse de livraison"
 										class="dialogCheckBox" /> :
        								<p:selectBooleanCheckbox
-										value="#{address.isDeliveryaddress}" />
+										value="#{editBean.adresseAModifier.isDeliveryaddress}" />
 
 									<p:commandButton value="Annuler" type="button"
 										onclick="PF('changeAddress').hide();"
@@ -288,11 +289,13 @@
 
 									<p:commandButton value="Enregistrer" type="button"
 										onclick="PF('changeAddress').hide();"
-										actionListener="#{editBean.saveAdresse(address)}" />
+										actionListener="#{editBean.saveAdresse()}" />
+										
+									<h:commandButton action="#{editBean.saveAdresse()}" value="SaveAddress" />
 
 									</p:dialog>
-								</h:column>	
-							</h:dataTable>
+								</p:column>	
+							</p:dataTable>
 						</div>
 					</h:panelGroup>
 							
@@ -304,34 +307,34 @@
 							<h2>Produits en cours de vente</h2>
 							
 							<p:dataTable var="product" value="#{profilBean.listeProduitsNonVendus}" emptyMessage="Aucune annonce en cours">
-								<h:column>
+								<p:column>
 									<f:facet name="header">
 										<h2>Nom du produit</h2>
 									</f:facet>
 									<h:outputLabel value="#{product.productRef.productName}" />
-								</h:column>
+								</p:column>
 
-								<h:column>
+								<p:column>
 									<f:facet name="header">
 										<h2>Stock</h2>
 									</f:facet>
 									<h:outputLabel value="#{product.stock}" />
-								</h:column>
+								</p:column>
 
-								<h:column>
+								<p:column>
 									<f:facet name="header">
 										<h2>Prix (crédits)</h2>
 									</f:facet>
 									<h:outputLabel value="#{product.price}" />
-								</h:column>
+								</p:column>
 
-								<h:column>
+								<p:column>
 									<f:facet name="header">
 										<h2>Date de publication</h2>
 									</f:facet>
 									<h:outputLabel
 										value="#{profilBean.sdf.format(product.datePublication)}" />
-								</h:column>
+								</p:column>
 							</p:dataTable>
 							
 							<h2>Produits vendus</h2>
@@ -378,30 +381,30 @@
 							<h2>Commandes passées</h2>
 							
 							<p:dataTable var="cart" value="#{profilBean.listeCommandesPassees}" emptyMessage="Aucun article acheté">
-								<h:column>
+								<p:column>
 									<f:facet name="header">
 										<h2>Numéro de commande</h2>
 									</f:facet>
 									<h:outputLabel value="#{cart.idCart}" />
-								</h:column>
+								</p:column>
 								
-								<h:column>
+								<p:column>
 									<f:facet name="header">
 										<h2>Date de commande</h2>
 									</f:facet>
 									<h:outputLabel value="#{cart.dateCommande}" />
-								</h:column>
+								</p:column>
 								
-								<h:column>
+								<p:column>
 									<f:facet name="header">
 										<h2>Prix de la commande</h2>
 									</f:facet>
 									<h:outputLabel value="Fonction à faire pour calculer le total d'une commande" />
-								</h:column>
+								</p:column>
 								
-								<h:column>
+								<p:column>
 									<h:outputLabel value="un lien pour visualiser le détail de la commande" />
-								</h:column>
+								</p:column>
 							</p:dataTable>
 						</div>
 						

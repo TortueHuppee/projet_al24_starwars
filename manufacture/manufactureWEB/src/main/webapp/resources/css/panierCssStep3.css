@@ -270,9 +270,9 @@ label.titre
 	margin-bottom:10px;
 }
 
-input.dateExpi
+select.dateExpi
 {
-	width:80px;
+	width:60px;
 	margin-left:20px;
 	padding-left:3px;
 	margin-right:20px;
@@ -293,4 +293,12 @@ input.dateExpi
 	text-align:center;
 	margin-bottom:20px;
 	margin-top:20px;
+}
+
+#infosPaiement span.ui-icon-bullet
+{
+	width:12px !important;
+	height:12px !important;
+	margin:-3px;
+	
 }

@@ -141,16 +141,22 @@
 						</p:selectOneRadio>
 
 					</h:panelGroup>
-
+					
 					<div class="recapCommande">
+						<h:outputLabel
+							value="#{mbProduct.DoubleFormat(mbCart.getTotalPrice())}"
+							class="recapCommande-prix" />
+						<h:outputLabel value="Total articles (crédits) :" class="recapCommande-titre" />
+
 						<h:outputLabel
 							value="#{mbProduct.DoubleFormat(mbSteps.calculePrixTotal())}"
 							class="recapCommande-prix" />
-						<h:outputLabel value="Prix total (crédits) :" class="recapCommande-titre" />
+						<h:outputLabel value="TOTAL (crédits) :" class="recapCommande-titre" />
 						<p:commandButton id="boutonContinuer" value="Continuer"
 							update=":myForm" action="#{mbSteps.goToStep3()}"
 							disabled="#{(mbSteps.idAdressePersonnelle == 0) and (mbSteps.idAdressePointRelais == 0)}" />
 					</div>
+					
 				</div>
 			</h:form>
 		</f:view>

@@ -66,10 +66,6 @@ public class Address implements Serializable {
 		return this.idAddress;
 	}
 
-	public void setIdaddress(Integer idaddress) {
-		this.idAddress = idaddress;
-	}
-
 	public boolean getIsBillingaddress() {
 		return this.isBillingaddress;
 	}
@@ -138,10 +134,6 @@ public class Address implements Serializable {
 
 	public void setUser(User user) {
 		this.user = user;
-	}
-
-	public void setIdAddress(int idAddress) {
-		this.idAddress = idAddress;
 	}
 
 	public void setBillingaddress(boolean isBillingaddress) {

@@ -72,13 +72,13 @@ public class ManagedBeanCart {
 	    FacesContext context = FacesContext.getCurrentInstance();
 	    boolean ajoutPanier = true;
 	    
-	    //Si le panier n'est pas vide on rentre dans la méthode.
+	    //Si le panier n'est pas vide on rentre dans la mï¿½thode.
 	    if (panier.size() > 0)
 	    {
-	        //Sinon on vérifie si le produit est déjà présent dans le panier.
+	        //Sinon on vï¿½rifie si le produit est dï¿½jï¿½ prï¿½sent dans le panier.
 	        for (CartProduct cp : panier)
 	        {
-	            //Si le produit est déjà présent dans le panier on met à jour la quantité (qui ne doit pas dépasser la quantité en stock du produit).
+	            //Si le produit est dï¿½jï¿½ prï¿½sent dans le panier on met ï¿½ jour la quantitï¿½ (qui ne doit pas dï¿½passer la quantitï¿½ en stock du produit).
 	            if (cp.getProduct().getIdProduct().equals(productToAdd.getIdProduct()))
 	            {
 	                ajoutPanier = false;
@@ -90,7 +90,7 @@ public class ManagedBeanCart {
 	                }
 	                cp.setQuantity(nouvelleQuantite);
 	                
-	                context.addMessage(null, new FacesMessage("Produit(s) ajouté(s)", nouvelleQuantite+" "+mbProduct.getProductRef().getProductName()+" ajouté(s) au panier" ) );
+	                context.addMessage(null, new FacesMessage("Produit(s) ajoutï¿½(s)", nouvelleQuantite+" "+mbProduct.getProductRef().getProductName()+" ajoutï¿½(s) au panier" ) );
 	            }
 	        }
 	    }
@@ -102,7 +102,7 @@ public class ManagedBeanCart {
 	        cartProduct.setProduct(productToAdd);
 	        panier.add(cartProduct);
 	        
-	        context.addMessage(null, new FacesMessage("Produit(s) ajouté(s)", quantity+" "+mbProduct.getProductRef().getProductName()+" ajouté(s) au panier" ) );
+	        context.addMessage(null, new FacesMessage("Produit(s) ajoutï¿½(s)", quantity+" "+mbProduct.getProductRef().getProductName()+" ajoutï¿½(s) au panier" ) );
 	    }
 	
 	}
@@ -154,7 +154,7 @@ public class ManagedBeanCart {
 
 	public void refreshQuantity(CartProduct cartProduct){
 		quantity = cartProduct.getQuantity();
-		log.info("Quantité = " + quantity);
+		log.info("Quantitï¿½ = " + quantity);
 	}
 
 	public double getSubTotalPrice(int idProduct) {
@@ -174,11 +174,6 @@ public class ManagedBeanCart {
 	}
 
 	public void deleteProductFromCart(CartProduct productToDelete){
-//		for (CartProduct cp : panier) {
-//			if (cp.getProduct().getIdProduct() == idProduct) {
-//				panier.remove(cp);
-//			}
-//		}
 	    panier.remove(productToDelete);
 	}
 
@@ -189,18 +184,6 @@ public class ManagedBeanCart {
 	public void deleteCart (){
 		panier.removeAll(panier);
 	}
-
-
-	//	================================================================
-	//	==============>>>>>> MOVE TO AN OTHER MBEAN <<<<<<==============
-	//	================================================================
-
-	//	public void validateCart (){
-	//		proxyCart.createNewCart(userBean.getUser().getIdUser());
-	//		for (CartProduct cp : panier) {
-	//			proxyCart.addProductToCart(cp);
-	//		}
-	//	}
 
 	public int getIdSelectedProduct() {
 		return idSelectedProduct;

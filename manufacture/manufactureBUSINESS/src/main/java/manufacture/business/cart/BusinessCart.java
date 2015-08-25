@@ -2,6 +2,7 @@ package manufacture.business.cart;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 import manufacture.entity.cart.Cart;
 import manufacture.entity.cart.CartProduct;
@@ -28,6 +29,10 @@ public class BusinessCart implements IBusinessCart {
     private IDaoProductCart proxyProductCart;
     private IDaoPaymentAndDelivery proxyPaymentAndDelivery;
     private IDaoProduct proxyProduct;
+    
+    private static final Integer USER_PARTICULIER_ROLE_ID = 1;
+    private static final Integer USER_PROFESSIONNEL_ROLE_ID = 2;
+    private static final Integer USER_ARTISAN_ROLE_ID = 3;
 
 	@Override
 	public List<Product> getAllProductByCart(int idCart) {
@@ -44,18 +49,17 @@ public class BusinessCart implements IBusinessCart {
 		return total;
 	}
 	
-
 	@Override
 	public double getSubTotalPrice(int idCartProduct) {
 		return proxyProductCart.getSubTotalPrice(idCartProduct);
 	}
 
 	/**
-	 * Méthode permettant de valider la panier du professionnel sans payer la commande.
+	 * Mï¿½thode permettant de valider la panier du professionnel sans payer la commande.
 	 * @param idCart l'identifiant du panier.
 	 */
 	@Override
-	public void orderProfessionalCommande(Cart commande) {
+	public Cart orderProfessionalCommande(Cart commande) {
 
 	    commande.setDateCommande(new Date());
         commande.setIsValidated(true);
@@ -71,18 +75,20 @@ public class BusinessCart implements IBusinessCart {
             }
         }
         
-        if (commande.getPaymentType().getName().equals("Paiement immédiat"))
+        if (commande.getPaymentType().getName().equals("Paiement immÃ©diat"))
         {
             proxyCart.validatePayment(commande);
         }
+        
+        return commande;
 	}
 
 	/**
-	 * Méthode permettant au particulier de valider son panier et de payer la commande.
+	 * Mï¿½thode permettant au particulier de valider son panier et de payer la commande.
 	 * @param idCart l'identifiant du panier.
 	 */
 	@Override
-	public void orderSpecificCommande(Cart commande) {
+	public Cart orderSpecificCommande(Cart commande) {
 
 		commande.setDateCommande(new Date());
 		commande.setIsValidated(true);
@@ -98,22 +104,26 @@ public class BusinessCart implements IBusinessCart {
 		    }
 		}
 
-		proxyCart.validatePayment(commande);
+		return proxyCart.validatePayment(commande);
 	}
 
 	/**
-	 * Méthode pour payer une commande dans le cas des clients professionnels.
-	 * Et si l'option Paiement différé a été choisie.
+	 * Mï¿½thode pour payer une commande dans le cas des clients professionnels.
+	 * Et si l'option Paiement diffï¿½rï¿½ a ï¿½tï¿½ choisie.
 	 */
 	@Override
 	public Cart validatePayment(Cart cart) {
-		return proxyCart.validatePayment(cart);
+	    int idTypeUser = cart.getUser().getUserRole().getIdUserRole();
+	    
+	    if (idTypeUser == USER_PROFESSIONNEL_ROLE_ID)
+	    {
+	        return orderProfessionalCommande(cart);
+	    }
+	    else
+	    {
+	        return orderSpecificCommande(cart);
+	    }
 	}
-
-//	@Override
-//	public void createNewCart(int idUser) {
-//		proxyCart.createNewCart(idUser);
-//	}
 
 	@Override
 	public void sendRecall(int idUser) {

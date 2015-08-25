@@ -22,7 +22,7 @@
 				</p:steps>
 
 				<h2>
-					<h:outputLabel value="Je choisis mon mode de livraison" />
+					<h:outputLabel value="Je choisis mon mode de paiement" />
 				</h2>
 
 				<div id="adressefacturation">
@@ -34,7 +34,7 @@
 						onclick="loadModal2()"
 						actionListener="#{editBean.editModeAdresse()}" />
 
-					<p:selectOneRadio value="#{mbSteps.idAdressePersonnelle}"
+					<p:selectOneRadio value="#{paymentBean.idAdressePersonnelle}"
 						layout="grid" columns="1"
 						rendered="#{not(profilBean.adressesFacturation.size() == 0)}">
 						<f:selectItems var="adresse"
@@ -55,11 +55,11 @@
 				<div id="infosPaiement">
 					<h3>Informations relatives au paiement</h3>
 					<!-- Choix du mode de paiement (visible uniquement par les professionnels) -->
-					<h:outputLabel value="Choisir le mode de paiement" class="choixPaiement"
-						rendered="#{not(userBean.user.userRole.idUserRole == 2)}" />
-					:
+					<h:outputLabel value="Choisir le mode de paiement : " class="choixPaiement"
+						rendered="#{userBean.user.userRole.idUserRole == 2}" />
+					
 					<p:selectOneMenu value="#{mbCart.cart.paymentType.idPayment}"
-						rendered="#{not(userBean.user.userRole.idUserRole == 2)}">
+						rendered="#{userBean.user.userRole.idUserRole == 2}">
 						<f:selectItem itemLabel="Paiment immédiat" itemValue="1" />
 						<f:selectItem itemLabel="Paiment différé" itemValue="2" />
 						<f:ajax render=":myForm" />
@@ -75,47 +75,67 @@
 						</p:selectOneMenu>
 
 						<h:outputLabel value="Nom" class="titre"/> :
- 						<input type="text" class="valeur"/>
+ 						<input type="text" class="valeur" value="#{userBean.user.userName}"/>
 
 						<h:outputLabel value="Prénom" class="titre"/> :
- 						<input type="text" class="valeur"/>
+ 						<input type="text" class="valeur" value="#{userBean.user.userFirstName}"/>
 
 						<h:outputLabel value="Type de paiement" class="titre"/> :
 					
-						<p:selectOneRadio id="customRadio" layout="custom">
+						<p:selectOneRadio id="customRadio" layout="custom" required="true" requiredMessage="*champ obligatoire"> 
 							<f:selectItem itemValue="Carte bleue" />
 							<f:selectItem itemValue="Visa" />
 							<f:selectItem itemValue="MasterCard" />
 							<f:selectItem itemValue="American Express" />
 						</p:selectOneRadio>
+						<h:message for="customRadio"/>
 
 						<h:panelGrid columns="3">
 							<p:radioButton id="opt1" for="customRadio" itemIndex="0" />
-							<img src="../resources/images/carte_bleue.png" />
+							<img src="../resources/images/icones_paiement/carte_bleue.png" />
 							<h:outputLabel value="Carte bancaire" />
 
 							<p:radioButton id="opt2" for="customRadio" itemIndex="1" />
-							<img src="../resources/images/visa.gif" />
+							<img src="../resources/images/icones_paiement/visa.gif" />
 							<h:outputLabel value="Visa" />
 
 							<p:radioButton id="opt3" for="customRadio" itemIndex="2" />
-							<img src="../resources/images/mastercard.png" />
+							<img src="../resources/images/icones_paiement/mastercard.png" />
 							<h:outputLabel value="MasterCard" />
 
 							<p:radioButton id="opt4" for="customRadio" itemIndex="3" />
-							<img src="../resources/images/amex.png" />
+							<img src="../resources/images/icones_paiement/amex.png" />
 							<h:outputLabel value="AmericanExpress" />
 						</h:panelGrid>
-
+						
+						<h:outputLabel value="Titulaire de la carte" class="titre"/> :
+ 						<h:inputText  class="valeur" id="nomCarte"
+							required="true" requiredMessage="*champ obligatoire"/>
+						<h:message for="nomCarte"/>
+ 						
 						<h:outputLabel value="Numéro de carte" class="titre"/> :
- 						<input type="number" class="valeur"/>
+						<h:inputText  class="valeur" id="numeroCarte"
+							required="true" requiredMessage="*champ obligatoire"/>
+						<h:message for="numeroCarte"/>
 
 						<h:outputLabel value="Date d'expiration" class="titre"/> :
- 						<input type="number" min="1" max="12" class="dateExpi"/> / <input type="number"
-							min="2010" class="dateExpi"/>
+						<h:selectOneMenu class="dateExpi">
+							<f:selectItems var="item" value="#{paymentBean.listeIntMois}"
+								itemLabel="#{item}" itemValue="#{item}"/>
+						</h:selectOneMenu>
+						 / 
+						<h:selectOneMenu class="dateExpi">
+							<f:selectItems var="item" value="#{paymentBean.listeIntAnnee}"
+								itemLabel="#{item}" itemValue="#{item}"/>
+						</h:selectOneMenu>
+						
+<!--  						<input type="number" min="1" max="12" class="dateExpi"/> / <input type="number" -->
+<!-- 							min="2010" class="dateExpi"/> -->
 
 						<h:outputLabel value="Cryptogramme visuel" class="titre"/> :
- 						<input type="number" min="100" maxlength="3" class="valeur"/>
+ 						<h:inputText  class="valeur" id="cryptogramme"
+							required="true" requiredMessage="*champ obligatoire"/>
+						<h:message for="cryptogramme"/>
 
 					</h:panelGroup>
 
@@ -155,10 +175,11 @@
 					<h:outputLabel
 						value="#{mbProduct.DoubleFormat(mbSteps.calculePrixTotal())}"
 						class="recapCommande-prix" />
-					<h:outputLabel value="Prix total (crédits) :"
+					<h:outputLabel value="TOTAL (crédits) :"
 						class="recapCommande-titre" />
 					<p:commandButton id="boutonContinuer" value="Confirmer le paiement"
-						action="/pages/panierStep4" />
+						action="#{paymentBean.goToStep4()}" update=":myForm"/>
+						<h:commandButton action="#{paymentBean.goToStep4()}" value="coucou" />
 				</div>
 			</div>
 		</h:form>

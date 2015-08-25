@@ -90,15 +90,25 @@ table input
 	font-weight:bold;
 	float:right;
 	font-size:larger;
-	background-color:silver;
+	
 	height:40px;
 	width:49%;
 	border:1px solid grey;
 	border-radius:2px;
-	margin-bottom:30px;
+	margin-bottom:10px;
 	margin-left:0px;
 	text-align:center;
 	padding-top:15px;
+}
+
+.recapCommande-titre:last-of-type
+{
+	background-color:silver;
+}
+
+.recapCommande-titre:nth-of-type(2)
+{
+	background-color:#FCDF6B;
 }
 
 .recapCommande-prix

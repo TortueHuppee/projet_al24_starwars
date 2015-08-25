@@ -74,10 +74,6 @@ public class StepsCartManagedBean {
 	//Step 3
 	
 	private double totalPrice;
-	private Address adresseFacturation;
-	
-	//Step 4
-	
 	
 	@PostConstruct
 	public void init()
@@ -86,8 +82,7 @@ public class StepsCartManagedBean {
 		listePointsRelais = proxyCart.getAllRelayPoints();
 	}
 	
-	// Méthodes
-	
+	// Methodes
 	public String goToStep3()
 	{
 		adresseLivraison = new Address();
@@ -100,7 +95,7 @@ public class StepsCartManagedBean {
 		{
 			adresseLivraison.setIdAddress(idAdressePersonnelle);
 		}
-		
+		mbCart.getCart().setAddressDelivery(adresseLivraison);
 		return "panierStep3.xhtml?faces-redirect=true";
 	}
 	
@@ -159,15 +154,7 @@ public class StepsCartManagedBean {
 				adresseLivraison = new Address();
 			}
 			
-			//Adresse de facturation
-			if (profilBean.getAdressesFacturation().size() > 0)
-			{
-				adresseFacturation = profilBean.getAdressesFacturation().get(0);
-			}
-			else
-			{
-				adresseFacturation = new Address();
-			}
+			
 		}
 	}
 	
@@ -319,14 +306,6 @@ public class StepsCartManagedBean {
 
 	public void setAdresseLivraison(Address adresseLivraison) {
 		this.adresseLivraison = adresseLivraison;
-	}
-
-	public Address getAdresseFacturation() {
-		return adresseFacturation;
-	}
-
-	public void setAdresseFacturation(Address adresseFacturation) {
-		this.adresseFacturation = adresseFacturation;
 	}
 
 	public int getIdAdressePersonnelle() {

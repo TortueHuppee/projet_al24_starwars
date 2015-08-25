@@ -12,7 +12,7 @@
 				Catégories
 			</div>
 			
-			<ui:repeat var="categorie" value="#{mbCatalog.listeCatégories}">
+			<ui:repeat var="categorie" value="#{mbCatalog.listeCategories}">
 				<h:commandLink value="#{categorie.categoryName}">
 					<f:ajax event="click" render=":myForm" listener="#{mbCatalog.choixCategorie(categorie.idCategory)}"/>
 				</h:commandLink>
