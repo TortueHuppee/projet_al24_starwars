@@ -187,10 +187,12 @@ input
 	width:40% !important;
 }
 
-/*Adresse et identite*/
+/*Commun*/
 
 .listeAdresses,
-.identity
+.identity,
+.listeVentes,
+.listeAchats
 {
 	font-family: Arial,sans-serif;
 	background-color: white;
@@ -217,24 +219,37 @@ label.monAdresse
 	margin-right:5px;
 }
 
-.listeAdresses table
+.listeVentes h2:last-of-type
+{
+	margin-top: 20px;
+}
+
+.listeAdresses table,
+.listeVentes table,
+.listeAchats table
 {
 	width:100%;
 	border-collapse: collapse;
 }
 
-.listeAdresses th
+.listeAdresses th,
+.listeVentes th,
+.listeAchats th
 {
-	height:30px;
+	height:40px;
 	background-color:darkgrey;
 }
 
-.listeAdresses tr
+.listeAdresses td,
+.listeVentes td,
+.listeAchats td
 {
 	height:60px;
 }
 
-.listeAdresses tr:nth-of-type(2n+2)
+.listeAdresses tr:nth-of-type(2n+2),
+.listeVentes tr:nth-of-type(2n+2),
+.listeAchats tr:nth-of-type(2n+2)
 {
 	background-color:lavender;
 }
@@ -244,18 +259,21 @@ label.monAdresse
 	width:10%;
 }
 
-/**/
-
-.mesVentes,
-.mesAchats
+.listeVentes tr:last-child
 {
-	width:97%;
-	vertical-align: top;
-	background-color: white;
-	border-radius: 5px;
-	margin-left:15px;
-	margin-right:5px;
-	border:1px solid lightgrey;
+	border-bottom:1px solid lavender;
+}
+
+.listeVentes table,
+.listeAchats table
+{
+	text-align: center;
+}
+
+label.tableauVide
+{
+	margin-left:10px;
+	font-style: italic;
 }
 
 /*Fen�tre de dialogue*/

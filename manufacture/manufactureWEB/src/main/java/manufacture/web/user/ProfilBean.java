@@ -73,6 +73,8 @@ public class ProfilBean {
 		initialiserAchats();
 		initialiserAdresses();
 		initialiserVentes();
+		
+		donneesInitialisees = true;
 	}
 	
 	public void initialiserVentes()

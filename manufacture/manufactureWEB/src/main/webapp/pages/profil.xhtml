@@ -192,8 +192,8 @@
 									
 							</h2>
 							
-							<p:dataTable var="address" value="#{profilBean.adressesTotales}" emptyMessage="Aucune adresse enregistrée">
-								<p:column>
+							<h:dataTable var="address" value="#{profilBean.adressesTotales}" rendered="#{not (empty profilBean.adressesTotales)}">
+								<h:column>
 									<f:facet name="header">
 										Adresse
 									</f:facet>
@@ -204,23 +204,23 @@
 										value="#{address.city.postalCode} #{address.city.cityName.toUpperCase()}&lt;br/&gt;"/>
 										<h:outputLabel class="monAdresse" escape="false"
 										value="#{address.city.country.countryName.toUpperCase()}"/>
-								</p:column>
+								</h:column>
 								
-								<p:column>
+								<h:column>
 									<f:facet name="header">
 										Adresse de livraison
 									</f:facet>
 									<h:graphicImage value="../resources/images/valider.png" rendered="#{address.isDeliveryaddress}"/>
-								</p:column>	
+								</h:column>	
 								
-								<p:column>
+								<h:column>
 									<f:facet name="header">
 										Adresse de facturation
 									</f:facet>
 									<h:graphicImage value="../resources/images/valider.png" rendered="#{address.isBillingaddress}"/>
-								</p:column>	
+								</h:column>	
 								
-								<p:column>
+								<h:column>
 								
 									<p:commandLink>
 										<img src="../resources/images/icones_profil/supprimer-no-selected.png" 
@@ -294,8 +294,11 @@
 									<h:commandButton action="#{editBean.saveAdresse()}" value="SaveAddress" />
 
 									</p:dialog>
-								</p:column>	
-							</p:dataTable>
+								</h:column>	
+							</h:dataTable>
+							
+							<h:outputLabel class="tableauVide" value="Aucune adresse enregistrée" rendered="#{empty profilBean.adressesTotales}"/>
+							
 						</div>
 					</h:panelGroup>
 							
@@ -304,45 +307,47 @@
 						
 						<div class="listeVentes">
 						
-							<h2>Produits en cours de vente</h2>
+							<h2>Produits en cours de vente (#{profilBean.listeProduitsNonVendus.size()})</h2>
 							
-							<p:dataTable var="product" value="#{profilBean.listeProduitsNonVendus}" emptyMessage="Aucune annonce en cours">
-								<p:column>
+							<h:dataTable var="product" value="#{profilBean.listeProduitsNonVendus}" rendered="#{not(empty profilBean.listeProduitsNonVendus)}">
+								<h:column>
 									<f:facet name="header">
-										<h2>Nom du produit</h2>
+										Nom du produit
 									</f:facet>
 									<h:outputLabel value="#{product.productRef.productName}" />
-								</p:column>
+								</h:column>
 
-								<p:column>
+								<h:column>
 									<f:facet name="header">
-										<h2>Stock</h2>
+										Stock
 									</f:facet>
 									<h:outputLabel value="#{product.stock}" />
-								</p:column>
+								</h:column>
 
-								<p:column>
+								<h:column>
 									<f:facet name="header">
-										<h2>Prix (crédits)</h2>
+										Prix (crédits)
 									</f:facet>
 									<h:outputLabel value="#{product.price}" />
-								</p:column>
+								</h:column>
 
-								<p:column>
+								<h:column>
 									<f:facet name="header">
-										<h2>Date de publication</h2>
+										Date de publication
 									</f:facet>
 									<h:outputLabel
 										value="#{profilBean.sdf.format(product.datePublication)}" />
-								</p:column>
-							</p:dataTable>
+								</h:column>
+							</h:dataTable>
 							
-							<h2>Produits vendus</h2>
+							<h:outputLabel class="tableauVide" value="Aucune annonce en cours" rendered="#{empty profilBean.listeProduitsNonVendus}"/>
 							
-							<p:dataTable var="productCart" value="#{profilBean.listeCommandesVendus}" emptyMessage="Aucun produit vendu">
+							<h2>Produits vendus (#{profilBean.listeCommandesVendus.size()})</h2>
+							
+							<h:dataTable var="productCart" value="#{profilBean.listeCommandesVendus}" rendered="#{not(empty profilBean.listeCommandesVendus)}">
 								<h:column>
 									<f:facet name="header">
-										<h2>Nom du produit</h2>
+										Nom du produit
 									</f:facet>
 									<h:outputLabel
 										value="#{productCart.product.productRef.productName}" />
@@ -350,25 +355,27 @@
 	
 								<h:column>
 									<f:facet name="header">
-										<h2>Quantité</h2>
+										Quantité
 									</f:facet>
 									<h:outputLabel value="#{productCart.quantity}" />
 								</h:column>
 	
 								<h:column>
 									<f:facet name="header">
-										<h2>Prix (crédits)</h2>
+										Prix (crédits)
 									</f:facet>
 									<h:outputLabel value="#{productCart.product.price}" />
 								</h:column>
 	
 								<h:column>
 									<f:facet name="header">
-										<h2>Date de vente</h2>
+										Date de vente
 									</f:facet>
 									<h:outputLabel value="#{profilBean.sdf.format(productCart.cart.dateCommande)}" />
 								</h:column>
-							</p:dataTable>
+							</h:dataTable>
+						
+							<h:outputLabel class="tableauVide" value="Aucun produit vendu" rendered="#{empty profilBean.listeCommandesVendus}"/>
 						
 						</div>
 					</h:panelGroup>
@@ -378,34 +385,36 @@
 						
 						<div class="listeAchats">
 						
-							<h2>Commandes passées</h2>
+							<h2>Commandes passées (#{profilBean.listeCommandesPassees.size()})</h2>
 							
-							<p:dataTable var="cart" value="#{profilBean.listeCommandesPassees}" emptyMessage="Aucun article acheté">
-								<p:column>
+							<h:dataTable var="cart" value="#{profilBean.listeCommandesPassees}" rendered="#{not(empty profilBean.listeCommandesPassees)}">
+								<h:column>
 									<f:facet name="header">
-										<h2>Numéro de commande</h2>
+										Numéro de commande
 									</f:facet>
 									<h:outputLabel value="#{cart.idCart}" />
-								</p:column>
+								</h:column>
 								
-								<p:column>
+								<h:column>
 									<f:facet name="header">
-										<h2>Date de commande</h2>
+										Date de commande
 									</f:facet>
 									<h:outputLabel value="#{cart.dateCommande}" />
-								</p:column>
+								</h:column>
 								
-								<p:column>
+								<h:column>
 									<f:facet name="header">
-										<h2>Prix de la commande</h2>
+										Prix de la commande
 									</f:facet>
 									<h:outputLabel value="Fonction à faire pour calculer le total d'une commande" />
-								</p:column>
+								</h:column>
 								
-								<p:column>
+								<h:column>
 									<h:outputLabel value="un lien pour visualiser le détail de la commande" />
-								</p:column>
-							</p:dataTable>
+								</h:column>
+							</h:dataTable>
+							
+							<h:outputLabel class="tableauVide" value="Aucune commande achetée" rendered="#{empty profilBean.listeCommandesPassees}"/>
 						</div>
 						
 					</h:panelGroup>

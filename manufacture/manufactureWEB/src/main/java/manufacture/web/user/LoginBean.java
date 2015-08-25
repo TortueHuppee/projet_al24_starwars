@@ -55,24 +55,24 @@ public class LoginBean {
 
 		if(userTmp == null)
 		{
-            FacesMessage message = new FacesMessage("Utilisateur non trouvé");
+            FacesMessage message = new FacesMessage("Utilisateur non trouvï¿½");
             FacesContext context = FacesContext.getCurrentInstance();
             context.addMessage(null, message);		
-            erreurConnexion = "Erreur de connexion, utilisateur non trouvé";
+            erreurConnexion = "Erreur de connexion, utilisateur non trouvï¿½";
             return "login.xhtml?faces-redirect=true";
 		}
 		
 		erreurConnexion = "";
 		
 		userBean.setUser(userTmp);
-		profilBean.init();
+		profilBean.initialiseDonnees();
 		String toPage = null;
 		
-		//Redirection provenant d'une page de l'application pour laquelle il faut être connecté
+		//Redirection provenant d'une page de l'application pour laquelle il faut ï¿½tre connectï¿½
 		if(redirect != null)
 		{
-			//Si la connection a été demandé par la page Valider son panier,
-			//il faut vérifier que l'utilisateur est un particulier ou un professionnel
+			//Si la connection a ï¿½tï¿½ demandï¿½ par la page Valider son panier,
+			//il faut vï¿½rifier que l'utilisateur est un particulier ou un professionnel
 			if (redirect.equals("panierStep1.xhtml?faces-redirect=true"))
 			{
 				if (userTmp.getUserRole().getIdUserRole() == USER_PARTICULIER_ROLE_ID || userTmp.getUserRole().getIdUserRole() == USER_PROFESSIONNEL_ROLE_ID)
@@ -86,8 +86,8 @@ public class LoginBean {
 					redirect = null;
 				}
 			}
-			//Si la connection est demandée par une autre page de l'application
-			//On peut renvoyer sur la page, n'importe quel utilisateur a accès aux autres pages
+			//Si la connection est demandï¿½e par une autre page de l'application
+			//On peut renvoyer sur la page, n'importe quel utilisateur a accï¿½s aux autres pages
 			else
 			{
 				toPage = redirect;
