@@ -2,7 +2,6 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:a4j="http://richfaces.org/a4j"
-	xmlns:rich="http://richfaces.org/rich"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:composite="http://java.sun.com/jsf/composite"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
@@ -17,7 +16,7 @@
 			<div id="divMenu">
 			
 			<h:commandLink action="/pages/index">
-					<img id="boutonAcceuil" onclick="#{mbNavigation.goToAccueil()}"
+					<img id="boutonAcceuil"
 						src="../resources/images/icones_menu/accueilGris.png"
 						onmousedown="this.src='../resources/images/icones_menu/accueilJaune.png';"
 						onmouseover="this.src='../resources/images/icones_menu/accueilBleu.png';"
@@ -31,14 +30,14 @@
 				onmousedown="this.src='../resources/images/icones_menu/catalogueJaune.png';"/>
 			</h:commandLink>
 			
-			<h:commandLink action="#{mbAnnonce.accessAdvert()}">
+			<h:commandLink action="#{mbNavigation.accessAdvert()}">
 				<img id="boutonCatalogue" src="../resources/images/icones_menu/annonceGris.png"
 				onmouseover="this.src='../resources/images/icones_menu/annonceBleu.png';"
 				onmouseout="this.src='../resources/images/icones_menu/annonceGris.png';"
 				onmousedown="this.src='../resources/images/icones_menu/annonceJaune.png';"/>
 			</h:commandLink>
 						
-			<h:commandLink action="#{loginBean.accessProfil()}"> 
+			<h:commandLink action="#{mbNavigation.accessProfil()}"> 
 			<img id="boutonCompte" src="../resources/images/icones_menu/profilGris.png"
 				onmouseover="this.src='../resources/images/icones_menu/profilBleu.png';"
 				onmouseout="this.src='../resources/images/icones_menu/profilGris.png';"
