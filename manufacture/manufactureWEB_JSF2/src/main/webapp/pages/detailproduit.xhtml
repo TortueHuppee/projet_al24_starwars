@@ -1,0 +1,97 @@
+<ui:composition template="/layouts/master_layout.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="stylesheets">
+		<h:outputStylesheet library="css" name="detailProduitCss.css" />
+	</ui:define>
+
+	<ui:define name="main-body">
+
+<h:form id="myForm">
+    <p:growl id="growl" showDetail="true" sticky="false" />  
+  		<div class="product-description">
+			
+			<h2>
+				<h:outputLabel value="#{mbProduct.productRef.productName}" />
+				
+				<p:commandButton update="growl" value="Ajouter au panier" action="#{mbCart.addProductToCart(mbProduct.produitAffiche)}"/>
+			</h2>
+			<img src="#{mbProduct.productRef.urlImage}" />
+			<fieldset> 
+				<legend>Description</legend>
+
+					<h:outputLabel value="Catégorie :" />
+					<h:outputLabel value="#{mbProduct.productRef.category.categoryName}" />
+					
+					<h:outputLabel value="Prix :" />
+					<h:outputLabel  value="#{mbProduct.DoubleFormat(mbProduct.produitAffiche.price*mbCart.quantity)} Crédits" />
+
+					<h:outputLabel value="Quantité :" />
+					<p:spinner id="minMax" min="1"  max="#{mbProduct.quantiteDispo}" value="#{mbCart.quantity}">
+						 <p:ajax update="@form" process="@this" />
+					</p:spinner>
+
+					<h:outputLabel value="Description :" />
+					<h:outputLabel value="#{mbProduct.productRef.description}" />
+					
+					<h:outputLabel value="Modèles de vaisseaux compatibles :" />
+					 
+					<ul>
+						<ui:repeat var="vaisseau" value="#{mbProduct.listeVaisseaux}">
+							<li>#{vaisseau.spaceshipName}</li>
+						</ui:repeat>
+					</ul>
+				</fieldset>
+			
+			<fieldset>
+					<legend>Options disponibles</legend>
+
+					<!-- Filtre Couleur -->
+					<h:outputLabel value="Couleur :" />
+					<h:outputLabel value="#{mbProduct.listeCouleurs.get(0).colorName}" rendered="#{not (mbProduct.listeCouleurs.size() > 1)}"/>
+					<h:selectOneMenu value="#{mbProduct.idColorSelected}" rendered="#{mbProduct.listeCouleurs.size() > 1}">
+						<f:selectItems var="item" value="#{mbProduct.listeCouleurs}"
+							itemLabel="#{item.colorName}" itemValue="#{item.idColor}" />
+						<f:ajax event="change"
+							listener="#{mbProduct.filtrerListeProduitsParCouleur()}"
+							render=":myForm" />
+					</h:selectOneMenu>
+
+					<!-- Filtre Matériaux -->
+					<h:outputLabel value="Matériaux :" />
+					<h:outputLabel value="#{mbProduct.listeMateriaux.get(0).materialName}" rendered="#{not (mbProduct.listeMateriaux.size() > 1)}"/>
+					<h:selectOneMenu value="#{mbProduct.idMaterialSelected}" rendered="#{mbProduct.listeMateriaux.size() > 1}">
+						<f:selectItems var="item" value="#{mbProduct.listeMateriaux}"
+							itemLabel="#{item.materialName}" itemValue="#{item.idMaterial}" />
+						<f:ajax event="change"
+							listener="#{mbProduct.filtrerListeProduitsParMateriaux()}"
+							render=":myForm" />
+					</h:selectOneMenu>
+
+					<!-- Filtre Constructeur -->
+					<h:outputLabel value="Constructeur :" />
+					<h:outputLabel value="#{mbProduct.listeConstructeurs.get(0).constructorName}" rendered="#{not (mbProduct.listeConstructeurs.size() > 1 or mbProduct.listeConstructeurs.size() == 0)}"/>
+					<h:selectOneMenu value="#{mbProduct.idConstructorSelected}" rendered="#{mbProduct.listeConstructeurs.size() > 1}">
+						<f:selectItems var="item" value="#{mbProduct.listeConstructeurs}"
+							itemLabel="#{item.constructorName}"
+							itemValue="#{item.idConstructor}" />
+						<f:ajax event="change"
+							listener="#{mbProduct.filtrerListeProduitsParConstructeur()}"
+							render=":myForm" />
+					</h:selectOneMenu>
+
+				</fieldset>
+
+		</div>
+
+</h:form>
+	</ui:define>
+
+</ui:composition>

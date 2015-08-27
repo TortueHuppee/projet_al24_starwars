@@ -1,0 +1,29 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:composite="http://xmlns.jcp.org/jsf/composite"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<h:form>
+
+		<div class="options">Rubriques</div>
+
+		<h:commandLink value="Informations personnelles">
+			<f:ajax event="click" render=":myForm" listener="#{profilBean.chooseRubrique('Informations personnelles')}"/>
+		</h:commandLink>
+		
+		<h:commandLink value="Adresses enregistrées">
+			<f:ajax event="click" render=":myForm" listener="#{profilBean.chooseRubrique('Adresses enregistrées')}"/>
+		</h:commandLink>
+		
+		<h:commandLink value="Mes ventes" rendered="#{profilBean.userBean.user.userRole.role eq 'Particulier' or profilBean.userBean.user.userRole.role eq 'Artisan'}">
+			<f:ajax event="click" render=":myForm" listener="#{profilBean.chooseRubrique('Mes ventes')}"/>
+		</h:commandLink>
+		
+		<h:commandLink value="Mes achats">
+			<f:ajax event="click" render=":myForm" listener="#{profilBean.chooseRubrique('Mes achats')}"/>
+		</h:commandLink>
+
+	</h:form>
+</ui:composition>

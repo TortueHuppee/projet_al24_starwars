@@ -1,0 +1,77 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:composite="http://xmlns.jcp.org/jsf/composite"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+		
+	<h:form>
+		
+
+			<div class="options">
+				Catégories
+			</div>
+			
+			<ui:repeat var="categorie" value="#{mbCatalog.listeCategories}">
+				<h:commandLink value="#{categorie.categoryName}">
+					<f:ajax event="click" render=":myForm" listener="#{mbCatalog.choixCategorie(categorie.idCategory)}"/>
+				</h:commandLink>
+			</ui:repeat>
+
+			<div class="options">
+				Options
+			</div>
+			
+			<p:commandButton value="Trier par prix croissant">
+				<f:ajax listener="#{mbCatalog.trierParPrix()}" render=":myForm" event="click" />
+			</p:commandButton>
+			
+			<p:commandButton value="Trier par prix décroissant">
+				<f:ajax listener="#{mbCatalog.reverseTrierParPrix()}" render=":myForm" event="click" />
+			</p:commandButton>
+			
+			<!-- Filtre Couleur -->
+			<p:selectOneMenu value="#{mbCatalog.idColorSelected}" style="width:96%">
+				<f:selectItem	itemLabel="Sélectionner une couleur"
+								itemValue="0"/>
+				<f:selectItems  var="item"
+								value="#{mbCatalog.listeCouleurs}"
+								itemLabel="#{item.colorName}"
+								itemValue="#{item.idColor}"/>
+				<f:ajax event="change" listener="#{mbCatalog.initialisationListesAffichees()}" render=":myForm"/>
+			</p:selectOneMenu>
+			
+			<!-- Filtre Matériaux -->
+			<p:selectOneMenu value="#{mbCatalog.idMaterialSelected}" style="width:96%">
+				<f:selectItem	itemLabel="Sélectionner un matériaux"
+											itemValue="0"/>
+				<f:selectItems  var="item"
+											value="#{mbCatalog.listeMateriaux}"
+											itemLabel="#{item.materialName}"
+											itemValue="#{item.idMaterial}"/>
+				<f:ajax event="change" listener="#{mbCatalog.initialisationListesAffichees()}" render=":myForm"/>
+			</p:selectOneMenu>
+						
+			<!-- Filtre Vaisseaux -->
+			<p:selectOneMenu value="#{mbCatalog.idSpaceShipSelected}" style="width:96%">
+				<f:selectItem	itemLabel="Sélectionner un modèle de vaisseau"
+											itemValue="0"/>
+				<f:selectItems  var="item"
+											value="#{mbCatalog.listeVaisseaux}"
+											itemLabel="#{item.spaceshipName}"
+											itemValue="#{item.idSpaceshipRef}"/>
+				<f:ajax event="change" listener="#{mbCatalog.initialisationListesAffichees()}" render=":myForm"/>
+			</p:selectOneMenu>
+						
+			<!-- Filtre Constructeurs -->
+			<p:selectOneMenu value="#{mbCatalog.idConstructorSelected}" style="width:96%">
+				<f:selectItem	itemLabel="Sélectionner un fabriquant"	itemValue="0"/>
+				<f:selectItems  var="item"
+								value="#{mbCatalog.listeItemConstructeur}"
+								itemLabel="#{item.label}"
+								itemValue="#{item.value}"/>
+				<f:ajax event="change" listener="#{mbCatalog.initialisationListesAffichees()}" render=":myForm"/>
+			</p:selectOneMenu>
+
+		</h:form>
+</ui:composition>

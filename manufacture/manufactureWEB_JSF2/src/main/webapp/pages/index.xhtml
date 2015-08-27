@@ -1,0 +1,50 @@
+<ui:composition template="/layouts/master_layout.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:composite="http://xmlns.jcp.org/jsf/composite"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<ui:define name="stylesheets">
+		<h:outputStylesheet library="css" name="indexCss.css" />
+	</ui:define>
+	
+	<ui:define name="main-body">
+	<f:view>
+		<h:form id="myForm">
+		
+			<div id="accueilSite">
+				<h:outputLabel value="Bienvenue sur GalaxZon.universe" />
+				<br/>
+				<h:outputLabel value="Site spécialisé dans la vente de pièces pour vaisseaux spatiaux quelque soit votre planète, votre vaisseau ou votre faction." />
+			</div>
+			
+			<div id="produitRandom">
+				<h:outputLabel value="Notre sélection d'articles" />
+				<ui:repeat var="produit" value="#{mbIndex.listeProduitRandom}">
+					<div class="article-wrapper">
+						<h4 class="article-name"><h:outputText value="#{stringUtil.trimText(produit.productRef.productName,30)}"/></h4> 
+							<h:commandLink action="#{mbProduct.detailProduit(produit.idProduct)}">  
+								<f:param name="idProductRef" value="#{produit.idProduct}" />
+								<img src="#{produit.productRef.urlImage}" />
+							</h:commandLink>
+							<div class="article-description">
+								<h:commandLink action="#{mbProduct.detailProduit(produit.idProduct)}">
+									<h:outputText value="#{produit.price}"> 
+									<f:convertNumber maxFractionDigits="2"/>
+									</h:outputText> Crédits
+								</h:commandLink>
+							</div> 
+							
+					</div>					
+				</ui:repeat> 
+					
+			</div>
+		
+		</h:form>
+		</f:view>
+	</ui:define>
+</ui:composition>
+
+

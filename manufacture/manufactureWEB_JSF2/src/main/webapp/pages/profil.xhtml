@@ -1,0 +1,426 @@
+<ui:composition template="/layouts/profil_layout.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+	<ui:define name="stylesheets">
+		<h:outputStylesheet name="profilCss.css" library="css" />
+	</ui:define>
+	<ui:define name="javascripts">
+		<h:outputScript name="script.js" library="javascript" id="hideModal" />
+	</ui:define>
+
+	<ui:define name="main-body">
+			<h:form id="myForm">
+				<div class="profil">
+					<h2>
+						<h:outputLabel value="#{profilBean.userBean.user.userName.toUpperCase()}" />
+						<br />
+						<h:outputLabel value="#{profilBean.userBean.user.userFirstName}" />
+					</h2>
+				
+					<!--  Informations personnelles -->
+					<h:panelGroup class="infosPersonnelles" rendered="#{profilBean.rubriqueChoisie eq 'Informations personnelles'}">
+						
+						<div class="identity">
+							<h2>Identité
+								<h:commandLink action="#{editBean.editionModePersonnel()}"
+								rendered="#{not editBean.editModePersonnel}">
+									<img src="../resources/images/icones_profil/modifier-defaut.png" 
+									onmousedown="this.src='../resources/images/icones_profil/modifier-clic.png';"
+									onmouseout="this.src='../resources/images/icones_profil/modifier-defaut.png';" />
+								</h:commandLink>
+
+								<h:commandLink action="#{editBean.saveUser()}"
+								rendered="#{editBean.editModePersonnel}">
+									<img src="../resources/images/icones_profil/valider-defaut.png" 
+									onmousedown="this.src='../resources/images/icones_profil/valider-clic.png';"
+									onmouseout="this.src='../resources/images/icones_profil/valider-defaut.png';" />
+								</h:commandLink>
+							
+								<h:commandLink action="#{editBean.cancelModePersonnel()}"
+								rendered="#{editBean.editModePersonnel}">
+									<img src="../resources/images/icones_profil/annuler-defaut.png" 
+									onmousedown="this.src='../resources/images/icones_profil/annuler-clic.png';"
+									onmouseout="this.src='../resources/images/icones_profil/annuler-defaut.png';" />
+								</h:commandLink>
+							
+							</h2>
+						
+							<h:outputLabel value="Nom" />
+							:
+							<h:outputLabel value="#{userBean.user.userName}"
+								rendered="#{not editBean.editModePersonnel}" />
+							<h:inputText value="#{userBean.user.userName}"
+								rendered="#{editBean.editModePersonnel}" />
+
+							<h:outputLabel value="Prénom" />
+							:
+							<h:outputLabel value="#{userBean.user.userFirstName}"
+								rendered="#{not editBean.editModePersonnel}" />
+							<h:inputText value="#{userBean.user.userFirstName}"
+								rendered="#{editBean.editModePersonnel}" />
+
+							<h:outputLabel value="Civilité" />
+							:
+							<h:outputLabel value="#{userBean.user.civility.civility}"
+								rendered="#{not editBean.editModePersonnel}" />
+							<p:selectOneRadio id="signup_civility"
+								rendered="#{editBean.editModePersonnel}"
+								value="#{userBean.user.civility.idCivility}">
+								<f:selectItem itemLabel="Mr" itemValue="1" />
+								<f:selectItem itemLabel="Mme" itemValue="2" />
+								<f:selectItem itemLabel="Mlle" itemValue="3" />
+							</p:selectOneRadio>
+
+							<!-- Pour l'email et le login, la modification peut être autorisée à conditions qu'ils ne soient -->
+							<!-- pas déjà utilisés par un autre utilisateur et qu'ils sont valides. -->
+							<h:outputLabel value="Email" />
+							:
+							<h:outputLabel value="#{userBean.user.email}" />
+							<!-- 						<h:outputLabel value="#{userBean.user.email}" rendered="#{not editBean.editModePersonnel}" /> -->
+							<!-- 						<h:inputText value="#{userBean.user.email}" rendered="#{editBean.editModePersonnel}" /> -->
+
+							<h:outputLabel value="Login" />
+							:
+							<h:outputLabel value="#{userBean.user.login}" />
+							<!-- 						<h:outputLabel value="#{userBean.user.login}" rendered="#{not editBean.editModePersonnel}" /> -->
+							<!-- 						<h:inputText value="#{userBean.user.login}" rendered="#{editBean.editModePersonnel}" /> -->
+
+							<h:outputLabel value="Date d'inscription" />
+							:
+							<h:outputLabel value="#{profilBean.sdf.format(profilBean.date)}" />
+
+							<h:outputLabel value="Mot de passe" />
+							:
+							<h:outputLabel value="***********"
+								rendered="#{not editBean.editModePersonnel}" />
+							<h:inputSecret value="#{userBean.user.password}"
+								rendered="#{editBean.editModePersonnel}" />
+							
+							<p:outputPanel id="companyName"
+								rendered="#{not(userBean.user.userRole.role eq 'Particulier')}">
+								<h2>Companie</h2>
+								<h:outputLabel value="Nom de la compagnie" /> :
+							<h:outputLabel value="#{userBean.user.companyName}"
+									rendered="#{not editBean.editModePersonnel}" />
+								<h:inputText value="#{userBean.user.companyName}"
+									rendered="#{editBean.editModePersonnel}" />
+
+								<h:outputLabel value="Nom de la compagnie" /> :
+							<h:outputLabel value="#{userBean.user.activityDomain}"
+									rendered="#{not editBean.editModePersonnel}" />
+								<h:inputText value="#{userBean.user.activityDomain}"
+									rendered="#{editBean.editModePersonnel}" />
+							</p:outputPanel>
+							
+						</div>
+					</h:panelGroup>
+
+	    			<!-- Adresses -->	    			
+					<h:panelGroup class="adresses"  rendered="#{profilBean.rubriqueChoisie eq 'Adresses enregistrées'}">
+						
+						<div class="listeAdresses">
+						
+							<h2>Adresses enregistrées (#{profilBean.adressesTotales.size()})
+								<p:commandLink onclick="loadModal2();return false;" type="button">
+									<img src="../resources/images/icones_profil/ajouter-defaut.png" 
+									onmousedown="this.src='../resources/images/icones_profil/ajouter-clic.png';"
+									onmouseout="this.src='../resources/images/icones_profil/ajouter-defaut.png';"/>
+								</p:commandLink>
+								
+								<p:dialog header="Ajouter une adresse" widgetVar="addAddress"
+									modal="true" height="100">
+									
+									<h2>Enregistrer une nouvelle adresse</h2>
+
+									<h:outputLabel value="Rue" class="dialogLabel" /> :
+										<h:inputText value="#{editBean.nouvelleAdresse.street}" class="dialogInput" />
+
+									<h:outputLabel value="                " class="dialogLabel" />
+									<h:inputText value="#{editBean.nouvelleAdresse.number}" class="dialogInput" />
+
+									<h:outputLabel value="Code postal" class="dialogLabel" /> :
+										<input type="number" value="#{editBean.ville.postalCode}"
+										class="dialogInput" />
+
+									<h:outputLabel value="Ville" class="dialogLabel" /> :
+    									<p:selectOneMenu value="#{editBean.idCityNouvelleAdresse}"
+										style="width:400px">
+										<f:selectItems var="item" value="#{mbDataLoader.listCity}"
+											itemLabel="#{item.cityName}" itemValue="#{item.idCity}" />
+									</p:selectOneMenu>
+
+									<h:outputLabel value="Pays" class="dialogLabel" /> :
+									<p:selectOneMenu value="#{mbDataLoader.idCountrySelected}"
+										style="width:400px">
+										<f:selectItems var="item" value="#{mbDataLoader.listCountry}"
+											itemLabel="#{item.countryName}" itemValue="#{item.idCountry}" />
+										<f:ajax update="@form" process="@this" />
+									</p:selectOneMenu>
+
+									<h:outputLabel value="Planète" class="dialogLabel" /> :
+									<p:selectOneMenu value="#{mbDataLoader.idPlanetSelected}"
+										style="width:400px">
+										<f:selectItems var="item" value="#{mbDataLoader.listPlanet}"
+											itemLabel="#{item.planetName}" itemValue="#{item.idPlanet}" />
+										<f:ajax update="@form" process="@this" />
+									</p:selectOneMenu>
+
+									<h:outputLabel value="Adresse de facturation"
+										class="dialogCheckBox" /> :
+       								<p:selectBooleanCheckbox
+										value="#{editBean.nouvelleAdresse.isBillingaddress}" />
+
+									<h:outputLabel value="Adresse de livraison"
+										class="dialogCheckBox" /> :
+       								<p:selectBooleanCheckbox
+										value="#{editBean.nouvelleAdresse.isDeliveryaddress}" />
+
+									<p:commandButton value="Annuler" type="button"
+										onclick="PF('addAddress').hide();"
+										actionListener="#{editBean.cancelModeAdresse()}" />
+
+									<p:commandButton value="Enregistrer" type="button"
+										onclick="PF('changeAddress').hide();"
+										actionListener="#{editBean.saveNewAddress()}"
+										update=":myForm" />
+									
+									<h:commandButton action="#{editBean.saveNewAddress()}" value="SaveNewAddress" />
+									</p:dialog>
+									
+							</h2>
+							
+							<h:dataTable var="address" value="#{profilBean.adressesTotales}" rendered="#{not (empty profilBean.adressesTotales)}">
+								<h:column>
+									<f:facet name="header">
+										Adresse
+									</f:facet>
+
+										<h:outputLabel class="monAdresse" escape="false"
+										value="#{address.number}  #{address.street}&lt;br/&gt;"/>
+										<h:outputLabel class="monAdresse" escape="false"
+										value="#{address.city.postalCode} #{address.city.cityName.toUpperCase()}&lt;br/&gt;"/>
+										<h:outputLabel class="monAdresse" escape="false"
+										value="#{address.city.country.countryName.toUpperCase()}"/>
+								</h:column>
+								
+								<h:column>
+									<f:facet name="header">
+										Adresse de livraison
+									</f:facet>
+									<h:graphicImage value="../resources/images/valider.png" rendered="#{address.isDeliveryaddress}"/>
+								</h:column>	
+								
+								<h:column>
+									<f:facet name="header">
+										Adresse de facturation
+									</f:facet>
+									<h:graphicImage value="../resources/images/valider.png" rendered="#{address.isBillingaddress}"/>
+								</h:column>	
+								
+								<h:column>
+								
+									<p:commandLink>
+										<img src="../resources/images/icones_profil/supprimer-no-selected.png" 
+										onmousedown="this.src='../resources/images/icones_profil/supprimer-selected.png';"
+										onmouseout="this.src='../resources/images/icones_profil/supprimer-no-selected.png';"/>
+									</p:commandLink>
+									
+									<p:commandLink onclick="loadModal();return false;" 
+										type="button" actionListener="#{editBean.editionModeAdresse(address)}">
+										<img src="../resources/images/icones_profil/editer-no-selected.png" 
+										onmousedown="this.src='../resources/images/icones_profil/editer-selected.png';"
+										onmouseout="this.src='../resources/images/icones_profil/editer-no-selected.png';"/>
+									</p:commandLink>
+
+									<p:dialog header="Modifier l'adresse" widgetVar="changeAddress"
+									modal="true" height="100">
+									
+									<h2>Adresse enregistrée</h2>
+
+									<h:outputLabel value="Rue" class="dialogLabel" /> :
+										<h:inputText value="#{editBean.adresseAModifier.street}" class="dialogInput" />
+
+									<h:outputLabel value="                " class="dialogLabel" />
+									<h:inputText value="#{editBean.adresseAModifier.number}" class="dialogInput" />
+
+									<h:outputLabel value="Code postal" class="dialogLabel" /> :
+										<input type="number" value="#{editBean.ville.postalCode}"
+										class="dialogInput" />
+
+									<h:outputLabel value="Ville" class="dialogLabel" /> :
+    								<p:selectOneMenu value="#{editBean.idCityAdresseAModifier}"
+										style="width:400px">
+										<f:selectItems var="item" value="#{mbDataLoader.listCity}"
+											itemLabel="#{item.cityName}" itemValue="#{item.idCity}" />
+									</p:selectOneMenu>
+
+									<h:outputLabel value="Pays" class="dialogLabel" /> :
+									<p:selectOneMenu value="#{mbDataLoader.idCountrySelected}"
+										style="width:400px">
+										<f:selectItems var="item" value="#{mbDataLoader.listCountry}"
+											itemLabel="#{item.countryName}" itemValue="#{item.idCountry}" />
+										<f:ajax update="@form" process="@this" />
+									</p:selectOneMenu>
+
+									<h:outputLabel value="Planète" class="dialogLabel" /> :
+									<p:selectOneMenu value="#{mbDataLoader.idPlanetSelected}"
+										style="width:400px">
+										<f:selectItems var="item" value="#{mbDataLoader.listPlanet}"
+											itemLabel="#{item.planetName}" itemValue="#{item.idPlanet}" />
+										<f:ajax update="@form" process="@this" />
+									</p:selectOneMenu>
+
+									<h:outputLabel value="Adresse de facturation"
+										class="dialogCheckBox" /> :
+       								<p:selectBooleanCheckbox
+										value="#{editBean.adresseAModifier.isBillingaddress}" />
+
+									<h:outputLabel value="Adresse de livraison"
+										class="dialogCheckBox" /> :
+       								<p:selectBooleanCheckbox
+										value="#{editBean.adresseAModifier.isDeliveryaddress}" />
+
+									<p:commandButton value="Annuler" type="button"
+										onclick="PF('changeAddress').hide();"
+										actionListener="#{editBean.cancelModeAdresse()}" />
+
+									<p:commandButton value="Enregistrer" type="button"
+										onclick="PF('changeAddress').hide();"
+										actionListener="#{editBean.saveAdresse()}" />
+										
+									<h:commandButton action="#{editBean.saveAdresse()}" value="SaveAddress" />
+
+									</p:dialog>
+								</h:column>	
+							</h:dataTable>
+							
+							<h:outputLabel class="tableauVide" value="Aucune adresse enregistrée" rendered="#{empty profilBean.adressesTotales}"/>
+							
+						</div>
+					</h:panelGroup>
+							
+					<!-- Mes ventes -->
+					<h:panelGroup class="mesVentes" rendered="#{profilBean.rubriqueChoisie eq 'Mes ventes'}" >
+						
+						<div class="listeVentes">
+						
+							<h2>Produits en cours de vente (#{profilBean.listeProduitsNonVendus.size()})</h2>
+							
+							<h:dataTable var="product" value="#{profilBean.listeProduitsNonVendus}" rendered="#{not(empty profilBean.listeProduitsNonVendus)}">
+								<h:column>
+									<f:facet name="header">
+										Nom du produit
+									</f:facet>
+									<h:outputLabel value="#{product.productRef.productName}" />
+								</h:column>
+
+								<h:column>
+									<f:facet name="header">
+										Stock
+									</f:facet>
+									<h:outputLabel value="#{product.stock}" />
+								</h:column>
+
+								<h:column>
+									<f:facet name="header">
+										Prix (crédits)
+									</f:facet>
+									<h:outputLabel value="#{product.price}" />
+								</h:column>
+
+								<h:column>
+									<f:facet name="header">
+										Date de publication
+									</f:facet>
+									<h:outputLabel
+										value="#{profilBean.sdf.format(product.datePublication)}" />
+								</h:column>
+							</h:dataTable>
+							
+							<h:outputLabel class="tableauVide" value="Aucune annonce en cours" rendered="#{empty profilBean.listeProduitsNonVendus}"/>
+							
+							<h2>Produits vendus (#{profilBean.listeCommandesVendus.size()})</h2>
+							
+							<h:dataTable var="productCart" value="#{profilBean.listeCommandesVendus}" rendered="#{not(empty profilBean.listeCommandesVendus)}">
+								<h:column>
+									<f:facet name="header">
+										Nom du produit
+									</f:facet>
+									<h:outputLabel
+										value="#{productCart.product.productRef.productName}" />
+								</h:column>
+	
+								<h:column>
+									<f:facet name="header">
+										Quantité
+									</f:facet>
+									<h:outputLabel value="#{productCart.quantity}" />
+								</h:column>
+	
+								<h:column>
+									<f:facet name="header">
+										Prix (crédits)
+									</f:facet>
+									<h:outputLabel value="#{productCart.product.price}" />
+								</h:column>
+	
+								<h:column>
+									<f:facet name="header">
+										Date de vente
+									</f:facet>
+									<h:outputLabel value="#{profilBean.sdf.format(productCart.cart.dateCommande)}" />
+								</h:column>
+							</h:dataTable>
+						
+							<h:outputLabel class="tableauVide" value="Aucun produit vendu" rendered="#{empty profilBean.listeCommandesVendus}"/>
+						
+						</div>
+					</h:panelGroup>
+					
+					<!-- Mes achats --> 	
+					<h:panelGroup class="mesAchats" rendered="#{profilBean.rubriqueChoisie eq 'Mes achats'}">
+						
+						<div class="listeAchats">
+						
+							<h2>Commandes passées (#{profilBean.listeCommandesPassees.size()})</h2>
+							
+							<h:dataTable var="cart" value="#{profilBean.listeCommandesPassees}" rendered="#{not(empty profilBean.listeCommandesPassees)}">
+								<h:column>
+									<f:facet name="header">
+										Numéro de commande
+									</f:facet>
+									<h:outputLabel value="#{cart.idCart}" />
+								</h:column>
+								
+								<h:column>
+									<f:facet name="header">
+										Date de commande
+									</f:facet>
+									<h:outputLabel value="#{cart.dateCommande}" />
+								</h:column>
+								
+								<h:column>
+									<f:facet name="header">
+										Prix de la commande
+									</f:facet>
+									<h:outputLabel value="Fonction à faire pour calculer le total d'une commande" />
+								</h:column>
+								
+								<h:column>
+									<h:outputLabel value="un lien pour visualiser le détail de la commande" />
+								</h:column>
+							</h:dataTable>
+							
+							<h:outputLabel class="tableauVide" value="Aucune commande achetée" rendered="#{empty profilBean.listeCommandesPassees}"/>
+						</div>
+						
+					</h:panelGroup>
+					
+				</div>
+			
+			</h:form>
+	</ui:define>
+</ui:composition>

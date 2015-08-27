@@ -1,0 +1,86 @@
+#body-content
+{
+	margin-top: 20px;
+	padding-bottom:20px;
+	background:linear-gradient(white, #E0E6F8);
+}
+
+.connexion
+{
+	margin-left:35%;
+	margin-right:35%;
+}
+
+.ui-panel-titlebar
+{
+	text-align:center;
+	color:#10507B;
+	font-size:larger;
+}
+
+.ui-panel
+{
+	border:1px solid #e5e5e5;
+}
+
+.ui-panel-content
+{
+	padding-top:5px !important;
+	padding-left:0px !important;
+	padding-right:0px !important;
+	padding-bottom:0px !important;
+}
+
+.ui-panel-content > table
+{
+	width:100% !important;
+}
+
+td, tr
+{
+	border:none !important;
+	height: 50px;
+}
+
+td label,
+td a
+{
+	display:inline-block !important;
+	width:45% !important;
+}
+
+td a
+{
+	color:#10507B !important;
+	font-size:small;
+}
+table tr:last-of-type td
+{
+	text-align:center;
+	height:20px;
+}
+
+table tr:last-of-type label
+{
+	font-size:small;
+}
+
+td input
+{
+	display:inline-block !important;
+	width:50% !important;
+	border:1px solid #bdc7d8;
+	border-radius:5px;
+	height:30px;
+}
+
+.ui-panel-content > table tr:nth-of-type(3)
+{
+	text-align:center;
+	height:50px;
+}
+
+.ui-button
+{
+	width:200px !important;
+}

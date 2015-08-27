@@ -1,0 +1,298 @@
+#body-content
+{
+	min-height:485px;
+}
+
+/* commande.xhtml */
+/* ********* debut ********* */
+.itemCommande {
+	clear: both !important;
+	/*background-color: #FE2E2A;*/
+}
+
+.al24FielSetCommande {
+	clear: both !important;
+	background-color: #fffE2A;
+	width: 500px;
+}
+
+.itemLigneCommande {
+	float: left !important;
+	background-color: #FE2E2A;
+}
+/* ********* fin ********* */
+
+/* panier.xhtml */
+/* ********* debut ********* */
+.itemLignePanier {
+	float: left !important;
+	width: inherit;
+}
+
+.al24FielSetPanier {
+	clear: both;
+	width: 800px;
+	background-color: #FE2000;
+}
+
+.boutonPasserCommande {
+	clear: both;
+	width: 200px;
+	background-color: #eee000;
+}
+/* ********* fin ********* */
+
+/* menu.xhtml */
+/* ********* debut ********* */
+#menu {
+	height: 100px;
+	background-color: silver;
+	padding-left: 27%;
+}
+
+#menu img {
+	display: inline-block;
+	margin-top: 4px;
+	height: 90px;
+	margin-right: 100px;
+}
+
+#menu img:hover {
+	cursor: pointer;
+}
+
+#divLogo {
+	float: left !important;
+}
+
+/* connexion */
+/* ********* ********* */
+#divDeConnexion {
+	width: 300px;
+}
+ 
+.divLabelConnexion {
+	width: 100%; 
+	height: auto;
+}
+
+.labelInputConnexion {
+	width: 100%; 
+	height: auto;
+}
+
+.labelConnexion {
+	width: 100%;
+	height: auto;
+}
+
+.inputConnexion {
+	width: 100%;
+	height: 20px
+	padding: 0 !important;
+}
+
+.boutonConnexion {
+} 
+
+.linkConnexion {
+	background-color: teal;
+}
+
+.divBoutonConnexion {
+	clear:both; 
+	width: 50%;
+	margin-top:10px;
+	margin-left:80px;
+} 
+ 
+/* recherche.xhtml */
+/* ********* debut ********* */
+#divRecherche {
+	clear: both;
+	margin: 5px;
+}
+
+#divBtnRefreshRecherche {
+	clear: both;
+}
+
+#divBtnRefresh {
+	float: left !important;
+}
+
+#divBtnRechercher {
+	float: left !important;
+}
+
+/* ********* Code Divers Debut ********* */
+.bouton {
+	color: #FOOOOO;
+	background-color: #58FA82;
+	background: none !important;
+	border-radius: 2px !important;
+}
+
+.al24InputText {
+	clear: both !important;
+	color: #FE2E2E;
+}
+
+.al24Combox {
+	color: #FE2E2E;
+}
+
+.al24RadioBouton {
+	color: #FE2E2E;
+}
+
+.al24FielSet {
+	float: left;
+	width: inherit;
+	height: inherit;
+	color: #FE2E2E;
+}
+
+.al24FielSetRecherche {
+	float: left;
+	width: inherit;
+	height: 300px;
+	color: #FE2E2E;
+}
+
+.al24FielSetContainer {
+	width: inherit;;
+	height: inherit;
+	color: #FE000E;
+}
+
+.ui-fieldset,.ui-fieldset .ui-fieldset-legend {
+	padding: 5px 5px;
+	background-color: #FFFFFF;
+}
+
+.al24TabMenu {
+	color: #FE2E2E;
+}
+
+.al24OutLabel {
+	color: #FE2E2E;
+}
+/* ********* Code Divers Fin ********* */
+.toto {
+	background: none !important;
+}
+
+* {
+	margin: 0;
+	padding: 0;
+}
+
+/* ********* Header ********* */
+#logo img {
+	height: 100px;
+	margin-top: 20px;
+	margin-left: 15%;
+	float: left;
+}
+
+#logo label {
+	float: left;
+	color: white;
+	font-size: 80px;
+	margin-left: 60px;
+	font-family: Arial;
+	margin-top: 20px;
+}
+
+#header {
+	height: 150px;
+	width: 100%;
+	background-color: #10507B;
+}
+
+#header a {
+	margin-top: 10%;
+	display: inline-block;
+	color: lightgrey;
+	width: 130px;
+}
+
+#header a:visited {
+	text-decoration: none;
+}
+
+#menu a:visited,
+#menu a:link,
+#menu a:active {
+	text-decoration: none;
+}
+
+#searchBar {
+	display: none;
+}
+
+#searchBar input[type="text"] {
+	width: 200px;
+}
+
+#header .left_zone {
+	float: left;
+	width: 60%;
+}
+
+#header .right_zone {
+	float: right;
+	width: 40%;
+}
+/*
+#body-content {
+	margin-left: 20px;
+	margin-top: 20px;
+}
+*/
+.sidebar-left {
+	float: left;
+	width: 20%;
+}
+
+.main-content {
+	display: inline-block;
+	width: 78%;
+	margin-left: 20px;
+}
+
+#menu ul li {
+	float: left;
+	display: inline-block;
+	min-width: 80px;
+}
+
+#menu ul {
+	clear: both;
+}
+
+/* Inscription */
+.center-body {
+	margin-left: 20%;
+	width:60%;
+}
+.login-part{
+    margin-left: 40%;
+    width: 35%;
+}
+  
+.center-body #signinForm fieldset {
+	padding: 10px;
+}
+
+/* index css */
+.login-part label{
+	font-weight:bold;
+	font-size:1.1em;
+}
+.login-part input{
+	margin-top:5px;
+	margin-bottom:5px;
+	height:30px;
+}

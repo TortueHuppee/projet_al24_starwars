@@ -1,0 +1,40 @@
+<ui:composition template="/layouts/master_layout.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+	<ui:define name="stylesheets">
+		<h:outputStylesheet name="signUpCss.css" library="css" />
+	</ui:define>
+
+	<ui:define name="main-body">
+		<h:form id="signinForm">
+			<div class="center-body">
+				
+				<h:outputLabel value="#{loginBean.erreurConnexion}" class="messageErreur" />
+				
+				<div class="connexion">
+					<h2>Se connecter</h2>
+					<h:outputLabel value="Nom utilisateur : " />
+					<h:inputText value="#{loginBean.user.login}" 
+						required="true" requiredMessage="Champs obligatoire"
+						styleClass="inputConnexion" />
+
+					<h:outputLabel value="Mot de passe : " />
+					<h:inputSecret value="#{loginBean.user.password}"
+						required="true"
+						requiredMessage="Champs obligatoire" styleClass="inputConnexion" />
+
+					<p:commandButton value="Se connecter"
+						actionListener="#{loginBean.doLogin()}" />
+					<h:commandButton action="#{loginBean.doLogin()}" value="Connect" />
+
+					<h:outputLabel value="Pas de compte ?" />
+					<h:commandLink value="Inscrivez vous !"
+						action="signin.xhtml&amp;faces-redirect=true" />
+				</div>
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>

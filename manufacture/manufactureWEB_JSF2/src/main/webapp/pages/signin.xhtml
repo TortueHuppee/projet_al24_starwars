@@ -1,0 +1,85 @@
+<ui:composition template="/layouts/master_layout.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<ui:define name="title">
+	Star Wars E-Shop - Inscription
+	</ui:define>
+
+	<ui:define name="stylesheets">
+		<h:outputStylesheet name="signInCss.css" library="css" />
+	</ui:define>
+
+	<ui:define name="main-body">
+		<h:form id="signinForm">
+			<div class="center-body">
+				<div class="creationCompte">
+					<h2>Création de compte</h2>
+
+					<h:outputLabel value="Nom utilisateur : " class="signInLabel" />
+					<h:inputText value="#{signUpBean.login}" class="signInInput" />
+					<h:outputLabel class="messageErreur"
+						value="#{signUpBean.messageErreurLogin}" />
+
+					<h:outputLabel value="Mot de passe : " class="signInLabel" />
+					<h:inputSecret value="#{signUpBean.motDePasse}" class="signInInput" />
+					<h:outputLabel class="messageErreur"
+						value="#{signUpBean.messageErreurMotDePasse}" />
+
+					<h:outputLabel value="Nom de famille : " class="signInLabel" />
+					<h:inputText value="#{signUpBean.nomFamille}" class="signInInput" />
+					<h:outputLabel class="messageErreur"
+						value="#{signUpBean.messageErreurNomFamille}" />
+
+					<h:outputLabel value="Prénom : " class="signInLabel" />
+					<h:inputText value="#{signUpBean.prenom}" class="signInInput" />
+					<h:outputLabel class="messageErreur"
+						value="#{signUpBean.messageErreurPrenom}" />
+
+					<h:outputLabel value="Civilité : " class="signInLabel" />
+					<p:selectOneRadio value="#{signUpBean.civilite.idCivility}">
+						<f:selectItem itemLabel="Mr" itemValue="1" />
+						<f:selectItem itemLabel="Mme" itemValue="2" />
+						<f:selectItem itemLabel="Mlle" itemValue="3" />
+					</p:selectOneRadio>
+
+					<h:outputLabel value="Email : " class="signInLabel" />
+					<h:inputText value="#{signUpBean.email}" class="signInInput" />
+					<h:outputLabel class="messageErreur"
+						value="#{signUpBean.messageErreurEmail}" />
+
+					<h:outputLabel value="Vous êtes un : " class="signInLabel" />
+					<p:selectOneRadio value="#{signUpBean.role.idUserRole}">
+						<f:ajax event="change" render="signinForm" />
+						<f:selectItem itemLabel="particulier" itemValue="1" />
+						<f:selectItem itemLabel="artisan" itemValue="3" />
+						<f:selectItem itemLabel="professionnel" itemValue="2" />
+					</p:selectOneRadio>
+
+					<h:outputLabel value="Nom de la compagnie : "
+						rendered="#{signUpBean.role.idUserRole > 1}" class="signInLabel" />
+					<h:inputText value="#{signUpBean.companyName}" class="signInInput"
+						rendered="#{signUpBean.role.idUserRole > 1}" />
+					<h:outputLabel class="messageErreur"
+						value="#{signUpBean.messageErreurCompanyName}"
+						rendered="#{signUpBean.role.idUserRole > 1}" />
+
+					<h:outputLabel value="Domaine d'activité : "
+						rendered="#{signUpBean.role.idUserRole > 1}" class="signInLabel" />
+					<h:inputText value="#{signUpBean.domaineActivite}"
+						class="signInInput" rendered="#{signUpBean.role.idUserRole > 1}" />
+					<h:outputLabel class="messageErreur"
+						value="#{signUpBean.messageErreurDomaineActivite}"
+						rendered="#{signUpBean.role.idUserRole > 1}" />
+
+					<p:commandButton
+						actionListener="#{signUpBean.validationFormulaire()}"
+						value="S'inscrire" update="signinForm" />
+				</div>
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,81 @@
+<ui:composition template="/layouts/master_layout.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+
+	<ui:define name="stylesheets">
+		<h:outputStylesheet name="panierCssStep1.css" library="css" />
+	</ui:define>
+
+	<ui:define name="main-body">
+		<h:form id="myForm">
+			<div class="product-description">
+
+				<h2>
+				<h:outputLabel value="Mon panier" />
+				<p:commandButton value="Vider le Panier" action="#{mbCart.cleanCart()}" update=":myForm" />
+			</h2>
+
+				<table>
+					<tr>
+						<th>Produit</th>
+						<th>Options</th>
+						<th>Quantité</th>
+						<th>Sous-total (Crédits)</th>
+						<th></th>
+					</tr>
+
+					<ui:repeat var="produit" value="#{mbCart.panier}">
+						<tr>
+							<td>
+								<img src="#{produit.product.productRef.urlImage}" />
+								<h:outputLabel value="#{produit.product.productRef.productName}" class="titreArticle"/>
+								<h:outputLabel value="#{mbProduct.DoubleFormat(produit.product.price)} Crédits" class="prixArticle"/>
+							</td>
+							
+							<td>
+								<h:outputLabel value="Catégorie" class="titre"/> :
+							 	<h:outputLabel value="#{produit.product.productRef.category.categoryName}" class="valeur"/>
+								
+								<h:outputLabel value="Couleur" class="titre"/> :
+								<h:outputLabel value="#{produit.product.color.colorName}" class="valeur"/>
+								
+								<h:outputLabel value="Matériaux" class="titre"/> :
+								<h:outputLabel value="#{produit.product.material.materialName}" class="valeur"/>
+							</td>
+							
+							<td>							
+								<h:commandButton value="-" action="#{mbCart.decrementProductQuantity(produit.product.idProduct)}" />
+								<h:outputLabel value="#{produit.quantity}" class="prix"/>
+								<h:commandButton value="+" action="#{mbCart.incrementProductQuantity(produit.product.idProduct)}" />
+							</td>
+							
+							<td>
+								<h:outputLabel value="#{mbProduct.DoubleFormat(mbCart.getSubTotalPrice(produit.product.idProduct))}" class="prix"/>
+							</td>
+							
+							<td>
+								<h:commandButton image="../resources/images/delete.png" 
+								action="#{mbCart.deleteProductFromCart(produit)}" update=":myForm" />
+							</td>
+						</tr>
+					</ui:repeat>
+					
+				</table>
+
+				<div class="recapCommande">
+					<h:outputLabel value="#{mbProduct.DoubleFormat(mbCart.getTotalPrice())}" class="prix"/>
+					<h:outputLabel value="Prix total (crédits) :" class="titre"/>
+					<p:commandButton value="Passer Commande" action="#{mbNavigation.accessVisualisationPanier()}" />
+				</div>  
+
+
+			</div>
+		</h:form>
+	</ui:define>
+
+
+</ui:composition>

@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:composite="http://xmlns.jcp.org/jsf/composite"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
+</h:head>
+<h:body>
+	<ui:composition>
+		<h:form>
+			<div id="divMenu">
+			
+			<h:commandLink action="/pages/index">
+					<img id="boutonAcceuil"
+						src="../resources/images/icones_menu/accueilGris.png"
+						onmousedown="this.src='../resources/images/icones_menu/accueilJaune.png';"
+						onmouseover="this.src='../resources/images/icones_menu/accueilBleu.png';"
+						onmouseout="this.src='../resources/images/icones_menu/accueilGris.png';" />
+			</h:commandLink>
+			
+			<h:commandLink action="/pages/catalogue">
+			<img id="boutonCatalogue" src="../resources/images/icones_menu/catalogueGris.png"
+				onmouseover="this.src='../resources/images/icones_menu/catalogueBleu.png';"
+				onmouseout="this.src='../resources/images/icones_menu/catalogueGris.png';"
+				onmousedown="this.src='../resources/images/icones_menu/catalogueJaune.png';"/>
+			</h:commandLink>
+			
+			<h:commandLink action="#{mbNavigation.accessAdvert()}">
+				<img id="boutonCatalogue" src="../resources/images/icones_menu/annonceGris.png"
+				onmouseover="this.src='../resources/images/icones_menu/annonceBleu.png';"
+				onmouseout="this.src='../resources/images/icones_menu/annonceGris.png';"
+				onmousedown="this.src='../resources/images/icones_menu/annonceJaune.png';"/>
+			</h:commandLink>
+						
+			<h:commandLink action="#{mbNavigation.accessProfil()}"> 
+			<img id="boutonCompte" src="../resources/images/icones_menu/profilGris.png"
+				onmouseover="this.src='../resources/images/icones_menu/profilBleu.png';"
+				onmouseout="this.src='../resources/images/icones_menu/profilGris.png';"
+				onmousedown="this.src='../resources/images/icones_menu/profilJaune.png';"/>
+			</h:commandLink>
+			 
+			<h:commandLink action="/pages/panier">
+			<img id="boutonPanier" src="../resources/images/icones_menu/panierGris.png"
+				onmouseover="this.src='../resources/images/icones_menu/panierBleu.png';"
+				onmouseout="this.src='../resources/images/icones_menu/panierGris.png';"
+				onmousedown="this.src='../resources/images/icones_menu/panierJaune.png';"/>
+			</h:commandLink>
+
+			</div>
+		</h:form>
+	</ui:composition>
+</h:body>
+</html>
