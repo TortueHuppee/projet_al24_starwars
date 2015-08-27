@@ -118,6 +118,11 @@ public class Catalog implements ICatalog {
 		return proxyCatalog.getAllProductBySpaceShipRef(idSpaceShipSelected);
 	}
 
+    @Override
+    public List<ProductRef> getProductRefByCategory(int paramIdCategorieSelected) {
+        return proxyCatalog.getProductRefByCategory(paramIdCategorieSelected);
+    }
+
 	public IBusinessCatalog getProxyColor() {
 		return proxyCatalog;
 	}

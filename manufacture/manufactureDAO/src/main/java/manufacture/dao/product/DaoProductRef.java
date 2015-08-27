@@ -34,7 +34,7 @@ public class DaoProductRef implements IDaoProductRef {
 	@Override
 	public List<ProductRef> getAllConstructorProductRef() {
 		Session session = sf.getCurrentSession();		
-		//Requete à partir de la valeur discriminatrice
+		//Requete ï¿½ partir de la valeur discriminatrice
 
 		//String requete = "SELECT DISTINCT p.productRef FROM Product p WHERE p.class='constructor_product'";
 		String requete = "SELECT p.productRef FROM Product p JOIN p.productRef pr WHERE p.class='constructor_product'";
@@ -46,7 +46,7 @@ public class DaoProductRef implements IDaoProductRef {
 	@Override
 	public List<ProductRef> getAllUsedProductRef() {
 		Session session = sf.getCurrentSession();		
-		//Requete à partir de la valeur discriminatrice
+		//Requete ï¿½ partir de la valeur discriminatrice
 		String requete = "SELECT p.productRef FROM Product p WHERE p.class='used_product'";
 		Query hql = session.createQuery(requete);
 		List<ProductRef> resultat = hql.list();
@@ -56,7 +56,7 @@ public class DaoProductRef implements IDaoProductRef {
 	@Override
 	public List<ProductRef> getAllArtisanProductRef() {
 		Session session = sf.getCurrentSession();		
-		//Requete à partir de la valeur discriminatrice
+		//Requete ï¿½ partir de la valeur discriminatrice
 		String requete = "SELECT p.productRef FROM Product p WHERE p.class='artisan_product'";
 		Query hql = session.createQuery(requete);
 		List<ProductRef> resultat = hql.list();
@@ -133,6 +133,16 @@ public class DaoProductRef implements IDaoProductRef {
 			return resultat.get(0);
 		}
 	}
+	
+    @Override
+    public List<ProductRef> getProductRefByCategory(int paramIdCategorieSelected) {
+        Session session = sf.getCurrentSession();
+        String requete = "SELECT p FROM ProductRef p WHERE p.category.idCategory =:paramId";
+        Query hql = session.createQuery(requete);
+        hql.setParameter("paramId", paramIdCategorieSelected);
+        List<ProductRef> resultat = hql.list();
+        return resultat;
+    }
 
 	//Getters et Setters
 	public SessionFactory getSf() {

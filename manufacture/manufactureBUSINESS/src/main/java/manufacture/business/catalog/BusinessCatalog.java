@@ -128,6 +128,11 @@ public class BusinessCatalog implements IBusinessCatalog {
 		return proxyProduct.getAllProductBySpaceShipRef(idSpaceShipSelected);
 	}
 	
+    @Override
+    public List<ProductRef> getProductRefByCategory(int paramIdCategorieSelected) {
+        return proxyProductRef.getProductRefByCategory(paramIdCategorieSelected);
+    }
+	
     //Proxy
 
 	public IDaoColor getProxyColor() {

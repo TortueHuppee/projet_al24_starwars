@@ -8,7 +8,7 @@ import manufacture.entity.product.SpaceshipRef;
 
 public interface IDaoProductRef {
 
-	//Méthodes
+	//Mï¿½thodes
 	List<ProductRef> getAllProductRef();
 	
 	List<ProductRef> getAllConstructorProductRef();
@@ -21,7 +21,7 @@ public interface IDaoProductRef {
 	
 	List<ProductRef> getConstructorProductRefBySpaceShip(SpaceshipRef spaceShipRef);
 	
-	//Gestion de base de données
+	//Gestion de base de donnï¿½es
 	void addProductRef(ProductRef productRef);
 	
 	void deleteProductRef(ProductRef productRef);
@@ -33,5 +33,7 @@ public interface IDaoProductRef {
 	List<SpaceshipProduct> getSpaceShipProductByProduct(ProductRef productRef);
 
 	ProductRef getProductRefById(int idProductRef);
+
+    List<ProductRef> getProductRefByCategory(int paramIdCategorieSelected);
 	
 }

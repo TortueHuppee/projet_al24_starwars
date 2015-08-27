@@ -58,35 +58,26 @@ public class AnnonceManagedBean {
 	private List<ProductRef> listeProduitRef;
 
 	private Product newProduct;
+    private int idCategorieSelected;
 
-	private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-	private Date date = new Date();
+    private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+    private Date date = new Date();
 
-	/**
-	 * Messages d'erreurs :
-	 */
-	private String messageErreur = "";
-	
-	private boolean donneesInitialisees = false;
+    /**
+     * Messages d'erreurs :
+     */
+    private String messageErreur = "";
+    
+    private boolean donneesInitialisees = false;
 
-	@PostConstruct
-	public String init()
-	{
-	    if(userBean.isLogged()){
-	        if (userBean.getUser().getUserRole().getIdUserRole() == USER_ARTISAN_ROLE_ID || userBean.getUser().getUserRole().getIdUserRole() == USER_PARTICULIER_ROLE_ID)
-            {
-	            initialiseDonnees();
-	            donneesInitialisees = true;
-	            return "annonce.xhtml?faces-redirect=true";
-            }
-            else
-            {
-                return "annonceNonAutorisee.xhtml?faces-redirect=true";
-            }
+    @PostConstruct
+    public void init()
+    {
+        if(userBean.isLogged()){
+            initialiseDonnees();
+            donneesInitialisees = true;
         }
-	    loginBean.setRedirect("annonce.xhtml?faces-redirect=true");
-        return "login.xhtml?faces-redirect=true";
-	}
+    }
 
 	// Methodes
 	public void listeProductRef()
@@ -303,5 +294,13 @@ public class AnnonceManagedBean {
 
     public void setDonneesInitialisees(boolean paramDonneesInitialisees) {
         donneesInitialisees = paramDonneesInitialisees;
+    }
+
+    public int getIdCategorieSelected() {
+        return idCategorieSelected;
+    }
+
+    public void setIdCategorieSelected(int paramIdCategorieSelected) {
+        idCategorieSelected = paramIdCategorieSelected;
     }
 }

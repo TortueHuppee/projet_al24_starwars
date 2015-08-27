@@ -45,10 +45,12 @@ public interface ICatalog {
 	
 	List<Product> getAllProductBySpaceShipRef(int idSpaceShipSelected);
 	
-	//Consultation du détail d'un produit
+	//Consultation du dï¿½tail d'un produit
 	List<Product> getAllProductByProductRef(int idProducRef);
 
 	List<SpaceshipProduct> getSpaceShipProductByProduct(ProductRef productRef);
 
 	ProductRef getProductRefById(int idProductRef);
+
+    List<ProductRef> getProductRefByCategory(int paramIdCategorieSelected);
 }
