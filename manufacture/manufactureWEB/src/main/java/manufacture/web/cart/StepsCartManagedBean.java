@@ -157,25 +157,6 @@ public class StepsCartManagedBean {
 			
 		}
 	}
-	
-	public String goToStep1(){
-		if(!userBean.isLogged()){
-			FacesMessage fm = new FacesMessage("Erreur", "Vous devez vous connecter pour continuer la commande");
-			FacesContext.getCurrentInstance().addMessage(null, fm);
-			loginBean.setRedirect("panierStep1.xhtml?faces-redirect=true");
-			return "login.xhtml?faces-redirect=true";
-		}
-		
-		if (userBean.getUser().getUserRole().getIdUserRole() == USER_PARTICULIER_ROLE_ID || userBean.getUser().getUserRole().getIdUserRole() == USER_PROFESSIONNEL_ROLE_ID)
-		{
-			initialisationDonnees();
-			return "panierStep1.xhtml?faces-redirect=true";
-		}
-		else
-		{
-			return "panierNonAutorise.xhtml?faces-redirect=true";
-		}
-	}
 
 	public void augmenterQuantite(int idProduct)
 	{

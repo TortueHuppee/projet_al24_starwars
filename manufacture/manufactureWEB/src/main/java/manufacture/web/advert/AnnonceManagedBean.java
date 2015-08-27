@@ -162,25 +162,6 @@ public class AnnonceManagedBean {
 
 		}
 	}
-
-	public String accessAdvert(){
-        if(userBean.isLogged()){
-            if (userBean.getUser().getUserRole().getIdUserRole() == USER_ARTISAN_ROLE_ID || userBean.getUser().getUserRole().getIdUserRole() == USER_PARTICULIER_ROLE_ID)
-            {
-                initialiseDonnees();
-                donneesInitialisees = true;
-                return "annonce.xhtml?faces-redirect=true";
-            }
-            else
-            {
-                return "annonceNonAutorisee.xhtml?faces-redirect=true";
-            }
-        }else{
-            date = new Date();
-            loginBean.setRedirect("annonce.xhtml?faces-redirect=true");
-            return "login.xhtml?faces-redirect=true";
-        }
-    }
 	
 	// Getters et Setters
 
