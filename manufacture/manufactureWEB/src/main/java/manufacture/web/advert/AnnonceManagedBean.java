@@ -88,7 +88,7 @@ public class AnnonceManagedBean {
         return "login.xhtml?faces-redirect=true";
 	}
 
-	// Méthodes
+	// Mï¿½thodes
 	public void initialiseDonnees()
     {
 	    listeProduitRef = proxyCatalog.getAllProductRef();
@@ -135,7 +135,7 @@ public class AnnonceManagedBean {
 	public String createAdvert()
 	{
 		proxyAdvert.createAdvert(newProduct);
-		catalogBean.getListeProductBrute().add(newProduct);
+//		catalogBean.getListeProductBrute().add(newProduct);
 		catalogBean.init();
 		
 		return "annonceEnregistree.xhtml?faces-redirect=true";
@@ -145,7 +145,7 @@ public class AnnonceManagedBean {
 	{
 		if(!userBean.isLogged())
 		{
-			FacesMessage fm = new FacesMessage("Erreur", "Vous devez vous connecter pour déposer une annonce");
+			FacesMessage fm = new FacesMessage("Erreur", "Vous devez vous connecter pour dï¿½poser une annonce");
 			FacesContext.getCurrentInstance().addMessage(null, fm);
 			loginBean.setRedirect("annonce.xhtml?faces-redirect=true");
 			return "login.xhtml?faces-redirect=true";
