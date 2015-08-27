@@ -18,7 +18,6 @@ import manufacture.entity.product.Product;
 import manufacture.entity.user.User;
 import manufacture.ifacade.cart.IGestionCart;
 import manufacture.web.catalogBean.ProductManagedBean;
-import manufacture.web.user.UserBean;
 
 import org.apache.log4j.Logger;
 
@@ -34,9 +33,6 @@ public class ManagedBeanCart {
 	@ManagedProperty(value = "#{gestionCart}")
     private IGestionCart proxyCart;
 	
-	@ManagedProperty(value="#{userBean}")
-	private UserBean userBean;
-
 	private Cart cart;
 
 	private int idSelectedProduct;
@@ -72,13 +68,13 @@ public class ManagedBeanCart {
 	    FacesContext context = FacesContext.getCurrentInstance();
 	    boolean ajoutPanier = true;
 	    
-	    //Si le panier n'est pas vide on rentre dans la m�thode.
+	    //Si le panier n'est pas vide on rentre dans la methode.
 	    if (panier.size() > 0)
 	    {
-	        //Sinon on v�rifie si le produit est d�j� pr�sent dans le panier.
+	        //Sinon on verifie si le produit est deja present dans le panier.
 	        for (CartProduct cp : panier)
 	        {
-	            //Si le produit est d�j� pr�sent dans le panier on met � jour la quantit� (qui ne doit pas d�passer la quantit� en stock du produit).
+	            //Si le produit est deja present dans le panier on met a jour la quantite (qui ne doit pas depasser la quantite en stock du produit).
 	            if (cp.getProduct().getIdProduct().equals(productToAdd.getIdProduct()))
 	            {
 	                ajoutPanier = false;
@@ -90,7 +86,7 @@ public class ManagedBeanCart {
 	                }
 	                cp.setQuantity(nouvelleQuantite);
 	                
-	                context.addMessage(null, new FacesMessage("Produit(s) ajout�(s)", nouvelleQuantite+" "+mbProduct.getProductRef().getProductName()+" ajout�(s) au panier" ) );
+	                context.addMessage(null, new FacesMessage("Produit(s) ajouté(s)", nouvelleQuantite+" "+mbProduct.getProductRef().getProductName()+" ajouté(s) au panier" ) );
 	            }
 	        }
 	    }
@@ -102,7 +98,7 @@ public class ManagedBeanCart {
 	        cartProduct.setProduct(productToAdd);
 	        panier.add(cartProduct);
 	        
-	        context.addMessage(null, new FacesMessage("Produit(s) ajout�(s)", quantity+" "+mbProduct.getProductRef().getProductName()+" ajout�(s) au panier" ) );
+	        context.addMessage(null, new FacesMessage("Produit(s) ajouté(s)", quantity+" "+mbProduct.getProductRef().getProductName()+" ajouté(s) au panier" ) );
 	    }
 	
 	}
@@ -138,11 +134,6 @@ public class ManagedBeanCart {
 			cartProductQuantity--;
 		} else {
 			cartProductQuantity = 1;
-			// plus besoin de le supprimer de la liste car le user met 
-			//au minimum la qtt 1, sinon il est assez intelligent pour 
-			//le supprimer s'il en veut '0' article
-			//			deleteProductFromCart(idProduct);
-			//			proxyCart.deleteProductFromCart(cartProduct);
 		}
 		cartProduct.setQuantity(cartProductQuantity);
 	}
@@ -215,14 +206,6 @@ public class ManagedBeanCart {
 
 	public void setPanier(List<CartProduct> panier) {
 		this.panier = panier;
-	}
-
-	public UserBean getUserBean() {
-		return userBean;
-	}
-
-	public void setUserBean(UserBean userBean) {
-		this.userBean = userBean;
 	}
 
 	public Cart generateCart(User user) {

@@ -22,8 +22,16 @@
 						<h:outputLabel value="#{mbAnnonce.sdf.format(mbAnnonce.date)}"
 							class="advertInput" />
 
-						<h:outputLabel value="Référence du produit : " class="advertLabel" />
+						<h:outputLabel value="Catégorie : " class="advertLabel" />
 						<p:selectOneMenu style="width: 50%;"
+							value="#{mbAnnonce.idCategorieSelected}">
+							<f:selectItems var="item" value="#{mbDataLoader.listeCategories}"
+								itemLabel="#{item.categoryName}" itemValue="#{item.idCategory}" />
+							<f:ajax render="listeProductRef" listener="#{mbAnnonce.listeProductRef()}"/>
+						</p:selectOneMenu>
+
+						<h:outputLabel value="Référence du produit : " class="advertLabel" />
+						<p:selectOneMenu style="width: 50%;" id="listeProductRef"
 							value="#{mbAnnonce.newProduct.productRef.idProductRef}">
 							<f:selectItems var="item" value="#{mbAnnonce.listeProduitRef}"
 								itemLabel="#{item.productName}" itemValue="#{item.idProductRef}" />
