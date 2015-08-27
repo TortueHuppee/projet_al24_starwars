@@ -88,9 +88,17 @@ public class AnnonceManagedBean {
         return "login.xhtml?faces-redirect=true";
 	}
 
-	// M�thodes
-	public void initialiseDonnees()
+	// Methodes
+	public void listeProductRef()
     {
+        listeProduitRef = proxyCatalog.getProductRefByCategory(idCategorieSelected);
+    }
+    
+    public void initialiseDonnees()
+    {
+        idCategorieSelected = 1;
+        listeProduitRef = proxyCatalog.getProductRefByCategory(idCategorieSelected);
+	    
 	    listeProduitRef = proxyCatalog.getAllProductRef();
         
         newProduct = new Product();
