@@ -77,6 +77,7 @@
 		<module>manufactureBUSINESS</module>
 		<module>manufactureWEB</module>
 		<module>manufactureFACADE</module>
+		<module>manufactureWEB_JSF2</module>
 	</modules>
 	<build>
 		<plugins>
