@@ -4,12 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
-import javax.faces.context.FacesContext;
-
 import org.apache.log4j.Logger;
 
 import manufacture.entity.cart.CartProduct;
@@ -18,7 +15,6 @@ import manufacture.entity.cart.RelayPoint;
 import manufacture.entity.user.Address;
 import manufacture.ifacade.cart.IGestionCart;
 import manufacture.ifacade.user.IProfil;
-import manufacture.web.user.LoginBean;
 import manufacture.web.user.ProfilBean;
 import manufacture.web.user.UserBean;
 
@@ -28,9 +24,6 @@ public class StepsCartManagedBean {
 
 	@ManagedProperty(value="#{userBean}")
 	private UserBean userBean;
-	
-	@ManagedProperty(value="#{loginBean}")
-	private LoginBean loginBean;
 	
 	@ManagedProperty(value="#{profilBean}")
 	private ProfilBean profilBean;
@@ -194,14 +187,6 @@ public class StepsCartManagedBean {
 
 	public void setUserBean(UserBean userBean) {
 		this.userBean = userBean;
-	}
-
-	public LoginBean getLoginBean() {
-		return loginBean;
-	}
-
-	public void setLoginBean(LoginBean loginBean) {
-		this.loginBean = loginBean;
 	}
 
 	public ManagedBeanCart getMbCart() {

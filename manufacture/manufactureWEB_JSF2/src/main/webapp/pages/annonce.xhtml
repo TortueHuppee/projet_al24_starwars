@@ -1,9 +1,9 @@
 <ui:composition template="/layouts/master_layout.xhtml"
 	xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:p="http://primefaces.org/ui"
-	xmlns:ui="http://java.sun.com/jsf/facelets">
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
 	<ui:define name="stylesheets">
 		<h:outputStylesheet name="signInCss.css" library="css" />
@@ -51,12 +51,16 @@
 						</p:selectOneMenu>
 
 						<h:outputLabel value="Prix (crédits) : " class="advertLabel" />
-						<input type="number" value="#{mbAnnonce.newProduct.price}"
-							class="advertInput" />
+						<h:inputText value="#{mbAnnonce.newProduct.price}"
+							class="advertInput"/>
+<!-- 						<input type="number" value="#{mbAnnonce.newProduct.price}" -->
+<!-- 							class="advertInput" /> -->
 
 						<h:outputLabel value="Quantité : " class="advertLabel" />
-						<input type="number" value="#{mbAnnonce.newProduct.stock}"
+						<h:inputText value="#{mbAnnonce.newProduct.stock}"
 							class="advertInput" />
+<!-- 						<input type="number" value="#{mbAnnonce.newProduct.stock}" -->
+<!-- 							class="advertInput" /> -->
 
 						<h:outputLabel value="Commentaire : " class="advertLabel" />
 						<h:inputTextarea value="#{mbAnnonce.newProduct.sellerComment}"
@@ -64,11 +68,8 @@
 						<h:outputLabel class="messageErreur"
 							value="#{mbAnnonce.messageErreur}" />
 
-
-						<h:commandButton value="Déposer"
-							action="#{mbAnnonce.validationFormulaire()}" update="signinForm" />
 						<p:commandButton
-							actionListener="#{mbAnnonce.validationFormulaire()}"
+							action="#{mbAnnonce.validationFormulaire()}"
 							value="Déposer l'annonce" update="signinForm" />
 					</div>
 				</div>
