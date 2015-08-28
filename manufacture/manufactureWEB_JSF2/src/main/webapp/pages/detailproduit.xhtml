@@ -21,7 +21,7 @@
 			<h2>
 				<h:outputLabel value="#{mbProduct.productRef.productName}" />
 				
-				<p:commandButton update="growl" value="Ajouter au panier" action="#{mbCart.addProductToCart(mbProduct.produitAffiche)}"/>
+				<p:commandButton update=":myForm" value="Ajouter au panier" action="#{mbCart.addProductToCart(mbProduct.produitAffiche)}"/>
 			</h2>
 			<img src="#{mbProduct.productRef.urlImage}" />
 			<fieldset> 
