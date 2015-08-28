@@ -8,11 +8,8 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
 
 import manufacture.entity.cart.Cart;
-import manufacture.entity.cart.CartProduct;
 import manufacture.entity.user.Address;
 import manufacture.entity.user.User;
 import manufacture.ifacade.cart.IPaiement;
@@ -56,6 +53,10 @@ public class PaymentBean {
 
     @ManagedProperty(value="#{paiement}")
     private IPaiement paiementFacade;
+    
+    private Cart panierValide;
+    private double prixArticlePanierValide;
+    private double prixTotalPanierValide;
 
     @PostConstruct
     public void init() {
@@ -121,21 +122,14 @@ public class PaymentBean {
         commande.setCartProducts(mbSteps.getListeProduitsAutorises());
         commande.setAddressBilling(adresseFacturation);
 
-        paiementFacade.processPaiement(commande);
+        panierValide = paiementFacade.processPaiement(commande);
+        prixArticlePanierValide = mbSteps.getCartPrice();
+        prixTotalPanierValide = mbSteps.getTotalPrice();
         profilBean.initialiserAchats();
 
-        mbCart.setPanier(new ArrayList<CartProduct>());
+        mbCart.init();
+//        mbCart.setPanier(new ArrayList<CartProduct>());
         return "panierStep4.xhtml?faces-redirect=true";
-    }
-
-    public String processPayment(){
-        if(!userBean.isLogged()){
-            FacesMessage fm = new FacesMessage("Erreur", "Vous devez vous connecter pour proc�der au paiement");
-            FacesContext.getCurrentInstance().addMessage(null, fm);
-            loginBean.setRedirect("panierStep1.xhtml?faces-redirect=true");
-            return "login.xhtml?faces-redirect=true";
-        } 
-        return "panierStep1.xhtml?faces-redirect=true";
     }
 
     @Override
@@ -271,5 +265,29 @@ public class PaymentBean {
 
     public void setMbSteps(StepsCartManagedBean paramMbSteps) {
         mbSteps = paramMbSteps;
+    }
+
+    public Cart getPanierValide() {
+        return panierValide;
+    }
+
+    public void setPanierValide(Cart paramPanierValide) {
+        panierValide = paramPanierValide;
+    }
+
+    public double getPrixArticlePanierValide() {
+        return prixArticlePanierValide;
+    }
+
+    public void setPrixArticlePanierValide(double paramPrixArticlePanierValide) {
+        prixArticlePanierValide = paramPrixArticlePanierValide;
+    }
+
+    public double getPrixTotalPanierValide() {
+        return prixTotalPanierValide;
+    }
+
+    public void setPrixTotalPanierValide(double paramPrixTotalPanierValide) {
+        prixTotalPanierValide = paramPrixTotalPanierValide;
     }
 }

@@ -15,19 +15,113 @@
 			<div class="product-description">
 
 				<p:steps activeIndex="3" styleClass="custom" readonly="false">
-					<p:menuitem value="Mon panier" action="/pages/panierStep1" />
-					<p:menuitem value="Livraison" action="/pages/panierStep2" />
-					<p:menuitem value="Paiement" action="/pages/panierStep3" />
-					<p:menuitem value="Récapitulatif"  />
+					<p:menuitem value="Mon panier" />
+					<p:menuitem value="Livraison" />
+					<p:menuitem value="Paiement" />
+					<p:menuitem value="Récapitulatif" />
 				</p:steps>
-				
-				<h:outputLabel value="Commande validée en cours de préparation" />
-				on informe juste l'utilisateur que la commande a été passée avec succès (on fait le paiement refusé sur la même page ?)
-				et on met un récapitulatif de la commande passée : produit, prix total, prix produit, quantité,
-				moyen de transport, mode de paiement, date, adresses, nom, prénom, société de l'utilisateur				
+
+				<h:outputLabel value="Paiement effectué. &lt;br/&gt;" />
+				<h:outputLabel
+					value="Votre commande a été validée et est en cours de préparation" />
+
+				<h2>
+					<h:outputLabel value="Récapitulatif de la commande" />
+				</h2>
+
+				<!-- Articles achetes -->
+				<fieldset>
+					<legend> Articles achetés </legend>
+
+					<table>
+						<tr>
+							<th>Produit</th>
+							<th>Options</th>
+							<th>Quantité</th>
+							<th>Sous-total (Crédits)</th>
+						</tr>
+
+						<ui:repeat var="produit" value="#{paymentBean.panierValide.cartProducts}">
+							<tr>
+								<td><img src="#{produit.product.productRef.urlImage}" /> <h:outputLabel
+										value="#{produit.product.productRef.productName}"
+										class="titreArticle" /> <h:outputLabel
+										value="#{mbProduct.DoubleFormat(produit.product.price)} Crédits"
+										class="prixArticle" /></td>
+
+								<td><h:outputLabel value="Catégorie" class="titre" /> : <h:outputLabel
+										value="#{produit.product.productRef.category.categoryName}"
+										class="valeur" /> <h:outputLabel value="Couleur"
+										class="titre" /> : <h:outputLabel
+										value="#{produit.product.color.colorName}" class="valeur" />
+									<h:outputLabel value="Matériaux" class="titre" /> : <h:outputLabel
+										value="#{produit.product.material.materialName}"
+										class="valeur" /></td>
+
+								<td><h:outputLabel value="#{produit.quantity}" class="prix" />
+								</td>
+
+								<td><h:outputLabel
+										value="#{mbProduct.DoubleFormat(mbCart.getSubTotalPrice(produit.product.idProduct))}"
+										class="prix" /></td>
+
+							</tr>
+						</ui:repeat>
+
+					</table>
+
+					<div class="recapCommande">
+						<h:outputLabel value="#{mbProduct.DoubleFormat(paymentBean.prixArticlePanierValide)}" class="prix"/>
+						<h:outputLabel value="Total des articles (crédits) :" class="titre"/>
+					</div>
+				</fieldset>
+
+				<fieldset>
+					<legend> Livraison </legend>
+					
+					<h:outputLabel value="Moyen de livraison : " />
+					<h:outputLabel class="monAdresse" value="#{paymentBean.panierValide.delivery.deliveryMethod} 
+					(#{paymentBean.panierValide.delivery.deliveryPrice} Crédits)"/>
+					
+					<h:outputLabel value="Adresse de livraison : " />
+					<h:outputLabel class="monAdresse" escape="false"
+										value="#{paymentBean.panierValide.addressDelivery.number}  
+										#{paymentBean.panierValide.addressDelivery.street}&lt;br/&gt;"/>
+					<h:outputLabel class="monAdresse" escape="false"
+										value="#{paymentBean.panierValide.addressDelivery.city.postalCode} 
+										#{paymentBean.panierValide.addressDelivery.city.cityName.toUpperCase()}&lt;br/&gt;"/>
+					<h:outputLabel class="monAdresse" escape="false"
+										value="#{paymentBean.panierValide.addressDelivery.city.country.countryName.toUpperCase()}"/>
+					
+					<div class="recapCommande">
+						<h:outputLabel value="#{mbProduct.DoubleFormat(paymentBean.prixTotalPanierValide)}" class="prix"/>
+						<h:outputLabel value="Total de la commande (crédits) :" class="titre"/>
+					</div>
+				</fieldset>
+
+				<fieldset>
+					<legend> Paiement (faire 2 fieldset ici selon le type de paiement choisi)</legend>
+					
+					<h:outputLabel value="Moyen de paiement : " />
+					<h:outputLabel class="monAdresse" value="#{paymentBean.panierValide.paymentType.name}"/>
+					
+					<h:outputLabel value="Date de paiement : " />
+					<h:outputLabel value="#{paymentBean.panierValide.datePayment}" />
+					
+					<h:outputLabel value="Numéro de transaction bancaire : " />
+					<h:outputLabel value="#{paymentBean.panierValide.transactionNumber}" />
+					
+					<h:outputLabel value="Adresse de livraison : " />
+					<h:outputLabel class="monAdresse" escape="false"
+										value="#{paymentBean.panierValide.addressBilling.number}  
+										#{paymentBean.panierValide.addressBilling.street}&lt;br/&gt;"/>
+					<h:outputLabel class="monAdresse" escape="false"
+										value="#{paymentBean.panierValide.addressBilling.city.postalCode} 
+										#{paymentBean.panierValide.addressBilling.city.cityName.toUpperCase()}&lt;br/&gt;"/>
+					<h:outputLabel class="monAdresse" escape="false"
+										value="#{paymentBean.panierValide.addressBilling.city.country.countryName.toUpperCase()}"/>
+				</fieldset>
 			</div>
 		</h:form>
 	</ui:define>
-
-
 </ui:composition>

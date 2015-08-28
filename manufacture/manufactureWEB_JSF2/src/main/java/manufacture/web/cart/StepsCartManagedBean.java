@@ -146,8 +146,6 @@ public class StepsCartManagedBean {
 			{
 				adresseLivraison = new Address();
 			}
-			
-			
 		}
 	}
 

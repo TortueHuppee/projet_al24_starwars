@@ -100,7 +100,7 @@ public class ManagedBeanCart {
 	        
 	        context.addMessage(null, new FacesMessage("Produit(s) ajouté(s)", quantity+" "+mbProduct.getProductRef().getProductName()+" ajouté(s) au panier" ) );
 	    }
-	
+	    quantity = 1;
 	}
 
 	public CartProduct getProductFromCartListeById(int idProduct) {
