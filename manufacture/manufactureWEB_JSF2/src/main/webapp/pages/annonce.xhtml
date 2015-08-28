@@ -52,15 +52,19 @@
 
 						<h:outputLabel value="Prix (crédits) : " class="advertLabel" />
 						<h:inputText value="#{mbAnnonce.newProduct.price}"
-							class="advertInput"/>
-<!-- 						<input type="number" value="#{mbAnnonce.newProduct.price}" -->
-<!-- 							class="advertInput" /> -->
+							class="advertInput" id="prix">
+							<f:converter converterId="manufacture.web.util.IntegerConverter"/>
+<!-- 							<f:validator validatorId="manufacture.web.util.IntegerValidator" /> -->
+						</h:inputText>
+						<h:message for="prix" class="messageErreur"/>
 
 						<h:outputLabel value="Quantité : " class="advertLabel" />
-						<h:inputText value="#{mbAnnonce.newProduct.stock}"
-							class="advertInput" />
-<!-- 						<input type="number" value="#{mbAnnonce.newProduct.stock}" -->
-<!-- 							class="advertInput" /> -->
+						<h:inputText value="#{mbAnnonce.newProduct.stock}" 
+							class="advertInput" id="stock">
+							<f:converter converterId="manufacture.web.util.IntegerConverter"/>
+<!-- 							<f:validator validatorId="manufacture.web.util.IntegerValidator" /> -->
+						</h:inputText>
+						<h:message for="stock" class="messageErreur"/>
 
 						<h:outputLabel value="Commentaire : " class="advertLabel" />
 						<h:inputTextarea value="#{mbAnnonce.newProduct.sellerComment}"
@@ -71,6 +75,7 @@
 						<p:commandButton
 							action="#{mbAnnonce.validationFormulaire()}"
 							value="Déposer l'annonce" update="signinForm" />
+							<h:commandButton value="clic" />
 					</div>
 				</div>
 			</h:form>
