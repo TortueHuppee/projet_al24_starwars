@@ -49,13 +49,13 @@
 							</td>
 							
 							<td>							
-								<h:commandButton value="-" action="#{mbCart.decrementProductQuantity(produit.product.idProduct)}" />
-								<h:outputLabel value="#{produit.quantity}" class="prix"/>
-								<h:commandButton value="+" action="#{mbCart.incrementProductQuantity(produit.product.idProduct)}" />
+								<h:commandButton value="-" action="#{mbCart.decrementProductQuantity(produit)}" />
+									<h:outputLabel value="#{produit.quantity}" class="prix"/>
+								<h:commandButton value="+" action="#{mbCart.incrementProductQuantity(produit)}" />
 							</td>
 							
 							<td>
-								<h:outputLabel value="#{mbProduct.DoubleFormat(mbCart.getSubTotalPrice(produit.product.idProduct))}" class="prix"/>
+								<h:outputLabel value="#{mbProduct.DoubleFormat(mbCart.getSubTotalPrice(produit))}" class="prix"/>
 							</td>
 							
 							<td>
@@ -68,9 +68,9 @@
 				</table>
 
 				<div class="recapCommande">
-					<h:outputLabel value="#{mbProduct.DoubleFormat(mbCart.getTotalPrice())}" class="prix"/>
+					<h:outputLabel value="#{mbProduct.DoubleFormat(mbCart.getTotalPrice(mbCart.panier))}" class="prix"/>
 					<h:outputLabel value="Prix total (crédits) :" class="titre"/>
-					<p:commandButton value="Passer Commande" action="#{mbNavigation.accessVisualisationPanier()}" />
+					<p:commandButton value="Passer Commande" action="#{navigationBean.accessVisualisationPanier()}" />
 				</div>  
 
 

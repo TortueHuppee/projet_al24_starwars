@@ -1,5 +1,6 @@
 package manufacture.web.cart;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -57,9 +58,12 @@ public class PaymentBean {
     private Cart panierValide;
     private double prixArticlePanierValide;
     private double prixTotalPanierValide;
+    
+    private SimpleDateFormat sdf;
 
     @PostConstruct
     public void init() {
+        sdf = new SimpleDateFormat("dd/MM/yyyy");
         cardNumber = "";
         pin = "";
         expirationDate = "";
@@ -289,5 +293,13 @@ public class PaymentBean {
 
     public void setPrixTotalPanierValide(double paramPrixTotalPanierValide) {
         prixTotalPanierValide = paramPrixTotalPanierValide;
+    }
+
+    public SimpleDateFormat getSdf() {
+        return sdf;
+    }
+
+    public void setSdf(SimpleDateFormat paramSdf) {
+        sdf = paramSdf;
     }
 }

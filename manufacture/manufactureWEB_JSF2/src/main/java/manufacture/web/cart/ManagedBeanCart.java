@@ -103,21 +103,7 @@ public class ManagedBeanCart {
 	    quantity = 1;
 	}
 
-	public CartProduct getProductFromCartListeById(int idProduct) {
-		CartProduct result = new CartProduct();
-		for (CartProduct cartProduct : panier) {
-			if (cartProduct.getProduct().getIdProduct() == idProduct) {
-				result = cartProduct;
-				break;
-			}
-		}
-		return result;
-	}
-
-	// verifier que l'id retourne est bien celui du produit en question
-	// eventuellement ajouter l'id en parametre
-	public void incrementProductQuantity(int idProduct) {
-		CartProduct cartProduct = getProductFromCartListeById(idProduct);
+	public void incrementProductQuantity(CartProduct cartProduct) {
 		int cartProductQuantity = cartProduct.getQuantity();
 		if (cartProductQuantity < cartProduct.getProduct().getStock()) {
 			cartProductQuantity++;
@@ -127,8 +113,7 @@ public class ManagedBeanCart {
 		cartProduct.setQuantity(cartProductQuantity);
 	}
 
-	public void decrementProductQuantity(int idProduct) {
-		CartProduct cartProduct = getProductFromCartListeById(idProduct);
+	public void decrementProductQuantity(CartProduct cartProduct) {
 		int cartProductQuantity = cartProduct.getQuantity();
 		if (cartProductQuantity > 1) {
 			cartProductQuantity--;
@@ -138,8 +123,7 @@ public class ManagedBeanCart {
 		cartProduct.setQuantity(cartProductQuantity);
 	}
 
-	public void upadateProductQuantityWithSpinner(int idProduct, int newQuantity){
-		CartProduct cartProduct = getProductFromCartListeById(idProduct);
+	public void upadateProductQuantityWithSpinner(CartProduct cartProduct, int newQuantity){
 		cartProduct.setQuantity(newQuantity);
 	}
 
@@ -148,17 +132,16 @@ public class ManagedBeanCart {
 		log.info("Quantit� = " + quantity);
 	}
 
-	public double getSubTotalPrice(int idProduct) {
+	public double getSubTotalPrice(CartProduct cartProduct) {
 		double subTotalPrice = 0 ;
-		CartProduct cartProduct = getProductFromCartListeById(idProduct);
 		subTotalPrice = cartProduct.getProduct().getPrice() * cartProduct.getQuantity();
 		return subTotalPrice;
 	}
 
-	public double getTotalPrice() {
+	public double getTotalPrice(Cart cart) {
 		double totalPrice = 0 ;
-		for (CartProduct cp : panier) {
-			totalPrice += getSubTotalPrice(cp.getProduct().getIdProduct());
+		for (CartProduct cp : cart.getCartProducts()) {
+			totalPrice += getSubTotalPrice(cp);
 		}
 		total = totalPrice;
 		return totalPrice;
@@ -176,6 +159,8 @@ public class ManagedBeanCart {
 		panier.removeAll(panier);
 	}
 
+	//Getters et Setters
+	
 	public int getIdSelectedProduct() {
 		return idSelectedProduct;
 	}

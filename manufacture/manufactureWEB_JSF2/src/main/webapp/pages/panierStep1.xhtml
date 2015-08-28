@@ -57,18 +57,18 @@
 							</td>
 							
 							<td>							
-								<h:commandButton value="-" action="#{mbCart.decrementProductQuantity(produit.product.idProduct)}" />
-								<h:outputLabel value="#{produit.quantity}" class="prix"/>
-								<h:commandButton value="+" action="#{mbCart.incrementProductQuantity(produit.product.idProduct)}" />
+								<h:commandButton value="-" action="#{mbCart.decrementProductQuantity(produit)}" />
+									<h:outputLabel value="#{produit.quantity}" class="prix"/>
+								<h:commandButton value="+" action="#{mbCart.incrementProductQuantity(produit)}" />
 							</td>
 							
 							<td>
-								<h:outputLabel value="#{mbProduct.DoubleFormat(mbCart.getSubTotalPrice(produit.product.idProduct))}" class="prix"/>
+								<h:outputLabel value="#{mbProduct.DoubleFormat(mbCart.getSubTotalPrice(produit))}" class="prix"/>
 							</td>
 							
 							<td>
 								<h:commandButton image="../resources/images/delete.png" 
-								action="#{mbCart.deleteProductFromCart(produit.product.idProduct)}" update=":myForm" />
+								action="#{mbCart.deleteProductFromCart(produit)}" update=":myForm" />
 							</td>
 						</tr>
 					</ui:repeat>
@@ -116,7 +116,7 @@
 							</td>
 							
 							<td>
-								<h:outputLabel value="#{mbProduct.DoubleFormat(mbCart.getSubTotalPrice(produit.product.idProduct))}" class="prix"/>
+								<h:outputLabel value="#{mbProduct.DoubleFormat(mbCart.getSubTotalPrice(produit))}" class="prix"/>
 							</td>
 						</tr>
 						

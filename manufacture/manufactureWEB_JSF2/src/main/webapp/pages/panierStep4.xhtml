@@ -7,7 +7,7 @@
 
 
 	<ui:define name="stylesheets">
-		<h:outputStylesheet name="panierCss.css" library="css" />
+		<h:outputStylesheet name="panierCssStep3.css" library="css" />
 	</ui:define>
 
 	<ui:define name="main-body">
@@ -21,7 +21,7 @@
 					<p:menuitem value="Récapitulatif" />
 				</p:steps>
 
-				<h:outputLabel value="Paiement effectué. &lt;br/&gt;" />
+				<h:outputLabel value="Paiement effectué. &lt;br/&gt;" escape="false"/>
 				<h:outputLabel
 					value="Votre commande a été validée et est en cours de préparation" />
 
@@ -62,7 +62,7 @@
 								</td>
 
 								<td><h:outputLabel
-										value="#{mbProduct.DoubleFormat(mbCart.getSubTotalPrice(produit.product.idProduct))}"
+										value="#{mbProduct.DoubleFormat(mbCart.getSubTotalPrice(produit))}"
 										class="prix" /></td>
 
 							</tr>
@@ -100,13 +100,13 @@
 				</fieldset>
 
 				<fieldset>
-					<legend> Paiement (faire 2 fieldset ici selon le type de paiement choisi)</legend>
+					<legend> Paiement (faire 2 panelgroup ici selon le type de paiement choisi)</legend>
 					
 					<h:outputLabel value="Moyen de paiement : " />
 					<h:outputLabel class="monAdresse" value="#{paymentBean.panierValide.paymentType.name}"/>
 					
 					<h:outputLabel value="Date de paiement : " />
-					<h:outputLabel value="#{paymentBean.panierValide.datePayment}" />
+					<h:outputLabel value="#{paymentBean.sdf.format(paymentBean.panierValide.datePayment)}" />
 					
 					<h:outputLabel value="Numéro de transaction bancaire : " />
 					<h:outputLabel value="#{paymentBean.panierValide.transactionNumber}" />

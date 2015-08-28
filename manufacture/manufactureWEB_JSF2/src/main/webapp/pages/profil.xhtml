@@ -399,14 +399,14 @@
 									<f:facet name="header">
 										Date de commande
 									</f:facet>
-									<h:outputLabel value="#{cart.dateCommande}" />
+									<h:outputLabel value="#{paymentBean.sdf.format(cart.dateCommande)}" />
 								</h:column>
 								
 								<h:column>
 									<f:facet name="header">
 										Prix de la commande
 									</f:facet>
-									<h:outputLabel value="Fonction à faire pour calculer le total d'une commande" />
+									<h:outputLabel value="#{mbCart.getTotalPrice(cart)}" />
 								</h:column>
 								
 								<h:column>

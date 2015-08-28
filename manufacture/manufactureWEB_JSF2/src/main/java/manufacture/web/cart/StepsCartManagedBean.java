@@ -149,24 +149,6 @@ public class StepsCartManagedBean {
 		}
 	}
 
-	public void augmenterQuantite(int idProduct)
-	{
-		mbCart.incrementProductQuantity(idProduct);
-		initialisationDonnees();
-	}
-	
-	public void diminueQuantite(int idProduct)
-	{
-		mbCart.decrementProductQuantity(idProduct);
-		initialisationDonnees();
-	}
-	
-	public void modifieQuantite(int idProduct, int newQuantity)
-	{
-		mbCart.upadateProductQuantityWithSpinner(idProduct, newQuantity);
-		initialisationDonnees();
-	}
-	
 	public double getTotalPrice() {
 		cartPrice = 0 ;
 		totalPrice = 0;

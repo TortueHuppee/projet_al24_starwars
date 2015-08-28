@@ -31,13 +31,13 @@ public class SignUpBean {
 	private UserBean userBean;
 	
 	/**
-	 * Informations à renseigner sur l'utilisateur :
+	 * Informations ï¿½ renseigner sur l'utilisateur :
 	 */
 	private Civility civilite;
 	private UserRole role;
 	
 	/**
-	 * Informations rentrées par l'utilisateur :
+	 * Informations rentrï¿½es par l'utilisateur :
 	 */
 	private String login;
 	private String motDePasse;
@@ -87,11 +87,11 @@ public class SignUpBean {
 		domaineActivite = "";
 	}
 
-	//Méthodes
+	//Mï¿½thodes
 	
 	/**
-	 * Vérifie que l'utilisateur est unique et l'enregistre automatiquement.
-	 * Connecte automatiquement l'utilisateur si la création se fait.
+	 * Vï¿½rifie que l'utilisateur est unique et l'enregistre automatiquement.
+	 * Connecte automatiquement l'utilisateur si la crï¿½ation se fait.
 	 * @return String
 	 */
 	public String createUser()
@@ -132,8 +132,8 @@ public class SignUpBean {
 	} 
 	
 	/**
-	 * Méthode vérifiant les informations entrées par l'utilisateur et comptant le nombre d'erreurs.
-	 * Si le nombre d'erreur est de zéro, l'utilisateur est enregistré dans la base de données.
+	 * Mï¿½thode vï¿½rifiant les informations entrï¿½es par l'utilisateur et comptant le nombre d'erreurs.
+	 * Si le nombre d'erreur est de zï¿½ro, l'utilisateur est enregistrï¿½ dans la base de donnï¿½es.
 	 * @return String
 	 */
 	public String validationFormulaire()
@@ -169,7 +169,7 @@ public class SignUpBean {
 		{
 			if (proxyInscription.loginAlreadyExisting(login))
 			{
-				messageErreurLogin = "Ce login est déjà utilisé";
+				messageErreurLogin = "Ce login est dÃ©jÃ  utilisÃ©";
 				return 1;
 			}
 			else
@@ -212,7 +212,7 @@ public class SignUpBean {
 	{
 		if (prenom.equals(""))
 		{
-			messageErreurPrenom = "Veuillez indiquer un prénom";
+			messageErreurPrenom = "Veuillez indiquer un prÃ©nom";
 			return 1;
 		}
 		else
@@ -233,14 +233,14 @@ public class SignUpBean {
 		{
 			if (!email.contains("@"))
 			{
-				messageErreurEmail = "Mail invalide, veuillez vérifier votre saisie";
+				messageErreurEmail = "Mail invalide, veuillez vÃ©rifier votre saisie";
 				return 1;
 			}
 			else
 			{
 				if (proxyInscription.emailAlreadyExisting(email))
 				{
-					messageErreurEmail = "Cet email est déjà utilisé";
+					messageErreurEmail = "Cet email est dÃ©jÃ  utilisÃ©";
 					return 1;
 				}
 				else
@@ -270,7 +270,7 @@ public class SignUpBean {
     {
         if (domaineActivite.equals(""))
         {
-            messageErreurDomaineActivite = "Veuillez indiquer votre domaine d'activité";
+            messageErreurDomaineActivite = "Veuillez indiquer votre domaine d'activitÃ©";
             return 1;
         }
         else
