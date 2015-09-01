@@ -3,6 +3,7 @@ package manufacture.dao.cart;
 import java.util.ArrayList;
 import java.util.List;
 
+import manufacture.entity.cart.Cart;
 import manufacture.entity.cart.CartProduct;
 import manufacture.entity.product.Product;
 import manufacture.entity.user.User;
@@ -23,8 +24,6 @@ public class DaoProductCart implements IDaoProductCart {
 	private Logger log = Logger.getLogger(DaoProductCart.class);
 	private SessionFactory sf;
 	
-	private String requestUpdateOptionsProduct = "UPDATE CartProduct cp set cp.product = :newProduct where cp.idCartProduct = :idCartProduct";
-	private String requestUpdateQuantityProduct = "UPDATE CartProduct cp set cp.quantity = :newQuantity where cp.idCartProduct = :idCartProduct";
 	private String requestGetAllProductByCart = "SELECT cp.product FROM CartProduct cp WHERE cp.cart.idCart = :idCart";
 	private String requestGetAllUsedProductByCart = "SELECT cp.product FROM CartProduct cp WHERE cp.cart.idCart = :idCart AND cp.cart.class = 'used_product'";
 	private String requestGetAllConstructorProductByCart = "SELECT cp.product FROM CartProduct cp WHERE cp.cart.idCart = :idCart AND cp.cart.class = 'constructor_product'";
@@ -47,7 +46,6 @@ public class DaoProductCart implements IDaoProductCart {
 
 	@Override
 	public List<Product> getAllProductByCart(int idCart) {
-		
 		Session session = sf.getCurrentSession();
 		Query hql = session.createQuery(requestGetAllProductByCart);
 		hql.setParameter("idCart", idCart);
@@ -114,6 +112,23 @@ public class DaoProductCart implements IDaoProductCart {
 		
 		return result;
 	}
+	
+    @Override
+    public List<CartProduct> getCartProductByCart(Cart cart) {
+        Session session = sf.getCurrentSession();
+        Query hql = session.createQuery("SELECT c FROM CartProduct c WHERE c.cart.idCart = :paramId");
+        hql.setParameter("paramId", cart.getIdCart());
+        List<CartProduct> resultat = hql.list();
+        
+        if (resultat.size() == 0)
+        {
+            return new ArrayList<CartProduct>();
+        }
+        else
+        {
+            return resultat;
+        }
+    }
 
 	public SessionFactory getSf() {
 		return sf;

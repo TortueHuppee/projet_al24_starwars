@@ -30,6 +30,11 @@
 				<f:ajax listener="#{mbCatalog.reverseTrierParPrix()}" render=":myForm" event="click" />
 			</p:commandButton>
 			
+			<!-- Filtre recherche par nom -->
+			<p:inputText value="#{mbCatalog.rechercheNom}" placeholder="Rechercher par nom ...">
+				<f:ajax listener="#{mbCatalog.initialisationListesAffichees()}" render=":myForm" event="keyup"/>
+			</p:inputText>
+			
 			<!-- Filtre Couleur -->
 			<p:selectOneMenu value="#{mbCatalog.idColorSelected}" style="width:96%">
 				<f:selectItem	itemLabel="Sélectionner une couleur"

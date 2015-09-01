@@ -7,12 +7,12 @@
 
 
 	<ui:define name="stylesheets">
-		<h:outputStylesheet name="panierCssStep3.css" library="css" />
+		<h:outputStylesheet name="panierCssStep4.css" library="css" />
 	</ui:define>
 
 	<ui:define name="main-body">
 		<h:form id="myForm">
-			<div class="product-description">
+			<div class="product-description"> 
 
 				<p:steps activeIndex="3" styleClass="custom" readonly="false">
 					<p:menuitem value="Mon panier" />
@@ -21,16 +21,15 @@
 					<p:menuitem value="Récapitulatif" />
 				</p:steps>
 
-				<h:outputLabel value="Paiement effectué. &lt;br/&gt;" escape="false"/>
-				<h:outputLabel
-					value="Votre commande a été validée et est en cours de préparation" />
+				<h:outputLabel value="Paiement effectué. &lt;br/&gt;
+				Votre commande a été validée et est en cours de préparation" escape="false" class="labelSuccess"/>
 
 				<h2>
 					<h:outputLabel value="Récapitulatif de la commande" />
 				</h2>
 
 				<!-- Articles achetes -->
-				<fieldset>
+				<fieldset class="fielsetArticles">
 					<legend> Articles achetés </legend>
 
 					<table>
@@ -79,19 +78,17 @@
 				<fieldset>
 					<legend> Livraison </legend>
 					
-					<h:outputLabel value="Moyen de livraison : " />
-					<h:outputLabel class="monAdresse" value="#{paymentBean.panierValide.delivery.deliveryMethod} 
-					(#{paymentBean.panierValide.delivery.deliveryPrice} Crédits)"/>
+					<h:outputLabel value="Moyen de livraison : " class="titre"/>
+					<h:outputLabel class="valeur" value="#{paymentBean.panierValide.delivery.deliveryMethod} 
+					(#{paymentBean.panierValide.delivery.deliveryPrice} Crédits)" />
 					
-					<h:outputLabel value="Adresse de livraison : " />
-					<h:outputLabel class="monAdresse" escape="false"
+					<h:outputLabel value="Adresse de livraison : " class="titre"/>
+					<h:outputLabel class="valeurAdresse" escape="false"
 										value="#{paymentBean.panierValide.addressDelivery.number}  
-										#{paymentBean.panierValide.addressDelivery.street}&lt;br/&gt;"/>
-					<h:outputLabel class="monAdresse" escape="false"
-										value="#{paymentBean.panierValide.addressDelivery.city.postalCode} 
-										#{paymentBean.panierValide.addressDelivery.city.cityName.toUpperCase()}&lt;br/&gt;"/>
-					<h:outputLabel class="monAdresse" escape="false"
-										value="#{paymentBean.panierValide.addressDelivery.city.country.countryName.toUpperCase()}"/>
+										#{paymentBean.panierValide.addressDelivery.street}&lt;br/&gt;
+										#{paymentBean.panierValide.addressDelivery.city.postalCode} 
+										#{paymentBean.panierValide.addressDelivery.city.cityName.toUpperCase()}&lt;br/&gt;
+										#{paymentBean.panierValide.addressDelivery.city.country.countryName.toUpperCase()}"/>
 					
 					<div class="recapCommande">
 						<h:outputLabel value="#{mbProduct.DoubleFormat(paymentBean.prixTotalPanierValide)}" class="prix"/>
@@ -100,26 +97,24 @@
 				</fieldset>
 
 				<fieldset>
-					<legend> Paiement (faire 2 panelgroup ici selon le type de paiement choisi)</legend>
+					<legend> Paiement</legend>
 					
-					<h:outputLabel value="Moyen de paiement : " />
-					<h:outputLabel class="monAdresse" value="#{paymentBean.panierValide.paymentType.name}"/>
+					<h:outputLabel class="titre" value="Moyen de paiement : " />
+					<h:outputLabel class="valeur" value="#{paymentBean.panierValide.paymentType.name}"/>
 					
-					<h:outputLabel value="Date de paiement : " />
-					<h:outputLabel value="#{paymentBean.sdf.format(paymentBean.panierValide.datePayment)}" />
+					<h:outputLabel class="titre" value="Date de paiement : " rendered="not(#{paymentBean.panierValide.paymentType.idPayment == 2})"/>
+					<h:outputLabel class="valeur" value="#{paymentBean.sdf.format(paymentBean.panierValide.datePayment)}" rendered="not(#{paymentBean.panierValide.paymentType.idPayment == 2})"/>
 					
-					<h:outputLabel value="Numéro de transaction bancaire : " />
-					<h:outputLabel value="#{paymentBean.panierValide.transactionNumber}" />
+					<h:outputLabel class="titre" value="Numéro de transaction bancaire : " rendered="not(#{paymentBean.panierValide.paymentType.idPayment == 2})"/>
+					<h:outputLabel class="valeur" value="#{paymentBean.panierValide.transactionNumber}" rendered="not(#{paymentBean.panierValide.paymentType.idPayment == 2})"/>
 					
-					<h:outputLabel value="Adresse de livraison : " />
-					<h:outputLabel class="monAdresse" escape="false"
+					<h:outputLabel class="titre" value="Adresse de facturation : " />
+					<h:outputLabel class="valeurAdresse" escape="false"
 										value="#{paymentBean.panierValide.addressBilling.number}  
-										#{paymentBean.panierValide.addressBilling.street}&lt;br/&gt;"/>
-					<h:outputLabel class="monAdresse" escape="false"
-										value="#{paymentBean.panierValide.addressBilling.city.postalCode} 
-										#{paymentBean.panierValide.addressBilling.city.cityName.toUpperCase()}&lt;br/&gt;"/>
-					<h:outputLabel class="monAdresse" escape="false"
-										value="#{paymentBean.panierValide.addressBilling.city.country.countryName.toUpperCase()}"/>
+										#{paymentBean.panierValide.addressBilling.street}&lt;br/&gt;
+										#{paymentBean.panierValide.addressBilling.city.postalCode} 
+										#{paymentBean.panierValide.addressBilling.city.cityName.toUpperCase()}&lt;br/&gt;
+										#{paymentBean.panierValide.addressBilling.city.country.countryName.toUpperCase()}"/>
 				</fieldset>
 			</div>
 		</h:form>

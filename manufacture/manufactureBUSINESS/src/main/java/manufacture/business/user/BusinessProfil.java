@@ -54,8 +54,8 @@ public class BusinessProfil implements IBusinessProfil {
 	@Override
 	public User editUser(User user) {
 		
-		String newPassword = user.getPassword(); //codé en SHA-256 si non changé, sinon pas codé
-		String oldPassword = proxyUser.getPasswordByLogin(user.getLogin()); //codé en SHA-256
+		String newPassword = user.getPassword(); //codï¿½ en SHA-256 si non changï¿½, sinon pas codï¿½
+		String oldPassword = proxyUser.getPasswordByLogin(user.getLogin()); //codï¿½ en SHA-256
 		
 		if (!newPassword.equals(oldPassword))
 		{
@@ -109,6 +109,11 @@ public class BusinessProfil implements IBusinessProfil {
 	public List<Address> getBillingAddressByUser(User user) {
 		return proxyAddress.getBillingAddressByUser(user);
 	}
+	
+    @Override
+    public List<CartProduct> getCartProductByCart(Cart cart) {
+        return proxyCartProduct.getCartProductByCart(cart);
+    }
 	
 	//Proxy
 	

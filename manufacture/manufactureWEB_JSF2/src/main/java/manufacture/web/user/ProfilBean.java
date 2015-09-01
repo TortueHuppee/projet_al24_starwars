@@ -96,6 +96,11 @@ public class ProfilBean {
 	    listeCommandesPassees = new ArrayList<Cart>();
         
         listeCommandesPassees = proxyProfil.getCartByUser(userBean.getUser());
+        
+        for (Cart cart : listeCommandesPassees)
+        {
+            cart.setCartProducts(proxyProfil.getCartProductByCart(cart));
+        }
 	}
 	
 	public void initialiserAdresses()

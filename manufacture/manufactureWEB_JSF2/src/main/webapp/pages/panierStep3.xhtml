@@ -58,10 +58,11 @@
 					<h:outputLabel value="Choisir le mode de paiement : " class="choixPaiement"
 						rendered="#{userBean.user.userRole.idUserRole == 2}" />
 					
-					<p:selectOneMenu value="#{mbCart.cart.paymentType.idPayment}"
+					<p:selectOneMenu value="#{paymentBean.idPaiement}"
 						rendered="#{userBean.user.userRole.idUserRole == 2}">
-						<f:selectItem itemLabel="Paiment immédiat" itemValue="1" />
-						<f:selectItem itemLabel="Paiment différé" itemValue="2" />
+						<f:selectItems var="paiement" value="#{paymentBean.moyensDePaiement}"
+										itemLabel="#{paiement.name}"
+										itemValue="#{paiement.idPayment}"/>
 						<f:ajax render=":myForm" />
 					</p:selectOneMenu>
 

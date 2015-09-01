@@ -7,8 +7,10 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+
 import org.apache.log4j.Logger;
 
+import manufacture.entity.cart.Cart;
 import manufacture.entity.cart.CartProduct;
 import manufacture.entity.cart.Delivery;
 import manufacture.entity.cart.RelayPoint;
@@ -41,6 +43,7 @@ public class StepsCartManagedBean {
 	
 	//Step 1
 	
+	private Cart cartFinal;
 	private List<CartProduct> listeProduitsAutorises;
 	private List<CartProduct> listeProduitsNonAutorises;
 	
@@ -61,6 +64,7 @@ public class StepsCartManagedBean {
 	private List<Delivery> moyensDeLivraisons;
 	private List<RelayPoint> listePointsRelais;
 	private Address adresseLivraison;
+	private Delivery moyenDeLivraisonChoisi;
 	private int idAdressePersonnelle = 0;
 	private int idAdressePointRelais = 0;
 	
@@ -82,17 +86,52 @@ public class StepsCartManagedBean {
 		
 		if (mbCart.getCart().getDelivery().getIdDelivery() == DELIVERY_RELAY_POINTS_ID)
 		{
-			adresseLivraison.setIdAddress(idAdressePointRelais);
+		    adresseLivraison = getRelayPointById(); 
 		}
 		else
 		{
-			adresseLivraison.setIdAddress(idAdressePersonnelle);
+		    adresseLivraison = getAddressById();
 		}
 		mbCart.getCart().setAddressDelivery(adresseLivraison);
+		moyenDeLivraisonChoisi = getDeliveryById();
+		mbCart.getCart().setDelivery(moyenDeLivraisonChoisi);
 		return "panierStep3.xhtml?faces-redirect=true";
 	}
 	
-	public double calculePrixTotal()
+	private Address getRelayPointById() {
+        for (RelayPoint pointRelais : listePointsRelais)
+        {
+            if (idAdressePointRelais == pointRelais.getAddresse().getIdAddress())
+            {
+                return pointRelais.getAddresse();
+            }
+        }
+        return new Address();
+    }
+	
+	private Address getAddressById() {
+	    for (Address address : profilBean.getAdressesTotales())
+	    {
+	        if (idAdressePersonnelle == address.getIdAddress())
+	        {
+	            return address;
+	        }
+	    }
+	    return new Address();
+	}
+	
+	private Delivery getDeliveryById() {
+        for (Delivery moyenLivraison : moyensDeLivraisons)
+        {
+            if (moyenLivraison.getIdDelivery() == mbCart.getCart().getDelivery().getIdDelivery())
+            {
+                return moyenLivraison;
+            }
+        }
+        return new Delivery();
+    }
+
+    public double calculePrixTotal()
 	{
 		double prixTransport = 0;
 		
@@ -109,6 +148,8 @@ public class StepsCartManagedBean {
 	
 	public void initialisationDonnees()
 	{
+	    cartFinal = new Cart();
+	    
 		if (userBean.getUser().getUserRole().getIdUserRole() == USER_PARTICULIER_ROLE_ID)
 		{
 			listeProduitsAutorises = mbCart.getPanier();
@@ -147,15 +188,14 @@ public class StepsCartManagedBean {
 				adresseLivraison = new Address();
 			}
 		}
+		cartFinal.setCartProducts(listeProduitsAutorises);
 	}
 
 	public double getTotalPrice() {
 		cartPrice = 0 ;
-		totalPrice = 0;
 		for (CartProduct cp : listeProduitsAutorises) {
 			cartPrice += cp.getProduct().getPrice() * cp.getQuantity();
 		}
-		totalPrice += cartPrice;
 		return cartPrice;
 	}
 
@@ -304,6 +344,22 @@ public class StepsCartManagedBean {
 
     public static Integer getDeliveryRelayPointsId() {
         return DELIVERY_RELAY_POINTS_ID;
+    }
+
+    public Cart getCartFinal() {
+        return cartFinal;
+    }
+
+    public void setCartFinal(Cart paramCartFinal) {
+        cartFinal = paramCartFinal;
+    }
+
+    public Delivery getMoyenDeLivraisonChoisi() {
+        return moyenDeLivraisonChoisi;
+    }
+
+    public void setMoyenDeLivraisonChoisi(Delivery paramMoyenDeLivraisonChoisi) {
+        moyenDeLivraisonChoisi = paramMoyenDeLivraisonChoisi;
     }
 
 }

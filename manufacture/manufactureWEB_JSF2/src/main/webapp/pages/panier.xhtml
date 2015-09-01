@@ -68,7 +68,7 @@
 				</table>
 
 				<div class="recapCommande">
-					<h:outputLabel value="#{mbProduct.DoubleFormat(mbCart.getTotalPrice(mbCart.panier))}" class="prix"/>
+					<h:outputLabel value="#{mbProduct.DoubleFormat(mbCart.getTotalPrice(mbCart.cart))}" class="prix"/>
 					<h:outputLabel value="Prix total (crédits) :" class="titre"/>
 					<p:commandButton value="Passer Commande" action="#{navigationBean.accessVisualisationPanier()}" />
 				</div>  

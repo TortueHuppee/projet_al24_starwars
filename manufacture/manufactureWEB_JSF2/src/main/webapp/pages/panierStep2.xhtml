@@ -144,7 +144,7 @@
 					
 					<div class="recapCommande">
 						<h:outputLabel
-							value="#{mbProduct.DoubleFormat(mbCart.getTotalPrice())}"
+							value="#{mbProduct.DoubleFormat(mbCart.getTotalPrice(mbSteps.cartFinal))}"
 							class="recapCommande-prix" />
 						<h:outputLabel value="Total articles (crédits) :" class="recapCommande-titre" />
 

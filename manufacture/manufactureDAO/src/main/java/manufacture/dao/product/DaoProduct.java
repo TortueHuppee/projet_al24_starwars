@@ -85,7 +85,7 @@ public class DaoProduct implements IDaoProduct {
 	}
 	public List<Product> getAllProductConstructor(){
 		Session session = sf.getCurrentSession();
-		String requete = "SELECT a FROM Product a WHERE a.stock > 0";
+		String requete = "SELECT a FROM Product a WHERE a.stock > 0 AND a.typeProduct.idTypeProduct = 1";
 		Query hql = session.createQuery(requete);
 		List<Product> resultat = hql.list();
 		return resultat;
@@ -128,12 +128,16 @@ public class DaoProduct implements IDaoProduct {
 	}
 	
 	@Override
-	public List<Product> getAllProductBySpaceShipRef(int idSpaceShipSelected) {
+	public List<Product> getAllProductBySpaceShipRefAndName(int idSpaceShipSelected, String name) {
 		Session session = sf.getCurrentSession();       
         //String requete = "SELECT p FROM Product p INNER JOIN SpaceshipProduct ssp WHERE p.productRef.idProductRef = ssp.productRef.idProductRef AND ssp.spaceshipRef.idSpaceshipRef = :paramId";
-        String requete = "SELECT p FROM Product p, SpaceshipProduct ssp WHERE p.productRef.idProductRef = ssp.productRef.idProductRef AND ssp.spaceshipRef.idSpaceshipRef = :paramId";
+        String requete = "SELECT p FROM Product p, SpaceshipProduct ssp "
+                +"WHERE p.productRef.idProductRef = ssp.productRef.idProductRef "
+                +"AND ssp.spaceshipRef.idSpaceshipRef = :paramId "
+                +"AND LOWER(p.productRef.productName) LIKE :paramName";
         Query hql = session.createQuery(requete);        
         hql.setParameter("paramId", idSpaceShipSelected);
+        hql.setParameter("paramName", "%" + name + "%");
         List<Product> resultat = hql.list();
         
         if (resultat.size() == 0)
@@ -145,6 +149,24 @@ public class DaoProduct implements IDaoProduct {
             return resultat;
         }
 	}
+	
+    @Override
+    public List<Product> getAllProductByName(String name) {
+        Session session = sf.getCurrentSession();       
+        String requete = "SELECT p FROM Product p WHERE LOWER(p.productRef.productName) LIKE :paramName";
+        Query hql = session.createQuery(requete);        
+        hql.setParameter("paramName", "%" + name + "%");
+        List<Product> resultat = hql.list();
+        
+        if (resultat.size() == 0)
+        {
+            return new ArrayList<Product>();
+        }
+        else
+        {
+            return resultat;
+        }
+    }
 
 	//Getters et Setters
 	public SessionFactory getSf() {

@@ -33,6 +33,8 @@ public class BusinessCart implements IBusinessCart {
     private static final Integer USER_PARTICULIER_ROLE_ID = 1;
     private static final Integer USER_PROFESSIONNEL_ROLE_ID = 2;
     private static final Integer USER_ARTISAN_ROLE_ID = 3;
+    
+    private static final Integer PAYMENT_TYPE_IMMEDIAT_ID = 1;
 
 	@Override
 	public List<Product> getAllProductByCart(int idCart) {
@@ -75,7 +77,7 @@ public class BusinessCart implements IBusinessCart {
             }
         }
         
-        if (commande.getPaymentType().getName().equals("Paiement immédiat"))
+        if (commande.getPaymentType().getIdPayment() == PAYMENT_TYPE_IMMEDIAT_ID)
         {
             proxyCart.validatePayment(commande);
         }
@@ -193,5 +195,21 @@ public class BusinessCart implements IBusinessCart {
 
     public static void setLog(Logger paramLog) {
         log = paramLog;
+    }
+
+    public static Integer getUserParticulierRoleId() {
+        return USER_PARTICULIER_ROLE_ID;
+    }
+
+    public static Integer getUserProfessionnelRoleId() {
+        return USER_PROFESSIONNEL_ROLE_ID;
+    }
+
+    public static Integer getUserArtisanRoleId() {
+        return USER_ARTISAN_ROLE_ID;
+    }
+
+    public static Integer getPaymentTypeImmediatId() {
+        return PAYMENT_TYPE_IMMEDIAT_ID;
     }
 }

@@ -95,7 +95,7 @@ public class CatalogManagedBean {
         initialisationListesAffichees();
     }
 
-    //M�thodes de tri et de filtres
+    //Methodes de tri et de filtres
 
     public void choixCategorie(int idCategory)
     {
@@ -157,7 +157,7 @@ public class CatalogManagedBean {
     {
         if (idSpaceShipSelected != 0)
         {
-        	listeProductBrute = proxyCatalog.getAllProductBySpaceShipRef(idSpaceShipSelected);
+        	listeProductBrute = proxyCatalog.getAllProductBySpaceShipRefAndName(idSpaceShipSelected, "");
         	initialisationListesBrutes();
         }
         else

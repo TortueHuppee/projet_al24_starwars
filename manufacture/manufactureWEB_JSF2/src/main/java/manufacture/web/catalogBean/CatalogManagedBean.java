@@ -77,6 +77,7 @@ public class CatalogManagedBean {
     private int idMaterialSelected;
     private int idConstructorSelected;
     private int idSpaceShipSelected;
+    private String rechercheNom;
 
     /**
      * Trois paginator pour chacune des listes.
@@ -90,12 +91,12 @@ public class CatalogManagedBean {
     public void init()
     {
     	listeProductBrute = indexManagedBean.getListeProduitBrute();
-
+    	rechercheNom = "";
         initialisationFiltres();
         initialisationListesAffichees();
     }
 
-    //M�thodes de tri et de filtres
+    //Methodes de tri et de filtres
 
     public void choixCategorie(int idCategory)
     {
@@ -157,12 +158,13 @@ public class CatalogManagedBean {
     {
         if (idSpaceShipSelected != 0)
         {
-        	listeProductBrute = proxyCatalog.getAllProductBySpaceShipRef(idSpaceShipSelected);
+        	listeProductBrute = proxyCatalog.getAllProductBySpaceShipRefAndName(idSpaceShipSelected, toLowerCase(rechercheNom));
+        	log.info(rechercheNom);
         	initialisationListesBrutes();
         }
         else
         {
-        	listeProductBrute = indexManagedBean.getListeProduitBrute();
+        	listeProductBrute = proxyCatalog.getAllProductByName(toLowerCase(rechercheNom));
         	initialisationListesBrutes();
         }
         
@@ -245,7 +247,7 @@ public class CatalogManagedBean {
                 ajout = produitDejaDansLaListe(produit, listeAffichee);
             }
 
-            //Ajout du produit � la liste s'il r�pond aux crit�res
+            //Ajout du produit e la liste s'il repond aux criteres
             if (ajout)
             {
                 listeAffichee.add(produit);
@@ -291,7 +293,7 @@ public class CatalogManagedBean {
 
     public boolean filtreConstructeur(Produit produit)
     {
-        //La notion de constructeur est g�n�ralis�e ici :
+        //La notion de constructeur est generalisee ici :
         //constructeur = constructeur pour les produits constructeurs
         //constructeur = artisan pour les produits artisans
         //constructeur = particulier pour les produits d'occasion
@@ -304,23 +306,6 @@ public class CatalogManagedBean {
             return true;
         }
     }
-
-//    public boolean filtreMod�leVaisseau(Produit produit)
-//    {
-//        boolean ajout = false;
-//        
-//        for (SpaceshipProduct ssp : listeMod�leVaisseauProduit)
-//        {
-//        	if (ssp.getProductRef().getIdProductRef() == produit.getIdProductRef())
-//        	{
-//        		if (ssp.getSpaceshipRef().getIdSpaceshipRef() == idSpaceShipSelected)
-//        		{
-//        			ajout = true;
-//        		}
-//        	}
-//        }
-//        return ajout;
-//    }
 
     public boolean produitDejaDansLaListe(Produit produit, List<Produit> liste)
     {
@@ -343,17 +328,22 @@ public class CatalogManagedBean {
     }
 
     //Tris
+    
     public void trierParPrix()
     {
         Collections.sort(listeProduitConstructeurAffichee);
+        Collections.sort(listeProduitArtisanAffichee);
+        Collections.sort(listeProduitOccasionAffichee);
     }
 
     public void reverseTrierParPrix()
     {
         Collections.sort(listeProduitConstructeurAffichee, Collections.reverseOrder());
+        Collections.sort(listeProduitArtisanAffichee, Collections.reverseOrder());
+        Collections.sort(listeProduitOccasionAffichee, Collections.reverseOrder());
     }
 
-    //R�initialisation de la listeAffich�e
+    //Reinitialisation de la listeAffichee
     public void reinitialiseListeAffichee()
     {
         initialisationListesAffichees();
@@ -367,16 +357,47 @@ public class CatalogManagedBean {
 
         return number;
     }
+    
+    public String toLowerCase (String string)
+    {
+      char [] charsData = new char [string.length ()];
+      string.getChars (0, charsData.length, charsData, 0);
+      
+      char c;
+      for (int i = 0; i < charsData.length; i++) 
+        if (   (c = charsData [i]) >= 'A'
+            && c <= 'Z')
+          charsData [i] = (char)(c - 'A' + 'a');
+        else
+          switch (c)
+          {
+            case '\u00e0' :
+            case '\u00e2' :
+            case '\u00e4' : charsData [i] = 'a';
+                            break;
+            case '\u00e7' : charsData [i] = 'c';
+                            break;
+            case '\u00e8' :
+            case '\u00e9' :
+            case '\u00ea' :
+            case '\u00eb' : charsData [i] = 'e';
+                            break;
+            case '\u00ee' :
+            case '\u00ef' : charsData [i] = 'i';
+                            break;
+            case '\u00f4' :
+            case '\u00f6' : charsData [i] = 'o';
+                            break;
+            case '\u00f9' :
+            case '\u00fb' :
+            case '\u00fc' : charsData [i] = 'u';
+                            break;
+          }
+   
+      return new String (charsData);
+    }
+    
     //Getters et Setters	
-
-//    public List<SpaceshipProduct> getListeMod�leVaisseauProduit() {
-//		return listeMod�leVaisseauProduit;
-//	}
-//
-//	public void setListeMod�leVaisseauProduit(
-//			List<SpaceshipProduct> listeMod�leVaisseauProduit) {
-//		this.listeMod�leVaisseauProduit = listeMod�leVaisseauProduit;
-//	}
 
     public List<Color> getListeCouleurs() {
         return listeCouleurs;
@@ -610,5 +631,13 @@ public class CatalogManagedBean {
 
     public static void setLog(Logger paramLog) {
         log = paramLog;
+    }
+
+    public String getRechercheNom() {
+        return rechercheNom;
+    }
+
+    public void setRechercheNom(String paramRechercheNom) {
+        rechercheNom = paramRechercheNom;
     }
 }

@@ -1,0 +1,215 @@
+#body-content {
+	margin-left: 20px;
+	margin-top: 20px;
+	padding-bottom:20px;
+	font-family: Arial,sans-serif;
+}
+
+.labelSuccess
+{
+	border:1px solid #31B404;
+	border-radius:3px;
+	
+	display:inline-block;
+	width:97.5%;
+	height:55px;
+	
+	padding-top: 15px;
+	padding-left:15px;
+	margin-left:10px;
+	
+	background-color: #E3F6CE;
+	
+	font-family: Arial,sans-serif;
+	font-weight: bold;
+	color:green;
+}
+
+
+.product-description
+{
+   background-color:#f1f1f1;
+   border:1px solid #e5e5e5;
+   border-radius:5px;
+   margin-right:20px;
+   display:inline-block;
+   width:99%;
+}
+
+.product-description h2
+{
+    font-family:Arial;
+    margin:10px;
+		margin-top:30px;
+    margin-bottom:20px;
+    border-bottom:1px solid lightgrey;
+    padding-bottom:10px;
+}
+/*ui.steps*/
+.ui-steps-item
+{
+	width:24.87%;
+	margin-bottom:15px;
+}
+ 
+.ui-state-highlight {
+    text-shadow: none !important;
+}
+ 
+.ui-steps.custom {
+    margin-bottom: 60px;
+}
+ 
+.ui-steps.custom .ui-steps-item .ui-menuitem-link {
+    height: 10px;
+    padding: 0 1em;
+}
+ 
+.ui-steps.custom .ui-steps-item .ui-steps-number {
+    background-color: #0081c2;
+    color: #FFFFFF;
+    display: inline-block;
+    width: 30px;
+    border-radius: 10px;
+    margin-top: -10px;
+    margin-bottom: 10px;
+}
+
+/*Fieldset*/
+
+fieldset
+{
+	background-color:white;
+	margin:5px;
+	margin-bottom:10px;
+	border-radius:5px;
+}
+
+fieldset:not(.fielsetArticles)
+{
+	padding:5px;
+}
+
+fieldset legend
+{
+	margin-left:20px;
+	
+	font-size:larger;
+	font-weight: bold;
+	color:#2E64FE;
+}
+
+/*Premiere partie*/
+/* TABLEAU */
+
+table, tr, td, th
+{
+	text-align:center;
+}
+
+table
+{
+	border-spacing:0px;
+}
+
+table th
+{
+	height:30px;
+	border-bottom:1px solid grey;
+	border-top:1px solid grey;
+	background-color:silver;
+}
+
+table img
+{
+	width:100px;
+}
+
+table td
+{
+	width:25%;	
+}
+
+.product-description label.titreArticle
+{
+	font-weight:bold;
+	color:#10507B;
+	display: inline-block;
+	width:50%;
+	margin-top:25px;
+	margin-bottom:10px;
+}
+
+.product-description label.prixArticle
+{
+	display: inline-block;
+	width:50%;
+	font-size: small;
+	text-align: center;
+}
+
+/*Communs*/
+
+.product-description label.valeur
+{
+	display:inline-block;
+	width:70%;
+	margin-bottom:10px;
+}
+
+.product-description label.valeurAdresse
+{
+	float:right;
+	width:80%;
+}
+
+
+.product-description label.titre
+{
+	font-weight:bold;
+	display:inline-block;
+	width:20%;
+}
+
+.product-description label.prix
+{
+	margin-left:20px;
+	margin-right:20px;
+	font-size:large;
+}
+
+.recapCommande
+{
+	float:right;
+	padding:10px;
+	width:600px;
+}
+
+.recapCommande label.titre
+{
+	font-weight:bold;
+	float:right;
+	background-color:silver;
+	height:30px;
+	width:49%;
+	border:1px solid grey;
+	border-radius:2px;
+	margin-left:0px;
+	text-align:center;
+	padding-top:15px;
+}
+
+.recapCommande label.prix
+{
+	float:right;
+	font-size:larger;
+	background-color:white;
+	height:30px;
+	width:49%;
+	border:1px solid grey;
+	border-radius:2px;
+	margin-left:0px;
+	margin-right:0px;
+	text-align:center;
+	padding-top:15px;
+}
