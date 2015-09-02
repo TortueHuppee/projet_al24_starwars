@@ -5,5 +5,5 @@
 target
 /build
 *.orig
-.idea
+.idea/
 *.iml
