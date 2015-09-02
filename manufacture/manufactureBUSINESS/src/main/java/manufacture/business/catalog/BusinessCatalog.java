@@ -62,9 +62,9 @@ public class BusinessCatalog implements IBusinessCatalog {
 	}
 
 	@Override
-	public List<ProductRef> getConstructorProductRefBySpaceShip(
+	public List<ProductRef> getProductRefBySpaceShip(
 			SpaceshipRef spaceShipRef) {
-		return proxyProductRef.getConstructorProductRefBySpaceShip(spaceShipRef);
+		return proxyProductRef.getProductRefBySpaceShip(spaceShipRef);
 	}
 
 	@Override
@@ -124,13 +124,23 @@ public class BusinessCatalog implements IBusinessCatalog {
 	}
     
 	@Override
-	public List<Product> getAllProductBySpaceShipRef(int idSpaceShipSelected) {
-		return proxyProduct.getAllProductBySpaceShipRef(idSpaceShipSelected);
+	public List<Product> getAllProductBySpaceShipRefAndName(int idSpaceShipSelected, String name) {
+		return proxyProduct.getAllProductBySpaceShipRefAndName(idSpaceShipSelected, name);
 	}
 	
     @Override
     public List<ProductRef> getProductRefByCategory(int paramIdCategorieSelected) {
         return proxyProductRef.getProductRefByCategory(paramIdCategorieSelected);
+    }
+    
+    @Override
+    public List<ProductRef> getProductRefBySpaceShipAndName(SpaceshipRef spaceShipRef, String name) {    
+        return proxyProductRef.getProductRefBySpaceShipAndName(spaceShipRef, name);
+    }
+    
+    @Override
+    public List<Product> getAllProductByName(String name) {
+        return proxyProduct.getAllProductByName(name);
     }
 	
     //Proxy

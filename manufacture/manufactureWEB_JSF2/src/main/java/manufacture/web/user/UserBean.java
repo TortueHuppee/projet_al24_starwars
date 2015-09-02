@@ -12,7 +12,7 @@ import org.apache.log4j.Logger;
 
 /**
  * @author ocalik
- *	Bean gérant la connection et le maintien de la connexion de l'utilisateur sur le site.
+ *	Bean gï¿½rant la connection et le maintien de la connexion de l'utilisateur sur le site.
  */
 @ManagedBean(name = "userBean")
 @SessionScoped
@@ -36,7 +36,7 @@ public class UserBean {
 	public void checkLogin(){
 		if(isLogged()){
 			try {
-				FacesContext.getCurrentInstance().getExternalContext().redirect("profil.xhtml");
+				FacesContext.getCurrentInstance().getExternalContext().redirect("profil.xhtml?faces-redirect=true");
 			} catch (IOException e) { 
 				e.printStackTrace();
 			}

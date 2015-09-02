@@ -31,13 +31,13 @@ public class SignUpBean {
 	private UserBean userBean;
 	
 	/**
-	 * Informations � renseigner sur l'utilisateur :
+	 * Informations e renseigner sur l'utilisateur :
 	 */
 	private Civility civilite;
 	private UserRole role;
 	
 	/**
-	 * Informations rentr�es par l'utilisateur :
+	 * Informations rentrees par l'utilisateur :
 	 */
 	private String login;
 	private String motDePasse;
@@ -87,11 +87,11 @@ public class SignUpBean {
 		domaineActivite = "";
 	}
 
-	//M�thodes
+	//Methodes
 	
 	/**
-	 * V�rifie que l'utilisateur est unique et l'enregistre automatiquement.
-	 * Connecte automatiquement l'utilisateur si la cr�ation se fait.
+	 * Verifie que l'utilisateur est unique et l'enregistre automatiquement.
+	 * Connecte automatiquement l'utilisateur si la creation se fait.
 	 * @return String
 	 */
 	public String createUser()
@@ -132,8 +132,8 @@ public class SignUpBean {
 	} 
 	
 	/**
-	 * M�thode v�rifiant les informations entr�es par l'utilisateur et comptant le nombre d'erreurs.
-	 * Si le nombre d'erreur est de z�ro, l'utilisateur est enregistr� dans la base de donn�es.
+	 * Methode verifiant les informations entrees par l'utilisateur et comptant le nombre d'erreurs.
+	 * Si le nombre d'erreur est de zero, l'utilisateur est enregistre dans la base de donnees.
 	 * @return String
 	 */
 	public String validationFormulaire()
@@ -155,7 +155,7 @@ public class SignUpBean {
 		{
 			return createUser();
 		}
-		return null;
+		return "signInSucccess.xhtml?faces-redirect=true";
 	}
 	
 	public int validationLogin()

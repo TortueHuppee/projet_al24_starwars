@@ -11,8 +11,10 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 
 import manufacture.entity.cart.Cart;
+import manufacture.entity.cart.PaymentType;
 import manufacture.entity.user.Address;
 import manufacture.entity.user.User;
+import manufacture.facade.cart.Paiement;
 import manufacture.ifacade.cart.IPaiement;
 import manufacture.web.user.LoginBean;
 import manufacture.web.user.ProfilBean;
@@ -59,10 +61,19 @@ public class PaymentBean {
     private double prixArticlePanierValide;
     private double prixTotalPanierValide;
     
+    private List<PaymentType> moyensDePaiement;
+    private PaymentType moyenPaiementChoisi;
+    private int idPaiement;
+    
     private SimpleDateFormat sdf;
 
     @PostConstruct
     public void init() {
+        moyensDePaiement = new ArrayList<>();
+        moyensDePaiement = paiementFacade.getAllPaymentType();
+        
+        idPaiement = 1;
+        
         sdf = new SimpleDateFormat("dd/MM/yyyy");
         cardNumber = "";
         pin = "";
@@ -113,9 +124,8 @@ public class PaymentBean {
 
     public String goToStep4()
     {
-        adresseFacturation = new Address();
-        adresseFacturation.setIdAddress(idAdressePersonnelle);
-
+        adresseFacturation = getAddressById();
+        moyenPaiementChoisi = getPaiementById();
         return valider();
     }
 
@@ -125,15 +135,37 @@ public class PaymentBean {
         commande.setUser(user);	    
         commande.setCartProducts(mbSteps.getListeProduitsAutorises());
         commande.setAddressBilling(adresseFacturation);
+        commande.setPaymentType(moyenPaiementChoisi);
 
         panierValide = paiementFacade.processPaiement(commande);
         prixArticlePanierValide = mbSteps.getCartPrice();
-        prixTotalPanierValide = mbSteps.getTotalPrice();
+        prixTotalPanierValide = mbSteps.calculePrixTotal();
         profilBean.initialiserAchats();
 
         mbCart.init();
-//        mbCart.setPanier(new ArrayList<CartProduct>());
         return "panierStep4.xhtml?faces-redirect=true";
+    }
+    
+    private PaymentType getPaiementById() {
+        for (PaymentType payement : moyensDePaiement)
+        {
+            if (idPaiement == payement.getIdPayment())
+            {
+                return payement;
+            }
+        }
+        return new PaymentType();
+    }
+    
+    private Address getAddressById() {
+        for (Address address : profilBean.getAdressesTotales())
+        {
+            if (idAdressePersonnelle == address.getIdAddress())
+            {
+                return address;
+            }
+        }
+        return new Address();
     }
 
     @Override
@@ -301,5 +333,29 @@ public class PaymentBean {
 
     public void setSdf(SimpleDateFormat paramSdf) {
         sdf = paramSdf;
+    }
+
+    public List<PaymentType> getMoyensDePaiement() {
+        return moyensDePaiement;
+    }
+
+    public void setMoyensDePaiement(List<PaymentType> paramMoyensDePaiement) {
+        moyensDePaiement = paramMoyensDePaiement;
+    }
+
+    public PaymentType getMoyenPaiementChoisi() {
+        return moyenPaiementChoisi;
+    }
+
+    public void setMoyenPaiementChoisi(PaymentType paramMoyenPaiementChoisi) {
+        moyenPaiementChoisi = paramMoyenPaiementChoisi;
+    }
+
+    public int getIdPaiement() {
+        return idPaiement;
+    }
+
+    public void setIdPaiement(int paramIdPaiement) {
+        idPaiement = paramIdPaiement;
     }
 }

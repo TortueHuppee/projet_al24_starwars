@@ -71,6 +71,11 @@ public class Profil implements IProfil{
 		return proxyProfil.getDeliveryAddressByUser(user);
 	}
 	
+    @Override
+    public List<CartProduct> getCartProductByCart(Cart cart) {
+        return proxyProfil.getCartProductByCart(cart);
+    }
+	
 	//Proxy
 
 	public IBusinessConnection getProxyConnection() {

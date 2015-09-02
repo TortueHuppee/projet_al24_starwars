@@ -25,7 +25,7 @@ public interface ICatalog {
 	
 	List<ProductRef> getProductRefByName(String name);
 	
-	List<ProductRef> getConstructorProductRefBySpaceShip(SpaceshipRef spaceShipRef);
+	List<ProductRef> getProductRefBySpaceShip(SpaceshipRef spaceShipRef);
 	
 	List<Product> getAllProduct();
 	
@@ -43,9 +43,13 @@ public interface ICatalog {
 
 	List<SpaceshipProduct> getAllSpaceShipProduct();
 	
-	List<Product> getAllProductBySpaceShipRef(int idSpaceShipSelected);
+	List<Product> getAllProductBySpaceShipRefAndName(int idSpaceShipSelected, String name);
 	
-	//Consultation du d�tail d'un produit
+	List<ProductRef> getProductRefBySpaceShipAndName(SpaceshipRef spaceShipRef, String name);
+	
+	List<Product> getAllProductByName(String name);
+	
+	//Consultation du detail d'un produit
 	List<Product> getAllProductByProductRef(int idProducRef);
 
 	List<SpaceshipProduct> getSpaceShipProductByProduct(ProductRef productRef);

@@ -3,45 +3,6 @@
 	min-height:485px;
 }
 
-/* commande.xhtml */
-/* ********* debut ********* */
-.itemCommande {
-	clear: both !important;
-	/*background-color: #FE2E2A;*/
-}
-
-.al24FielSetCommande {
-	clear: both !important;
-	background-color: #fffE2A;
-	width: 500px;
-}
-
-.itemLigneCommande {
-	float: left !important;
-	background-color: #FE2E2A;
-}
-/* ********* fin ********* */
-
-/* panier.xhtml */
-/* ********* debut ********* */
-.itemLignePanier {
-	float: left !important;
-	width: inherit;
-}
-
-.al24FielSetPanier {
-	clear: both;
-	width: 800px;
-	background-color: #FE2000;
-}
-
-.boutonPasserCommande {
-	clear: both;
-	width: 200px;
-	background-color: #eee000;
-}
-/* ********* fin ********* */
-
 /* menu.xhtml */
 /* ********* debut ********* */
 #menu {
@@ -133,51 +94,6 @@
 	border-radius: 2px !important;
 }
 
-.al24InputText {
-	clear: both !important;
-	color: #FE2E2E;
-}
-
-.al24Combox {
-	color: #FE2E2E;
-}
-
-.al24RadioBouton {
-	color: #FE2E2E;
-}
-
-.al24FielSet {
-	float: left;
-	width: inherit;
-	height: inherit;
-	color: #FE2E2E;
-}
-
-.al24FielSetRecherche {
-	float: left;
-	width: inherit;
-	height: 300px;
-	color: #FE2E2E;
-}
-
-.al24FielSetContainer {
-	width: inherit;;
-	height: inherit;
-	color: #FE000E;
-}
-
-.ui-fieldset,.ui-fieldset .ui-fieldset-legend {
-	padding: 5px 5px;
-	background-color: #FFFFFF;
-}
-
-.al24TabMenu {
-	color: #FE2E2E;
-}
-
-.al24OutLabel {
-	color: #FE2E2E;
-}
 /* ********* Code Divers Fin ********* */
 .toto {
 	background: none !important;
@@ -245,12 +161,7 @@
 	float: right;
 	width: 40%;
 }
-/*
-#body-content {
-	margin-left: 20px;
-	margin-top: 20px;
-}
-*/
+
 .sidebar-left {
 	float: left;
 	width: 20%;

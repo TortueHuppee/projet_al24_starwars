@@ -11,7 +11,7 @@ import manufacture.entity.user.User;
 
 public interface IBusinessProfil {
 
-	//Identité
+	//Identitï¿½
 	User editUser(User user);
 
 	//Adresses
@@ -28,10 +28,12 @@ public interface IBusinessProfil {
 	//Ventes
 	List<Product> getProductSendByUser(User user);
 	
-	//Commandes passées
+	//Commandes passï¿½es
 	List<Cart> getCartByUser(User user);
 
 	List<CartProduct> getCartSendByUser(User user);
 
 	List<Product> getProductNotSendByUser(User user);
+
+    List<CartProduct> getCartProductByCart(Cart paramCart);
 }	

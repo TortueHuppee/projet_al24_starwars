@@ -53,9 +53,9 @@ public class Catalog implements ICatalog {
 	}
 
 	@Override
-	public List<ProductRef> getConstructorProductRefBySpaceShip(
+	public List<ProductRef> getProductRefBySpaceShip(
 			SpaceshipRef spaceShipRef) {
-		return proxyCatalog.getConstructorProductRefBySpaceShip(spaceShipRef);
+		return proxyCatalog.getProductRefBySpaceShip(spaceShipRef);
 	}
 
 	@Override
@@ -114,13 +114,23 @@ public class Catalog implements ICatalog {
 	}
 	
 	@Override
-	public List<Product> getAllProductBySpaceShipRef(int idSpaceShipSelected) {
-		return proxyCatalog.getAllProductBySpaceShipRef(idSpaceShipSelected);
+	public List<Product> getAllProductBySpaceShipRefAndName(int idSpaceShipSelected, String name) {
+		return proxyCatalog.getAllProductBySpaceShipRefAndName(idSpaceShipSelected, name);
 	}
 
     @Override
     public List<ProductRef> getProductRefByCategory(int paramIdCategorieSelected) {
         return proxyCatalog.getProductRefByCategory(paramIdCategorieSelected);
+    }
+    
+    @Override
+    public List<ProductRef> getProductRefBySpaceShipAndName(SpaceshipRef spaceShipRef, String name) {
+        return proxyCatalog.getProductRefBySpaceShipAndName(spaceShipRef , name);
+    }
+    
+    @Override
+    public List<Product> getAllProductByName(String name) {
+        return proxyCatalog.getAllProductByName(name);
     }
 
 	public IBusinessCatalog getProxyColor() {

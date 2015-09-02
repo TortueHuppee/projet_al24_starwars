@@ -34,10 +34,7 @@ public class DaoProductRef implements IDaoProductRef {
 	@Override
 	public List<ProductRef> getAllConstructorProductRef() {
 		Session session = sf.getCurrentSession();		
-		//Requete � partir de la valeur discriminatrice
-
-		//String requete = "SELECT DISTINCT p.productRef FROM Product p WHERE p.class='constructor_product'";
-		String requete = "SELECT p.productRef FROM Product p JOIN p.productRef pr WHERE p.class='constructor_product'";
+		String requete = "SELECT p.productRef FROM Product p WHERE p.typeProduct.idTypeProduct = 1";
 		Query hql = session.createQuery(requete);
 		List<ProductRef> resultat = hql.list();
 		return resultat;
@@ -46,7 +43,7 @@ public class DaoProductRef implements IDaoProductRef {
 	@Override
 	public List<ProductRef> getAllUsedProductRef() {
 		Session session = sf.getCurrentSession();		
-		//Requete � partir de la valeur discriminatrice
+		//Requete a partir de la valeur discriminatrice
 		String requete = "SELECT p.productRef FROM Product p WHERE p.class='used_product'";
 		Query hql = session.createQuery(requete);
 		List<ProductRef> resultat = hql.list();
@@ -56,7 +53,7 @@ public class DaoProductRef implements IDaoProductRef {
 	@Override
 	public List<ProductRef> getAllArtisanProductRef() {
 		Session session = sf.getCurrentSession();		
-		//Requete � partir de la valeur discriminatrice
+		//Requete a partir de la valeur discriminatrice
 		String requete = "SELECT p.productRef FROM Product p WHERE p.class='artisan_product'";
 		Query hql = session.createQuery(requete);
 		List<ProductRef> resultat = hql.list();
@@ -66,15 +63,15 @@ public class DaoProductRef implements IDaoProductRef {
 	@Override
 	public List<ProductRef> getProductRefByName(String name) {
 		Session session = sf.getCurrentSession();
-		String requete = "SELECT p FROM ProductRef p WHERE LOWER(p.productName) like LOWER(:paramId)";
+		String requete = "SELECT p FROM ProductRef p WHERE LOWER(p.productName) like :paramId";
 		Query hql = session.createQuery(requete);
-		hql.setParameter("paramId", "%" + name + "%");
+		hql.setParameter("paramId", "%" + name.toLowerCase() + "%");
 		List<ProductRef> resultat = hql.list();
 		return resultat;
 	}
 
 	@Override
-	public List<ProductRef> getConstructorProductRefBySpaceShip(
+	public List<ProductRef> getProductRefBySpaceShip(
 			SpaceshipRef spaceShipRef) {
 		Session session = sf.getCurrentSession();
 		String requete = "SELECT p.productRef FROM SpaceshipProduct p WHERE p.spaceshipRef.idSpaceshipRef =:paramId";
@@ -83,6 +80,18 @@ public class DaoProductRef implements IDaoProductRef {
 		List<ProductRef> resultat = hql.list();
 		return resultat;
 	}
+	
+	@Override
+    public List<ProductRef> getProductRefBySpaceShipAndName(
+            SpaceshipRef spaceShipRef, String name) {
+        Session session = sf.getCurrentSession();
+        String requete = "SELECT p.productRef FROM SpaceshipProduct p WHERE p.spaceshipRef.idSpaceshipRef =:paramId AND LOWER(p.productRef.productName) like :paramName";
+        Query hql = session.createQuery(requete);
+        hql.setParameter("paramId", spaceShipRef.getIdSpaceshipRef());
+        hql.setParameter("paramName", "%" + name.toLowerCase() + "%");
+        List<ProductRef> resultat = hql.list();
+        return resultat;
+    }
 	
 	@Override
 	public List<SpaceshipProduct> getSpaceShipProductByProduct(

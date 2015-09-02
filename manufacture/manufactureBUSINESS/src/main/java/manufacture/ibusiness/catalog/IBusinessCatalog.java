@@ -25,7 +25,7 @@ public interface IBusinessCatalog {
 
     List<ProductRef> getProductRefByName(String name);
 
-    List<ProductRef> getConstructorProductRefBySpaceShip(SpaceshipRef spaceShipRef);
+    List<ProductRef> getProductRefBySpaceShip(SpaceshipRef spaceShipRef);
 
     List<Category> getAllCategory();
 
@@ -41,9 +41,11 @@ public interface IBusinessCatalog {
 
     List<SpaceshipProduct> getAllSpaceShipProduct();
     
-    List<Product> getAllProductBySpaceShipRef(int idSpaceShipSelected);
+    List<Product> getAllProductBySpaceShipRefAndName(int idSpaceShipSelected, String name);
+    
+    List<Product> getAllProductByName(String name);
 
-    //Consultation du d�tail d'un produit
+    //Consultation du detail d'un produit
     List<Product> getAllProductByProductRef(int idProducRef);
 
     List<Product> getAllProduct();
@@ -53,4 +55,7 @@ public interface IBusinessCatalog {
     ProductRef getProductRefById(int idProductRef);
 
     List<ProductRef> getProductRefByCategory(int paramIdCategorieSelected);
+
+    List<ProductRef> getProductRefBySpaceShipAndName(SpaceshipRef spaceShipRef, String name);
+    
 }
