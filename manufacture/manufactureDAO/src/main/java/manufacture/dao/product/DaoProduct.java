@@ -38,7 +38,12 @@ public class DaoProduct implements IDaoProduct {
 		String requete = "SELECT p FROM Product p WHERE p.productRef.idProductRef = :paramId AND p.stock > 0 ORDER BY p.price";
 		Query hql = session.createQuery(requete);
 		hql.setParameter("paramId", idProducRef);
+		log.info("id du produit ref passé en argument :" + idProducRef);
 		List<Product> resultat = hql.list();
+		if (resultat.isEmpty())
+		{
+			return new ArrayList<Product>();
+		}
 		return resultat;
 	}
 
