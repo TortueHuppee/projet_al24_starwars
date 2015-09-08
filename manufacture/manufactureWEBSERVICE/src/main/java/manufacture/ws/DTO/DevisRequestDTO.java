@@ -1,41 +1,43 @@
 package manufacture.ws.DTO;
 
+import manufacture.ws.WS.IDevis;
+
 public class DevisRequestDTO {
 	
-	private String idProductRef ;
-	private String idColor ;
-	private String idMaterial ;
-	private String idConstructor ;
-	private String quantity ;
+	private Integer idProductRef ;
+	private Integer idColor ;
+	private Integer idMaterial ;
+	private Integer idConstructor ;
+	private Integer quantity ;
 	
-	public String getIdProductRef() {
+	public Integer getIdProductRef() {
 		return idProductRef;
 	}
-	public void setIdProductRef(String idProductRef) {
+	public void setIdProductRef(Integer idProductRef) {
 		this.idProductRef = idProductRef;
 	}
-	public String getIdColor() {
+	public Integer getIdColor() {
 		return idColor;
 	}
-	public void setIdColor(String idColor) {
+	public void setIdColor(Integer idColor) {
 		this.idColor = idColor;
 	}
-	public String getIdMaterial() {
+	public Integer getIdMaterial() {
 		return idMaterial;
 	}
-	public void setIdMaterial(String idMaterial) {
+	public void setIdMaterial(Integer idMaterial) {
 		this.idMaterial = idMaterial;
 	}
-	public String getIdConstructor() {
+	public Integer getIdConstructor() {
 		return idConstructor;
 	}
-	public void setIdConstructor(String idConstructor) {
+	public void setIdConstructor(Integer idConstructor) {
 		this.idConstructor = idConstructor;
 	}
-	public String getQuantity() {
+	public Integer getQuantity() {
 		return quantity;
 	}
-	public void setQuantity(String quantity) {
+	public void setQuantity(Integer quantity) {
 		this.quantity = quantity;
 	}
 	

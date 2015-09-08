@@ -8,6 +8,8 @@ public interface IConnection {
 	boolean resertPassword(String login);
 	
 	boolean getLogin(String email);
+	
+	User getUserByEmail(String email);
 
 	User connectUser(User user);
 }

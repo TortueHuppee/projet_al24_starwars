@@ -2,43 +2,43 @@ package manufacture.ws.DTO;
 
 public class DevisResponseDTO {
 
-	private String idProductRef ;
-	private String idColor ;
-	private String idMaterial ;
-	private String idConstructor ;
-	private String quantity ;
+	private Integer idProductRef ;
+	private Integer idColor ;
+	private Integer idMaterial ;
+	private Integer idConstructor ;
+	private Integer quantity ;
 	
-	private String price ;
+	private Double price ;
 	private String availability ;
 	
-	public String getIdProductRef() {
+	public Integer getIdProductRef() {
 		return idProductRef;
 	}
-	public void setIdProductRef(String idProductRef) {
+	public void setIdProductRef(Integer idProductRef) {
 		this.idProductRef = idProductRef;
 	}
-	public String getIdColor() {
+	public Integer getIdColor() {
 		return idColor;
 	}
-	public void setIdColor(String idColor) {
+	public void setIdColor(Integer idColor) {
 		this.idColor = idColor;
 	}
-	public String getIdMaterial() {
+	public Integer getIdMaterial() {
 		return idMaterial;
 	}
-	public void setIdMaterial(String idMaterial) {
+	public void setIdMaterial(Integer idMaterial) {
 		this.idMaterial = idMaterial;
 	}
-	public String getIdConstructor() {
+	public Integer getIdConstructor() {
 		return idConstructor;
 	}
-	public void setIdConstructor(String idConstructor) {
+	public void setIdConstructor(Integer idConstructor) {
 		this.idConstructor = idConstructor;
 	}
-	public String getQuantity() {
+	public Integer getQuantity() {
 		return quantity;
 	}
-	public void setQuantity(String quantity) {
+	public void setQuantity(Integer quantity) {
 		this.quantity = quantity;
 	}
 	public String getAvailability() {
@@ -47,10 +47,10 @@ public class DevisResponseDTO {
 	public void setAvailability(String availability) {
 		this.availability = availability;
 	}
-	public String getPrice() {
+	public Double getPrice() {
 		return price;
 	}
-	public void setPrice(String price) {
+	public void setPrice(Double price) {
 		this.price = price;
 	}
 }

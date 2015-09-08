@@ -9,6 +9,8 @@ public interface IBusinessConnection {
 	boolean resertPassword(String login);
 	
 	boolean getLogin(String email);
+	
+	User getUserByEmail (String email);
 
 	User logUser(User user);
 

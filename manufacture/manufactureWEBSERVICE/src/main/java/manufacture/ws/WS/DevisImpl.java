@@ -3,18 +3,17 @@ package manufacture.ws.WS;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.faces.bean.ManagedProperty;
 import javax.jws.WebService;
 import javax.transaction.Transactional;
-
-import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import manufacture.entity.product.Product;
 import manufacture.ifacade.catalog.ICatalog;
 import manufacture.ws.DTO.DevisRequestDTO;
 import manufacture.ws.DTO.DevisResponseDTO;
+
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 @Transactional
 @Component
@@ -28,7 +27,6 @@ public class DevisImpl implements IDevis {
 	private static final String AVAILABILITY_STATE_NOT_AVAILABLE = "Non disponible";
 	private static final String AVAILABILITY_STATE_STOCK_INSUFFICIENT = "stock insuffisant, quantité ajustée";	
 
-//    @ManagedProperty(value="#{catalog}")
     private ICatalog proxyCatalog;
     
 	@Override
@@ -45,53 +43,82 @@ public class DevisImpl implements IDevis {
 	private DevisResponseDTO checkStockByIdProduct(DevisRequestDTO devisRequest)
 	{
 		log.info("devis resquest id product ref : " + devisRequest.getIdProductRef());
-		List<Product> listeProduct = proxyCatalog.getAllProductByProductRef(Integer.parseInt(devisRequest.getIdProductRef()));
+		
+		List<Product> listeProduct = proxyCatalog.getAllProductByProductRef(devisRequest.getIdProductRef());
+		
 		DevisResponseDTO devisResponse = new DevisResponseDTO();
 		devisResponse = convertRequestDTO(devisRequest);
 		
-		if(listeProduct.isEmpty()){
-			devisResponse.setQuantity("0");
-			devisResponse.setPrice("0");
+		//Cas 1 : la reference produit demandee n'est pas enregistree dans la base de donnees
+		if(listeProduct.isEmpty())
+		{
+			devisResponse.setQuantity(0);
+			devisResponse.setPrice(0.0);
 			devisResponse.setAvailability(AVAILABILITY_STATE_NOT_AVAILABLE);
 			
-		} else {
-			devisResponse.setQuantity("0");
-			devisResponse.setPrice("0");
+		} 
+		else
+		{
+			devisResponse.setQuantity(0);
+			devisResponse.setPrice(0.0);
 			devisResponse.setAvailability(AVAILABILITY_STATE_NOT_AVAILABLE);
-			for (Product product : listeProduct) {
+			
+			for (Product product : listeProduct) 
+			{
 				boolean isTheSame = true ;
-				if (product.getColor().getIdColor() != Integer.parseInt(devisRequest.getIdColor())) {
+				
+				if (product.getColor().getIdColor() != devisRequest.getIdColor())
+				{
 					isTheSame = false ;
 				}
-				if (product.getMaterial().getIdMaterial() != Integer.parseInt(devisRequest.getIdMaterial())) {
+				
+				if (product.getMaterial().getIdMaterial() != devisRequest.getIdMaterial())
+				{
 					isTheSame = false ;
 				}
-				if (product.getConstructor().getIdConstructor() != Integer.parseInt(devisRequest.getIdConstructor())) {
+				
+				if (product.getConstructor().getIdConstructor() != devisRequest.getIdConstructor())
+				{
 					isTheSame = false ;
 				}
-				if (isTheSame){
-					if (product.getStock() == 0) {
-						devisResponse.setQuantity("0");
-						devisResponse.setPrice("0");
+				
+				if (isTheSame)
+				{
+					//Cas 2 : le produit est enregistre dans la base de donnees mais le stock est null
+					if (product.getStock() == 0) 
+					{
+						devisResponse.setQuantity(0);
+						devisResponse.setPrice(0.0);
 						devisResponse.setAvailability(AVAILABILITY_STATE_NOT_AVAILABLE);
-					} else {
-						if (product.getStock()>=Integer.parseInt(devisRequest.getQuantity())) {
-							devisResponse.setPrice(""+product.getPrice());
+					} 
+					else 
+					{
+						//Cas 3 : le produit est enregistre dans la base de donnees et le stock est suffisant
+						if (product.getStock() >= devisRequest.getQuantity())
+						{
+							devisResponse.setPrice(product.getPrice());
+							devisResponse.setQuantity(devisRequest.getQuantity());
 							devisResponse.setAvailability(AVAILABILITY_STATE_AVAILABLE);
-						} else {
-							devisResponse.setPrice(""+product.getPrice());
-							devisResponse.setQuantity(""+product.getStock());
+						} 
+						//Cas 4 : le produit est enregistre dans la base de donnees mais le stock est insuffisant
+						else 
+						{
+							devisResponse.setPrice(product.getPrice());
+							devisResponse.setQuantity(product.getStock());
 							devisResponse.setAvailability(AVAILABILITY_STATE_STOCK_INSUFFICIENT);
 						}
 					}
 				}
 			}
 		}
-		
-		
 		return devisResponse ;
 	}
 	
+	/**
+	 * Convertir un objet de classe DevisRequestDTO en un objet de classe DevisResponseDTO.
+	 * @param devisRequest l'objet de classe DevisRequestDTO qui sera convertit.
+	 * @return devisResponse l'objet devisRequest convertit en objet de classe DevisResponseDTO.
+	 */
 	private DevisResponseDTO convertRequestDTO (DevisRequestDTO devisRequest){
 		
 		DevisResponseDTO devisResponse = new DevisResponseDTO();

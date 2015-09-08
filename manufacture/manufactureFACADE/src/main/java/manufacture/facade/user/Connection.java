@@ -33,6 +33,11 @@ public class Connection implements IConnection{
 		return proxyConnection;
 	}
 
+	@Override
+	public User getUserByEmail(String email) {
+		return proxyConnection.getUserByEmail(email);
+	}
+
 	@Autowired
 	public void setProxyConnection(IBusinessConnection proxyConnection) {
 		this.proxyConnection = proxyConnection;

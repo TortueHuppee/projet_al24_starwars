@@ -2,6 +2,8 @@ package manufacture.business.user;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.List;
+
 import manufacture.entity.user.User;
 import manufacture.ibusiness.user.IBusinessConnection;
 import manufacture.idao.user.IDaoAdress;
@@ -52,6 +54,12 @@ public class BusinessConnection implements IBusinessConnection {
 			e.printStackTrace();
 			return input;
 		}
+	}
+	
+	@Override
+	public User getUserByEmail(String email) {
+		List<User> listeUser = proxyUser.getUserByEmail(email);
+		return listeUser.get(0);
 	}
 	
 	public IDaoUser getProxyUser() {
