@@ -142,6 +142,12 @@ public class BusinessCatalog implements IBusinessCatalog {
     public List<Product> getAllProductByName(String name) {
         return proxyProduct.getAllProductByName(name);
     }
+    
+    @Override
+	public List<Product> getAllProductConstructorByProductRef(
+			Integer idProductRef) {
+		return proxyProduct.getAllProductConstructorByProductRef(idProductRef);
+	}
 	
     //Proxy
 

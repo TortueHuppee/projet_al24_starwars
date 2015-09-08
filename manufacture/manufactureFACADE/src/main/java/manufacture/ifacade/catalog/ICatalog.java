@@ -57,4 +57,6 @@ public interface ICatalog {
 	ProductRef getProductRefById(int idProductRef);
 
     List<ProductRef> getProductRefByCategory(int paramIdCategorieSelected);
+    
+    List<Product> getAllProductConstructorByProductRef(Integer idProductRef);
 }

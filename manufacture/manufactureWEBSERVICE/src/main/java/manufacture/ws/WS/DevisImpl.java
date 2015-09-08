@@ -20,7 +20,7 @@ import org.springframework.stereotype.Component;
 @WebService(endpointInterface="manufacture.ws.WS.IDevis")
 public class DevisImpl implements IDevis {
 
-	private static Logger log = Logger.getLogger(DevisImpl.class);
+	private static final Logger LOG = Logger.getLogger(DevisImpl.class);
 	
 	private static final String AVAILABILITY_STATE_RESTOCKING = "En cours de réapprovisionnement...";
 	private static final String AVAILABILITY_STATE_AVAILABLE = "Disponible";
@@ -42,9 +42,9 @@ public class DevisImpl implements IDevis {
 	
 	private DevisResponseDTO checkStockByIdProduct(DevisRequestDTO devisRequest)
 	{
-		log.info("devis resquest id product ref : " + devisRequest.getIdProductRef());
+		LOG.info("devis resquest id product ref : " + devisRequest.getIdProductRef());
 		
-		List<Product> listeProduct = proxyCatalog.getAllProductByProductRef(devisRequest.getIdProductRef());
+		List<Product> listeProduct = proxyCatalog.getAllProductConstructorByProductRef(devisRequest.getIdProductRef());
 		
 		DevisResponseDTO devisResponse = new DevisResponseDTO();
 		devisResponse = convertRequestDTO(devisRequest);
@@ -76,6 +76,9 @@ public class DevisImpl implements IDevis {
 				{
 					isTheSame = false ;
 				}
+				
+				LOG.info(product.getConstructor().getIdConstructor());
+				LOG.info(devisRequest.getIdConstructor());
 				
 				if (product.getConstructor().getIdConstructor() != devisRequest.getIdConstructor())
 				{

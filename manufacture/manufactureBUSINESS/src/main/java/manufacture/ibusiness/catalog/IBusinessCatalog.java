@@ -58,4 +58,6 @@ public interface IBusinessCatalog {
 
     List<ProductRef> getProductRefBySpaceShipAndName(SpaceshipRef spaceShipRef, String name);
     
+    List<Product> getAllProductConstructorByProductRef(Integer idProductRef);
+    
 }

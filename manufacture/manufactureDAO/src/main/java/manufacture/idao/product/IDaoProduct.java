@@ -36,5 +36,7 @@ public interface IDaoProduct {
 	List<Product> getProductSendByUser(User user);
 
 	List<Product> getProductNotSendByUser(User user);
+
+	List<Product> getAllProductConstructorByProductRef(Integer idProductRef);
    
 }

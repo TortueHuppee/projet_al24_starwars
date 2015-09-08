@@ -88,10 +88,13 @@ public class DaoProduct implements IDaoProduct {
 		List<Product> resultat = hql.list();
 		return resultat;
 	}
-	public List<Product> getAllProductConstructor(){
+	
+	@Override
+	public List<Product> getAllProductConstructorByProductRef(Integer idProductRef){
 		Session session = sf.getCurrentSession();
-		String requete = "SELECT a FROM Product a WHERE a.stock > 0 AND a.typeProduct.idTypeProduct = 1";
+		String requete = "SELECT a FROM Product a WHERE a.productRef.idProductRef = :paramId AND a.typeProduct.idTypeProduct = 1";
 		Query hql = session.createQuery(requete);
+		hql.setParameter("paramId", idProductRef);
 		List<Product> resultat = hql.list();
 		return resultat;
 	}

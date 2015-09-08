@@ -26,6 +26,14 @@
 
 	<jaxws:endpoint id="devisImplEndpoint"
 		implementor="#devisImpl" address="/ServiceDevis" />
+		
+	
+	<bean id="orderImpl" class="manufacture.ws.WS.OrderImpl">
+		<!-- injection de dépendance (dao...) -->
+	</bean>
+
+	<jaxws:endpoint id="orderImplEndpoint"
+		implementor="#orderImpl" address="/ServiceCommande" />
 
 	<!-- Pour fin d'url en /services/CalculFinance et /services/CalculFinance?wsdl -->
 	
