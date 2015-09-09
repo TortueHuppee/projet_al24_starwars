@@ -5,25 +5,13 @@ import java.util.List;
 
 public class OrderResponseDTO {
 
-	private String idUser ;							// donnees pour identifier le client
-	private String IBAN ;							// donnees pour le paiement
+//	private String idUser ;							// donnees pour identifier le client
+//	private String IBAN ;							// donnees pour le paiement
 	private String PaymentType ;					//différé ou immidia, pour le momentnous allos supposé que c'est différé
 	private String datePaiement ;					// celle du différé ou du WS avec la banque si on ah=joute orchestrateur
-	private String totalOrder ;						//prix totale de la commande
-	private ArrayList<DevisResponseDTO> devisResponse ; 	// liste des produits
+	private ArrayList<DevisResponseDTO> ListProductToOrder ; 	// liste des produits
 	
-	public String getIdUser() {
-		return idUser;
-	}
-	public void setIdUser(String idUser) {
-		this.idUser = idUser;
-	}
-	public String getIBAN() {
-		return IBAN;
-	}
-	public void setIBAN(String iBAN) {
-		IBAN = iBAN;
-	}
+	
 	public String getPaymentType() {
 		return PaymentType;
 	}
@@ -36,17 +24,10 @@ public class OrderResponseDTO {
 	public void setDatePaiement(String datePaiement) {
 		this.datePaiement = datePaiement;
 	}
-	public String getTotalOrder() {
-		return totalOrder;
+	public ArrayList<DevisResponseDTO> getListProductToOrder() {
+		return ListProductToOrder;
 	}
-	public void setTotalOrder(String totalOrder) {
-		this.totalOrder = totalOrder;
+	public void setListProductToOrder(ArrayList<DevisResponseDTO> listProductToOrder) {
+		ListProductToOrder = listProductToOrder;
 	}
-	public List<DevisResponseDTO> getDevisResponse() {
-		return devisResponse;
-	}
-	public void setDevisResponse(ArrayList<DevisResponseDTO> devisResponse) {
-		this.devisResponse = devisResponse;
-	}
-	
 }

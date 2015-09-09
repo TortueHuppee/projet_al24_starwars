@@ -59,6 +59,7 @@ public class BusinessConnection implements IBusinessConnection {
 	@Override
 	public User getUserByEmail(String email) {
 		List<User> listeUser = proxyUser.getUserByEmail(email);
+		log.info("*********** getUserByEmail dans business fonctionne : user = "+ listeUser.get(0).getUserName()+" ***********");
 		return listeUser.get(0);
 	}
 	

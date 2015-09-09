@@ -56,6 +56,7 @@ public class DaoUser implements IDaoUser {
 		Query hql = session.createQuery(requete);
 		hql.setParameter("email",email);
 		List<User> resultat = hql.list();
+		LOGGER.info("*********** getUserByEmail dans dao fonctionne : user = "+ resultat.get(0).getUserName()+" ***********");
 		return resultat;
 	}
 	

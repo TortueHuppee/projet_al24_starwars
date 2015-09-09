@@ -1,13 +1,22 @@
 package manufacture.ws.DTO;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class OrderRequestDTO {
 	
-	private String emailUser ;		// donnees pour identifier le client
-	private String IBAN ;		// donnees pour le paiement
+	// Pour identifier le client
+	private String emailUser ;		
+		
+	// donnees pour le paiement
+//	private String IBAN ;
+	private Long numeroCarte ;
+	private Date dateFinValidite ;
+	private int cryptogramme ;
 	private String PaymentType ;
-	private ArrayList<DevisResponseDTO> devisResponse ;
+	
+	// Liste des produits à commander
+	private ArrayList<DevisResponseDTO> ListProductToOrder ;
 	
 	
 	public String getEmailUser() {
@@ -16,24 +25,35 @@ public class OrderRequestDTO {
 	public void setEmailUser(String emailUser) {
 		this.emailUser = emailUser;
 	}
-	public ArrayList<DevisResponseDTO> getDevisResponse() {
-		return devisResponse;
-	}
-	public void setDevisResponse(ArrayList<DevisResponseDTO> devisResponse) {
-		this.devisResponse = devisResponse;
-	}
-	public String getIBAN() {
-		return IBAN;
-	}
-	public void setIBAN(String iBAN) {
-		IBAN = iBAN;
-	}
 	public String getPaymentType() {
 		return PaymentType;
 	}
 	public void setPaymentType(String paymentType) {
 		PaymentType = paymentType;
 	}
-	
-	
+	public Long getNumeroCarte() {
+		return numeroCarte;
+	}
+	public void setNumeroCarte(Long numeroCarte) {
+		this.numeroCarte = numeroCarte;
+	}
+	public Date getDateFinValidite() {
+		return dateFinValidite;
+	}
+	public void setDateFinValidite(Date dateFinValidite) {
+		this.dateFinValidite = dateFinValidite;
+	}
+	public int getCryptogramme() {
+		return cryptogramme;
+	}
+	public void setCryptogramme(int cryptogramme) {
+		this.cryptogramme = cryptogramme;
+	}
+	public ArrayList<DevisResponseDTO> getListProductToOrder() {
+		return ListProductToOrder;
+	}
+	public void setListProductToOrder(ArrayList<DevisResponseDTO> listProductToOrder) {
+		ListProductToOrder = listProductToOrder;
+	}
+		
 }
