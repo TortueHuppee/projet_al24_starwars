@@ -1,10 +1,7 @@
-package manufacture.ws.WS;
+package manufacture.ws.order;
 
 import javax.jws.WebParam;
 import javax.jws.WebService;
-
-import manufacture.ws.DTO.OrderRequestDTO;
-import manufacture.ws.DTO.OrderResponseDTO;
 
 @WebService
 public interface IOrder {

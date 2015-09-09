@@ -1,7 +1,9 @@
-package manufacture.ws.DTO;
+package manufacture.ws.order;
 
 import java.util.ArrayList;
 import java.util.Date;
+
+import manufacture.ws.devis.DevisResponseDTO;
 
 public class OrderRequestDTO {
 	

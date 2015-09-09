@@ -1,14 +1,15 @@
-package manufacture.ws.DTO;
+package manufacture.ws.devis;
 
-import manufacture.ws.WS.IDevis;
+public class DevisResponseDTO {
 
-public class DevisRequestDTO {
-	
 	private Integer idProductRef ;
 	private Integer idColor ;
 	private Integer idMaterial ;
 	private Integer idConstructor ;
 	private Integer quantity ;
+	
+	private Double price ;
+	private String availability ;
 	
 	public Integer getIdProductRef() {
 		return idProductRef;
@@ -40,5 +41,16 @@ public class DevisRequestDTO {
 	public void setQuantity(Integer quantity) {
 		this.quantity = quantity;
 	}
-	
+	public String getAvailability() {
+		return availability;
+	}
+	public void setAvailability(String availability) {
+		this.availability = availability;
+	}
+	public Double getPrice() {
+		return price;
+	}
+	public void setPrice(Double price) {
+		this.price = price;
+	}
 }
