@@ -86,7 +86,7 @@ public class ManagedBeanCart {
 	                }
 	                cp.setQuantity(nouvelleQuantite);
 	                
-	                context.addMessage(null, new FacesMessage("Produit(s) ajoutÃ©(s)", nouvelleQuantite+" "+mbProduct.getProductRef().getProductName()+" ajoutÃ©(s) au panier" ) );
+	                context.addMessage(null, new FacesMessage("Produit(s) ajouté(s)", nouvelleQuantite+" "+mbProduct.getProductRef().getProductName()+" ajouté(s) au panier" ) );
 	            }
 	        }
 	    }
@@ -98,7 +98,7 @@ public class ManagedBeanCart {
 	        cartProduct.setProduct(productToAdd);
 	        panier.add(cartProduct);
 	        
-	        context.addMessage(null, new FacesMessage("Produit(s) ajoutÃ©(s)", quantity+" "+mbProduct.getProductRef().getProductName()+" ajoutÃ©(s) au panier" ) );
+	        context.addMessage(null, new FacesMessage("Produit(s) ajouté(s)", quantity+" "+mbProduct.getProductRef().getProductName()+" ajouté(s) au panier" ) );
 	    }
 	    quantity = 1;
 	}
