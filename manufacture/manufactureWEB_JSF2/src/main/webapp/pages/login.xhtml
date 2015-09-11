@@ -26,9 +26,8 @@
 						required="true"
 						requiredMessage="Champs obligatoire" styleClass="inputConnexion" />
 
-					<p:commandButton value="Se connecter"
-						actionListener="#{loginBean.doLogin()}" />
-					<h:commandButton action="#{loginBean.doLogin()}" value="Connect" />
+					<p:commandButton value="Se connecter" update="@this"
+						action="#{loginBean.doLogin()}" />
 
 					<h:outputLabel value="Pas de compte ?" />
 					<h:commandLink value="Inscrivez vous !"
