@@ -132,8 +132,8 @@ public class OrderImpl implements IOrder {
 		proxyPaiement.processPaiement(cart);
 		
 		orderResponse.setPaymentType(orderRequest.getPaymentType());
-		orderResponse.setDatePaiement(cart.getDatePayment().toString());
-		orderResponse.setDatePaiement(new Date().toString());
+		orderResponse.setDatePaiement(cart.getDatePayment());
+		orderResponse.setDatePaiement(new Date());
 		for (DevisResponseDTO produit : orderRequest.getListProductToOrder()) {
 			log.info("********* idRef produit commandé : "+produit.getIdProductRef() + "*********");
 		}
