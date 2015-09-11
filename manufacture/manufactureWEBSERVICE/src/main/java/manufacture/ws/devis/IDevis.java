@@ -1,12 +1,9 @@
-package manufacture.ws.WS;
+package manufacture.ws.devis;
 
 import java.util.ArrayList;
 
 import javax.jws.WebParam;
 import javax.jws.WebService;
-
-import manufacture.ws.DTO.DevisRequestDTO;
-import manufacture.ws.DTO.DevisResponseDTO;
 
 @WebService
 public interface IDevis {

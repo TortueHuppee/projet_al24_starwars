@@ -1,6 +1,5 @@
-package manufacture.ws.WS;
+package manufacture.ws.order;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -23,14 +22,11 @@ import manufacture.ifacade.cart.IGestionCart;
 import manufacture.ifacade.cart.IPaiement;
 import manufacture.ifacade.catalog.ICatalog;
 import manufacture.ifacade.user.IConnection;
-import manufacture.ws.DTO.DevisRequestDTO;
-import manufacture.ws.DTO.DevisResponseDTO;
-import manufacture.ws.DTO.OrderRequestDTO;
-import manufacture.ws.DTO.OrderResponseDTO;
+import manufacture.ws.devis.DevisResponseDTO;
 
 @Transactional
 @Component
-@WebService(endpointInterface="manufacture.ws.WS.IOrder")
+@WebService(endpointInterface="manufacture.ws.order.IOrder")
 public class OrderImpl implements IOrder {
 	
 	private static Logger log = Logger.getLogger(OrderImpl.class);
@@ -45,11 +41,15 @@ public class OrderImpl implements IOrder {
 		return 0 ;	
 	}
 	
-	private CartProduct convertDevisResponseDTOToCartProduct(DevisResponseDTO devisResponseProduct){
+	private List<CartProduct> convertDevisResponseDTOToCartProduct(List<DevisResponseDTO> devisResponseProduct){
 		
-		List<Product> listeProduct = proxyCatalog.getAllProductConstructorByProductRef(devisResponseProduct.getIdProductRef());
-		CartProduct cartProduct = new CartProduct();
+		List<CartProduct> listeCartProduct = new ArrayList<CartProduct>();
 		
+		for (DevisResponseDTO devisResponse : devisResponseProduct) {
+			List<Product> listeProduct = proxyCatalog.getAllProductConstructorByProductRef(devisResponse.getIdProductRef());
+		
+		
+				
 		//Cas 1 : la reference produit demandee n'est pas enregistree dans la base de donnees
 		if(!listeProduct.isEmpty())
 		{			
@@ -57,30 +57,34 @@ public class OrderImpl implements IOrder {
 			{
 				boolean isTheSame = true ;
 				
-				if (product.getColor().getIdColor() != devisResponseProduct.getIdColor()) 
+				if (product.getColor().getIdColor() != devisResponse.getIdColor()) 
 				{
 					isTheSame = false ;
 				}
 				
-				if (product.getMaterial().getIdMaterial() != devisResponseProduct.getIdMaterial())
+				if (product.getMaterial().getIdMaterial() != devisResponse.getIdMaterial())
 				{
 					isTheSame = false ;
 				}
 				
-				if (product.getConstructor().getIdConstructor() != devisResponseProduct.getIdConstructor())
+				if (product.getConstructor().getIdConstructor() != devisResponse.getIdConstructor())
 				{
 					isTheSame = false ;
 				}
 				
 				if (isTheSame)
 				{
+					CartProduct cartProduct = new CartProduct();
 					cartProduct.setProduct(product);
-					cartProduct.setQuantity(devisResponseProduct.getQuantity());
+					cartProduct.setQuantity(devisResponse.getQuantity());
+					
+					listeCartProduct.add(cartProduct);
 				}
 			}
 		}
+		}
 		
-		return cartProduct ;
+		return listeCartProduct ;
 	}
 	
 	private Cart convertOrderRequestToCart(OrderRequestDTO orderRequest) {
@@ -92,11 +96,12 @@ public class OrderImpl implements IOrder {
 		Delivery delivery = new Delivery();
 		PaymentType paymentType = new PaymentType();
 		
-		for (DevisResponseDTO devisResponse : orderRequest.getListProductToOrder()) {
-			CartProduct cp = convertDevisResponseDTOToCartProduct(devisResponse) ;
-			cp.setCart(cart);
-			listeCartProduct.add(cp);
-		}
+		listeCartProduct = convertDevisResponseDTOToCartProduct(orderRequest.getListProductToOrder());
+//		if (listeCartProduct.isEmpty()) {
+//			
+//		} else {
+//			
+//		}
 		cart.setCartProducts(listeCartProduct);
 		cart.setUser(user);
 		cart.setDateCommande(new Date());
@@ -127,8 +132,8 @@ public class OrderImpl implements IOrder {
 		proxyPaiement.processPaiement(cart);
 		
 		orderResponse.setPaymentType(orderRequest.getPaymentType());
-		orderResponse.setDatePaiement(cart.getDatePayment().toString());
-		orderResponse.setDatePaiement(new Date().toString());
+		orderResponse.setDatePaiement(cart.getDatePayment());
+		orderResponse.setDatePaiement(new Date());
 		for (DevisResponseDTO produit : orderRequest.getListProductToOrder()) {
 			log.info("********* idRef produit commandé : "+produit.getIdProductRef() + "*********");
 		}
