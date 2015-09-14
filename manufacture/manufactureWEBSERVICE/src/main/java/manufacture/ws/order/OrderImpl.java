@@ -133,7 +133,9 @@ public class OrderImpl implements IOrder {
 		
 		orderResponse.setPaymentType(orderRequest.getPaymentType());
 		orderResponse.setDatePaiement(cart.getDatePayment());
-		orderResponse.setDatePaiement(new Date());
+		Calendar calendar = Calendar.getInstance();
+		calendar.add(Calendar.DATE, +15);
+		orderResponse.setDatePaiement(calendar.getTime());
 		for (DevisResponseDTO produit : orderRequest.getListProductToOrder()) {
 			log.info("********* idRef produit commandé : "+produit.getIdProductRef() + "*********");
 		}
