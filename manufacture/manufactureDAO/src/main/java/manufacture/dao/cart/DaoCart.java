@@ -33,9 +33,9 @@ public class DaoCart implements IDaoCart {
         cart.setIsPaid(true);
 
         //G�n�ration al�atoire du num�ro de transaction bancaire
-        Random rand = new Random();
-        int transactionNumber = rand.nextInt(999999999 - 100000000 + 1) + 100000000;
-        cart.setTransactionNumber(transactionNumber);
+//        Random rand = new Random();
+//        int transactionNumber = rand.nextInt(999999999 - 100000000 + 1) + 100000000;
+//        cart.setTransactionNumber(transactionNumber);
         session.update(cart);
         return cart; 
     } 

@@ -41,6 +41,11 @@
 	border:1px solid lightgrey;
 }
 
+#infosPaiement h3
+{
+	margin-bottom:60px;
+}
+
 #adressefacturation,
 #infosPaiement
 {

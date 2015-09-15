@@ -1,44 +1,45 @@
 package manufacture.web.cart;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+import javax.xml.datatype.DatatypeConfigurationException;
+import javax.xml.datatype.DatatypeFactory;
+import javax.xml.datatype.XMLGregorianCalendar;
+import javax.xml.ws.BindingProvider;
 
 import manufacture.entity.cart.Cart;
 import manufacture.entity.cart.PaymentType;
 import manufacture.entity.user.Address;
 import manufacture.entity.user.User;
-import manufacture.facade.cart.Paiement;
 import manufacture.ifacade.cart.IPaiement;
+import manufacture.web.catalogBean.ProductManagedBean;
 import manufacture.web.user.LoginBean;
 import manufacture.web.user.ProfilBean;
 import manufacture.web.user.UserBean;
 
 import org.apache.log4j.Logger;
 
+import fr.afcepf.al24.bank.bpel.BPELBank;
+import fr.afcepf.al24.bank.bpel.BPELBankPortType;
+import fr.afcepf.al24.bank.bpel.BPELBankRequest;
+import fr.afcepf.al24.bank.bpel.BPELBankResponse;
+
 @ManagedBean(name = "paymentBean")
 @SessionScoped
 public class PaymentBean {
 
     private static Logger log = Logger.getLogger(PaymentBean.class);
-
-    private String cardNumber = "";
-    private String pin;
-    private String expirationDate;
-    private String reponse;
-    private String cardOwnerName;
-
-    private int idAdressePersonnelle = 0;
-    private Address adresseFacturation;
-    private List<Integer> listeIntMois;
-    private List<Integer> listeIntAnnee;
-
+    
     @ManagedProperty(value="#{profilBean}")
     private ProfilBean profilBean;
 
@@ -57,6 +58,9 @@ public class PaymentBean {
     @ManagedProperty(value="#{paiement}")
     private IPaiement paiementFacade;
     
+    @ManagedProperty(value="#{mbProduct}")
+    private ProductManagedBean mbProduct;
+    
     private Cart panierValide;
     private double prixArticlePanierValide;
     private double prixTotalPanierValide;
@@ -65,6 +69,25 @@ public class PaymentBean {
     private PaymentType moyenPaiementChoisi;
     private int idPaiement;
     
+    private int idAdressePersonnelle = 0;
+    private Address adresseFacturation;
+    private List<Integer> listeIntMois;
+    private List<Integer> listeIntAnnee;
+    
+    //Informations de paiement de la societe StarWars eShop
+    private static final long NUMERO_CREDIT = 1;
+    private XMLGregorianCalendar dateFinCredit ;
+    private static final String DATE_STRING_DEBIT = "2017-01" ;
+    private static final int CRYPTOGRAMME_DEBIT = 111;
+
+    //Informations de paiement du client
+    private long numeroDebit;
+    private XMLGregorianCalendar dateFinDebit ;
+    private String dateStringDebit;
+    private int cryptoDebit ;
+    private int dateStringDebitMois ;
+    private int dateStringDebitAnnee ;
+    
     private SimpleDateFormat sdf;
 
     @PostConstruct
@@ -72,15 +95,31 @@ public class PaymentBean {
         moyensDePaiement = new ArrayList<>();
         moyensDePaiement = paiementFacade.getAllPaymentType();
         
+        //Informations de paiement de la societe StarWars eShop
         idPaiement = 1;
-        
-        sdf = new SimpleDateFormat("dd/MM/yyyy");
-        cardNumber = "";
-        pin = "";
-        expirationDate = "";
-        reponse = "";
-        cardOwnerName = "";
+        Date dateFinValiditeCredit = new Date();
+        sdf = new SimpleDateFormat("yyyy-MM");
+        try {
+        	dateFinValiditeCredit = sdf.parse(DATE_STRING_DEBIT);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+        GregorianCalendar gcalendar = new GregorianCalendar();
+		gcalendar.setTime(dateFinValiditeCredit);
+		try {
+			dateFinCredit = DatatypeFactory.newInstance().newXMLGregorianCalendar(gcalendar);
+		} catch (DatatypeConfigurationException e) {
+			e.printStackTrace();
+		}
+		
+		//Informations de paiement du client
+		numeroDebit = 0;
+		dateStringDebit = "";
+		dateStringDebitAnnee = 0;
+		dateStringDebitMois = 0;
+		cryptoDebit = 0;
 
+		//Donnees chargees pour l'affichage
         listeIntMois = new ArrayList<>();
         for (int i = 1; i <= 12; i++)
         {
@@ -108,34 +147,42 @@ public class PaymentBean {
     }
 
     //Methodes
-    public boolean validatorNumber(String string)
-    {
-        log.info("log de string : " + string);
-        System.out.println("Syso de string : " + string);
-        boolean isNumber = false;
-        try {
-            Integer.parseInt(string);
-            isNumber = true;
-        } catch (Exception e){
-            e.printStackTrace();
-        }
-        return isNumber;
-    }
 
     public String goToStep4()
     {
-        adresseFacturation = getAddressById();
+    	adresseFacturation = getAddressById();
         moyenPaiementChoisi = getPaiementById();
-        return valider();
+        
+        //Appel du service
+    	BPELBank bankService = new BPELBank();
+    	BPELBankPortType iBPELBank = bankService.getBPELBankPort();
+    	
+    	BindingProvider bp = (BindingProvider)iBPELBank;
+		bp.getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY,
+				"http://192.168.20.110:8080/ode/processes/BPELBank?wsdl");
+		
+		//Preparation de la requete
+		BPELBankRequest bpelBankRequest = convertDataToBPELBankRequest();
+    	
+    	BPELBankResponse bankResponse = iBPELBank.process(bpelBankRequest) ; // = resultOfCallOfTheService
+    	
+    	if (bankResponse.isTransactionValide()) {
+        	return valider(bankResponse.getIdTransaction());
+		} else {
+			return "paiementRefuse.xhtml?faces-redirect=true"; //page de refus ou erreur paiement
+		}
+    	
     }
 
-    public String valider() {
+    public String valider(int idTransaction) {
+    	
         Cart commande = mbCart.getCart();
         User user = userBean.getUser();
         commande.setUser(user);	    
         commande.setCartProducts(mbSteps.getListeProduitsAutorises());
         commande.setAddressBilling(adresseFacturation);
         commande.setPaymentType(moyenPaiementChoisi);
+        commande.setTransactionNumber(idTransaction);
 
         panierValide = paiementFacade.processPaiement(commande);
         prixArticlePanierValide = mbSteps.getCartPrice();
@@ -145,6 +192,38 @@ public class PaymentBean {
         mbCart.init();
         return "panierStep4.xhtml?faces-redirect=true";
     }
+    
+    private BPELBankRequest convertDataToBPELBankRequest() {
+		
+    	BPELBankRequest bpelBankRequest = new BPELBankRequest();
+    	bpelBankRequest.setNumeroCredit(NUMERO_CREDIT);
+    	bpelBankRequest.setCryptoCredit(CRYPTOGRAMME_DEBIT);
+    	bpelBankRequest.setDateFinCredit(dateFinCredit);
+    	
+    	dateStringDebit = dateStringDebitAnnee + "-" + dateStringDebitMois ;
+    	
+    	Date dateFinValiditeDebit = new Date();
+        sdf = new SimpleDateFormat("yyyy-MM");
+        try {
+        	dateFinValiditeDebit = sdf.parse(dateStringDebit);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+        GregorianCalendar gcalendar = new GregorianCalendar();
+		gcalendar.setTime(dateFinValiditeDebit);
+		try {
+			dateFinDebit = DatatypeFactory.newInstance().newXMLGregorianCalendar(gcalendar);
+		} catch (DatatypeConfigurationException e) {
+			e.printStackTrace();
+		}
+		
+    	bpelBankRequest.setNumeroDebit(numeroDebit);
+    	bpelBankRequest.setCryptoDebit(cryptoDebit);
+    	bpelBankRequest.setDateFinDebit(dateFinDebit);
+    	bpelBankRequest.setMontant(mbSteps.calculePrixTotal());
+    	
+    	return bpelBankRequest ;
+	}
     
     private PaymentType getPaiementById() {
         for (PaymentType payement : moyensDePaiement)
@@ -168,28 +247,7 @@ public class PaymentBean {
         return new Address();
     }
 
-    @Override
-    public String toString() {
-        return " ** " + "Paiement : " + cardNumber + " ** " + pin + " ** ";
-    }
-
     //Getters et Setters
-
-    public String getExpirationDate() {
-        return expirationDate;
-    }
-
-    public void setExpirationDate(String expirationDate) {
-        this.expirationDate = expirationDate;
-    }
-
-    public String getCardOwnerName() {
-        return cardOwnerName;
-    }
-
-    public void setCardOwnerName(String cardOwnerName) {
-        this.cardOwnerName = cardOwnerName;
-    }
 
     public UserBean getUserBean() {
         return userBean;
@@ -223,29 +281,6 @@ public class PaymentBean {
         this.loginBean = loginBean;
     }
 
-    public String getCardNumber() {
-        return cardNumber;
-    }
-
-    public void setCardNumber(String cardNumber) {
-        this.cardNumber = cardNumber;
-    }
-
-    public String getPin() {
-        return pin;
-    }
-
-    public void setPin(String pin) {
-        this.pin = pin;
-    }
-
-    public String getReponse() {
-        return reponse;
-    }
-
-    public void setReponse(String reponse) {
-        this.reponse = reponse;
-    }
 
     public static Logger getLog() {
         return log;
@@ -358,4 +393,77 @@ public class PaymentBean {
     public void setIdPaiement(int paramIdPaiement) {
         idPaiement = paramIdPaiement;
     }
+
+
+	public long getNumeroDebit() {
+		return numeroDebit;
+	}
+
+	public XMLGregorianCalendar getDateFinDebit() {
+		return dateFinDebit;
+	}
+
+	public String getDateStringDebit() {
+		return dateStringDebit;
+	}
+
+	public void setDateStringDebit(String dateStringDebit) {
+		this.dateStringDebit = dateStringDebit;
+	}
+
+	public int getCryptoDebit() {
+		return cryptoDebit;
+	}
+
+	public int getDateStringDebitMois() {
+		return dateStringDebitMois;
+	}
+
+	public void setDateStringDebitMois(int dateStringDebitMois) {
+		this.dateStringDebitMois = dateStringDebitMois;
+	}
+
+	public int getDateStringDebitAnnee() {
+		return dateStringDebitAnnee;
+	}
+
+	public void setDateStringDebitAnnee(int dateStringDebitAnnee) {
+		this.dateStringDebitAnnee = dateStringDebitAnnee;
+	}
+
+	public ProductManagedBean getMbProduct() {
+		return mbProduct;
+	}
+
+	public void setMbProduct(ProductManagedBean mbProduct) {
+		this.mbProduct = mbProduct;
+	}
+
+	public XMLGregorianCalendar getDateFinCredit() {
+		return dateFinCredit;
+	}
+
+	public void setDateFinCredit(XMLGregorianCalendar dateFinCredit) {
+		this.dateFinCredit = dateFinCredit;
+	}
+
+	public static long getNumeroCredit() {
+		return NUMERO_CREDIT;
+	}
+
+	public static int getCryptogrammeDebit() {
+		return CRYPTOGRAMME_DEBIT;
+	}
+
+	public void setNumeroDebit(long numeroDebit) {
+		this.numeroDebit = numeroDebit;
+	}
+
+	public void setDateFinDebit(XMLGregorianCalendar dateFinDebit) {
+		this.dateFinDebit = dateFinDebit;
+	}
+
+	public void setCryptoDebit(int cryptoDebit) {
+		this.cryptoDebit = cryptoDebit;
+	}
 }

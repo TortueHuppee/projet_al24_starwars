@@ -1,4 +1,4 @@
-package manufacture.ws.WS;
+package manufacture.ws.devis;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,8 +8,6 @@ import javax.transaction.Transactional;
 
 import manufacture.entity.product.Product;
 import manufacture.ifacade.catalog.ICatalog;
-import manufacture.ws.DTO.DevisRequestDTO;
-import manufacture.ws.DTO.DevisResponseDTO;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +15,7 @@ import org.springframework.stereotype.Component;
 
 @Transactional
 @Component
-@WebService(endpointInterface="manufacture.ws.WS.IDevis")
+@WebService(endpointInterface="manufacture.ws.devis.IDevis")
 public class DevisImpl implements IDevis {
 
 	private static final Logger LOG = Logger.getLogger(DevisImpl.class);

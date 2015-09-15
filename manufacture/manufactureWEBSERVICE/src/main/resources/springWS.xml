@@ -20,7 +20,7 @@
 	<import resource="classpath:springFacade.xml"/>
 	
 	<!-- déclarer un composant (via spring) pour implémentation du web service -->
-	<bean id="devisImpl" class="manufacture.ws.WS.DevisImpl">
+	<bean id="devisImpl" class="manufacture.ws.devis.DevisImpl">
 		<!-- injection de dépendance (dao...) -->
 	</bean>
 
@@ -28,7 +28,7 @@
 		implementor="#devisImpl" address="/ServiceDevis" />
 		
 	
-	<bean id="orderImpl" class="manufacture.ws.WS.OrderImpl">
+	<bean id="orderImpl" class="manufacture.ws.order.OrderImpl">
 		<!-- injection de dépendance (dao...) -->
 	</bean>
 
