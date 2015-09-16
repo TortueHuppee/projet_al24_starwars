@@ -12,7 +12,7 @@ import org.apache.log4j.Logger;
 
 /**
  * @author ocalik
- *	Bean g�rant la connection et le maintien de la connexion de l'utilisateur sur le site.
+ *	Bean gerant la connection et le maintien de la connexion de l'utilisateur sur le site.
  */
 @ManagedBean(name = "userBean")
 @SessionScoped

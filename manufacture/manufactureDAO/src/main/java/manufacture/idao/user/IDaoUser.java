@@ -2,6 +2,7 @@ package manufacture.idao.user;
 
 import java.util.List;
 
+import manufacture.entity.user.Civility;
 import manufacture.entity.user.User;
 
 
@@ -33,4 +34,6 @@ public interface IDaoUser {
 	
 
 	List<User> getAllArtisan();
+
+	List<Civility> getAllCivility();
 }

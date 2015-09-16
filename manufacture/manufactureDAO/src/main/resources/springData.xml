@@ -20,12 +20,12 @@
 	
 	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver"/>
-		<property name="url" value="jdbc:mysql://127.2.76.130:3306/manufacture"/>
-		<property name="username" value="adminVlrlyTF "/>
-		<property name="password" value="Gc8WFKYrgU3i"/>
-<!-- 		<property name="url" value="jdbc:mysql://127.0.0.1:3306/manufacture"/> -->
-<!-- 		<property name="username" value="root"/> -->
-<!-- 		<property name="password" value="root"/> -->
+<!-- 		<property name="url" value="jdbc:mysql://127.2.76.130:3306/manufacture"/> -->
+<!-- 		<property name="username" value="adminVlrlyTF "/> -->
+<!-- 		<property name="password" value="Gc8WFKYrgU3i"/> -->
+		<property name="url" value="jdbc:mysql://127.0.0.1:3306/manufacture"/>
+		<property name="username" value="root"/>
+		<property name="password" value=""/>
 	</bean>
 	
 	<bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">

@@ -14,6 +14,8 @@ import manufacture.entity.cart.Cart;
 import manufacture.entity.cart.CartProduct;
 import manufacture.entity.product.Product;
 import manufacture.entity.user.Address;
+import manufacture.entity.user.City;
+import manufacture.entity.user.Civility;
 import manufacture.ifacade.user.IProfil;
 import manufacture.web.datas.DataLoader;
 
@@ -49,6 +51,7 @@ public class ProfilBean {
 	private Date date = new Date();
 	
 	private String rubriqueChoisie;
+	private List<Civility> listeCivilites;
 	
 	private boolean donneesInitialisees = false;
 
@@ -69,6 +72,8 @@ public class ProfilBean {
 	public void initialiseDonnees()
 	{
 		date = userBean.getUser().getCreateTime();
+		listeCivilites = new ArrayList<>();
+		listeCivilites = proxyProfil.getAllCivility();
 		
 		initialiserAchats();
 		initialiserAdresses();
@@ -126,6 +131,30 @@ public class ProfilBean {
         }
 	}
 	
+	public String getCivilityById(int idCivility)
+	{
+		for (Civility civilite : listeCivilites)
+		{
+			if (civilite.getIdCivility() == idCivility)
+			{
+				return civilite.getCivility();
+			}
+		}
+		return "Donnée indisponible";
+	}
+	
+	public String getPostalCodeById(int idCity)
+	{
+		for (City city : dataloader.getListCity())
+		{
+			if (city.getIdCity() == idCity)
+			{
+				return city.getPostalCode() + "";
+			}
+		}
+		return "Ville inconnue";
+	}
+	
 	//Getters et Setters
 
 	public UserBean getUserBean() {
@@ -148,14 +177,12 @@ public class ProfilBean {
 	}
 	public List<Address> getAdressesFacturation() {
 		return adressesFacturation;
-//		return proxyProfil.getBillingAddressByUser(userBean.getUser());
 	}
 	public void setAdressesFacturation(List<Address> adressesFacturation) {
 		this.adressesFacturation = adressesFacturation;
 	}
 	public List<Address> getAdressesLivraison() {
 		return adressesLivraison;
-//		return proxyProfil.getDeliveryAddressByUser(userBean.getUser());
 	}
 	public void setAdressesLivraison(List<Address> adressesLivraison) {
 		this.adressesLivraison = adressesLivraison;

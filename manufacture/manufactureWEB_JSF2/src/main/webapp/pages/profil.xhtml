@@ -3,7 +3,8 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui"
-	xmlns:ui="http://java.sun.com/jsf/facelets">
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
 	<ui:define name="stylesheets">
 		<h:outputStylesheet name="profilCss.css" library="css" />
 	</ui:define>
@@ -12,6 +13,7 @@
 	</ui:define>
 
 	<ui:define name="main-body">
+		<f:view>
 			<h:form id="myForm">
 				<div class="profil">
 					<h2>
@@ -64,7 +66,7 @@
 
 							<h:outputLabel value="Civilité" />
 							:
-							<h:outputLabel value="#{userBean.user.civility.civility}"
+							<h:outputLabel value="#{profilBean.getCivilityById(userBean.user.civility.idCivility)}"
 								rendered="#{not editBean.editModePersonnel}" />
 							<p:selectOneRadio id="signup_civility"
 								rendered="#{editBean.editModePersonnel}"
@@ -124,7 +126,7 @@
 						<div class="listeAdresses">
 						
 							<h2>Adresses enregistrées (#{profilBean.adressesTotales.size()})
-								<p:commandLink onclick="loadModal2();return false;" type="button">
+								<p:commandLink onclick="loadModal2();return false;" >
 									<img src="../resources/images/icones_profil/ajouter-defaut.png" 
 									onmousedown="this.src='../resources/images/icones_profil/ajouter-clic.png';"
 									onmouseout="this.src='../resources/images/icones_profil/ajouter-defaut.png';"/>
@@ -136,20 +138,21 @@
 									<h2>Enregistrer une nouvelle adresse</h2>
 
 									<h:outputLabel value="Rue" class="dialogLabel" /> :
-										<h:inputText value="#{editBean.nouvelleAdresse.street}" class="dialogInput" />
+									<h:inputText value="#{editBean.nouvelleAdresse.street}" class="dialogInput" pt:placeholder="Nom de voie"/>
 
 									<h:outputLabel value="                " class="dialogLabel" />
-									<h:inputText value="#{editBean.nouvelleAdresse.number}" class="dialogInput" />
+									<h:inputText value="#{editBean.nouvelleAdresse.number}" class="dialogInput" pt:placeholder="Numéro de voie"/>
 
 									<h:outputLabel value="Code postal" class="dialogLabel" /> :
-										<input type="number" value="#{editBean.ville.postalCode}"
-										class="dialogInput" />
+									<h:inputText value="#{profilBean.getPostalCodeById(editBean.idCityNouvelleAdresse)}" 
+									class="dialogInput" disabled="true" id="postalCode"/>
 
 									<h:outputLabel value="Ville" class="dialogLabel" /> :
-    									<p:selectOneMenu value="#{editBean.idCityNouvelleAdresse}"
+    								<p:selectOneMenu value="#{editBean.idCityNouvelleAdresse}"
 										style="width:400px">
 										<f:selectItems var="item" value="#{mbDataLoader.listCity}"
 											itemLabel="#{item.cityName}" itemValue="#{item.idCity}" />
+										<f:ajax render="postalCode"/>
 									</p:selectOneMenu>
 
 									<h:outputLabel value="Pays" class="dialogLabel" /> :
@@ -178,16 +181,12 @@
        								<p:selectBooleanCheckbox
 										value="#{editBean.nouvelleAdresse.isDeliveryaddress}" />
 
-									<p:commandButton value="Annuler" type="button"
-										onclick="PF('addAddress').hide();"
-										actionListener="#{editBean.cancelModeAdresse()}" />
+									<p:commandButton value="Annuler" onclick="PF('addAddress').hide();"
+										action="#{editBean.cancelModeAdresse()}" />
 
-									<p:commandButton value="Enregistrer" type="button"
-										onclick="PF('changeAddress').hide();"
-										actionListener="#{editBean.saveNewAddress()}"
-										update=":myForm" />
+									<p:commandButton value="Enregistrer" onclick="PF('changeAddress').hide();" 
+										action="#{editBean.saveNewAddress()}" update=":myForm"/>
 									
-									<h:commandButton action="#{editBean.saveNewAddress()}" value="SaveNewAddress" />
 									</p:dialog>
 									
 							</h2>
@@ -222,80 +221,24 @@
 								
 								<h:column>
 								
-									<p:commandLink>
+									<h:commandLink action="#{editBean.removeAdresse(address)}">
 										<img src="../resources/images/icones_profil/supprimer-no-selected.png" 
 										onmousedown="this.src='../resources/images/icones_profil/supprimer-selected.png';"
 										onmouseout="this.src='../resources/images/icones_profil/supprimer-no-selected.png';"/>
-									</p:commandLink>
+									</h:commandLink>
 									
-									<p:commandLink onclick="loadModal();return false;" 
-										type="button" actionListener="#{editBean.editionModeAdresse(address)}">
-										<img src="../resources/images/icones_profil/editer-no-selected.png" 
-										onmousedown="this.src='../resources/images/icones_profil/editer-selected.png';"
-										onmouseout="this.src='../resources/images/icones_profil/editer-no-selected.png';"/>
+									<p:commandLink actionListener="#{editBean.editionModeAdresse(address)}"
+										oncomplete="loadModal(); return false;" ajax="true" process="@this"
+										update="@form :modifierAdresse">
+										<h:graphicImage value="/resources/images/icones_profil/editer-no-selected.png" 
+											onmousedown="this.src='../resources/images/icones_profil/editer-selected.png';"
+											onmouseout="this.src='../resources/images/icones_profil/editer-no-selected.png';"/>
 									</p:commandLink>
 
-									<p:dialog header="Modifier l'adresse" widgetVar="changeAddress"
-									modal="true" height="100">
-									
-									<h2>Adresse enregistrée</h2>
-
-									<h:outputLabel value="Rue" class="dialogLabel" /> :
-										<h:inputText value="#{editBean.adresseAModifier.street}" class="dialogInput" />
-
-									<h:outputLabel value="                " class="dialogLabel" />
-									<h:inputText value="#{editBean.adresseAModifier.number}" class="dialogInput" />
-
-									<h:outputLabel value="Code postal" class="dialogLabel" /> :
-										<input type="number" value="#{editBean.ville.postalCode}"
-										class="dialogInput" />
-
-									<h:outputLabel value="Ville" class="dialogLabel" /> :
-    								<p:selectOneMenu value="#{editBean.idCityAdresseAModifier}"
-										style="width:400px">
-										<f:selectItems var="item" value="#{mbDataLoader.listCity}"
-											itemLabel="#{item.cityName}" itemValue="#{item.idCity}" />
-									</p:selectOneMenu>
-
-									<h:outputLabel value="Pays" class="dialogLabel" /> :
-									<p:selectOneMenu value="#{mbDataLoader.idCountrySelected}"
-										style="width:400px">
-										<f:selectItems var="item" value="#{mbDataLoader.listCountry}"
-											itemLabel="#{item.countryName}" itemValue="#{item.idCountry}" />
-										<f:ajax update="@form" process="@this" />
-									</p:selectOneMenu>
-
-									<h:outputLabel value="Planète" class="dialogLabel" /> :
-									<p:selectOneMenu value="#{mbDataLoader.idPlanetSelected}"
-										style="width:400px">
-										<f:selectItems var="item" value="#{mbDataLoader.listPlanet}"
-											itemLabel="#{item.planetName}" itemValue="#{item.idPlanet}" />
-										<f:ajax update="@form" process="@this" />
-									</p:selectOneMenu>
-
-									<h:outputLabel value="Adresse de facturation"
-										class="dialogCheckBox" /> :
-       								<p:selectBooleanCheckbox
-										value="#{editBean.adresseAModifier.isBillingaddress}" />
-
-									<h:outputLabel value="Adresse de livraison"
-										class="dialogCheckBox" /> :
-       								<p:selectBooleanCheckbox
-										value="#{editBean.adresseAModifier.isDeliveryaddress}" />
-
-									<p:commandButton value="Annuler" type="button"
-										onclick="PF('changeAddress').hide();"
-										actionListener="#{editBean.cancelModeAdresse()}" />
-
-									<p:commandButton value="Enregistrer" type="button"
-										onclick="PF('changeAddress').hide();"
-										actionListener="#{editBean.saveAdresse()}" />
-										
-									<h:commandButton action="#{editBean.saveAdresse()}" value="SaveAddress" />
-
-									</p:dialog>
 								</h:column>	
 							</h:dataTable>
+							
+							
 							
 							<h:outputLabel class="tableauVide" value="Aucune adresse enregistrée" rendered="#{empty profilBean.adressesTotales}"/>
 							
@@ -422,5 +365,64 @@
 				</div>
 			
 			</h:form>
+
+			<h:form id="modifierAdresse">
+				<p:dialog header="Modifier l'adresse" widgetVar="changeAddress"
+					id="test" modal="true" height="100">
+						<h2>Adresse enregistrée</h2>
+
+						<h:outputLabel value="Rue" class="dialogLabel" /> :
+									<h:inputText value="#{editBean.adresseAModifier.street}"
+							class="dialogInput" pt:placeholder="Nom de voie" />
+
+						<h:outputLabel value="                " class="dialogLabel" />
+						<h:inputText value="#{editBean.adresseAModifier.number}"
+							class="dialogInput" pt:placeholder="Numéro de voie" />
+						
+						<h:outputLabel value="Code postal" class="dialogLabel" /> :
+						<h:inputText value="#{profilBean.getPostalCodeById(editBean.idCityAdresseAModifier)}"
+							class="dialogInput" disabled="true" id="postalCode2"/>
+
+						<h:outputLabel value="Ville" class="dialogLabel" /> :
+    					<p:selectOneMenu value="#{editBean.idCityAdresseAModifier}"
+							style="width:400px">
+							<f:selectItems var="item" value="#{mbDataLoader.listCity}"
+								itemLabel="#{item.cityName}" itemValue="#{item.idCity}" />
+							<f:ajax render="postalCode2"/>
+						</p:selectOneMenu>
+
+						<h:outputLabel value="Pays" class="dialogLabel" /> :
+						<p:selectOneMenu value="#{mbDataLoader.idCountrySelected}"
+							style="width:400px">
+							<f:selectItems var="item" value="#{mbDataLoader.listCountry}"
+								itemLabel="#{item.countryName}" itemValue="#{item.idCountry}" />
+							<f:ajax update="@form" process="@this" />
+						</p:selectOneMenu>
+
+						<h:outputLabel value="Planète" class="dialogLabel" /> :
+						<p:selectOneMenu value="#{mbDataLoader.idPlanetSelected}"
+							style="width:400px">
+							<f:selectItems var="item" value="#{mbDataLoader.listPlanet}"
+								itemLabel="#{item.planetName}" itemValue="#{item.idPlanet}" />
+							<f:ajax update="@form" process="@this" />
+						</p:selectOneMenu>
+
+						<h:outputLabel value="Adresse de facturation"
+							class="dialogCheckBox" /> :
+       								<p:selectBooleanCheckbox
+							value="#{editBean.adresseAModifier.isBillingaddress}" />
+
+						<h:outputLabel value="Adresse de livraison" class="dialogCheckBox" /> :
+       								<p:selectBooleanCheckbox
+							value="#{editBean.adresseAModifier.isDeliveryaddress}" />
+
+						<p:commandButton value="Annuler" onclick="PF('addAddress').hide();"
+										action="#{editBean.cancelModeAdresse()}" />
+
+						<p:commandButton value="Enregistrer" onclick="PF('changeAddress').hide();" 
+										action="#{editBean.saveAdresse()}" update=":myForm"/>
+				</p:dialog>
+			</h:form>
+		</f:view>
 	</ui:define>
 </ui:composition>

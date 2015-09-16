@@ -6,12 +6,15 @@ import manufacture.entity.cart.Cart;
 import manufacture.entity.cart.CartProduct;
 import manufacture.entity.product.Product;
 import manufacture.entity.user.Address;
+import manufacture.entity.user.Civility;
 import manufacture.entity.user.User;
 
 public interface IProfil {
 
-	//Identit�
+	//Identite
 	User editUser(User user);
+	
+	List<Civility> getAllCivility();
 	
 	//Adresses
 	List<Address> getAllAdressByUser(User user);
@@ -24,6 +27,8 @@ public interface IProfil {
 
 	List<Address> getDeliveryAddressByUser(User user);
 	
+	void removeAddress(Address address);
+	
 	//Ventes
 	List<Product> getProductSendByUser(User user);
 	
@@ -35,4 +40,5 @@ public interface IProfil {
 	List<Product> getProductNotSendByUser(User user);
 
     List<CartProduct> getCartProductByCart(Cart paramCart);
+	
 }

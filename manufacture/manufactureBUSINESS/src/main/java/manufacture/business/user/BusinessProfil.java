@@ -8,6 +8,7 @@ import manufacture.entity.cart.Cart;
 import manufacture.entity.cart.CartProduct;
 import manufacture.entity.product.Product;
 import manufacture.entity.user.Address;
+import manufacture.entity.user.Civility;
 import manufacture.entity.user.User;
 import manufacture.ibusiness.user.IBusinessProfil;
 import manufacture.idao.cart.IDaoCart;
@@ -114,6 +115,16 @@ public class BusinessProfil implements IBusinessProfil {
     public List<CartProduct> getCartProductByCart(Cart cart) {
         return proxyCartProduct.getCartProductByCart(cart);
     }
+    
+	@Override
+	public List<Civility> getAllCivility() {
+		return proxyUser.getAllCivility();
+	}
+	
+	@Override
+	public void removeAddress(Address address) {
+		proxyAddress.deleteAddress(address);
+	}
 	
 	//Proxy
 	

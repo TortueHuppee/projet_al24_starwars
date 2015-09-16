@@ -1,19 +1,23 @@
 package manufacture.web.user;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.ViewScoped;
+import javax.faces.bean.SessionScoped;
 
 import org.apache.log4j.Logger;
 
+import manufacture.entity.cart.Cart;
 import manufacture.entity.user.Address;
 import manufacture.entity.user.City;
 import manufacture.entity.user.User;
 import manufacture.ifacade.user.IProfil;
 
 @ManagedBean(name="editBean")
-@ViewScoped
+@SessionScoped
 public class EditManagedBean {
 
     private Logger log = Logger.getLogger(EditManagedBean.class);
@@ -56,23 +60,12 @@ public class EditManagedBean {
 	public void saveNewAddress()
 	{
 	    ville.setIdCity(idCityNouvelleAdresse);
-	    nouvelleAdresse.setCity(ville);
-	    log.info(ville.getIdCity());
-	    
+	    nouvelleAdresse.setCity(ville);	    
 	    nouvelleAdresse.setUser(userBean.getUser());
-		proxyProfil.saveAddress(nouvelleAdresse);
-
-		if (nouvelleAdresse.getIsBillingaddress())
-		{
-			profilBean.getAdressesFacturation().add(nouvelleAdresse);
-		}
-		
-		if (nouvelleAdresse.getIsDeliveryaddress())
-		{
-			profilBean.getAdressesLivraison().add(nouvelleAdresse);
-		}
-			
+	    
+		proxyProfil.saveAddress(nouvelleAdresse);		
 		nouvelleAdresse = new Address();
+		
 		profilBean.initialiserAdresses();
 	}
 	
@@ -85,8 +78,8 @@ public class EditManagedBean {
 	}
 	
 	public void editionModeAdresse(Address address) {
-		log.info(address.getIdAddress());
 	    editModeAdresse = true;
+	    idCityAdresseAModifier = address.getCity().getIdCity();
 		adresseAModifier = address;
 	}
 	
@@ -104,9 +97,34 @@ public class EditManagedBean {
 	    ville.setIdCity(idCityAdresseAModifier);
 	    adresseAModifier.setCity(ville);
 		proxyProfil.editAddress(adresseAModifier);
+		profilBean.initialiserAdresses();
 		editModeAdresse = false;
 	}
 
+	public void removeAdresse(Address address)
+	{
+		//Contraintes de cles etrangeres : il n'est pas possible de supprimer une adresse si elle est liee a au moins une commande
+		boolean couldBeRemove = true;
+		for (Cart panier : profilBean.getListeCommandesPassees())
+		{
+			if (panier.getAddressBilling().getIdAddress() == address.getIdAddress())
+			{
+				couldBeRemove = false;
+			}
+			
+			if (panier.getAddressDelivery().getIdAddress() == address.getIdAddress())
+			{
+				couldBeRemove = false;
+			}
+		}
+		
+		if (couldBeRemove)
+		{
+			proxyProfil.removeAddress(address);
+			profilBean.initialiserAdresses();
+		}
+	}
+	
 	//Getters et Setters
 	
 	public UserBean getUserBean() {

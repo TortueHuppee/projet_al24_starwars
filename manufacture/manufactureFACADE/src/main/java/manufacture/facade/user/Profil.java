@@ -6,6 +6,7 @@ import manufacture.entity.cart.Cart;
 import manufacture.entity.cart.CartProduct;
 import manufacture.entity.product.Product;
 import manufacture.entity.user.Address;
+import manufacture.entity.user.Civility;
 import manufacture.entity.user.User;
 import manufacture.ibusiness.user.IBusinessConnection;
 import manufacture.ibusiness.user.IBusinessProfil;
@@ -75,6 +76,16 @@ public class Profil implements IProfil{
     public List<CartProduct> getCartProductByCart(Cart cart) {
         return proxyProfil.getCartProductByCart(cart);
     }
+    
+	@Override
+	public List<Civility> getAllCivility() {
+		return proxyProfil.getAllCivility();
+	}
+	
+	@Override
+	public void removeAddress(Address address) {
+		proxyProfil.removeAddress(address);
+	}
 	
 	//Proxy
 

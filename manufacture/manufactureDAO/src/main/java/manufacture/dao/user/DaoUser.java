@@ -3,6 +3,7 @@ package manufacture.dao.user;
 import java.util.ArrayList;
 import java.util.List;
 
+import manufacture.entity.user.Civility;
 import manufacture.entity.user.User;
 import manufacture.idao.user.IDaoUser;
 
@@ -127,6 +128,20 @@ public class DaoUser implements IDaoUser {
 		if (resultat.size() == 0 )
 		{
 			return new ArrayList<User>();
+		}
+		return resultat;
+	}
+	
+	@Override
+	public List<Civility> getAllCivility() {
+		Session session = sf.getCurrentSession();
+		String requete = "FROM Civility u";
+		Query hql = session.createQuery(requete);
+		List<Civility> resultat = hql.list();
+		
+		if (resultat.size() == 0 )
+		{
+			return new ArrayList<Civility>();
 		}
 		return resultat;
 	}
