@@ -7,6 +7,7 @@
 	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
 	<ui:define name="stylesheets">
 		<h:outputStylesheet name="profilCss.css" library="css" />
+		<h:outputStylesheet name="switch.css" library="css" />
 	</ui:define>
 	<ui:define name="javascripts">
 		<h:outputScript name="script.js" library="javascript" id="hideModal" />
@@ -15,6 +16,9 @@
 	<ui:define name="main-body">
 		<f:view>
 			<h:form id="myForm">
+			
+			<p:growl id="growl" showDetail="true"/>  
+			
 				<div class="profil">
 					<h2>
 						<h:outputLabel value="#{profilBean.userBean.user.userName.toUpperCase()}" />
@@ -281,7 +285,23 @@
 									<h:outputLabel
 										value="#{profilBean.sdf.format(product.datePublication)}" />
 								</h:column>
+
+								<h:column>
+									<h:outputLabel class="switch .#{product.idProduct}">
+										<h:selectBooleanCheckbox value="#{product.disabled}" class="switch-input">
+											<f:ajax event="click" listener="#{profilBean.testSwitchButton(product)}" render=":myForm:growl"/>
+										</h:selectBooleanCheckbox>
+										<span class="switch-label" data-on="En ligne" data-off="Inactive" >
+											
+										</span>
+										<span class="switch-handle"></span>
+									</h:outputLabel>
+									
+								</h:column>
+
 							</h:dataTable>
+							
+							<div id="consoleDebug"></div>
 							
 							<h:outputLabel class="tableauVide" value="Aucune annonce en cours" rendered="#{empty profilBean.listeProduitsNonVendus}"/>
 							

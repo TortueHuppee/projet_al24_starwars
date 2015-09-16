@@ -15,3 +15,9 @@ function loadModal2()
 		PF('addAddress').hide();
 	});	
 }
+
+jQuery(document).ready(function($){
+	$('.switch :checkbox').change(function(e){
+		var message = $(this).prop('checked') ? $(this).val() : 'off';
+		});
+});

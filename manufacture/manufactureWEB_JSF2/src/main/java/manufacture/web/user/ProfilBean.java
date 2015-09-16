@@ -6,9 +6,11 @@ import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 
 import manufacture.entity.cart.Cart;
 import manufacture.entity.cart.CartProduct;
@@ -53,6 +55,8 @@ public class ProfilBean {
 	private String rubriqueChoisie;
 	private List<Civility> listeCivilites;
 	
+	private int idDerniereAnnonceModifiee;
+	
 	private boolean donneesInitialisees = false;
 
 	@PostConstruct
@@ -74,6 +78,7 @@ public class ProfilBean {
 		date = userBean.getUser().getCreateTime();
 		listeCivilites = new ArrayList<>();
 		listeCivilites = proxyProfil.getAllCivility();
+		idDerniereAnnonceModifiee = 0;
 		
 		initialiserAchats();
 		initialiserAdresses();
@@ -154,7 +159,29 @@ public class ProfilBean {
 		}
 		return "Ville inconnue";
 	}
-	
+
+	public void testSwitchButton(Product product)
+	{
+		idDerniereAnnonceModifiee = product.getIdProduct();
+		
+		product.setDisabled(!product.isDisabled());
+		
+		FacesContext context = FacesContext.getCurrentInstance();
+		
+		if (product.isDisabled())
+		{
+			context.addMessage(null, new FacesMessage("Modification effectuée", "L'annonce pour le produit " + product.getProductRef().getProductName() + " a été désactivée." ) );
+		}
+		else
+		{
+			context.addMessage(null, new FacesMessage("Modification effectuée", "L'annonce pour le produit " + product.getProductRef().getProductName() + " a été mise en ligne." ) );
+		}
+		
+		//Enregistrement en base de données
+		//Mise à jour catalogue
+		//Inverse le boolean dans la base de données
+	}
+
 	//Getters et Setters
 
 	public UserBean getUserBean() {
@@ -255,4 +282,20 @@ public class ProfilBean {
     public void setDataloader(DataLoader paramDataloader) {
         dataloader = paramDataloader;
     }
+
+	public List<Civility> getListeCivilites() {
+		return listeCivilites;
+	}
+
+	public void setListeCivilites(List<Civility> listeCivilites) {
+		this.listeCivilites = listeCivilites;
+	}
+
+	public int getIdDerniereAnnonceModifiee() {
+		return idDerniereAnnonceModifiee;
+	}
+
+	public void setIdDerniereAnnonceModifiee(int idDerniereAnnonceModifiee) {
+		this.idDerniereAnnonceModifiee = idDerniereAnnonceModifiee;
+	}
 }
