@@ -38,8 +38,10 @@ public class DaoProduct implements IDaoProduct {
 		String requete = "SELECT p FROM Product p WHERE p.productRef.idProductRef = :paramId AND p.stock > 0 ORDER BY p.price";
 		Query hql = session.createQuery(requete);
 		hql.setParameter("paramId", idProducRef);
-		log.info("id du produit ref passé en argument :" + idProducRef);
 		List<Product> resultat = hql.list();
+		
+		log.info("id du produit ref passé en argument :" + idProducRef + " nombre de résultat : " + resultat.size());
+		
 		if (resultat.isEmpty())
 		{
 			return new ArrayList<Product>();
@@ -57,7 +59,6 @@ public class DaoProduct implements IDaoProduct {
 
 	@Override
 	public void checkProductStock(int idProduct) {
-		Session session = sf.getCurrentSession();
 		Product product = getProductByIdProduct(idProduct);
 		product.getStock();
 	}
@@ -142,7 +143,8 @@ public class DaoProduct implements IDaoProduct {
         String requete = "SELECT p FROM Product p, SpaceshipProduct ssp "
                 +"WHERE p.productRef.idProductRef = ssp.productRef.idProductRef "
                 +"AND ssp.spaceshipRef.idSpaceshipRef = :paramId "
-                +"AND LOWER(p.productRef.productName) LIKE :paramName";
+                +"AND LOWER(p.productRef.productName) LIKE :paramName"
+                + "AND p.stock > 0";
         Query hql = session.createQuery(requete);        
         hql.setParameter("paramId", idSpaceShipSelected);
         hql.setParameter("paramName", "%" + name + "%");
@@ -154,14 +156,22 @@ public class DaoProduct implements IDaoProduct {
         }
         else
         {
-            return resultat;
+        	List<Product> produitEnLigne = new ArrayList<>();
+        	for (Product product : resultat)
+        	{
+        		if (product.isOnLine())
+        		{
+        			produitEnLigne.add(product);
+        		}
+        	}
+            return produitEnLigne;
         }
 	}
 	
     @Override
     public List<Product> getAllProductByName(String name) {
         Session session = sf.getCurrentSession();       
-        String requete = "SELECT p FROM Product p WHERE LOWER(p.productRef.productName) LIKE :paramName";
+        String requete = "SELECT p FROM Product p WHERE LOWER(p.productRef.productName) LIKE :paramName AND p.stock > 0";
         Query hql = session.createQuery(requete);        
         hql.setParameter("paramName", "%" + name + "%");
         List<Product> resultat = hql.list();
@@ -172,7 +182,15 @@ public class DaoProduct implements IDaoProduct {
         }
         else
         {
-            return resultat;
+        	List<Product> produitEnLigne = new ArrayList<>();
+        	for (Product product : resultat)
+        	{
+        		if (product.isOnLine())
+        		{
+        			produitEnLigne.add(product);
+        		}
+        	}
+            return produitEnLigne;
         }
     }
 

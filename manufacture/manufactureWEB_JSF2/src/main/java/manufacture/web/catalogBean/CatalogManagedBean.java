@@ -90,7 +90,7 @@ public class CatalogManagedBean {
     @PostConstruct
     public void init()
     {
-    	listeProductBrute = indexManagedBean.getListeProduitBrute();
+//    	listeProductBrute = indexManagedBean.getListeProduitBrute();
     	rechercheNom = "";
         initialisationFiltres();
         initialisationListesAffichees();
@@ -159,7 +159,6 @@ public class CatalogManagedBean {
         if (idSpaceShipSelected != 0)
         {
         	listeProductBrute = proxyCatalog.getAllProductBySpaceShipRefAndName(idSpaceShipSelected, toLowerCase(rechercheNom));
-        	log.info(rechercheNom);
         	initialisationListesBrutes();
         }
         else

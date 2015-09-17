@@ -61,8 +61,9 @@ public class ProductManagedBean {
 
         //prix, options disponibles (couleur, matériaux, constructeur)
         listeProduitsTotaux = proxyCatalog.getAllProductByProductRef(productRef.getIdProductRef());
+        
         listeProduitsAffiches = listeProduitsTotaux;
-
+        
         produitAffiche = listeProduitsTotaux.get(0);
 
         //options

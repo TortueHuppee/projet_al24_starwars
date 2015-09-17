@@ -108,12 +108,9 @@ public class AnnonceManagedBean {
         newProduct.setMaterial(material);
         
         newProduct.setSellerComment("");
-        
-//        newProduct.setPrice(1);
-//        newProduct.setStock(1);
                 
         newProduct.setDatePublication(date);
-        newProduct.setDisabled(false);
+        newProduct.setOnLine(true);
     }
 
     public String validationFormulaire()
@@ -132,12 +129,7 @@ public class AnnonceManagedBean {
 
     public String createAdvert()
     {
-        log.info("Prix : " + newProduct.getPrice());
-        log.info("Stock : " + newProduct.getStock());
-        log.info("Produit réf : " + newProduct.getProductRef().getIdProductRef());
-        
-        proxyAdvert.createAdvert(newProduct);
-//      catalogBean.getListeProductBrute().add(newProduct);
+    proxyAdvert.createAdvert(newProduct);
         catalogBean.init();
         
         return "annonceEnregistree.xhtml?faces-redirect=true";

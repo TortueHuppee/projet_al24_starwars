@@ -288,8 +288,8 @@
 
 								<h:column>
 									<h:outputLabel class="switch .#{product.idProduct}">
-										<h:selectBooleanCheckbox value="#{product.disabled}" class="switch-input">
-											<f:ajax event="click" listener="#{profilBean.testSwitchButton(product)}" render=":myForm:growl"/>
+										<h:selectBooleanCheckbox value="#{product.onLine}" class="switch-input">
+											<f:ajax event="click" listener="#{profilBean.toggleAdvertState(product)}" render=":myForm:growl"/>
 										</h:selectBooleanCheckbox>
 										<span class="switch-label" data-on="En ligne" data-off="Inactive" >
 											

@@ -5,4 +5,6 @@ import manufacture.entity.product.Product;
 public interface IAdvert {
 
 	void createAdvert(Product product);
+	
+	void updateAdvertState(Product product);
 }

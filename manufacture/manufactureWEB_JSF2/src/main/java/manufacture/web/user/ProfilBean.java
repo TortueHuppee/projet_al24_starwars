@@ -18,7 +18,10 @@ import manufacture.entity.product.Product;
 import manufacture.entity.user.Address;
 import manufacture.entity.user.City;
 import manufacture.entity.user.Civility;
+import manufacture.ifacade.advert.IAdvert;
+import manufacture.ifacade.catalog.ICatalog;
 import manufacture.ifacade.user.IProfil;
+import manufacture.web.catalogBean.CatalogManagedBean;
 import manufacture.web.datas.DataLoader;
 
 import org.apache.log4j.Logger;
@@ -26,116 +29,122 @@ import org.apache.log4j.Logger;
 @ManagedBean(name="profilBean")
 @SessionScoped
 public class ProfilBean {
-	
+
 	private static Logger log = Logger.getLogger(ProfilBean.class);
-	
+
 	@ManagedProperty(value="#{userBean}")
 	private UserBean userBean;
-	
+
 	@ManagedProperty(value="#{profil}")
 	private IProfil proxyProfil; 
-	
+
 	@ManagedProperty(value="#{mbDataLoader}")
 	private DataLoader dataloader;
-	
+
+	@ManagedProperty(value="#{advert}")
+	private IAdvert proxyAdvert;
+
+	@ManagedProperty(value="#{mbCatalog}")
+	private CatalogManagedBean catalogBean;
+
 	private List<Address> adressesTotales;
 	private List<Address> adressesFacturation;
 	private List<Address> adressesLivraison;
-	
+
 	private List<Product> listeProduitsVendus;
 	private List<Product> listeProduitsNonVendus;
-	
+
 	private List<CartProduct> listeCommandesVendus;
-	
+
 	private List<Cart> listeCommandesPassees;
 
 	private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 	private Date date = new Date();
-	
+
 	private String rubriqueChoisie;
 	private List<Civility> listeCivilites;
-	
+
 	private int idDerniereAnnonceModifiee;
-	
+
 	private boolean donneesInitialisees = false;
 
 	@PostConstruct
 	public void init() {
-	    if(userBean.isLogged()){
+		if(userBean.isLogged()){
 			initialiseDonnees();
 			donneesInitialisees = true;
 		}
 	}
-	
+
 	//Methodes
 	public void chooseRubrique(String rubrique)
 	{
-	    rubriqueChoisie = rubrique;
+		rubriqueChoisie = rubrique;
 	}
-	
+
 	public void initialiseDonnees()
 	{
 		date = userBean.getUser().getCreateTime();
 		listeCivilites = new ArrayList<>();
 		listeCivilites = proxyProfil.getAllCivility();
 		idDerniereAnnonceModifiee = 0;
-		
+
 		initialiserAchats();
 		initialiserAdresses();
 		initialiserVentes();
-		
+
 		donneesInitialisees = true;
 	}
-	
+
 	public void initialiserVentes()
 	{
-	    listeCommandesVendus = new ArrayList<CartProduct>();
-        
-        listeProduitsNonVendus = new ArrayList<Product>();
-        listeProduitsVendus = new ArrayList<Product>();
-        
-        listeProduitsVendus = proxyProfil.getProductSendByUser(userBean.getUser());
-        
-        listeProduitsNonVendus = proxyProfil.getProductNotSendByUser(userBean.getUser());
-        
-        listeCommandesVendus = proxyProfil.getCartSendByUser(userBean.getUser());
+		listeCommandesVendus = new ArrayList<CartProduct>();
+
+		listeProduitsNonVendus = new ArrayList<Product>();
+		listeProduitsVendus = new ArrayList<Product>();
+
+		listeProduitsVendus = proxyProfil.getProductSendByUser(userBean.getUser());
+
+		listeProduitsNonVendus = proxyProfil.getProductNotSendByUser(userBean.getUser());
+
+		listeCommandesVendus = proxyProfil.getCartSendByUser(userBean.getUser());
 	}
-	
+
 	public void initialiserAchats()
 	{
-	    listeCommandesPassees = new ArrayList<Cart>();
-        
-        listeCommandesPassees = proxyProfil.getCartByUser(userBean.getUser());
-        
-        for (Cart cart : listeCommandesPassees)
-        {
-            cart.setCartProducts(proxyProfil.getCartProductByCart(cart));
-        }
+		listeCommandesPassees = new ArrayList<Cart>();
+
+		listeCommandesPassees = proxyProfil.getCartByUser(userBean.getUser());
+
+		for (Cart cart : listeCommandesPassees)
+		{
+			cart.setCartProducts(proxyProfil.getCartProductByCart(cart));
+		}
 	}
-	
+
 	public void initialiserAdresses()
 	{
-	    adressesTotales = new ArrayList<Address>();
-        adressesFacturation = new ArrayList<Address>();
-        adressesLivraison = new ArrayList<Address>();
-        
-        adressesTotales = proxyProfil.getAllAdressByUser(userBean.getUser());
-        
-        userBean.getUser().setAddresses(adressesTotales);
-        
-        for (Address adresse : adressesTotales)
-        {
-            if (adresse.getIsBillingaddress())
-            {
-                adressesFacturation.add(adresse);
-            }
-            if (adresse.getIsDeliveryaddress())
-            {
-                adressesLivraison.add(adresse);
-            }
-        }
+		adressesTotales = new ArrayList<Address>();
+		adressesFacturation = new ArrayList<Address>();
+		adressesLivraison = new ArrayList<Address>();
+
+		adressesTotales = proxyProfil.getAllAdressByUser(userBean.getUser());
+
+		userBean.getUser().setAddresses(adressesTotales);
+
+		for (Address adresse : adressesTotales)
+		{
+			if (adresse.getIsBillingaddress())
+			{
+				adressesFacturation.add(adresse);
+			}
+			if (adresse.getIsDeliveryaddress())
+			{
+				adressesLivraison.add(adresse);
+			}
+		}
 	}
-	
+
 	public String getCivilityById(int idCivility)
 	{
 		for (Civility civilite : listeCivilites)
@@ -147,7 +156,7 @@ public class ProfilBean {
 		}
 		return "Donnée indisponible";
 	}
-	
+
 	public String getPostalCodeById(int idCity)
 	{
 		for (City city : dataloader.getListCity())
@@ -160,15 +169,15 @@ public class ProfilBean {
 		return "Ville inconnue";
 	}
 
-	public void testSwitchButton(Product product)
+	public void toggleAdvertState(Product product)
 	{
 		idDerniereAnnonceModifiee = product.getIdProduct();
-		
-		product.setDisabled(!product.isDisabled());
-		
+
+		product.setOnLine(!product.isOnLine());
+
 		FacesContext context = FacesContext.getCurrentInstance();
-		
-		if (product.isDisabled())
+
+		if (product.isOnLine())
 		{
 			context.addMessage(null, new FacesMessage("Modification effectuée", "L'annonce pour le produit " + product.getProductRef().getProductName() + " a été désactivée." ) );
 		}
@@ -176,10 +185,9 @@ public class ProfilBean {
 		{
 			context.addMessage(null, new FacesMessage("Modification effectuée", "L'annonce pour le produit " + product.getProductRef().getProductName() + " a été mise en ligne." ) );
 		}
-		
-		//Enregistrement en base de données
-		//Mise à jour catalogue
-		//Inverse le boolean dans la base de données
+
+		proxyAdvert.updateAdvertState(product);	
+		catalogBean.initialisationListesAffichees();
 	}
 
 	//Getters et Setters
@@ -259,29 +267,29 @@ public class ProfilBean {
 		this.donneesInitialisees = donneesInitialisees;
 	}
 
-    public String getRubriqueChoisie() {
-        return rubriqueChoisie;
-    }
+	public String getRubriqueChoisie() {
+		return rubriqueChoisie;
+	}
 
-    public void setRubriqueChoisie(String paramRubriqueChoisie) {
-        rubriqueChoisie = paramRubriqueChoisie;
-    }
+	public void setRubriqueChoisie(String paramRubriqueChoisie) {
+		rubriqueChoisie = paramRubriqueChoisie;
+	}
 
-    public static Logger getLog() {
-        return log;
-    }
+	public static Logger getLog() {
+		return log;
+	}
 
-    public static void setLog(Logger paramLog) {
-        log = paramLog;
-    }
+	public static void setLog(Logger paramLog) {
+		log = paramLog;
+	}
 
-    public DataLoader getDataloader() {
-        return dataloader;
-    }
+	public DataLoader getDataloader() {
+		return dataloader;
+	}
 
-    public void setDataloader(DataLoader paramDataloader) {
-        dataloader = paramDataloader;
-    }
+	public void setDataloader(DataLoader paramDataloader) {
+		dataloader = paramDataloader;
+	}
 
 	public List<Civility> getListeCivilites() {
 		return listeCivilites;
@@ -297,5 +305,21 @@ public class ProfilBean {
 
 	public void setIdDerniereAnnonceModifiee(int idDerniereAnnonceModifiee) {
 		this.idDerniereAnnonceModifiee = idDerniereAnnonceModifiee;
+	}
+
+	public IAdvert getProxyAdvert() {
+		return proxyAdvert;
+	}
+
+	public void setProxyAdvert(IAdvert proxyAdvert) {
+		this.proxyAdvert = proxyAdvert;
+	}
+
+	public CatalogManagedBean getCatalogBean() {
+		return catalogBean;
+	}
+
+	public void setCatalogBean(CatalogManagedBean catalogBean) {
+		this.catalogBean = catalogBean;
 	}
 }

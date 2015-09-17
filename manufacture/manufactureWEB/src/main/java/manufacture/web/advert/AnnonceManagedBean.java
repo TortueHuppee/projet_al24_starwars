@@ -113,7 +113,7 @@ public class AnnonceManagedBean {
 //        newProduct.setStock(1);
                 
         newProduct.setDatePublication(date);
-        newProduct.setDisabled(false);
+        newProduct.setOnLine(true);
     }
 
     public String validationFormulaire()

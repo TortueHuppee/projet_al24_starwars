@@ -16,6 +16,11 @@ public class BusinessAdvert implements IBusinessAdvert {
 	public void createAdvert(Product product) {
 		proxyProduct.addProduct(product);
 	}
+	
+	@Override
+	public void updateAdvertState(Product product) {
+		proxyProduct.updateProduct(product);
+	}
 
 	public IDaoProduct getProxyProduct() {
 		return proxyProduct;

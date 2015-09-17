@@ -26,6 +26,11 @@ public class Advert implements IAdvert {
 		proxyAdvert.createAdvert(product);
 	}
 	
+	@Override
+	public void updateAdvertState(Product product) {
+		proxyAdvert.updateAdvertState(product);
+	}
+	
 	@Autowired
 	public void setProxyCatalog(IBusinessCatalog proxyCatalog) {
 		this.proxyCatalog = proxyCatalog;

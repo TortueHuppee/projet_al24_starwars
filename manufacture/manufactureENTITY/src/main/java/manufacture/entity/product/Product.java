@@ -36,8 +36,8 @@ public class Product implements Serializable {
 	private Integer idProduct;
 
 	//Par défaut FALSE = 0 et TRUE = 1
-	@Column(name="is_disabled")
-	private boolean isDisabled;
+	@Column(name="is_on_line")
+	private boolean isOnLine;
 
 	private double price;
 
@@ -102,14 +102,6 @@ public class Product implements Serializable {
 		this.idProduct = idProduct;
 	}
 	
-	public boolean isDisabled() {
-		return isDisabled;
-	}
-
-	public void setDisabled(boolean isDisabled) {
-		this.isDisabled = isDisabled;
-	}
-
 	public double getPrice() {
 		return this.price;
 	}
@@ -254,5 +246,17 @@ public class Product implements Serializable {
 
 	public void setTypeProduct(TypeProduct typeProduct) {
 		this.typeProduct = typeProduct;
+	}
+
+	public boolean isOnLine() {
+		return isOnLine;
+	}
+
+	public void setOnLine(boolean isOnLine) {
+		this.isOnLine = isOnLine;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 }
