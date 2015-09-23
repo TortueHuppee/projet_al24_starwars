@@ -32,7 +32,9 @@ public interface IDaoProductRef {
 
 	List<SpaceshipProduct> getSpaceShipProductByProduct(ProductRef productRef);
 
-	ProductRef getProductRefById(int idProductRef);
+	ProductRef getProductRefByIdProduct(int idProduct);
+	
+	ProductRef getProductRefByIdProductRef(int idProductRef);
 
     List<ProductRef> getProductRefByCategory(int paramIdCategorieSelected);
 

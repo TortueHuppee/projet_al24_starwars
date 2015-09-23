@@ -109,8 +109,13 @@ public class BusinessCatalog implements IBusinessCatalog {
 	}
 	
 	@Override
-	public ProductRef getProductRefById(int idProductRef) {
-		return proxyProductRef.getProductRefById(idProductRef);
+	public ProductRef getProductRefByIdProduct(int idProduct) {
+		return proxyProductRef.getProductRefByIdProduct(idProduct);
+	}
+	
+	@Override
+	public ProductRef getProductRefByIdProductRef(int idProductRef) {
+		return proxyProductRef.getProductRefByIdProductRef(idProductRef);
 	}
 
 	@Override

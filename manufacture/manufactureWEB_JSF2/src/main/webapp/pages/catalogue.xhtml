@@ -61,10 +61,11 @@
 
 								<ui:repeat var="produit" value="#{mbCatalog.paginatedListConstructorProduct.model}">
 									<div class="article-wrapper">
-										<h:commandLink action="#{mbProduct.detailProduit(produit.idProduct)}">
+										<h:commandLink action="#{mbProduct.detailProduit(produit)}">
 											<div class="article-name">#{produit.nom}</div>
 											<img src="#{produit.urlPhoto}" />
-											<div class="article-description">#{produit.prixMin} Crédits</div>
+											<div class="article-description">A partir de #{produit.prixMin} Crédits</div>
+											<div class="article-description">Vendu par #{produit.constructeur}</div>
 										</h:commandLink>
 									</div>
 								</ui:repeat>
@@ -158,10 +159,11 @@
 								
 								<ui:repeat var="produit" value="#{mbCatalog.paginatedListArtisanProduct.model}">
 									<div class="article-wrapper">
-										<h:commandLink action="#{mbProduct.detailProduit(produit.idProduct)}">
+										<h:commandLink action="#{mbProduct.detailProduit(produit)}">
 											<div class="article-name">#{produit.nom}</div>
 											<img src="#{produit.urlPhoto}" />
-											<div class="article-description">#{produit.prixMin} Crédits</div>
+											<div class="article-description">A partir de #{produit.prixMin} Crédits</div>
+											<div class="article-description">Vendu par #{produit.constructeur}</div>
 										</h:commandLink>
 									</div>
 								</ui:repeat>
@@ -255,10 +257,11 @@
 								
 								<ui:repeat var="produit" value="#{mbCatalog.paginatedListUsedProduct.model}">								
 									<div class="article-wrapper">
-										<h:commandLink action="#{mbProduct.detailProduit(produit.idProduct)}">
+										<h:commandLink action="#{mbProduct.detailProduit(produit)}">
 											<div class="article-name">#{produit.nom}</div>
 											<img src="#{produit.urlPhoto}" />
-											<div class="article-description">#{produit.prixMin} Crédits</div>
+											<div class="article-description">A partir de #{produit.prixMin} Crédits</div>
+											<div class="article-description">Vendu par #{produit.constructeur}</div>
 										</h:commandLink>
 									</div>
 								</ui:repeat>

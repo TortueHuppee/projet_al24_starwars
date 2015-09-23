@@ -129,11 +129,26 @@ public class DaoProductRef implements IDaoProductRef {
 	}
 	
 	@Override
-	public ProductRef getProductRefById(int idProduct) {
+	public ProductRef getProductRefByIdProduct(int idProduct) {
 		Session session = sf.getCurrentSession();
 		String requete = "SELECT p.productRef FROM Product p WHERE p.idProduct= :paramId";
 		Query hql = session.createQuery(requete);
 		hql.setParameter("paramId", idProduct);
+		List<ProductRef> resultat = hql.list();
+		if(resultat.size() == 0){
+			//Rustine
+			return new ProductRef();
+		}else{			
+			return resultat.get(0);
+		}
+	}
+	
+	@Override
+	public ProductRef getProductRefByIdProductRef(int idProductRef) {
+		Session session = sf.getCurrentSession();
+		String requete = "SELECT p FROM ProductRef p WHERE p.idProductRef = :paramId";
+		Query hql = session.createQuery(requete);
+		hql.setParameter("paramId", idProductRef);
 		List<ProductRef> resultat = hql.list();
 		if(resultat.size() == 0){
 			//Rustine

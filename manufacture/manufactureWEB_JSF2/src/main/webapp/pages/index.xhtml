@@ -25,12 +25,12 @@
 				<ui:repeat var="produit" value="#{mbIndex.listeProduitRandom}">
 					<div class="article-wrapper">
 						<h4 class="article-name"><h:outputText value="#{stringUtil.trimText(produit.productRef.productName,30)}"/></h4> 
-							<h:commandLink action="#{mbProduct.detailProduit(produit.idProduct)}">  
+							<h:commandLink action="#{newmbProduct.detailProduit(produit)}">  
 								<f:param name="idProductRef" value="#{produit.idProduct}" />
 								<img src="#{produit.productRef.urlImage}" />
 							</h:commandLink>
 							<div class="article-description">
-								<h:commandLink action="#{mbProduct.detailProduit(produit.idProduct)}">
+								<h:commandLink action="#{newmbProduct.detailProduit(produit)}">
 									<h:outputText value="#{produit.price}"> 
 									<f:convertNumber maxFractionDigits="2"/>
 									</h:outputText> Crédits

@@ -4,7 +4,8 @@ public class Produit implements Comparable<Produit>
 {
     private int idProductRef;
     private int idProduct;
-    private int idConcstructeur;
+    private int idConstructeur;
+    private String constructeur;
     private int idCouleur;
     private int idMateriaux;
     private int idCategorie;
@@ -13,13 +14,14 @@ public class Produit implements Comparable<Produit>
     private double prixMin;
 
     public Produit(int paramIdProductRef, int paramIdProduct,
-            int paramIdConcstructeur, int paramIdCouleur,
+            int paramIdConstructeur, String paramConstructeur, int paramIdCouleur,
             int paramIdMateriaux, int paramIdCategorie, String paramNom, String paramUrlPhoto,
             double paramPrixMin) {
         super();
         idProductRef = paramIdProductRef;
         idProduct = paramIdProduct;
-        idConcstructeur = paramIdConcstructeur;
+        idConstructeur = paramIdConstructeur;
+        constructeur = paramConstructeur;
         idCouleur = paramIdCouleur;
         idMateriaux = paramIdMateriaux;
         idCategorie = paramIdCategorie;
@@ -64,11 +66,11 @@ public class Produit implements Comparable<Produit>
     public void setPrixMin(double prixMin) {
         this.prixMin = prixMin;
     }
-    public int getIdConcstructeur() {
-        return idConcstructeur;
+    public int getIdConstructeur() {
+        return idConstructeur;
     }
-    public void setIdConcstructeur(int paramIdConcstructeur) {
-        idConcstructeur = paramIdConcstructeur;
+    public void setIdConstructeur(int paramIdConstructeur) {
+        idConstructeur = paramIdConstructeur;
     }
     public int getIdCouleur() {
         return idCouleur;
@@ -88,10 +90,16 @@ public class Produit implements Comparable<Produit>
     public void setIdCategorie(int paramIdCategorie) {
         idCategorie = paramIdCategorie;
     }
+	public String getConstructeur() {
+		return constructeur;
+	}
+
+	public void setConstructeur(String constructeur) {
+		this.constructeur = constructeur;
+	}
 
     @Override
     public int compareTo(Produit o) {
         return this.prixMin > o.prixMin ? 1 : (this.prixMin < o.prixMin ? -1 : 0);
     }
-
 }

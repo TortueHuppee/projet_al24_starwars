@@ -1,0 +1,222 @@
+#body-content {
+	margin-left: 20px;
+	margin-top: 20px;
+	padding-bottom:20px;
+}
+
+.product-description,
+.produits-similaires
+{
+   background-color:#f1f1f1;
+   border:1px solid #e5e5e5;
+   border-radius:5px;
+   margin-right:20px;
+   display:inline-block;
+   width:99%;
+}
+
+.product-description h2,
+.produits-similaires h2
+{
+    font-family:Arial;
+    margin:10px;
+    margin-bottom:20px;
+    border-bottom:1px solid lightgrey;
+    padding-bottom:10px;
+}
+
+.produits-similaires
+{
+    margin-top:40px;
+}
+
+/*Premier panel*/
+.product-description img
+{
+    float:left;
+    margin-right:10px;
+    margin-left:10px;
+    /*box-shadow: 4px 4px 12px #aaa;*/
+    border-radius:5px;
+    border:1px solid lightgrey;
+    width:25%;
+}
+
+.product-description > div:first-of-type
+{
+    float:left;
+    width:54%;
+    margin-right:5px;
+    margin-left:5px;
+}
+
+.product-description > div:last-of-type
+{
+    float:left;
+    width:17%;
+    margin-right:5px;
+    margin-left:10px;
+    background-color:lightgrey;
+    min-height: 370px;
+}
+
+/*Deuxieme panel*/
+fieldset legend
+{
+    font-weight: bold;
+    width:100%;
+    height:40px;
+    border-bottom:1px solid #31859C;
+    background-color:#31859C;
+}
+fieldset legend label
+{
+    margin:10px;
+    display:block;
+    color:white;
+}
+
+fieldset
+{
+    border:1px solid #B5C9E5;
+    margin-bottom:15px;
+    background-color: white;
+}
+
+fieldset .label-titre,
+fieldset .label-valeur
+{
+    display:inline-block;
+    width:45%;
+    text-align: justify;
+    margin:10px;
+    font-size: small;
+}
+
+fieldset .label-text
+{
+    display:inline-block;
+    width:95%;
+    text-align: justify;
+    margin-left:20px;
+    font-size: small;
+}
+
+fieldset .label-titre
+{
+    color:#2E2E2E;
+    font-weight:bold;
+}
+fieldset .label-valeur,
+fieldset .label-text
+{
+    color:#10507B;
+}
+
+fieldset li
+{
+    width:40%;
+    font-size: small;
+    color:#10507B;
+    display:inline-block;
+    margin-left:35px;
+}
+
+/*Type de produit*/
+label.neuf,
+label.artisan,
+label.occasion
+{
+    background-color:#C4BD97;
+    display:block;
+    margin-left:49%;
+    padding-top:5px;
+    text-align: center;
+    font-weight: bold;
+    color:#4B3908;
+    width:200px;
+    height:25px;
+}
+
+/*Ajouter produit*/
+.ajouter-produit .label-titre-rouge
+{
+    color:#D50000;
+    font-weight: bold;
+    font-size: x-large;
+    display:block;
+    width:100%;
+    text-align: center;
+    margin-top:10px;
+    margin-bottom:30px;
+}
+
+.ajouter-produit .label-titre-ajouter
+{
+    font-weight: bold;
+    display:block;
+    width:100%;
+    margin-left:10px;
+    margin-bottom:10px;
+}
+
+.ajouter-produit .label-prix-ajouter,
+.ajouter-produit .label-disponible-ajouter,
+.ajouter-produit .label-peu-disponible-ajouter
+{
+    display:block;
+    width:100%;
+    margin-left:10px;
+    margin-bottom:30px;
+}
+
+.ajouter-produit .label-disponible-ajouter,
+.produits-similaires .label-disponible-ajouter
+{
+    color:green;
+}
+
+.ajouter-produit .label-peu-disponible-ajouter,
+.produits-similaires .label-peu-disponible-ajouter
+{
+    color:#D74B00;
+}
+
+.ajouter-produit .input-ajouter
+{
+    margin-left:10px;
+}
+
+.ajouter-produit button
+{
+    margin-left:10px;
+    margin-top:30px;
+    width:90%;
+}
+
+/*tableau produits similaires*/
+.produits-similaires table
+{
+    border-collapse: collapse;
+    background-color: white;
+    width:98.5%;
+    margin:10px;
+    margin-right: 10px;
+}
+
+.produits-similaires thead th
+{
+    border-bottom:1px solid #63554E;
+    background-color:burlywood;
+    height: 50px;
+}
+
+.produits-similaires tbody td
+{
+    padding-top:15px;
+    padding-bottom:15px;
+    text-align: center;
+    border-bottom:1px solid lightgrey;
+    height:50px;
+    color:#2E2E2E;
+}

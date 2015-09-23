@@ -1,6 +1,8 @@
 #body-content
 {
 	min-height:485px;
+	background:linear-gradient(white, #E0E6F8);
+	font-family: Arial,sans-serif;
 }
 
 /* menu.xhtml */

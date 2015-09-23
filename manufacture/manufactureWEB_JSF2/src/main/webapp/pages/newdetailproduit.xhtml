@@ -1,0 +1,189 @@
+<ui:composition template="/layouts/master_layout.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="stylesheets">
+		<h:outputStylesheet library="css" name="newdetailProduitCss.css" />
+	</ui:define>
+
+	<ui:define name="main-body">
+
+		<h:form id="myForm">
+			<p:growl id="growl" showDetail="true" sticky="false" />
+			<div class="product-description">
+
+				<h2>
+					<h:outputLabel
+						value="#{newmbProduct.produitSelectionne.productRef.productName}" />
+				</h2>
+
+				<img src="#{newmbProduct.produitSelectionne.productRef.urlImage}" />
+
+				<DIV class="detail-produit">
+
+					<!-- Panel description -->
+					<fieldset>
+						<legend><h:outputLabel value="Description du produit :" /></legend>
+
+						<div>
+							<h:outputLabel value="Catégorie :" class="label-titre"/>
+							<h:outputLabel class="label-valeur"
+								value="#{newmbProduct.produitSelectionne.productRef.category.categoryName}" />
+
+							<h:outputLabel value="Description :" class="label-titre"/>
+							<h:outputLabel class="label-text"
+								value="#{newmbProduct.produitSelectionne.productRef.description}" />
+
+							<h:outputLabel value="Vendeur :" class="label-titre"/>
+							<h:outputLabel class="label-valeur"
+								value="#{newmbProduct.produitSelectionne.constructor.constructorName}"
+								rendered="#{newmbProduct.produitSelectionne.typeProduct.idTypeProduct eq 1}" />
+							<h:outputLabel class="label-valeur"
+								value="#{newmbProduct.produitSelectionne.user.userName}"
+								rendered="#{not(newmbProduct.produitSelectionne.typeProduct.idTypeProduct eq 1)}" />
+								
+							<h:outputLabel
+								value="#{newmbProduct.produitSelectionne.typeProduct.typeProduct}"
+								class="#{newmbProduct.produitSelectionne.typeProduct.typeProduct}" />
+
+							<h:outputLabel value="Commentaire du vendeur :" class="label-titre"
+								rendered="#{not(newmbProduct.produitSelectionne.typeProduct.idTypeProduct eq 1)}" />
+							<h:outputLabel class="label-text"
+								value="#{newmbProduct.produitSelectionne.sellerComment}"
+								rendered="#{not(newmbProduct.produitSelectionne.typeProduct.idTypeProduct eq 1)}" />
+
+							<h:outputLabel value="Vaisseaux compatibles :" class="label-titre"/>
+							<ul>
+								<ui:repeat var="vaisseau" value="#{newmbProduct.listeVaisseaux}">
+									<li>#{vaisseau.spaceshipName}</li>
+								</ui:repeat>
+							</ul>
+						</div>
+
+						<div>
+							
+						</div>
+					</fieldset>
+
+					<!-- Panel options -->
+					<fieldset>
+						<legend><h:outputLabel value="Options disponibles"/></legend>
+
+						<!-- Filtre Couleur -->
+						<h:outputLabel value="Couleur :" class="label-titre"/>
+						<h:outputLabel class="label-valeur"
+							value="#{newmbProduct.listeCouleursDisponibles.get(0).colorName}"
+							rendered="#{not (newmbProduct.listeCouleursDisponibles.size() > 1)}" />
+						<h:selectOneMenu value="#{newmbProduct.idColorSelected}" class="label-valeur"
+							rendered="#{newmbProduct.listeCouleursDisponibles.size() > 1}">
+							<f:selectItems var="item"
+								value="#{newmbProduct.listeCouleursDisponibles}"
+								itemLabel="#{item.colorName}" itemValue="#{item.idColor}" />
+							<f:ajax event="change"
+								listener="#{newmbProduct.filtrerListeProduitsParCouleur()}"
+								render=":myForm" />
+						</h:selectOneMenu>
+
+						<!-- Filtre Matériaux -->
+						<h:outputLabel value="Matériaux :" class="label-titre" />
+						<h:outputLabel class="label-valeur"
+							value="#{newmbProduct.listeMateriauxDisponibles.get(0).materialName}"
+							rendered="#{not (newmbProduct.listeMateriauxDisponibles.size() > 1)}" />
+						<h:selectOneMenu value="#{newmbProduct.idMaterialSelected}" class="label-valeur"
+							rendered="#{newmbProduct.listeMateriauxDisponibles.size() > 1}">
+							<f:selectItems var="item"
+								value="#{newmbProduct.listeMateriauxDisponibles}"
+								itemLabel="#{item.materialName}" itemValue="#{item.idMaterial}" />
+							<f:ajax event="change"
+								listener="#{newmbProduct.filtrerListeProduitsParMateriaux()}"
+								render=":myForm" />
+						</h:selectOneMenu>
+
+					</fieldset>
+
+				</DIV>
+
+				<DIV class="ajouter-produit">
+					<h:outputLabel value="Ajouter ce produit" class="label-titre-rouge"/>
+
+					<h:outputLabel value="Prix total :" class="label-titre-ajouter"/>
+					<h:outputLabel class="label-prix-ajouter"
+						value="#{newmbProduct.DoubleFormat(newmbProduct.produitSelectionne.price)*mbCart.quantity} Crédits" />
+
+					<h:outputLabel value="Disponibilité :" class="label-titre-ajouter"/>
+					<h:outputLabel value="Disponible" class="label-disponible-ajouter"
+						rendered="#{newmbProduct.produitSelectionne.stock > 10}" />
+					<h:outputLabel class="label-peu-disponible-ajouter"
+						value="PLus que #{newmbProduct.produitSelectionne.stock} exemplaires"
+						rendered="#{not(newmbProduct.produitSelectionne.stock > 10)}" />
+
+					<h:outputLabel value="Quantité :" class="label-titre-ajouter"/>
+					<p:spinner id="minMax" min="1" class="input-ajouter"
+						max="#{newmbProduct.produitSelectionne.stock}"
+						value="#{mbCart.quantity}">
+						<p:ajax update="@form" process="@this" />
+					</p:spinner>
+					
+					<p:commandButton update=":myForm" value="Ajouter au panier"
+						action="#{mbCart.addProductToCart(newmbProduct.produitSelectionne)}" />
+				</DIV>
+			</div>
+
+			<h:panelGroup rendered="#{not empty newmbProduct.listeProduitsIdentiques}">
+				<div class="produits-similaires">
+
+					<h2>
+						<h:outputLabel value="Autres vendeurs sur GalaxZon (#{newmbProduct.listeProduitsIdentiques.size()})" />
+					</h2>
+
+					<h:dataTable var="produit"
+						value="#{newmbProduct.listeProduitsIdentiques}">
+						<h:column>
+							<f:facet name="header">Vendeur</f:facet>
+							<h:outputLabel
+								value="#{produit.constructor.constructorName}"
+								rendered="#{newmbProduct.produitSelectionne.typeProduct.idTypeProduct eq 1}" />
+							<h:outputLabel
+								value="#{produit.user.userName}"
+								rendered="#{not(newmbProduct.produitSelectionne.typeProduct.idTypeProduct eq 1)}" />
+						</h:column>
+						
+						<h:column>
+							<f:facet name="header">Type de produit</f:facet>
+							<h:outputLabel value="#{produit.typeProduct.typeProduct}" />
+						</h:column>
+						
+						<h:column>
+							<f:facet name="header">Disponibilité</f:facet>
+							<h:outputLabel value="Disponible" class="label-disponible-ajouter"
+								rendered="#{produit.stock > 10}" />
+							<h:outputLabel class="label-peu-disponible-ajouter"
+								value="PLus que #{produit.stock} exemplaires"
+								rendered="#{not(produit.stock > 10)}" />
+						</h:column>
+						
+						<h:column>
+							<f:facet name="header">Prix à l'unité (crédits)</f:facet>
+							<h:outputLabel value="#{newmbProduct.DoubleFormat(produit.price)}" />
+						</h:column>
+						
+						<h:column>
+							<f:facet name="header">Lien vers la page du produit</f:facet>
+							<h:commandLink action="#{newmbProduct.detailProduit(produit)}" value="Détail du produit" />
+						</h:column>
+						
+				</h:dataTable>
+
+				</div>
+			</h:panelGroup>
+
+		</h:form>
+	</ui:define>
+
+</ui:composition>

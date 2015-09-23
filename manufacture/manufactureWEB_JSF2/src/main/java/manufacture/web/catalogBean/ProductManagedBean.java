@@ -31,7 +31,7 @@ public class ProductManagedBean {
     private static final Integer PRODUCT_ARTISAN_TYPE_ID = 2;
     private static final Integer PRODUCT_OCCASION_TYPE_ID = 3;
 
-    private int idProductRef;
+    private int idProduitAffiche;
     private ProductRef productRef;
     private Product produitAffiche;
     private List<Product> listeProduitsTotaux;
@@ -104,10 +104,10 @@ public class ProductManagedBean {
 
     //Méthodes	
 
-    public String detailProduit(int idProduit)
+    public String detailProduit(Produit produit)
     {	
-        this.idProductRef = idProduit;
-        this.productRef = proxyCatalog.getProductRefById(idProductRef);
+        this.idProduitAffiche = produit.getIdProduct();
+        this.productRef = proxyCatalog.getProductRefByIdProduct(idProduitAffiche);
         init();
         return "/pages/detailproduit.xhtml?faces-redirect=true";
     }
@@ -261,14 +261,6 @@ public class ProductManagedBean {
 
     //Getters et Setters
 
-    public int getIdProductRef() {
-        return idProductRef;
-    }
-
-    public void setIdProductRef(int idProductRef) {
-        this.idProductRef = idProductRef;
-    }
-
     public ProductRef getProductRef() {
         return productRef;
     }
@@ -410,4 +402,12 @@ public class ProductManagedBean {
     public static Integer getProductProfessionnelTypeId() {
         return PRODUCT_PROFESSIONNEL_TYPE_ID;
     }
+
+	public int getIdProduitAffiche() {
+		return idProduitAffiche;
+	}
+
+	public void setIdProduitAffiche(int idProduitAffiche) {
+		this.idProduitAffiche = idProduitAffiche;
+	}
 }

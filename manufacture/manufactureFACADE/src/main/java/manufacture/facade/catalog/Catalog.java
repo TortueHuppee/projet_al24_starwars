@@ -99,8 +99,13 @@ public class Catalog implements ICatalog {
 	}
 	
 	@Override
-	public ProductRef getProductRefById(int idProductRef) {
-		return proxyCatalog.getProductRefById(idProductRef);
+	public ProductRef getProductRefByIdProduct(int idProduct) {
+		return proxyCatalog.getProductRefByIdProduct(idProduct);
+	}
+	
+	@Override
+	public ProductRef getProductRefByIdProductRef(int idProductRef) {
+		return proxyCatalog.getProductRefByIdProductRef(idProductRef);
 	}
 
 	@Override

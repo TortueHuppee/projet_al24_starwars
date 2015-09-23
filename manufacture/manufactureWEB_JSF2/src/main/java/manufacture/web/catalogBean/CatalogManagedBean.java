@@ -90,14 +90,12 @@ public class CatalogManagedBean {
     @PostConstruct
     public void init()
     {
-//    	listeProductBrute = indexManagedBean.getListeProduitBrute();
     	rechercheNom = "";
         initialisationFiltres();
         initialisationListesAffichees();
     }
 
     //Methodes de tri et de filtres
-
     public void choixCategorie(int idCategory)
     {
         idCategorySelected = idCategory;
@@ -191,15 +189,20 @@ public class CatalogManagedBean {
             int idProductRef = product.getProductRef().getIdProductRef();
             int idProduct = product.getIdProduct();
             int idCouleur = product.getColor().getIdColor();
+            String constructeur = "";
             
             int idConstructeur = 0;
             if (product.getTypeProduct().getIdTypeProduct() == PRODUCT_CONSTRUCTEUR_TYPE_ID)
             {
             	idConstructeur = product.getConstructor().getIdConstructor();
+            	constructeur = product.getConstructor().getConstructorName();
             }
             else
             {
-            	idConstructeur = product.getUser().getIdUser() * -1;
+            	//Nécessaire ???
+//            	idConstructeur = product.getUser().getIdUser() * -1;
+            	idConstructeur = product.getUser().getIdUser();
+            	constructeur = product.getUser().getUserName();
             }
             
             int idMateriaux = product.getMaterial().getIdMaterial();
@@ -209,7 +212,7 @@ public class CatalogManagedBean {
             String urlPhoto = product.getProductRef().getUrlImage();
             double prix = DoubleFormat(product.getPrice());
 
-            Produit produit = new Produit(idProductRef, idProduct, idConstructeur, idCouleur, idMateriaux, idCategorie, nomProduct, urlPhoto, prix);
+            Produit produit = new Produit(idProductRef, idProduct, idConstructeur, constructeur, idCouleur, idMateriaux, idCategorie, nomProduct, urlPhoto, prix);
             
             switch (product.getTypeProduct().getIdTypeProduct()) {
             case 1 : listeProduitConstructeurBrute.add(produit); break;
@@ -246,7 +249,7 @@ public class CatalogManagedBean {
                 ajout = produitDejaDansLaListe(produit, listeAffichee);
             }
 
-            //Ajout du produit e la liste s'il repond aux criteres
+            //Ajout du produit a la liste s'il repond aux criteres
             if (ajout)
             {
                 listeAffichee.add(produit);
@@ -296,7 +299,7 @@ public class CatalogManagedBean {
         //constructeur = constructeur pour les produits constructeurs
         //constructeur = artisan pour les produits artisans
         //constructeur = particulier pour les produits d'occasion
-        if (produit.getIdConcstructeur() != idConstructorSelected)
+        if (produit.getIdConstructeur() != idConstructorSelected)
         {
             return false;
         }
@@ -312,7 +315,7 @@ public class CatalogManagedBean {
 
         for (Produit pr : liste)
         {
-            if (pr.getIdProductRef() == produit.getIdProductRef())
+            if (pr.getIdProductRef() == produit.getIdProductRef() && pr.getIdConstructeur() == produit.getIdConstructeur())
             {
                 ajout = false;
 
