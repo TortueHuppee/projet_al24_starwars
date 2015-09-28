@@ -41,8 +41,8 @@
 							<td>
 								<img src="#{produit.product.productRef.urlImage}" />
 								<h:outputLabel value="#{produit.product.productRef.productName}" class="titreArticle"/>
-									<h:commandLink action="#{mbProduct.detailProduit(produit.product.idProduct)}" class="titreArticle"/>  
-								<h:outputLabel value="#{mbProduct.DoubleFormat(produit.product.price)} Crédits" class="prixArticle"/>
+									<h:commandLink action="#{newmbProduct.detailProduit(produit.product)}" class="titreArticle"/>  
+								<h:outputLabel value="#{newmbProduct.DoubleFormat(produit.product.price)} Crédits" class="prixArticle"/>
 							</td>
 							
 							<td>
@@ -63,7 +63,7 @@
 							</td>
 							
 							<td>
-								<h:outputLabel value="#{mbProduct.DoubleFormat(mbCart.getSubTotalPrice(produit))}" class="prix"/>
+								<h:outputLabel value="#{newmbProduct.DoubleFormat(mbCart.getSubTotalPrice(produit))}" class="prix"/>
 							</td>
 							
 							<td>
@@ -97,7 +97,7 @@
 							<td>
 								<img src="#{produit.product.productRef.urlImage}" />
 								<h:outputLabel value="#{produit.product.productRef.productName}" class="titreArticle"/>
-								<h:outputLabel value="#{mbProduct.DoubleFormat(produit.product.price)} Crédits" class="prixArticle"/>
+								<h:outputLabel value="#{newmbProduct.DoubleFormat(produit.product.price)} Crédits" class="prixArticle"/>
 							</td>
 							
 							<td>
@@ -116,7 +116,7 @@
 							</td>
 							
 							<td>
-								<h:outputLabel value="#{mbProduct.DoubleFormat(mbCart.getSubTotalPrice(produit))}" class="prix"/>
+								<h:outputLabel value="#{newmbProduct.DoubleFormat(mbCart.getSubTotalPrice(produit))}" class="prix"/>
 							</td>
 						</tr>
 						
@@ -127,7 +127,7 @@
 				</h:panelGrid>
 
 				<div class="recapCommande">
-					<h:outputLabel value="#{mbProduct.DoubleFormat(mbSteps.getTotalPrice())}" class="prix"/>
+					<h:outputLabel value="#{newmbProduct.DoubleFormat(mbSteps.getTotalPrice())}" class="prix"/>
 					<h:outputLabel value="Prix total (crédits) :" class="titre"/>
 					<p:commandButton value="Valider mon panier"	action="/pages/panierStep2" />
 				</div>
