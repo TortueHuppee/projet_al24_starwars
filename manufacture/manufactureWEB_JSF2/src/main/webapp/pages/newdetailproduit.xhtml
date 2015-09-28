@@ -120,7 +120,7 @@
 					<h:outputLabel value="Disponible" class="label-disponible-ajouter"
 						rendered="#{newmbProduct.produitSelectionne.stock > 10}" />
 					<h:outputLabel class="label-peu-disponible-ajouter"
-						value="PLus que #{newmbProduct.produitSelectionne.stock} exemplaires"
+						value="Plus que #{newmbProduct.produitSelectionne.stock} exemplaires"
 						rendered="#{not(newmbProduct.produitSelectionne.stock > 10)}" />
 
 					<h:outputLabel value="Quantité :" class="label-titre-ajouter"/>
@@ -164,7 +164,7 @@
 							<h:outputLabel value="Disponible" class="label-disponible-ajouter"
 								rendered="#{produit.stock > 10}" />
 							<h:outputLabel class="label-peu-disponible-ajouter"
-								value="PLus que #{produit.stock} exemplaires"
+								value="Plus que #{produit.stock} exemplaires"
 								rendered="#{not(produit.stock > 10)}" />
 						</h:column>
 						

@@ -199,9 +199,10 @@ public class CatalogManagedBean {
             }
             else
             {
-            	//Nécessaire ???
-//            	idConstructeur = product.getUser().getIdUser() * -1;
-            	idConstructeur = product.getUser().getIdUser();
+            	//idConstructeur * -1 dans le cas où il s'agit d'un utilisateur,
+            	//car la liste des vendeurs comprend les constructeurs et les utilisateurs
+            	//qui peuvent avoir le même id
+            	idConstructeur = product.getUser().getIdUser() * -1;
             	constructeur = product.getUser().getUserName();
             }
             
@@ -268,6 +269,7 @@ public class CatalogManagedBean {
             return true;
         }
     }
+    
 
     public boolean filtreCouleur(Produit produit)
     {

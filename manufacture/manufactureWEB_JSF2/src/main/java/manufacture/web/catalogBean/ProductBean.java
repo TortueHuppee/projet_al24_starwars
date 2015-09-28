@@ -3,6 +3,7 @@ package manufacture.web.catalogBean;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
@@ -15,7 +16,6 @@ import manufacture.entity.product.ProductRef;
 import manufacture.entity.product.SpaceshipProduct;
 import manufacture.entity.product.SpaceshipRef;
 import manufacture.ifacade.catalog.ICatalog;
-import manufacture.web.datas.DataLoader;
 
 import org.apache.log4j.Logger;
 
@@ -56,7 +56,8 @@ public class ProductBean {
 		//Initialisation du produit selectionne et du produit ref
 		produitSelectionne = new Product();
 		produitSelectionne.setIdProduct(produit.getIdProduct());
-
+		log.info("produit selectionne id : " + produitSelectionne.getIdProduct());
+		
 		ProductRef produitRef = new ProductRef();
 		produitRef = proxyCatalog.getProductRefByIdProductRef(produit.getIdProductRef());
 		
@@ -70,6 +71,7 @@ public class ProductBean {
 	public String detailProduit(Product product)
 	{	
 		//Initialisation du produit selectionne et du produit ref
+		produitSelectionne = new Product();
 		produitSelectionne = product;
 
 		initialisationDonnees();
@@ -86,25 +88,26 @@ public class ProductBean {
             listeVaisseaux.add(ssp.getSpaceshipRef());
         }
         
+        listeProduitsDesAutresVendeurs = new ArrayList<>();
+        listeProduitsDuVendeur = new ArrayList<>();
+        listeProduitsIdentiques = new ArrayList<>();
+        
 		listeProduitsTotauxPourCeProduitRef = proxyCatalog.getAllProductByProductRef(produitSelectionne.getProductRef().getIdProductRef());
-
+		
 		for (Product produit : listeProduitsTotauxPourCeProduitRef)
 		{
-			if (produit.getIdProduct() == produitSelectionne.getIdProduct())
+			if (produit.getIdProduct().equals(produitSelectionne.getIdProduct()))
 			{
 				produitSelectionne = produit;
 			}
 		}
 		for (Product produit : listeProduitsTotauxPourCeProduitRef)
 		{
-			if (produit.getIdProduct() != produitSelectionne.getIdProduct())
-			{
-				initialiserListeProduitsAnnexes(produit);
-			}
+			initialiserListeProduitsAnnexes(produit);
 		}
 		
 		initialisationFiltres();
-		miseAJourListeMaterial();
+		miseAJourListeProduitsIdentiques();
 	}
 	
 	public void initialiserListeProduitsAnnexes(Product produit) {
@@ -162,13 +165,11 @@ public class ProductBean {
 	
 	public void initialisationFiltres()
 	{
-		listeCouleursDisponibles = new ArrayList<Color>();
-
 		//Couleurs
 		listeCouleursDisponibles = new ArrayList<Color>();
 		boolean ajoutColor = true;
 		for (Product product : listeProduitsDuVendeur)
-		{			
+		{	
 			for (Color couleur : listeCouleursDisponibles)
 			{
 				if (couleur.getIdColor() == product.getColor().getIdColor())

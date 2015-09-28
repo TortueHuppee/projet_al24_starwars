@@ -61,7 +61,7 @@
 
 								<ui:repeat var="produit" value="#{mbCatalog.paginatedListConstructorProduct.model}">
 									<div class="article-wrapper">
-										<h:commandLink action="#{mbProduct.detailProduit(produit)}">
+										<h:commandLink action="#{newmbProduct.detailProduit(produit)}">
 											<div class="article-name">#{produit.nom}</div>
 											<img src="#{produit.urlPhoto}" />
 											<div class="article-description">A partir de #{produit.prixMin} Crédits</div>
@@ -159,7 +159,7 @@
 								
 								<ui:repeat var="produit" value="#{mbCatalog.paginatedListArtisanProduct.model}">
 									<div class="article-wrapper">
-										<h:commandLink action="#{mbProduct.detailProduit(produit)}">
+										<h:commandLink action="#{newmbProduct.detailProduit(produit)}">
 											<div class="article-name">#{produit.nom}</div>
 											<img src="#{produit.urlPhoto}" />
 											<div class="article-description">A partir de #{produit.prixMin} Crédits</div>
@@ -257,7 +257,7 @@
 								
 								<ui:repeat var="produit" value="#{mbCatalog.paginatedListUsedProduct.model}">								
 									<div class="article-wrapper">
-										<h:commandLink action="#{mbProduct.detailProduit(produit)}">
+										<h:commandLink action="#{newmbProduct.detailProduit(produit)}">
 											<div class="article-name">#{produit.nom}</div>
 											<img src="#{produit.urlPhoto}" />
 											<div class="article-description">A partir de #{produit.prixMin} Crédits</div>

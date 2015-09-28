@@ -17,6 +17,7 @@ import manufacture.entity.cart.PaymentType;
 import manufacture.entity.product.Product;
 import manufacture.entity.user.User;
 import manufacture.ifacade.cart.IGestionCart;
+import manufacture.web.catalogBean.ProductBean;
 import manufacture.web.catalogBean.ProductManagedBean;
 
 import org.apache.log4j.Logger;
@@ -27,8 +28,8 @@ public class ManagedBeanCart {
 
 	private Logger log = Logger.getLogger(ManagedBeanCart.class);
 
-	@ManagedProperty(value = "#{mbProduct}")
-    private ProductManagedBean mbProduct;
+	@ManagedProperty(value = "#{newmbProduct}")
+	private ProductBean newMbProduct;
 	
 	@ManagedProperty(value = "#{gestionCart}")
     private IGestionCart proxyCart;
@@ -80,13 +81,13 @@ public class ManagedBeanCart {
 	                ajoutPanier = false;
 	                
 	                int nouvelleQuantite = cp.getQuantity() + quantity;
-	                if (nouvelleQuantite >= mbProduct.getQuantiteDispo())
+	                if (nouvelleQuantite >= productToAdd.getStock())
 	                {
-	                    nouvelleQuantite = mbProduct.getQuantiteDispo();
+	                    nouvelleQuantite = productToAdd.getStock();
 	                }
 	                cp.setQuantity(nouvelleQuantite);
 	                
-	                context.addMessage(null, new FacesMessage("Produit(s) ajouté(s)", nouvelleQuantite+" "+mbProduct.getProductRef().getProductName()+" ajouté(s) au panier" ) );
+	                context.addMessage(null, new FacesMessage("Produit(s) ajouté(s)", nouvelleQuantite+" "+productToAdd.getProductRef().getProductName()+" ajouté(s) au panier" ) );
 	            }
 	        }
 	    }
@@ -98,7 +99,7 @@ public class ManagedBeanCart {
 	        cartProduct.setProduct(productToAdd);
 	        panier.add(cartProduct);
 	        
-	        context.addMessage(null, new FacesMessage("Produit(s) ajouté(s)", quantity+" "+mbProduct.getProductRef().getProductName()+" ajouté(s) au panier" ) );
+	        context.addMessage(null, new FacesMessage("Produit(s) ajouté(s)", quantity+" "+productToAdd.getProductRef().getProductName()+" ajouté(s) au panier" ) );
 	    }
 	    quantity = 1;
 	}
@@ -248,12 +249,20 @@ public class ManagedBeanCart {
         moyenPaiement = paramMoyenPaiement;
     }
 
-    public ProductManagedBean getMbProduct() {
-        return mbProduct;
-    }
+	public Logger getLog() {
+		return log;
+	}
 
-    public void setMbProduct(ProductManagedBean paramMbProduct) {
-        mbProduct = paramMbProduct;
-    }
+	public void setLog(Logger log) {
+		this.log = log;
+	}
+
+	public ProductBean getNewMbProduct() {
+		return newMbProduct;
+	}
+
+	public void setNewMbProduct(ProductBean newMbProduct) {
+		this.newMbProduct = newMbProduct;
+	}
 
 }
