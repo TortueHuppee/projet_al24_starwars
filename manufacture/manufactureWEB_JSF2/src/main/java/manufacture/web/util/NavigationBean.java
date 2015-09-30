@@ -33,19 +33,33 @@ public class NavigationBean {
     private static final Integer USER_PARTICULIER_ROLE_ID = 1;
     private static final Integer USER_PROFESSIONNEL_ROLE_ID = 2;
     private static final Integer USER_ARTISAN_ROLE_ID = 3;
+    private static final Integer USER_ADMINISTRATEUR_ROLE_ID = 4;
     
   //Navigation
     
-    public String accessProfil(){
-        if(userBean.isLogged()){
-            if (!profilBean.isDonneesInitialisees())
+    public String accessProfil() {
+        if(userBean.isLogged())
+        {
+        	if (userBean.getUser().getUserRole().getIdUserRole() == USER_ADMINISTRATEUR_ROLE_ID)
+        	{
+        		return "administrator.xhtml?faces-redirect=true";
+        	} else if (!profilBean.isDonneesInitialisees())
             {
                 profilBean.initialiseDonnees();
             }
             return "profil.xhtml?faces-redirect=true";
-        }else{
-            profilBean.setDate(new Date());
-            loginBean.setRedirect("profil.xhtml?faces-redirect=true");
+        } 
+        else 
+        {
+            if (userBean.getUser().getUserRole().getIdUserRole() == USER_ADMINISTRATEUR_ROLE_ID)
+            {
+            	loginBean.setRedirect("administrator.xhtml?faces-redirect=true");
+            }
+            else
+            {
+            	profilBean.setDate(new Date());
+            	loginBean.setRedirect("profil.xhtml?faces-redirect=true");
+            }
             return "login.xhtml?faces-redirect=true";
         }
     }
@@ -57,6 +71,9 @@ public class NavigationBean {
                 annonceBean.initialiseDonnees();
                 annonceBean.setDonneesInitialisees(true);
                 return "annonce.xhtml?faces-redirect=true";
+            } else if (userBean.getUser().getUserRole().getIdUserRole() == USER_ADMINISTRATEUR_ROLE_ID)
+            {
+            	return "administrator.xhtml?faces-redirect=true";
             }
             else
             {
@@ -64,7 +81,14 @@ public class NavigationBean {
             }
         }else{
             annonceBean.setDate(new Date());
-            loginBean.setRedirect("annonce.xhtml?faces-redirect=true");
+            if (userBean.getUser().getUserRole().getIdUserRole() == USER_ADMINISTRATEUR_ROLE_ID)
+            {
+            	loginBean.setRedirect("administrator.xhtml?faces-redirect=true");
+            }
+            else
+            {
+            	loginBean.setRedirect("annonce.xhtml?faces-redirect=true");
+            }
             return "login.xhtml?faces-redirect=true";
         }
     }
@@ -73,11 +97,27 @@ public class NavigationBean {
         if(!userBean.isLogged()){
 //            FacesMessage fm = new FacesMessage("Erreur", "Vous devez vous connecter pour continuer la commande");
 //            FacesContext.getCurrentInstance().addMessage(null, fm);
-            loginBean.setRedirect("panierStep1.xhtml?faces-redirect=true");
+        	if (userBean.getUser().getUserRole().getIdUserRole() == USER_ADMINISTRATEUR_ROLE_ID)
+        	{
+        		loginBean.setRedirect("administrator.xhtml?faces-redirect=true");
+        	} 
+        	else
+        	{
+        		loginBean.setRedirect("panierStep1.xhtml?faces-redirect=true");
+        	}
             return "login.xhtml?faces-redirect=true";
-        } else {
-            mbSteps.initialisationDonnees();
-            return "panierStep1.xhtml?faces-redirect=true";
+        } 
+        else 
+        {
+            if (userBean.getUser().getUserRole().getIdUserRole() == USER_ADMINISTRATEUR_ROLE_ID)
+        	{
+        		return "administrator.xhtml?faces-redirect=true";
+        	} 
+        	else
+        	{
+        		 mbSteps.initialisationDonnees();
+        		return "panierStep1.xhtml?faces-redirect=true";
+        	}
         }
     }
     

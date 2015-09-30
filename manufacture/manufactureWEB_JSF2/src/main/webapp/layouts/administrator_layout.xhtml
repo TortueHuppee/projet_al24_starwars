@@ -1,0 +1,37 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:composite="http://xmlns.jcp.org/jsf/composite"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+<h:head>
+	<title><ui:insert name="title">Star Wars Part E-Shop</ui:insert></title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<h:outputStylesheet library="css" name="styleAdmin.css" />
+	<ui:insert name="stylesheets"></ui:insert>
+	<ui:insert name="javascripts"></ui:insert>
+</h:head>
+<h:body> 
+
+	<div id="header">
+		<ui:include src="parts/header.xhtml" />
+	</div>
+	
+	<div id="menu">
+		<h:outputLabel value="Espace administrateur" />
+	</div>
+
+	<div id="body-content">
+		<div class="sidebar-left">
+			<ui:insert name="sidebar">
+				<ui:include src="parts/sidebarAdmin.xhtml" />
+			</ui:insert>
+		</div>
+		
+		<ui:insert name="main-body" />
+	</div>
+</h:body>
+</html>

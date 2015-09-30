@@ -307,3 +307,81 @@ select.dateExpi
 	margin:-3px;
 	
 }
+
+/*Fen�tre de dialogue*/
+.ui-dialog-content
+{
+	width:600px !important;
+	min-height:420px;
+}
+
+.ui-dialog-content h2
+{
+	margin-bottom:30px;
+	background-color: lightsteelblue;
+	border-bottom:1px solid lightgrey;
+	height:30px;
+	border-top-left-radius: 3px;
+	border-top-right-radius: 3px;
+	font-family: Arial,sans-serif;
+	font-style: normal;
+	font-size:medium;
+	padding-left:10px;
+	padding-top:10px;
+	margin-bottom:10px;
+}
+
+.dialogLabel
+{
+	display:inline-block;
+	font-weight:bold;
+	color:#4f4f4f !important;
+	font-style:normal !important;
+	width:150px;
+	margin-bottom:10px;
+
+}
+
+.dialogInput
+{
+	display:inline-block;
+	width:400px;
+	margin-left:10px;
+	margin-bottom:10px;
+	width: 400px;
+	border: 1px solid #BDC7D8;
+	border-radius: 5px;
+	height: 30px;
+	padding-left: 5px;
+}
+
+.dialogInput:nth-of-type(2)
+{
+	margin-left:24px;
+}
+
+.ui-selectonemenu
+{
+	margin-left:10px;
+}
+
+.dialogCheckBox
+{
+	margin-left:40px;
+	color: #10507B !important;
+	font-size: smaller !important;
+	font-style: italic;
+	font-weight: bold;
+}
+.ui-dialog-content button
+{
+	margin-left:16%;
+	margin-top:20px;
+	width:150px;
+}
+
+.ui-dialog .ui-chkbox-box
+{
+	margin-right:50px;
+	margin-left:20px;
+}

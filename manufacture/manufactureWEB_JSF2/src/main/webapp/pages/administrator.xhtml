@@ -1,0 +1,185 @@
+<ui:composition template="/layouts/administrator_layout.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:composite="http://xmlns.jcp.org/jsf/composite"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="stylesheets">
+		<h:outputStylesheet library="css" name="adminCss.css" />
+	</ui:define>
+
+	<ui:define name="main-body">
+		<f:view>
+			<h:form id="myForm">
+
+				<!--  Informations personnelles -->
+				<h:panelGroup class="infosPersonnelles"
+					rendered="#{mbAdmin.rubriqueChoisie eq 'Profil'}">
+
+					<div class="identity">
+						<h2>
+							Identité
+							<h:commandLink action="#{editBean.editionModePersonnel()}"
+								rendered="#{not editBean.editModePersonnel}">
+								<img src="../resources/images/icones_profil/modifier-defaut.png"
+									onmousedown="this.src='../resources/images/icones_profil/modifier-clic.png';"
+									onmouseout="this.src='../resources/images/icones_profil/modifier-defaut.png';" />
+							</h:commandLink>
+
+							<h:commandLink action="#{editBean.saveUser()}"
+								rendered="#{editBean.editModePersonnel}">
+								<img src="../resources/images/icones_profil/valider-defaut.png"
+									onmousedown="this.src='../resources/images/icones_profil/valider-clic.png';"
+									onmouseout="this.src='../resources/images/icones_profil/valider-defaut.png';" />
+							</h:commandLink>
+
+							<h:commandLink action="#{editBean.cancelModePersonnel()}"
+								rendered="#{editBean.editModePersonnel}">
+								<img src="../resources/images/icones_profil/annuler-defaut.png"
+									onmousedown="this.src='../resources/images/icones_profil/annuler-clic.png';"
+									onmouseout="this.src='../resources/images/icones_profil/annuler-defaut.png';" />
+							</h:commandLink>
+
+						</h2>
+
+						<h:outputLabel value="Nom" />
+						:
+						<h:outputLabel value="#{userBean.user.userName}"
+							rendered="#{not editBean.editModePersonnel}" />
+						<h:inputText value="#{userBean.user.userName}"
+							rendered="#{editBean.editModePersonnel}" />
+
+						<h:outputLabel value="Prénom" />
+						:
+						<h:outputLabel value="#{userBean.user.userFirstName}"
+							rendered="#{not editBean.editModePersonnel}" />
+						<h:inputText value="#{userBean.user.userFirstName}"
+							rendered="#{editBean.editModePersonnel}" />
+
+						<h:outputLabel value="Civilité" />
+						:
+						<h:outputLabel
+							value="#{profilBean.getCivilityById(userBean.user.civility.idCivility)}"
+							rendered="#{not editBean.editModePersonnel}" />
+						<p:selectOneRadio id="signup_civility"
+							rendered="#{editBean.editModePersonnel}"
+							value="#{userBean.user.civility.idCivility}">
+							<f:selectItem itemLabel="Mr" itemValue="1" />
+							<f:selectItem itemLabel="Mme" itemValue="2" />
+							<f:selectItem itemLabel="Mlle" itemValue="3" />
+						</p:selectOneRadio>
+
+						<!-- Pour l'email et le login, la modification peut être autorisée à conditions qu'ils ne soient -->
+						<!-- pas déjà utilisés par un autre utilisateur et qu'ils sont valides. -->
+						<h:outputLabel value="Email" />
+						:
+						<h:outputLabel value="#{userBean.user.email}" />
+						<!-- 						<h:outputLabel value="#{userBean.user.email}" rendered="#{not editBean.editModePersonnel}" /> -->
+						<!-- 						<h:inputText value="#{userBean.user.email}" rendered="#{editBean.editModePersonnel}" /> -->
+
+						<h:outputLabel value="Login" />
+						:
+						<h:outputLabel value="#{userBean.user.login}" />
+
+						<h:outputLabel value="Mot de passe" />
+						:
+						<h:outputLabel value="***********"
+							rendered="#{not editBean.editModePersonnel}" />
+						<h:inputSecret value="#{userBean.user.password}"
+							rendered="#{editBean.editModePersonnel}" />
+					</div>
+				</h:panelGroup>
+
+				<!-- Statistiques -->
+				<h:panelGroup rendered="#{mbAdmin.rubriqueChoisie eq 'Statistiques'}">
+
+					<div id="charts">
+						<h:outputLabel
+							value="Nombre d'articles enregistrés sur le site par catégories : "
+							class="chart-title" />
+						<p:chart type="pie" model="#{mbAdmin.pieModel}"
+							style="width:400px;height:300px;" />
+
+						<h:outputLabel
+							value="Nombre d'articles mis en ventes aujourd'hui :"
+							class="chart-title" />
+
+						<ui:repeat var="item"
+							value="#{mbAdmin.articlesMisEnLigne.selectItems}">
+							<div class="chart-conteneur">
+								<div class="circle-conteneur #{item.description}"
+									style="width:#{mbAdmin.articleMisEnLigneCalculateWidthCircle(item.value)}px;
+												 height:#{mbAdmin.articleMisEnLigneCalculateWidthCircle(item.value)}px;">
+									<h:outputLabel value="#{item.value}"
+										class="circle-chart #{mbAdmin.getClassForCircle(mbAdmin.articleMisEnLigneCalculateWidthCircle(item.value))}" />
+								</div>
+							</div>
+						</ui:repeat>
+						<br />
+						<ui:repeat var="item"
+							value="#{mbAdmin.articlesMisEnLigne.selectItems}">
+							<h:outputLabel value="#{item.label}"
+								class="charts-name #{item.description}" />
+						</ui:repeat>
+
+						<h:outputLabel value="Nombre d'articles vendus aujourd'hui :"
+							class="chart-title" />
+
+						<ui:repeat var="item"
+							value="#{mbAdmin.articlesVendus.selectItems}">
+							<div class="chart-conteneur2">
+								<div class="circle-conteneur #{item.description}"
+									style="width:#{mbAdmin.articleVendusCalculateWidthCircle(item.value)}px;
+												 height:#{mbAdmin.articleVendusCalculateWidthCircle(item.value)}px;">
+									<h:outputLabel value="#{item.value}"
+										class="circle-chart #{mbAdmin.getClassForCircle(mbAdmin.articleVendusCalculateWidthCircle(item.value))}" />
+								</div>
+							</div>
+						</ui:repeat>
+						<br />
+						<ui:repeat var="item"
+							value="#{mbAdmin.articlesVendus.selectItems}">
+							<h:outputLabel value="#{item.label}"
+								class="charts-name2 #{item.description}" />
+						</ui:repeat>
+					</div>
+
+					<div id="article-chart">
+
+						<div>
+							<h:outputLabel value="33%" class="article-chart-title" />
+							<h:outputLabel value="Annonces d’occasions en ventes"
+								class="article-chart-subtitle" />
+							<h:outputLabel
+								value="En moyenne, 450 annonces  d’occasions sont déposées chaque jour sur le site."
+								class="article-chart-description" />
+						</div>
+
+						<div>
+							<h:outputLabel value="33%" class="article-chart-title" />
+							<h:outputLabel value="Annonces d’occasions en ventes"
+								class="article-chart-subtitle" />
+							<h:outputLabel
+								value="En moyenne, 450 annonces  d’occasions sont déposées chaque jour sur le site."
+								class="article-chart-description" />
+						</div>
+
+						<div>
+							<h:outputLabel value="33%" class="article-chart-title" />
+							<h:outputLabel value="Annonces d’occasions en ventes"
+								class="article-chart-subtitle" />
+							<h:outputLabel
+								value="En moyenne, 450 annonces  d’occasions sont déposées chaque jour sur le site."
+								class="article-chart-description" />
+						</div>
+					</div>
+
+				</h:panelGroup>
+			</h:form>
+		</f:view>
+	</ui:define>
+</ui:composition>
+
+

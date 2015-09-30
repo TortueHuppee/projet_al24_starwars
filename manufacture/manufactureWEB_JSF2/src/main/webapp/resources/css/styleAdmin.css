@@ -1,0 +1,157 @@
+#body-content
+{
+	min-height:485px;
+	background:linear-gradient(white, #E0E6F8);
+	font-family: Arial,sans-serif;
+}
+
+/* menu.xhtml */
+/* ********* debut ********* */
+#menu {
+	height: 70px;
+	background-color: #10507B;
+}
+
+#menu label
+{
+	font-family: Arial,sans-serif;
+	color:white;
+	display:inline-block;
+	margin-top:15px;
+	font-style:italic;
+	font-size:xx-large;
+	width:100%;
+	text-align: center;
+}
+
+/* connexion */
+/* ********* ********* */
+#divDeConnexion {
+	width: 300px;
+}
+ 
+.divLabelConnexion {
+	width: 100%; 
+	height: auto;
+}
+
+.labelInputConnexion {
+	width: 100%; 
+	height: auto;
+}
+
+.labelConnexion {
+	width: 100%;
+	height: auto;
+}
+
+.inputConnexion {
+	width: 100%;
+	height: 20px
+	padding: 0 !important;
+}
+
+.boutonConnexion {
+} 
+
+.linkConnexion {
+	background-color: teal;
+}
+
+.divBoutonConnexion {
+	clear:both; 
+	width: 50%;
+	margin-top:10px;
+	margin-left:80px;
+} 
+ 
+* {
+	margin: 0;
+	padding: 0;
+	
+}
+
+/* ********* Header ********* */
+#logo img {
+	height: 100px;
+	margin-top: 20px;
+	margin-left: 15%;
+	margin-right:20px;
+	float: left;
+}
+
+#logo label {
+	float: left;
+	color: #10507B;
+	font-size: 80px;
+	margin-left: 60px;
+	font-family: Arial;
+	margin-top: 20px;
+}
+
+#header {
+	padding-left:5%;
+	padding-top:15px;
+	height: 150px;
+	width: 100%;
+	background-color: silver;
+}
+
+#header a {
+	margin-top: 10%;
+	display: inline-block;
+	color: #10507B;
+	width: 130px;
+}
+
+#header a:visited {
+	text-decoration: none;
+}
+
+#searchBar {
+	display: none;
+}
+
+#searchBar input[type="text"] {
+	width: 200px;
+}
+
+#header .left_zone {
+	float: left;
+	width: 60%;
+}
+
+#header .right_zone {
+	float: right;
+	width: 40%;
+}
+
+.sidebar-left {
+	float: left;
+	width: 20%;
+}
+
+/* Inscription */
+.center-body {
+	margin-left: 20%;
+	width:60%;
+}
+.login-part{
+    margin-left: 40%;
+    width: 35%;
+}
+  
+.center-body #signinForm fieldset {
+	padding: 10px;
+}
+
+/* index css */
+.login-part label{
+	font-weight:bold;
+	font-size:1.1em;
+}
+.login-part input{
+	margin-top:5px;
+	margin-bottom:5px;
+	height:30px;
+}

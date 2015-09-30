@@ -3,6 +3,7 @@ package manufacture.web.user;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+
 import manufacture.entity.user.User;
 import manufacture.ifacade.user.IConnection;
 import manufacture.web.advert.AnnonceManagedBean;
@@ -39,6 +40,8 @@ public class LoginBean {
     private String redirect;
 
     private String erreurConnexion;
+    
+    private static final Integer USER_ADMINISTRATEUR_ROLE_ID = 4;
 
     public LoginBean(){
         user = new User(); 
@@ -51,7 +54,7 @@ public class LoginBean {
 
         if(userTmp == null)
         {
-            erreurConnexion = "Erreur de connexion, utilisateur non trouvÃ©";
+            erreurConnexion = "Erreur de connexion, utilisateur non trouvé";
             return "login.xhtml?faces-redirect=true";
         }
 
@@ -70,7 +73,14 @@ public class LoginBean {
         }
         else
         {
-            toPage = "index.xhtml?faces-redirect=true";
+        	if (userBean.getUser().getUserRole().getIdUserRole() == USER_ADMINISTRATEUR_ROLE_ID)
+        	{
+        		toPage = "administrator.xhtml?faces-redirect=true";
+        	}
+        	else
+        	{
+        		toPage = "index.xhtml?faces-redirect=true";
+        	}
         } 
         return toPage;
     } 

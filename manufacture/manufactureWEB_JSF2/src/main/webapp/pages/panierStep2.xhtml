@@ -7,7 +7,7 @@
 
 
 	<ui:define name="stylesheets">
-		<h:outputStylesheet name="panierCssStep2.css" library="css" />
+		<h:outputStylesheet name="panierCssStep3.css" library="css" />
 	</ui:define>
 
 	<ui:define name="javascripts">
@@ -17,7 +17,7 @@
 	<ui:define name="main-body">
 		<f:view>
 			<h:form id="myForm">
-				<div class="mode-livraison">
+				<div class="product-description">
 
 					<p:steps activeIndex="1" styleClass="custom" readonly="false">
 						<p:menuitem value="Mon panier" action="/pages/panierStep1" />
@@ -29,46 +29,63 @@
 					<h2>
 						<h:outputLabel value="Je choisis mon mode de livraison" />
 					</h2>
-
-					<!-- Choix du mode de transport -->
-					<h:outputLabel value="Choisir le mode de transport" class="titre"/> : 
-					<p:selectOneMenu value="#{mbCart.cart.delivery.idDelivery}">
-						<f:selectItems var="item" value="#{mbSteps.moyensDeLivraisons}"
+					
+					<div id="adressefacturation">
+						<!-- Liste de mes adresses -->
+						<h3>Mes adresses de livraison</h3>
+						
+						<!-- Choix du mode de transport -->
+<!-- 						<h:outputLabel value="Choisir le mode de transport" class="titre"/> :  -->
+						<p:selectOneMenu value="#{mbCart.cart.delivery.idDelivery}" style="display:inline-block; width:40%;">
+							<f:selectItems var="item" value="#{mbSteps.moyensDeLivraisons}"
 							itemLabel="#{item.deliveryMethod} (#{item.deliveryPrice} Crédits)"
 							itemValue="#{item.idDelivery}" />
-						<f:ajax render=":myForm" />
-					</p:selectOneMenu>
-
-					<!-- Livraison chez soi -->
-
-					<h:panelGroup
-						rendered="#{not (mbCart.cart.delivery.idDelivery == 4)}">
-
-						<!-- Liste de mes adresses -->
-						<h:outputLabel value="Mes adresses de livraison" class="titre"/> : 
+							<f:ajax render=":myForm" />
+						</p:selectOneMenu>
 						
-						<!-- Ajout d'une adresse -->
-						<p:commandButton value="Ajouter une adresse" type="button"
-							onclick="loadModal2()"
-							actionListener="#{editBean.editModeAdresse()}" />
+						<!-- Livraison chez soi -->
+						<h:panelGroup rendered="#{not (mbCart.cart.delivery.idDelivery == 4)}">
 
-						<p:selectOneRadio value="#{mbSteps.idAdressePersonnelle}" layout="grid" columns="1"
-							rendered="#{not(profilBean.adressesLivraison.size() == 0)}">
-							<f:selectItems var="adresse"
-								value="#{profilBean.adressesLivraison}"
-								itemValue="#{adresse.idAddress}"
-								itemLabel="#{adresse.number}  #{adresse.street}&lt;br/&gt; 
-										   #{adresse.city.postalCode} #{adresse.city.cityName.toUpperCase()}&lt;br/&gt; 
-										   #{adresse.city.country.countryName.toUpperCase()}" />
-							<f:ajax render=":myForm"/>
-						</p:selectOneRadio>
+							<!-- Ajout d'une adresse -->
+							<p:commandButton value="Ajouter une adresse" type="button"
+								onclick="loadModal2()"
+								actionListener="#{editBean.editModeAdresse()}" />
 
-						<!-- Aucune adresse d'enregistrée pour cet utilisateur -->
-						<h:outputLabel value="Aucun adresse enregistrée"
-							rendered="profilBean.adressesLivraison.size() == 0"
-							class="aucunResultat" />
+							<p:selectOneRadio value="#{mbSteps.idAdressePersonnelle}"
+									layout="grid" columns="1"
+								rendered="#{not(profilBean.adressesFacturation.size() == 0)}">
+								<f:selectItems var="adresse"
+									value="#{profilBean.adressesLivraison}"
+									itemValue="#{adresse.idAddress}"
+									itemLabel="#{adresse.number}  #{adresse.street}&lt;br/&gt; 
+											   #{adresse.city.postalCode} #{adresse.city.cityName.toUpperCase()}&lt;br/&gt; 
+											   #{adresse.city.country.countryName.toUpperCase()}" />
+								<f:ajax render=":myForm" />
+							</p:selectOneRadio>
 
-					</h:panelGroup>
+							<!-- Aucune adresse d'enregistrée pour cet utilisateur -->
+							<h:outputLabel value="Aucun adresse enregistrée"
+								rendered="profilBean.adressesLivraison.size() == 0"
+								class="aucunResultat" />
+
+						</h:panelGroup>
+						
+						<!-- Livraison à un point relais -->
+
+						<h:panelGroup rendered="#{mbCart.cart.delivery.idDelivery == 4}">
+							<h:outputLabel value="Points relais" class="titre"/>
+	
+							<p:selectOneRadio value="#{mbSteps.idAdressePersonnelle}"
+								rendered="#{not(profilBean.adressesLivraison.size() == 0)}">
+								<f:selectItems var="relais" value="#{mbSteps.listePointsRelais}"
+									itemValue="#{relais.addresse.idAddress}"
+									itemLabel="#{relais.addresse.number}  #{adresse.street}&lt;br/&gt; 
+											   #{relais.addresse.city.postalCode} #{relais.addresse.city.cityName.toUpperCase()}&lt;br/&gt; 
+											   #{relais.addresse.city.country.countryName.toUpperCase()}" />
+							</p:selectOneRadio>
+
+						</h:panelGroup>
+					</div>
 
 					<p:dialog header="Ajouter une adresse" widgetVar="addAddress"
 						modal="true" height="100">
@@ -126,22 +143,6 @@
 							actionListener="#{editBean.saveAdresse(address)}" />
 					</p:dialog>
 
-					<!-- Livraison à un point relais -->
-
-					<h:panelGroup rendered="#{mbCart.cart.delivery.idDelivery == 4}">
-						<h:outputLabel value="Points relais" class="titre"/>
-
-						<p:selectOneRadio value="#{mbSteps.idAdressePersonnelle}"
-							rendered="#{not(profilBean.adressesLivraison.size() == 0)}">
-							<f:selectItems var="relais" value="#{mbSteps.listePointsRelais}"
-								itemValue="#{relais.addresse.idAddress}"
-								itemLabel="#{relais.addresse.number}  #{adresse.street}&lt;br/&gt; 
-										   #{relais.addresse.city.postalCode} #{relais.addresse.city.cityName.toUpperCase()}&lt;br/&gt; 
-										   #{relais.addresse.city.country.countryName.toUpperCase()}" />
-						</p:selectOneRadio>
-
-					</h:panelGroup>
-					
 					<div class="recapCommande">
 						<h:outputLabel
 							value="#{mbProduct.DoubleFormat(mbCart.getTotalPrice(mbSteps.cartFinal))}"
