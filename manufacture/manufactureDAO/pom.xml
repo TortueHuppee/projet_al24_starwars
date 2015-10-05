@@ -10,6 +10,13 @@
 	<packaging>jar</packaging>
 	<dependencies>
 
+		<!-- mongoDB -->
+		<dependency>
+			<groupId>org.mongodb</groupId>
+			<artifactId>mongo-java-driver</artifactId>
+			<version>2.13.1</version>
+		</dependency>
+
 		<dependency>
 			<groupId>fr.afcepf.al24.manufacture.entity</groupId>
 			<artifactId>manufactureENTITY</artifactId>
