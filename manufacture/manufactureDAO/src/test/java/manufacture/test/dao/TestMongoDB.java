@@ -3,9 +3,17 @@ package manufacture.test.dao;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
+import manufacture.entity.cart.Cart;
+import manufacture.entity.cart.CartProduct;
+import manufacture.entity.mongodb.CategoryProduct;
 import manufacture.entity.product.Product;
+import manufacture.idao.cart.IDaoCart;
+import manufacture.idao.cart.IDaoProductCart;
+import manufacture.idao.mongodb.IDaoMongoDB;
 import manufacture.idao.product.IDaoProduct;
+
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -21,6 +29,16 @@ import com.mongodb.util.JSON;
 public class TestMongoDB {
 
 	private static DBCollection coll;
+	
+	private static BeanFactory bf = new ClassPathXmlApplicationContext("classpath:springData.xml");
+
+	private static IDaoProduct proxyProduct = (IDaoProduct) bf.getBean(IDaoProduct.class);
+	
+	private static IDaoMongoDB proxyMongo = (IDaoMongoDB) bf.getBean(IDaoMongoDB.class);
+	
+	private static IDaoCart proxyCart = (IDaoCart) bf.getBean(IDaoCart.class);
+	
+	private static IDaoProductCart proxyCartProduct = (IDaoProductCart) bf.getBean(IDaoProductCart.class);
 
 	public static void main(String[] args) {
 
@@ -38,13 +56,38 @@ public class TestMongoDB {
 			coll = db.getCollection("produits");
 			System.out.println("Connexion à la table produits OK");
 			
-			connexionMongoDB();
+//			connexionMongoDB();
+//			
+//			grouperArticlesParCategorie();
 			
-			grouperArticlesParCategorie();
+//			testerCreationDaoMongo();
+			
+			testerRequeteDaoMongo();
 			
 			System.out.println("DONE");
 		} catch (UnknownHostException e) {
 			e.printStackTrace();
+		}
+	}
+	
+	static void testerRequeteDaoMongo()
+	{
+		List<CategoryProduct> result = proxyMongo.productsSellByCategoryAndMonth();
+		System.out.println("Nombre résultat : " + result.size());
+		for (CategoryProduct cp : result)
+		{
+			System.out.println(cp.getCategory() + " : " + cp.getQuantity());
+		}
+	}
+	
+	static void testerCreationDaoMongo()
+	{
+		List<Cart> listeCart = proxyCart.getAllCart();
+		for (Cart cart : listeCart)
+		{
+			List<CartProduct> listeCartProduct = proxyCartProduct.getCartProductByCart(cart);
+			cart.setCartProducts(listeCartProduct);
+			proxyMongo.createOrder(cart);
 		}
 	}
 	
@@ -60,16 +103,12 @@ public class TestMongoDB {
 		
 		if (i == 1)
 		{
-			injectionProduitsDansMongoDB();
+//			injectionProduitsDansMongoDB();
 		}
 	}
 
 	static void injectionProduitsDansMongoDB()
 	{
-		BeanFactory bf = new ClassPathXmlApplicationContext("classpath:springData.xml");
-
-		IDaoProduct proxyProduct = (IDaoProduct) bf.getBean(IDaoProduct.class);
-		
 		List<Product> listeProduct = proxyProduct.getAllProduct();
 		
 		for (Product product : listeProduct)
@@ -126,7 +165,7 @@ public class TestMongoDB {
 		
 		for (DBObject moObj : cursor)
 		{
-			System.out.println(moObj);
+			System.out.println(moObj.get("_id"));
 		}
 	}
 
@@ -136,5 +175,45 @@ public class TestMongoDB {
 
 	public void setColl(DBCollection coll) {
 		this.coll = coll;
+	}
+
+	public static BeanFactory getBf() {
+		return bf;
+	}
+
+	public static void setBf(BeanFactory bf) {
+		TestMongoDB.bf = bf;
+	}
+
+	public static IDaoProduct getProxyProduct() {
+		return proxyProduct;
+	}
+
+	public static void setProxyProduct(IDaoProduct proxyProduct) {
+		TestMongoDB.proxyProduct = proxyProduct;
+	}
+
+	public static IDaoMongoDB getProxyMongo() {
+		return proxyMongo;
+	}
+
+	public static void setProxyMongo(IDaoMongoDB proxyMongo) {
+		TestMongoDB.proxyMongo = proxyMongo;
+	}
+
+	public static IDaoCart getProxyCart() {
+		return proxyCart;
+	}
+
+	public static void setProxyCart(IDaoCart proxyCart) {
+		TestMongoDB.proxyCart = proxyCart;
+	}
+
+	public static IDaoProductCart getProxyCartProduct() {
+		return proxyCartProduct;
+	}
+
+	public static void setProxyCartProduct(IDaoProductCart proxyCartProduct) {
+		TestMongoDB.proxyCartProduct = proxyCartProduct;
 	}
 }

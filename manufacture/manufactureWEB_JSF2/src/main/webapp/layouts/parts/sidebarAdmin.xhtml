@@ -9,11 +9,11 @@
 		<div class="options">Partie générale</div>
 
 		<h:commandLink value="Statistiques">
-<!-- 			<f:ajax event="click" render=":myForm" -->
-<!-- 				listener="#{profilBean.chooseRubrique('Informations personnelles')}" /> -->
+			<f:ajax event="click" render=":myForm" listener="#{mbAdmin.chooseRubrique('Statistiques')}" />
 		</h:commandLink>
 
 		<h:commandLink value="Mon profil">
+			<f:ajax event="click" render=":myForm" listener="#{mbAdmin.chooseRubrique('Profil')}" />
 		</h:commandLink>
 
 		<div class="options">Partie modérateur</div>

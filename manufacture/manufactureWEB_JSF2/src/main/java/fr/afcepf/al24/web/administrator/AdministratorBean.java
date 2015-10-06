@@ -1,15 +1,29 @@
 package fr.afcepf.al24.web.administrator;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.model.SelectItem;
 import javax.faces.model.SelectItemGroup;
+
+import manufacture.entity.mongodb.CategoryProduct;
+import manufacture.ifacade.mongodb.IMongoDB;
 
 import org.primefaces.model.chart.PieChartModel;
 
 @ManagedBean(name="mbAdmin")
 public class AdministratorBean {
 
+	@ManagedProperty(value="#{mongoDB}")
+    private IMongoDB proxyMongo;
+	
+	private List<CategoryProduct> listeProduitsVendusSurLeMois = new ArrayList<>();
+	private List<CategoryProduct> listeProduitsVendusSurLeJour = new ArrayList<>();
+	private List<CategoryProduct> listeProduitsMisEnVenteSurLeJour = new ArrayList<>();
+	
 	private String rubriqueChoisie;
 	
 	private PieChartModel pieModel;
@@ -25,30 +39,42 @@ public class AdministratorBean {
 	@PostConstruct
 	void init()
 	{
-		createPieModel();
+		listeProduitsVendusSurLeMois = proxyMongo.productsSellByCategoryAndMonth();
+		createPieModel(listeProduitsVendusSurLeMois);
 		
-		articlesMisEnLigne = new SelectItemGroup();        
-        SelectItem[] tableuArticleMisEnLigne = new SelectItem[3];
-        tableuArticleMisEnLigne[0] = new SelectItem(32, "Produit neuf", "first");
-        tableuArticleMisEnLigne[1] = new SelectItem(14, "Produit artisanaux", "second");
-        tableuArticleMisEnLigne[2] = new SelectItem(25, "Produit d'occasion", "third");
-        articlesMisEnLigne.setSelectItems(tableuArticleMisEnLigne);
-        
-        articlesVendus = new SelectItemGroup();
-        SelectItem[] tableauArticleVendu = new SelectItem[4];
-        tableauArticleVendu[0] = new SelectItem(142, "Armes", "first");
-        tableauArticleVendu[1] = new SelectItem(18, "Accessoires", "second");
-        tableauArticleVendu[2] = new SelectItem(67, "Pièces détachées", "third");
-        tableauArticleVendu[3] = new SelectItem(103, "Technologies", "fourth");
-        articlesVendus.setSelectItems(tableauArticleVendu);
-				
-		sommeArticlesVendus = 142 + 18 + 67 + 103;
+		sommeArticlesVendus = 0;
+		sommeArticlesMisEnLigne = 0;
 		
-		sommeArticlesMisEnLigne = 32 + 14 + 25;
+		listeProduitsVendusSurLeJour = proxyMongo.productsSellByCategoryAndDay();
+		articlesVendus = new SelectItemGroup();
+		SelectItem[] tableauArticleMisEnLigne = new SelectItem[4];
+		for (int i = 0; i < listeProduitsVendusSurLeJour.size(); i++)
+		{
+			CategoryProduct cp = listeProduitsVendusSurLeJour.get(i);
+			tableauArticleMisEnLigne[i] = new SelectItem(cp.getQuantity(), cp.getCategory());
+			sommeArticlesVendus += cp.getQuantity();
+		}
+		articlesMisEnLigne.setSelectItems(tableauArticleMisEnLigne);
+		
+		listeProduitsMisEnVenteSurLeJour = proxyMongo.productsPublishedByCategoryAndDay();
+		articlesMisEnLigne = new SelectItemGroup();
+		SelectItem[] tableauArticleVendu = new SelectItem[4];
+		for (int i = 0; i < listeProduitsMisEnVenteSurLeJour.size(); i++)
+		{
+			CategoryProduct cp = listeProduitsMisEnVenteSurLeJour.get(i);
+			tableauArticleVendu[i] = new SelectItem(cp.getQuantity(), cp.getCategory());
+			sommeArticlesMisEnLigne += cp.getQuantity();
+		}
+		articlesMisEnLigne.setSelectItems(tableauArticleVendu);
 	}
 
 	//Méthodes
 	//small (20px), smaller (35px), medium (50px), mediumLarge (75px), large (100px)
+	public void chooseRubrique(String rubrique)
+	{
+		rubriqueChoisie = rubrique;
+	}
+	
 	public String getClassForCircle(int width)
 	{
 		if (width == MIN_WIDTH_CIRCLE)
@@ -82,15 +108,13 @@ public class AdministratorBean {
 		return (width < MIN_WIDTH_CIRCLE) ? MIN_WIDTH_CIRCLE : width;
 	}
 	
-	private void createPieModel() {
-		//Implémentation à faire avec le BigData
+	private void createPieModel(List<CategoryProduct> liste) {
 		pieModel = new PieChartModel();
-
-		pieModel.set("Armes", 540);
-		pieModel.set("Pièces détachées", 325);
-		pieModel.set("Accessoires", 702);
-		pieModel.set("Technologie", 421);
-
+		
+		for (CategoryProduct cp : liste)
+		{
+			pieModel.set(cp.getCategory(), cp.getQuantity());
+		}
 		pieModel.setTitle("");
 		pieModel.setFill(true);
 		pieModel.setLegendPosition("w");
@@ -152,5 +176,40 @@ public class AdministratorBean {
 
 	public void setArticlesVendus(SelectItemGroup articlesVendus) {
 		this.articlesVendus = articlesVendus;
+	}
+
+	public IMongoDB getProxyMongo() {
+		return proxyMongo;
+	}
+
+	public void setProxyMongo(IMongoDB proxyMongo) {
+		this.proxyMongo = proxyMongo;
+	}
+
+	public List<CategoryProduct> getListeProduitsVendusSurLeMois() {
+		return listeProduitsVendusSurLeMois;
+	}
+
+	public void setListeProduitsVendusSurLeMois(
+			List<CategoryProduct> listeProduitsVendusSurLeMois) {
+		this.listeProduitsVendusSurLeMois = listeProduitsVendusSurLeMois;
+	}
+
+	public List<CategoryProduct> getListeProduitsVendusSurLeJour() {
+		return listeProduitsVendusSurLeJour;
+	}
+
+	public void setListeProduitsVendusSurLeJour(
+			List<CategoryProduct> listeProduitsVendusSurLeJour) {
+		this.listeProduitsVendusSurLeJour = listeProduitsVendusSurLeJour;
+	}
+
+	public List<CategoryProduct> getListeProduitsMisEnVenteSurLeJour() {
+		return listeProduitsMisEnVenteSurLeJour;
+	}
+
+	public void setListeProduitsMisEnVenteSurLeJour(
+			List<CategoryProduct> listeProduitsMisEnVenteSurLeJour) {
+		this.listeProduitsMisEnVenteSurLeJour = listeProduitsMisEnVenteSurLeJour;
 	}
 }

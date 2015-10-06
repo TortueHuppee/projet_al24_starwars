@@ -24,6 +24,7 @@ public interface IDaoCart {
 
     //Profil utilisateur
 	List<Cart> getCartByUser(User user);
-
+	
+	List<Cart> getAllCart();
 	
 }

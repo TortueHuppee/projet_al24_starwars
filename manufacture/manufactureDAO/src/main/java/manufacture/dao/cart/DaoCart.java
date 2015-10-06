@@ -32,13 +32,21 @@ public class DaoCart implements IDaoCart {
         cart.setDatePayment(new Date());
         cart.setIsPaid(true);
 
-        //G�n�ration al�atoire du num�ro de transaction bancaire
+        //Generation aleatoire du numero de transaction bancaire
 //        Random rand = new Random();
 //        int transactionNumber = rand.nextInt(999999999 - 100000000 + 1) + 100000000;
 //        cart.setTransactionNumber(transactionNumber);
         session.update(cart);
         return cart; 
     } 
+    
+	@Override
+	public List<Cart> getAllCart() {
+		Session session = sf.getCurrentSession();
+        Query hql = session.createQuery("SELECT c FROM Cart c");
+        List<Cart> resultat = hql.list();
+       return resultat;
+	}
 
     @Override
     public void sendRecall(int idUser) {
