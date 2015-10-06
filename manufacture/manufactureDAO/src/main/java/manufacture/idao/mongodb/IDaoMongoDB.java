@@ -7,6 +7,7 @@ import com.mongodb.BasicDBObject;
 import manufacture.entity.cart.Cart;
 import manufacture.entity.cart.CartProduct;
 import manufacture.entity.mongodb.CategoryProduct;
+import manufacture.entity.mongodb.TypeProductProduct;
 import manufacture.entity.product.Product;
 
 public interface IDaoMongoDB {
@@ -20,4 +21,6 @@ public interface IDaoMongoDB {
 	List<CategoryProduct> productsSellByCategoryAndDay();
 	
 	List<CategoryProduct> productsPublishedByCategoryAndDay();
+	
+	List<TypeProductProduct> productsSellByTypeProductAndMonth();
 }

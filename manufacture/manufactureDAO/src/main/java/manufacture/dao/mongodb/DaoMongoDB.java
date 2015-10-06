@@ -21,6 +21,7 @@ import com.mongodb.util.JSON;
 import manufacture.entity.cart.Cart;
 import manufacture.entity.cart.CartProduct;
 import manufacture.entity.mongodb.CategoryProduct;
+import manufacture.entity.mongodb.TypeProductProduct;
 import manufacture.entity.product.Product;
 import manufacture.idao.mongodb.IDaoMongoDB;
 
@@ -42,7 +43,6 @@ public class DaoMongoDB implements IDaoMongoDB {
 		setDbCollection(coll);
 	}
 
-	@SuppressWarnings("static-access")
 	@Override
 	public List<CategoryProduct> productsSellByCategoryAndMonth() {
 
@@ -52,7 +52,10 @@ public class DaoMongoDB implements IDaoMongoDB {
 
 		Calendar calendar = Calendar.getInstance();
 		calendar.set(calendar.DATE,1);
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+		calendar.set(Calendar.HOUR, 0);
+		calendar.set(Calendar.MINUTE, 0);
+		calendar.set(Calendar.SECOND, 0);
+		calendar.set(Calendar.MILLISECOND, 0);
 
 		DBObject match = new BasicDBObject("$match",
 				new BasicDBObject("dateAchat",
@@ -86,14 +89,130 @@ public class DaoMongoDB implements IDaoMongoDB {
 
 	@Override
 	public List<CategoryProduct> productsSellByCategoryAndDay() {
-		// TODO Auto-generated method stub
-		return null;
+
+		List<CategoryProduct> result = new ArrayList<>();
+
+		DBObject unwind = (DBObject) JSON.parse("{$unwind:'$produits'}");
+
+		Calendar calendar = Calendar.getInstance();
+		calendar.set(Calendar.HOUR, 0);
+		calendar.set(Calendar.MINUTE, 0);
+		calendar.set(Calendar.SECOND, 0);
+		calendar.set(Calendar.MILLISECOND, 0);
+
+		DBObject match = new BasicDBObject("$match",
+				new BasicDBObject("dateAchat",
+				new BasicDBObject("$gte",calendar.getTime())));
+
+		DBObject project = (DBObject) JSON.parse("{$project:{'produits.quantite':1, "
+				+ "'produits.productRef.categorie':1,"
+				+ "'_id':0}}");
+		DBObject group = (DBObject) JSON.parse("{$group:{'_id':'$produits.productRef.categorie',"
+				+ "'somme':{'$sum':'$produits.quantite'}}}");
+
+		List<DBObject> operations = new ArrayList<DBObject>();
+		operations.add(unwind);
+		operations.add(match);
+		operations.add(project);
+		operations.add(group);
+
+		AggregationOutput output = dbCollection.aggregate(operations);
+		Iterable<DBObject> cursor = output.results();
+
+		for (DBObject moObj : cursor)
+		{
+			CategoryProduct cp = new CategoryProduct();
+			cp.setCategory(moObj.get("_id").toString());
+			int quantity = Integer.parseInt(moObj.get("somme").toString());
+			cp.setQuantity(quantity);
+			result.add(cp);
+		}
+		return result;
 	}
 
 	@Override
 	public List<CategoryProduct> productsPublishedByCategoryAndDay() {
-		// TODO Auto-generated method stub
-		return null;
+		List<CategoryProduct> result = new ArrayList<>();
+
+		DBObject unwind = (DBObject) JSON.parse("{$unwind:'$produits'}");
+
+		Calendar calendar = Calendar.getInstance();
+		calendar.set(Calendar.HOUR, 0);
+		calendar.set(Calendar.MINUTE, 0);
+		calendar.set(Calendar.SECOND, 0);
+		calendar.set(Calendar.MILLISECOND, 0);
+
+		DBObject match = new BasicDBObject("$match",
+				new BasicDBObject("dateAchat",
+				new BasicDBObject("$gte",calendar.getTime())));
+
+		DBObject project = (DBObject) JSON.parse("{$project:{'produits.quantite':1, "
+				+ "'produits.productRef.categorie':1,"
+				+ "'_id':0}}");
+		DBObject group = (DBObject) JSON.parse("{$group:{'_id':'$produits.productRef.categorie',"
+				+ "'somme':{'$sum':'$produits.quantite'}}}");
+
+		List<DBObject> operations = new ArrayList<DBObject>();
+		operations.add(unwind);
+		operations.add(match);
+		operations.add(project);
+		operations.add(group);
+
+		AggregationOutput output = dbCollection.aggregate(operations);
+		Iterable<DBObject> cursor = output.results();
+
+		for (DBObject moObj : cursor)
+		{
+			CategoryProduct cp = new CategoryProduct();
+			cp.setCategory(moObj.get("_id").toString());
+			int quantity = Integer.parseInt(moObj.get("somme").toString());
+			cp.setQuantity(quantity);
+			result.add(cp);
+		}
+		return result;
+	}
+	
+	@Override
+	public List<TypeProductProduct> productsSellByTypeProductAndMonth() {
+		List<TypeProductProduct> result = new ArrayList<>();
+
+		DBObject unwind = (DBObject) JSON.parse("{$unwind:'$produits'}");
+
+		Calendar calendar = Calendar.getInstance();
+		calendar.set(calendar.DATE,1);
+		calendar.set(Calendar.HOUR, 0);
+		calendar.set(Calendar.MINUTE, 0);
+		calendar.set(Calendar.SECOND, 0);
+		calendar.set(Calendar.MILLISECOND, 0);
+
+		DBObject match = new BasicDBObject("$match",
+				new BasicDBObject("dateAchat",
+				new BasicDBObject("$gte",calendar.getTime())));
+
+		DBObject project = (DBObject) JSON.parse("{$project:{'produits.quantite':1, "
+				+ "'produits.type':1,"
+				+ "'_id':0}}");
+		DBObject group = (DBObject) JSON.parse("{$group:{'_id':'$produits.type',"
+				+ "'somme':{'$sum':'$produits.quantite'}}}");
+
+		List<DBObject> operations = new ArrayList<DBObject>();
+		operations.add(unwind);
+		operations.add(match);
+		operations.add(project);
+		operations.add(group);
+
+		AggregationOutput output = dbCollection.aggregate(operations);
+		Iterable<DBObject> cursor = output.results();
+
+		for (DBObject moObj : cursor)
+		{
+			TypeProductProduct cp = new TypeProductProduct();
+			cp.setTypeProduct(moObj.get("_id").toString());
+			int quantity = Integer.parseInt(moObj.get("somme").toString());
+			cp.setQuantity(quantity);
+			result.add(cp);
+		}
+		return result;
 	}
 
 	@Override

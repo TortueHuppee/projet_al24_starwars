@@ -10,42 +10,52 @@ import javax.faces.model.SelectItem;
 import javax.faces.model.SelectItemGroup;
 
 import manufacture.entity.mongodb.CategoryProduct;
+import manufacture.entity.mongodb.TypeProductProduct;
 import manufacture.ifacade.mongodb.IMongoDB;
 
+import org.primefaces.model.chart.Axis;
+import org.primefaces.model.chart.AxisType;
+import org.primefaces.model.chart.BarChartModel;
+import org.primefaces.model.chart.ChartSeries;
 import org.primefaces.model.chart.PieChartModel;
 
 @ManagedBean(name="mbAdmin")
 public class AdministratorBean {
 
 	@ManagedProperty(value="#{mongoDB}")
-    private IMongoDB proxyMongo;
-	
-	private List<CategoryProduct> listeProduitsVendusSurLeMois = new ArrayList<>();
+	private IMongoDB proxyMongo;
+
+	private List<CategoryProduct> listeProduitsVendusSurLeMoisParCategorie = new ArrayList<>();
 	private List<CategoryProduct> listeProduitsVendusSurLeJour = new ArrayList<>();
-	private List<CategoryProduct> listeProduitsMisEnVenteSurLeJour = new ArrayList<>();
-	
+	private List<TypeProductProduct> listeProduitsVendusSurLeMoisParType = new ArrayList<>();
+
 	private String rubriqueChoisie;
-	
-	private PieChartModel pieModel;
-	
+
+	private PieChartModel pieModelCategory;
+	private PieChartModel pieModelTypeProduct;
+	private BarChartModel barModel;
+
 	private SelectItemGroup articlesMisEnLigne;
 	private SelectItemGroup articlesVendus;
-	
+
 	private final int MAX_WIDTH_CIRCLE = 200;
 	private final int MIN_WIDTH_CIRCLE = 20;
 	private int sommeArticlesVendus;
 	private int sommeArticlesMisEnLigne;
-	
+
 	@PostConstruct
 	void init()
 	{
-		listeProduitsVendusSurLeMois = proxyMongo.productsSellByCategoryAndMonth();
-		createPieModel(listeProduitsVendusSurLeMois);
+		listeProduitsVendusSurLeMoisParCategorie = proxyMongo.productsSellByCategoryAndMonth();
+		createPieModel(listeProduitsVendusSurLeMoisParCategorie, listeProduitsVendusSurLeMoisParType);
 		
+		createBarModel();
+
 		sommeArticlesVendus = 0;
 		sommeArticlesMisEnLigne = 0;
-		
+
 		listeProduitsVendusSurLeJour = proxyMongo.productsSellByCategoryAndDay();
+		listeProduitsVendusSurLeJour = new ArrayList<>();
 		articlesVendus = new SelectItemGroup();
 		SelectItem[] tableauArticleMisEnLigne = new SelectItem[4];
 		for (int i = 0; i < listeProduitsVendusSurLeJour.size(); i++)
@@ -55,17 +65,6 @@ public class AdministratorBean {
 			sommeArticlesVendus += cp.getQuantity();
 		}
 		articlesMisEnLigne.setSelectItems(tableauArticleMisEnLigne);
-		
-		listeProduitsMisEnVenteSurLeJour = proxyMongo.productsPublishedByCategoryAndDay();
-		articlesMisEnLigne = new SelectItemGroup();
-		SelectItem[] tableauArticleVendu = new SelectItem[4];
-		for (int i = 0; i < listeProduitsMisEnVenteSurLeJour.size(); i++)
-		{
-			CategoryProduct cp = listeProduitsMisEnVenteSurLeJour.get(i);
-			tableauArticleVendu[i] = new SelectItem(cp.getQuantity(), cp.getCategory());
-			sommeArticlesMisEnLigne += cp.getQuantity();
-		}
-		articlesMisEnLigne.setSelectItems(tableauArticleVendu);
 	}
 
 	//Méthodes
@@ -74,7 +73,7 @@ public class AdministratorBean {
 	{
 		rubriqueChoisie = rubrique;
 	}
-	
+
 	public String getClassForCircle(int width)
 	{
 		if (width == MIN_WIDTH_CIRCLE)
@@ -95,47 +94,84 @@ public class AdministratorBean {
 		}
 		return "";
 	}
-	
+
 	public int articleVendusCalculateWidthCircle(int nombreArticles)
 	{
 		int width = nombreArticles * MAX_WIDTH_CIRCLE / sommeArticlesVendus;
 		return (width < MIN_WIDTH_CIRCLE) ? MIN_WIDTH_CIRCLE : width;
 	}
-	
+
 	public int articleMisEnLigneCalculateWidthCircle(int nombreArticles)
 	{
 		int width = nombreArticles * MAX_WIDTH_CIRCLE / sommeArticlesMisEnLigne;
 		return (width < MIN_WIDTH_CIRCLE) ? MIN_WIDTH_CIRCLE : width;
 	}
-	
-	private void createPieModel(List<CategoryProduct> liste) {
-		pieModel = new PieChartModel();
-		
-		for (CategoryProduct cp : liste)
+
+	private void createPieModel(List<CategoryProduct> listeCategorie, List<TypeProductProduct> listeType) {
+		pieModelCategory = new PieChartModel();
+		pieModelTypeProduct = new PieChartModel();
+
+		for (CategoryProduct cp : listeCategorie)
 		{
-			pieModel.set(cp.getCategory(), cp.getQuantity());
+			pieModelCategory.set(cp.getCategory(), cp.getQuantity());
 		}
-		pieModel.setTitle("");
-		pieModel.setFill(true);
-		pieModel.setLegendPosition("w");
+		pieModelCategory.setTitle("Par catégorie de produit");
+		pieModelCategory.setFill(true);
+		pieModelCategory.setLegendPosition("w");
+		pieModelCategory.setShowDataLabels(true);
+
+		for (TypeProductProduct tpp : listeType)
+		{
+			pieModelTypeProduct.set(tpp.getTypeProduct(), tpp.getQuantity());
+		}
+		pieModelTypeProduct.setTitle("Par type de produit");
+		pieModelTypeProduct.setFill(true);
+		pieModelTypeProduct.setLegendPosition("w");
+		pieModelTypeProduct.setShowDataLabels(true);
+	}
+
+	public void createBarModel() {
+		BarChartModel model = new BarChartModel();
+
+		ChartSeries boys = new ChartSeries();
+		boys.setLabel("Boys");
+		boys.set("2004", 120);
+		boys.set("2005", 100);
+		boys.set("2006", 44);
+		boys.set("2007", 150);
+		boys.set("2008", 25);
+
+		ChartSeries girls = new ChartSeries();
+		girls.setLabel("Girls");
+		girls.set("2004", 52);
+		girls.set("2005", 60);
+		girls.set("2006", 110);
+		girls.set("2007", 135);
+		girls.set("2008", 120);
+
+		model.addSeries(boys);
+		model.addSeries(girls);
+
+		barModel.setTitle("Bar Chart");
+		barModel.setLegendPosition("ne");
+
+		Axis xAxis = barModel.getAxis(AxisType.X);
+		xAxis.setLabel("Gender");
+
+		Axis yAxis = barModel.getAxis(AxisType.Y);
+		yAxis.setLabel("Births");
+		yAxis.setMin(0);
+		yAxis.setMax(200);
 	}
 	
 	//Getters et Setters
-	
+
 	public String getRubriqueChoisie() {
 		return rubriqueChoisie;
 	}
 
 	public void setRubriqueChoisie(String rubriqueChoisie) {
 		this.rubriqueChoisie = rubriqueChoisie;
-	}
-
-	public PieChartModel getPieModel() {
-		return pieModel;
-	}
-
-	public void setPieModel(PieChartModel pieModel) {
-		this.pieModel = pieModel;
 	}
 
 	public int getSommeArticlesVendus() {
@@ -186,15 +222,6 @@ public class AdministratorBean {
 		this.proxyMongo = proxyMongo;
 	}
 
-	public List<CategoryProduct> getListeProduitsVendusSurLeMois() {
-		return listeProduitsVendusSurLeMois;
-	}
-
-	public void setListeProduitsVendusSurLeMois(
-			List<CategoryProduct> listeProduitsVendusSurLeMois) {
-		this.listeProduitsVendusSurLeMois = listeProduitsVendusSurLeMois;
-	}
-
 	public List<CategoryProduct> getListeProduitsVendusSurLeJour() {
 		return listeProduitsVendusSurLeJour;
 	}
@@ -204,12 +231,45 @@ public class AdministratorBean {
 		this.listeProduitsVendusSurLeJour = listeProduitsVendusSurLeJour;
 	}
 
-	public List<CategoryProduct> getListeProduitsMisEnVenteSurLeJour() {
-		return listeProduitsMisEnVenteSurLeJour;
+	public PieChartModel getPieModelCategory() {
+		return pieModelCategory;
 	}
 
-	public void setListeProduitsMisEnVenteSurLeJour(
-			List<CategoryProduct> listeProduitsMisEnVenteSurLeJour) {
-		this.listeProduitsMisEnVenteSurLeJour = listeProduitsMisEnVenteSurLeJour;
+	public void setPieModelCategory(PieChartModel pieModelCategory) {
+		this.pieModelCategory = pieModelCategory;
+	}
+
+	public PieChartModel getPieModelTypeProduct() {
+		return pieModelTypeProduct;
+	}
+
+	public void setPieModelTypeProduct(PieChartModel pieModelTypeProduct) {
+		this.pieModelTypeProduct = pieModelTypeProduct;
+	}
+
+	public List<CategoryProduct> getListeProduitsVendusSurLeMoisParCategorie() {
+		return listeProduitsVendusSurLeMoisParCategorie;
+	}
+
+	public void setListeProduitsVendusSurLeMoisParCategorie(
+			List<CategoryProduct> listeProduitsVendusSurLeMoisParCategorie) {
+		this.listeProduitsVendusSurLeMoisParCategorie = listeProduitsVendusSurLeMoisParCategorie;
+	}
+
+	public List<TypeProductProduct> getListeProduitsVendusSurLeMoisParType() {
+		return listeProduitsVendusSurLeMoisParType;
+	}
+
+	public void setListeProduitsVendusSurLeMoisParType(
+			List<TypeProductProduct> listeProduitsVendusSurLeMoisParType) {
+		this.listeProduitsVendusSurLeMoisParType = listeProduitsVendusSurLeMoisParType;
+	}
+
+	public BarChartModel getBarModel() {
+		return barModel;
+	}
+
+	public void setBarModel(BarChartModel barModel) {
+		this.barModel = barModel;
 	}
 }

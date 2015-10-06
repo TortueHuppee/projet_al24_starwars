@@ -94,36 +94,8 @@
 
 				<!-- Statistiques -->
 				<h:panelGroup rendered="#{mbAdmin.rubriqueChoisie eq 'Statistiques'}">
-
+					<f:ajax event="mouseover" render="charts article-chart"/>
 					<div id="charts">
-						<h:outputLabel
-							value="Nombre d'articles enregistrés sur le site par catégories : "
-							class="chart-title" />
-						<p:chart type="pie" model="#{mbAdmin.pieModel}"
-							style="width:800px;height:300px;" />
-
-						<h:outputLabel
-							value="Nombre d'articles mis en ventes aujourd'hui :"
-							class="chart-title" />
-
-						<ui:repeat var="item"
-							value="#{mbAdmin.articlesMisEnLigne.selectItems}">
-							<div class="chart-conteneur">
-								<div class="circle-conteneur #{item.description}"
-									style="width:#{mbAdmin.articleMisEnLigneCalculateWidthCircle(item.value)}px;
-												 height:#{mbAdmin.articleMisEnLigneCalculateWidthCircle(item.value)}px;">
-									<h:outputLabel value="#{item.value}"
-										class="circle-chart #{mbAdmin.getClassForCircle(mbAdmin.articleMisEnLigneCalculateWidthCircle(item.value))}" />
-								</div>
-							</div>
-						</ui:repeat>
-						<br />
-						<ui:repeat var="item"
-							value="#{mbAdmin.articlesMisEnLigne.selectItems}">
-							<h:outputLabel value="#{item.label}"
-								class="charts-name #{item.description}" />
-						</ui:repeat>
-
 						<h:outputLabel value="Nombre d'articles vendus aujourd'hui :"
 							class="chart-title" />
 
@@ -144,7 +116,21 @@
 							<h:outputLabel value="#{item.label}"
 								class="charts-name2 #{item.description}" />
 						</ui:repeat>
+						<br />
+						
+						<h:outputLabel
+							value="Nombre d'articles vendus ce mois-ci : "
+							class="chart-title" />
+						<p:chart type="pie" model="#{mbAdmin.pieModelCategory}"
+							style="width:400px;height:300px;" />
+						<p:chart type="pie" model="#{mbAdmin.pieModelTypeProduct}"
+							style="width:400px;height:300px;" />
 					</div>
+					
+					<h:outputLabel
+							value="Nombre d'articles vendus au cours des trois derniers mois : "
+							class="chart-title" />
+					<p:chart type="bar" model="#{mbAdmin.barModel}" style="width:800px;"/>
 
 					<div id="article-chart">
 
