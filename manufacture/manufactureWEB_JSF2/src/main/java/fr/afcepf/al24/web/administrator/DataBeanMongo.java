@@ -1,6 +1,8 @@
 package fr.afcepf.al24.web.administrator;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Random;
 
@@ -32,6 +34,15 @@ private static Logger log = Logger.getLogger(DataBeanMongo.class);
 	private IMongoDB proxyMongo;
 	
 	private List<CategoryProduct> listeProduitsVendusSurLeMoisParCategorie = new ArrayList<>();
+	private List<CategoryProduct> listeProduitsVendusUnMoisAvantParCategorie = new ArrayList<>();
+	private List<CategoryProduct> listeProduitsVendusDeuxMoisAvantParCategorie = new ArrayList<>();
+	private List<CategoryProduct> listeProduitsVendusTroisMoisAvantParCategorie = new ArrayList<>();
+	
+	private List<CategoryProduct> categorieArme = new ArrayList<>();
+	private List<CategoryProduct> categorieAccessoire = new ArrayList<>();
+	private List<CategoryProduct> categoriePieces = new ArrayList<>();
+	private List<CategoryProduct> categorieFournitures = new ArrayList<>();
+	
 	private List<CategoryProduct> listeProduitsVendusSurLeJour = new ArrayList<>();
 	private List<TypeProductProduct> listeProduitsVendusSurLeMoisParType = new ArrayList<>();
 
@@ -50,6 +61,9 @@ private static Logger log = Logger.getLogger(DataBeanMongo.class);
 	{
 		log.info("Init()");
 		listeProduitsVendusSurLeMoisParCategorie = proxyMongo.productsSellByCategoryAndMonth();
+		listeProduitsVendusUnMoisAvantParCategorie = proxyMongo.productsSellByCategoryAndOneMonthAgo();
+		listeProduitsVendusDeuxMoisAvantParCategorie = proxyMongo.productsSellByCategoryAndTwoMonthAgo();
+		listeProduitsVendusTroisMoisAvantParCategorie = proxyMongo.productsSellByCategoryAndThreeMonthAgo();
 //		createPieModel(listeProduitsVendusSurLeMoisParCategorie, listeProduitsVendusSurLeMoisParType);
 		createPieModel();
 		createBarModel();
@@ -151,7 +165,51 @@ private static Logger log = Logger.getLogger(DataBeanMongo.class);
 
 	public void createBarModel() {
 		barModel = new BarChartModel();
-
+		
+//		Calendar cal = Calendar.getInstance();
+//		
+//		SimpleDateFormat sdf = new SimpleDateFormat("MMMMMMMMMMMMMMMM");
+//		
+//		cal.add(cal.MONTH, -1);
+//		String dateUne = sdf.format(cal.getTime());
+//		dateUne = dateUne.substring(0, 1).toUpperCase() + dateUne.substring(1);
+//		
+//		cal.add(cal.MONTH, -1);
+//		String dateDeux = sdf.format(cal.getTime());
+//		dateDeux = dateDeux.substring(0, 1).toUpperCase() + dateDeux.substring(1);
+//		
+//		cal.add(cal.MONTH, -1);
+//		String dateTrois = sdf.format(cal.getTime());
+//		dateTrois = dateTrois.substring(0, 1).toUpperCase() + dateTrois.substring(1);
+//		
+//		List<String> listeMois = new ArrayList<>();
+//		listeMois.add(dateUne);
+//		listeMois.add(dateDeux);
+//		listeMois.add(dateTrois);
+//		
+//		ChartSeries serieArme = new ChartSeries();
+//		serieArme.setLabel("Armes et technologies");
+//		ChartSeries serieAccessoire = new ChartSeries();
+//		serieAccessoire.setLabel("Accessoires");
+//		ChartSeries seriePiece = new ChartSeries();
+//		seriePiece.setLabel("Pièces détachées");
+//		ChartSeries serieFourniture = new ChartSeries();
+//		serieFourniture.setLabel("Fournitures");
+//
+//		repartitProduitsDansCategorie();
+//		for (int i = 0; i < 3; i++)
+//		{
+//			serieArme.set(listeMois.get(i), categorieArme.get(i).getQuantity());
+//			serieAccessoire.set(listeMois.get(i), categorieAccessoire.get(i).getQuantity());
+//			seriePiece.set(listeMois.get(i), categoriePieces.get(i).getQuantity());
+//			serieFourniture.set(listeMois.get(i), categorieFournitures.get(i).getQuantity());
+//		}
+//		
+//		barModel.addSeries(serieArme);
+//		barModel.addSeries(serieAccessoire);
+//		barModel.addSeries(seriePiece);
+//		barModel.addSeries(serieFourniture);
+		
 		ChartSeries boys = new ChartSeries();
 		boys.setLabel("Boys");
 		boys.set("2004", 120);
@@ -171,7 +229,7 @@ private static Logger log = Logger.getLogger(DataBeanMongo.class);
 		barModel.addSeries(boys);
 		barModel.addSeries(girls);
 
-		barModel.setTitle("Bar Chart");
+		barModel.setTitle("");
 		barModel.setLegendPosition("ne");
 
 		Axis xAxis = barModel.getAxis(AxisType.X);
@@ -181,6 +239,41 @@ private static Logger log = Logger.getLogger(DataBeanMongo.class);
 		yAxis.setLabel("Births");
 		yAxis.setMin(0);
 		yAxis.setMax(200);
+	}
+	
+	public void repartitProduitsDansCategorie() 
+	{
+		for (CategoryProduct cp : listeProduitsVendusUnMoisAvantParCategorie)
+		{
+			ajouterProduitDansCategorie(cp);
+		}
+		
+		for (CategoryProduct cp : listeProduitsVendusDeuxMoisAvantParCategorie)
+		{
+			ajouterProduitDansCategorie(cp);
+		}
+		
+		for (CategoryProduct cp : listeProduitsVendusTroisMoisAvantParCategorie)
+		{
+			ajouterProduitDansCategorie(cp);
+		}
+	}
+	
+	public void ajouterProduitDansCategorie(CategoryProduct cp)
+	{
+		if (cp.getCategory().equals("Armes et technologies"))
+		{
+			categorieArme.add(cp);
+		} else if (cp.getCategory().equals("Accessoires"))
+		{
+			categorieAccessoire.add(cp);
+		} else if (cp.getCategory().equals("Fournitures"))
+		{
+			categorieFournitures.add(cp);
+		} else
+		{
+			categoriePieces.add(cp);
+		}
 	}
 	
 	//Getters et Setters
@@ -275,5 +368,64 @@ private static Logger log = Logger.getLogger(DataBeanMongo.class);
 
 	public static void setLog(Logger log) {
 		DataBeanMongo.log = log;
+	}
+
+	public List<CategoryProduct> getListeProduitsVendusUnMoisAvantParCategorie() {
+		return listeProduitsVendusUnMoisAvantParCategorie;
+	}
+
+	public void setListeProduitsVendusUnMoisAvantParCategorie(
+			List<CategoryProduct> listeProduitsVendusUnMoisAvantParCategorie) {
+		this.listeProduitsVendusUnMoisAvantParCategorie = listeProduitsVendusUnMoisAvantParCategorie;
+	}
+
+	public List<CategoryProduct> getListeProduitsVendusDeuxMoisAvantParCategorie() {
+		return listeProduitsVendusDeuxMoisAvantParCategorie;
+	}
+
+	public void setListeProduitsVendusDeuxMoisAvantParCategorie(
+			List<CategoryProduct> listeProduitsVendusDeuxMoisAvantParCategorie) {
+		this.listeProduitsVendusDeuxMoisAvantParCategorie = listeProduitsVendusDeuxMoisAvantParCategorie;
+	}
+
+	public List<CategoryProduct> getListeProduitsVendusTroisMoisAvantParCategorie() {
+		return listeProduitsVendusTroisMoisAvantParCategorie;
+	}
+
+	public void setListeProduitsVendusTroisMoisAvantParCategorie(
+			List<CategoryProduct> listeProduitsVendusTroisMoisAvantParCategorie) {
+		this.listeProduitsVendusTroisMoisAvantParCategorie = listeProduitsVendusTroisMoisAvantParCategorie;
+	}
+
+	public List<CategoryProduct> getCategorieArme() {
+		return categorieArme;
+	}
+
+	public void setCategorieArme(List<CategoryProduct> categorieArme) {
+		this.categorieArme = categorieArme;
+	}
+
+	public List<CategoryProduct> getCategorieAccessoire() {
+		return categorieAccessoire;
+	}
+
+	public void setCategorieAccessoire(List<CategoryProduct> categorieAccessoire) {
+		this.categorieAccessoire = categorieAccessoire;
+	}
+
+	public List<CategoryProduct> getCategoriePieces() {
+		return categoriePieces;
+	}
+
+	public void setCategoriePieces(List<CategoryProduct> categoriePieces) {
+		this.categoriePieces = categoriePieces;
+	}
+
+	public List<CategoryProduct> getCategorieFournitures() {
+		return categorieFournitures;
+	}
+
+	public void setCategorieFournitures(List<CategoryProduct> categorieFournitures) {
+		this.categorieFournitures = categorieFournitures;
 	}
 }

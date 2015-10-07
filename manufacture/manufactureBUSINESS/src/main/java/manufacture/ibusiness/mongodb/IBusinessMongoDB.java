@@ -20,4 +20,10 @@ public interface IBusinessMongoDB {
 	List<CategoryProduct> productsSellByCategoryAndDay();
 	
 	List<CategoryProduct> productsPublishedByCategoryAndDay();
+	
+	List<CategoryProduct> productsSellByCategoryAndOneMonthAgo();
+	
+	List<CategoryProduct> productsSellByCategoryAndTwoMonthAgo();
+	
+	List<CategoryProduct> productsSellByCategoryAndThreeMonthAgo();
 }

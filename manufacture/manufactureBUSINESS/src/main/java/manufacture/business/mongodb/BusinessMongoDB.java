@@ -53,4 +53,19 @@ public class BusinessMongoDB implements IBusinessMongoDB {
 	public List<CategoryProduct> productsPublishedByCategoryAndDay() {
 		return proxyMongo.productsPublishedByCategoryAndDay();
 	}
+
+	@Override
+	public List<CategoryProduct> productsSellByCategoryAndOneMonthAgo() {
+		return proxyMongo.productsSellByCategoryAndOneMonthAgo();
+	}
+
+	@Override
+	public List<CategoryProduct> productsSellByCategoryAndTwoMonthAgo() {
+		return proxyMongo.productsSellByCategoryAndTwoMonthAgo();
+	}
+
+	@Override
+	public List<CategoryProduct> productsSellByCategoryAndThreeMonthAgo() {
+		return proxyMongo.productsSellByCategoryAndThreeMonthAgo();
+	}
 }

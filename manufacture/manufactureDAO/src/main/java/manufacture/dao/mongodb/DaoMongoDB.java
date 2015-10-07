@@ -94,6 +94,168 @@ public class DaoMongoDB implements IDaoMongoDB {
 		}
 		return result;
 	}
+	
+	@Override
+	public List<CategoryProduct> productsSellByCategoryAndOneMonthAgo() {
+
+		List<CategoryProduct> result = new ArrayList<>();
+
+		DBObject unwind = (DBObject) JSON.parse("{$unwind:'$produits'}");
+
+		Calendar calendarStart = Calendar.getInstance();
+		Calendar calendarEnd = Calendar.getInstance();
+		calendarStart.set(calendarStart.DATE,1);
+		calendarStart.add(calendarStart.MONTH, -1);
+		calendarStart.set(calendarStart.HOUR, 0);
+		calendarStart.set(calendarStart.MINUTE, 0);
+		calendarStart.set(calendarStart.SECOND, 0);
+		calendarStart.set(calendarStart.MILLISECOND, 0);
+		
+		calendarEnd.set(calendarEnd.DATE,1);
+		calendarEnd.set(calendarEnd.HOUR, 0);
+		calendarEnd.set(calendarEnd.MINUTE, 0);
+		calendarEnd.set(calendarEnd.SECOND, 0);
+		calendarEnd.set(calendarEnd.MILLISECOND, 0);
+
+		DBObject match = new BasicDBObject("$match",
+				new BasicDBObject("dateAchat",
+				new BasicDBObject("$gte",calendarStart.getTime())
+				.append("$lte", calendarEnd.getTime())));
+
+		DBObject project = (DBObject) JSON.parse("{$project:{'produits.quantite':1, "
+				+ "'produits.productRef.categorie':1,"
+				+ "'_id':0}}");
+		DBObject group = (DBObject) JSON.parse("{$group:{'_id':'$produits.productRef.categorie',"
+				+ "'somme':{'$sum':'$produits.quantite'}}}");
+
+		List<DBObject> operations = new ArrayList<DBObject>();
+		operations.add(unwind);
+		operations.add(match);
+		operations.add(project);
+		operations.add(group);
+
+		AggregationOutput output = dbCollection.aggregate(operations);
+		Iterable<DBObject> cursor = output.results();
+
+		for (DBObject moObj : cursor)
+		{
+			CategoryProduct cp = new CategoryProduct();
+			cp.setCategory(moObj.get("_id").toString());
+			int quantity = Integer.parseInt(moObj.get("somme").toString());
+			cp.setQuantity(quantity);
+			result.add(cp);
+		}
+		return result;
+	}
+	
+	@Override
+	public List<CategoryProduct> productsSellByCategoryAndTwoMonthAgo() {
+
+		List<CategoryProduct> result = new ArrayList<>();
+
+		DBObject unwind = (DBObject) JSON.parse("{$unwind:'$produits'}");
+
+		Calendar calendarStart = Calendar.getInstance();
+		Calendar calendarEnd = Calendar.getInstance();
+		calendarStart.set(calendarStart.DATE,1);
+		calendarStart.add(calendarStart.MONTH, -2);
+		calendarStart.set(calendarStart.HOUR, 0);
+		calendarStart.set(calendarStart.MINUTE, 0);
+		calendarStart.set(calendarStart.SECOND, 0);
+		calendarStart.set(calendarStart.MILLISECOND, 0);
+		
+		calendarEnd.set(calendarEnd.DATE,1);
+		calendarStart.add(calendarStart.MONTH, -1);
+		calendarEnd.set(calendarEnd.HOUR, 0);
+		calendarEnd.set(calendarEnd.MINUTE, 0);
+		calendarEnd.set(calendarEnd.SECOND, 0);
+		calendarEnd.set(calendarEnd.MILLISECOND, 0);
+
+		DBObject match = new BasicDBObject("$match",
+				new BasicDBObject("dateAchat",
+				new BasicDBObject("$gte",calendarStart.getTime())
+				.append("$lte", calendarEnd.getTime())));
+
+		DBObject project = (DBObject) JSON.parse("{$project:{'produits.quantite':1, "
+				+ "'produits.productRef.categorie':1,"
+				+ "'_id':0}}");
+		DBObject group = (DBObject) JSON.parse("{$group:{'_id':'$produits.productRef.categorie',"
+				+ "'somme':{'$sum':'$produits.quantite'}}}");
+
+		List<DBObject> operations = new ArrayList<DBObject>();
+		operations.add(unwind);
+		operations.add(match);
+		operations.add(project);
+		operations.add(group);
+
+		AggregationOutput output = dbCollection.aggregate(operations);
+		Iterable<DBObject> cursor = output.results();
+
+		for (DBObject moObj : cursor)
+		{
+			CategoryProduct cp = new CategoryProduct();
+			cp.setCategory(moObj.get("_id").toString());
+			int quantity = Integer.parseInt(moObj.get("somme").toString());
+			cp.setQuantity(quantity);
+			result.add(cp);
+		}
+		return result;
+	}
+	
+	@Override
+	public List<CategoryProduct> productsSellByCategoryAndThreeMonthAgo() {
+
+		List<CategoryProduct> result = new ArrayList<>();
+
+		DBObject unwind = (DBObject) JSON.parse("{$unwind:'$produits'}");
+
+		Calendar calendarStart = Calendar.getInstance();
+		Calendar calendarEnd = Calendar.getInstance();
+		calendarStart.set(calendarStart.DATE,1);
+		calendarStart.add(calendarStart.MONTH, -3);
+		calendarStart.set(calendarStart.HOUR, 0);
+		calendarStart.set(calendarStart.MINUTE, 0);
+		calendarStart.set(calendarStart.SECOND, 0);
+		calendarStart.set(calendarStart.MILLISECOND, 0);
+		
+		calendarEnd.set(calendarEnd.DATE,1);
+		calendarStart.add(calendarStart.MONTH, -2);
+		calendarEnd.set(calendarEnd.HOUR, 0);
+		calendarEnd.set(calendarEnd.MINUTE, 0);
+		calendarEnd.set(calendarEnd.SECOND, 0);
+		calendarEnd.set(calendarEnd.MILLISECOND, 0);
+
+		DBObject match = new BasicDBObject("$match",
+				new BasicDBObject("dateAchat",
+				new BasicDBObject("$gte",calendarStart.getTime())
+				.append("$lte", calendarEnd.getTime())));
+
+		DBObject project = (DBObject) JSON.parse("{$project:{'produits.quantite':1, "
+				+ "'produits.productRef.categorie':1,"
+				+ "'_id':0}}");
+		DBObject group = (DBObject) JSON.parse("{$group:{'_id':'$produits.productRef.categorie',"
+				+ "'somme':{'$sum':'$produits.quantite'}}}");
+
+		List<DBObject> operations = new ArrayList<DBObject>();
+		operations.add(unwind);
+		operations.add(match);
+		operations.add(project);
+		operations.add(group);
+
+		AggregationOutput output = dbCollection.aggregate(operations);
+		Iterable<DBObject> cursor = output.results();
+
+		for (DBObject moObj : cursor)
+		{
+			CategoryProduct cp = new CategoryProduct();
+			cp.setCategory(moObj.get("_id").toString());
+			int quantity = Integer.parseInt(moObj.get("somme").toString());
+			cp.setQuantity(quantity);
+			result.add(cp);
+		}
+		return result;
+	}
+
 
 	@Override
 	public List<CategoryProduct> productsSellByCategoryAndDay() {

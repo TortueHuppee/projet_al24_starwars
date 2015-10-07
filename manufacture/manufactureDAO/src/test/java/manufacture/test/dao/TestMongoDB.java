@@ -1,7 +1,9 @@
 package manufacture.test.dao;
 
 import java.net.UnknownHostException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -64,7 +66,18 @@ public class TestMongoDB {
 			
 			testerRequeteDaoMongo();
 			
-			List<Product> listeProductInMySQL = proxyProduct.getAllProduct();
+//			List<Product> listeProductInMySQL = proxyProduct.getAllProduct();
+			
+			Calendar cal = Calendar.getInstance();
+			cal.add(cal.MONTH, 2);
+			SimpleDateFormat sdf = new SimpleDateFormat("MMMMMMMMMMMMMMMM");
+			String date = sdf.format(cal.getTime());
+			date = date.substring(0, 1).toUpperCase() + date.substring(1);
+			System.out.println(date);
+			cal.add(cal.MONTH, 1);
+			date = sdf.format(cal.getTime());
+			date = date.substring(0, 1).toUpperCase() + date.substring(1);
+			System.out.println(date);
 			
 			System.out.println("DONE");
 		} catch (UnknownHostException e) {
@@ -74,7 +87,9 @@ public class TestMongoDB {
 	
 	static void testerRequeteDaoMongo()
 	{
-		List<CategoryProduct> result = proxyMongo.productsSellByCategoryAndMonth();
+		List<CategoryProduct> result = proxyMongo.productsSellByCategoryAndOneMonthAgo();
+		proxyMongo.productsSellByCategoryAndTwoMonthAgo();
+		proxyMongo.productsSellByCategoryAndThreeMonthAgo();
 		System.out.println("Nombre résultat : " + result.size());
 		for (CategoryProduct cp : result)
 		{

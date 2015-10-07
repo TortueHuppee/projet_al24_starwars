@@ -18,6 +18,12 @@ public interface IDaoMongoDB {
 	
 	List<CategoryProduct> productsSellByCategoryAndMonth();
 	
+	List<CategoryProduct> productsSellByCategoryAndOneMonthAgo();
+	
+	List<CategoryProduct> productsSellByCategoryAndTwoMonthAgo();
+	
+	List<CategoryProduct> productsSellByCategoryAndThreeMonthAgo();
+	
 	List<CategoryProduct> productsSellByCategoryAndDay();
 	
 	List<CategoryProduct> productsPublishedByCategoryAndDay();
