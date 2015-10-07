@@ -7,6 +7,9 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import org.springframework.beans.factory.BeanFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,23 +17,28 @@ import com.mongodb.AggregationOutput;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DB;
 import com.mongodb.DBCollection;
+import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 import com.mongodb.MongoClient;
 import com.mongodb.util.JSON;
 
+import manufacture.dao.cart.DaoCart;
 import manufacture.entity.cart.Cart;
 import manufacture.entity.cart.CartProduct;
 import manufacture.entity.mongodb.CategoryProduct;
 import manufacture.entity.mongodb.TypeProductProduct;
 import manufacture.entity.product.Product;
+import manufacture.idao.cart.IDaoCart;
+import manufacture.idao.cart.IDaoProductCart;
 import manufacture.idao.mongodb.IDaoMongoDB;
+import manufacture.idao.product.IDaoProduct;
 
 @Service
 @Transactional
 public class DaoMongoDB implements IDaoMongoDB {
 
 	private DBCollection dbCollection;
-
+	
 	public DaoMongoDB() {
 		MongoClient mongoClient = null;
 		try {
@@ -217,10 +225,15 @@ public class DaoMongoDB implements IDaoMongoDB {
 
 	@Override
 	public void createOrder(Cart cart) {
+		//cart générer aléatoirement : date commande (depuis le 01/01/2015 jusqu'à today
 		BasicDBObject panier = new BasicDBObject("_id", cart.getIdCart())
 		.append("dateAchat", cart.getDateCommande());
 
 		List<BasicDBObject> listeProduits = new ArrayList<>();
+		//générer aléatoirement :
+		//* nombre de cartProduct
+		//* quantité dans chaque cartproduct
+		//* produit du cartproduct
 		List<CartProduct> listeCartProduct = cart.getCartProducts();
 
 		for (CartProduct cartProduct : listeCartProduct)
@@ -255,3 +268,4 @@ public class DaoMongoDB implements IDaoMongoDB {
 		this.dbCollection = dbCollection;
 	}
 }
+

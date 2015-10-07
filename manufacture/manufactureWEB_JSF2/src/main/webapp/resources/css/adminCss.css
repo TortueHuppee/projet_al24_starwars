@@ -106,36 +106,17 @@
 .chart-conteneur
 {
   height:100px;
-  width:30%;
-  float:left;
-  margin:10px;
-  padding:auto;
-  text-align: center;
-}
-
-.chart-conteneur2
-{
-  height:100px;
   width:22%;
   float:left;
   margin:10px;
   padding:auto;
   text-align: center;
-}
-
-.charts-name2
-{
-  float:left;
-  width:22%;
-  margin:10px;
-  text-align:center;
-  margin-bottom:30px;
 }
 
 .charts-name
 {
   float:left;
-  width:30%;
+  width:22%;
   margin:10px;
   text-align:center;
   margin-bottom:30px;
@@ -150,19 +131,24 @@
 }
 
 /*couleur des cercles et des labels*/
-.first
+.descrition1
 {
   color:#FE2E2E;
 }
 
-.second
+.descrition2
 {
   color:#5FB404;
 }
 
-.third
+.descrition3
 {
   color:#2E64FE;
+}
+
+.descrition4
+{
+  color:#FACC2E;
 }
 
 /*taille des cercles*/
@@ -181,24 +167,25 @@
 
 .circle-chart.smaller
 {
-  margin-top:25%;
+  margin-top:20%;
+  font-size:small;
 }
 
 .circle-chart.medium
 {
   margin-top:20%;
-  font-size:x-large;
+  font-size:20px;
 }
 
-.circle-chart.largeMedium
+.circle-chart.mediumLarge
 {
-  margin-top:20%;
-  font-size:40px;
+  margin-top:15%;
+  font-size:30px;
 }
 
 .circle-chart.large
 {
-  margin-top:15%;
+  margin-top:10%;
   font-size:60px;
 }
 
@@ -232,7 +219,7 @@
 {
   color:#0070C0;
   font-weight: bold;
-  margin:15px;
+  margin:10px;
   float:right;
 }
 

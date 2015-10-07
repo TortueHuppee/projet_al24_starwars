@@ -1,0 +1,29 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:composite="http://xmlns.jcp.org/jsf/composite"
+	xmlns:p="http://primefaces.org/ui">
+
+		<h:outputLabel value="Nombre d'articles vendus aujourd'hui :"
+			class="chart-title" />
+
+		<ui:repeat var="item" value="#{mbMongo.articlesVendus.selectItems}">
+			<div class="chart-conteneur">
+				<div class="circle-conteneur #{item.description}"
+					style="width:#{mbMongo.articleVendusCalculateWidthCircle(item.value)}px;
+												 height:#{mbMongo.articleVendusCalculateWidthCircle(item.value)}px;">
+					<h:outputLabel value="#{item.value}"
+						class="circle-chart #{mbMongo.getClassForCircle(mbMongo.articleVendusCalculateWidthCircle(item.value))}" />
+				</div>
+			</div>
+		</ui:repeat>
+		<br />
+		<ui:repeat var="item" value="#{mbMongo.articlesVendus.selectItems}">
+			<h:outputLabel value="#{item.label}"
+				class="charts-name #{item.description}" />
+		</ui:repeat>
+		<br />
+</ui:composition>
+
+

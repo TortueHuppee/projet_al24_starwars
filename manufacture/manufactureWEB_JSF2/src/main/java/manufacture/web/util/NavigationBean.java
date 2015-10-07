@@ -36,6 +36,23 @@ public class NavigationBean {
     private static final Integer USER_ADMINISTRATEUR_ROLE_ID = 4;
     
   //Navigation
+    public String accessAdministratorPage() {
+    	if(userBean.isLogged())
+        {
+    		if (userBean.getUser().getUserRole().getIdUserRole() != USER_ADMINISTRATEUR_ROLE_ID)
+    		{
+    			return "index.xhtml?faces-redirect=true";
+    		}
+    		else
+    		{
+    			return "administrator.xhtml?faces-redirect=true";
+    		}
+        }
+    	else
+    	{
+    		return "login.xhtml?faces-redirect=true";
+    	}
+    }
     
     public String accessProfil() {
         if(userBean.isLogged())

@@ -13,9 +13,10 @@
 	<h:outputStylesheet library="css" name="styleAdmin.css" />
 	<ui:insert name="stylesheets"></ui:insert>
 	<ui:insert name="javascripts">
+
 	</ui:insert>
 </h:head>
-<h:body > 
+<h:body onload="Javascript:autoRefresh_div();"> 
 
 	<div id="header">
 		<ui:include src="parts/header.xhtml" />

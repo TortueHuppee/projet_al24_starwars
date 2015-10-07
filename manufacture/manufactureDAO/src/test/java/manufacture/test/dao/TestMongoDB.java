@@ -48,13 +48,13 @@ public class TestMongoDB {
 			mongoClient = new MongoClient("localhost", 27017);
 
 			//Connexion à la base "test"
-			DB db = mongoClient.getDB("manufacture");
+//			DB db = mongoClient.getDB("manufacture");
 
-			System.out.println("Connexion à la base OK");
+//			System.out.println("Connexion à la base OK");
 
 			//Connexion / Création collection (table)
-			coll = db.getCollection("produits");
-			System.out.println("Connexion à la table produits OK");
+//			coll = db.getCollection("produits");
+//			System.out.println("Connexion à la table produits OK");
 			
 //			connexionMongoDB();
 //			
@@ -63,6 +63,8 @@ public class TestMongoDB {
 //			testerCreationDaoMongo();
 			
 			testerRequeteDaoMongo();
+			
+			List<Product> listeProductInMySQL = proxyProduct.getAllProduct();
 			
 			System.out.println("DONE");
 		} catch (UnknownHostException e) {

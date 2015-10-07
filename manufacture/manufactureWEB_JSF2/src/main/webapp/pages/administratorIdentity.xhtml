@@ -1,0 +1,25 @@
+<ui:composition template="/layouts/administrator_layout.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:composite="http://xmlns.jcp.org/jsf/composite"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="stylesheets">
+		<h:outputStylesheet library="css" name="adminCss.css" />
+	</ui:define>
+
+	<ui:define name="main-body">
+		<f:view>
+			<h:form id="myForm">
+				<f:viewAction action="#{navigationBean.accessAdministratorPage()}"/>
+<!-- 				<f:event listener="#{navigationBean.accessAdministratorPage()}" type="preRenderView"/> -->
+				
+
+			</h:form>
+		</f:view>
+	</ui:define>
+</ui:composition>
+
+
