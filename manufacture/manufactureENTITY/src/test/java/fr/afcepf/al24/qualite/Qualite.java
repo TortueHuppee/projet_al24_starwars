@@ -1,7 +1,7 @@
 package fr.afcepf.al24.qualite;
 /**
  * Une classe exemple de mon package.
- * @author Stagiaire
+ * @author yanick
  *
  */
 public class Qualite {
@@ -25,14 +25,14 @@ public class Qualite {
         this.att2 = attribut2;
     }
     /**
-     * méthode 1 exemple.
-     * @return une chaine de caractère.
+     * mï¿½thode 1 exemple.
+     * @return une chaine de caractï¿½re.
      */
     public String methode1() {
         return "";
     }
     /**
-     * méthode 2 exemple.
+     * mï¿½thode 2 exemple.
      * @param i la valeur de i.
      * @param j la valeur de j.
      * @return la valeur de {@link Qualite#att}.
