@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -37,9 +38,11 @@ import manufacture.idao.product.IDaoProduct;
 @Transactional
 public class DaoMongoDB implements IDaoMongoDB {
 
+	private Logger log = Logger.getLogger(DaoMongoDB.class);
 	private DBCollection dbCollection;
 	
 	public DaoMongoDB() {
+		log.info("DaoMongoDB.DaoMongoDB : Constructeur, nouvelle connexion MongoDB");
 		MongoClient mongoClient = null;
 		try {
 			mongoClient = new MongoClient("localhost", 27017);
