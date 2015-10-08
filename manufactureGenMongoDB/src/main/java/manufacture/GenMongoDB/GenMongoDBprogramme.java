@@ -5,11 +5,14 @@
  */
 package manufacture.GenMongoDB;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Properties;
 import java.util.concurrent.ThreadLocalRandom;
 
 import manufacture.entity.product.Product;
@@ -33,13 +36,53 @@ import com.mongodb.client.MongoIterable;
 public class GenMongoDBprogramme {
 
 	private static Logger log = Logger.getLogger(GenMongoDBprogramme.class);
+	//Ces variables sont également lues dans le fichier mongoDB.properties
+	private static String mongoDBHostName = "localhost";
+	private static int mongoDBPort = 27017;	
 	private static String mongoDBname = "manufacture";
 	private static String mongoDBCollectionName = "produits";
+	
 	private static final int maxProduitsParCommande = 50;
 	private static final int maxQuantiteProduitsParCommande = 30;
-	private static long nombreDocumentsAgenerer = 10;
+	private static long nombreDocumentsAgenerer = 100000;
 	private static Date dateMiseEnVente;
+	
+	private static final String propertiesFilename = "mongoDB.properties";
 
+	/**
+	 * 
+	 */
+	private static void lectureDuFichierProperties() {
+		Properties prop = new Properties();
+		InputStream input = null;
+
+		try {
+
+			input = GenMongoDBprogramme.class.getClassLoader().getResourceAsStream(propertiesFilename);
+			if(input==null){
+				log.debug("Impossible de trouver le fichier " + propertiesFilename);
+				return;
+			}
+
+			prop.load(input);
+
+			mongoDBHostName = prop.getProperty("mongoDBHostName");
+			mongoDBPort = Integer.parseInt(prop.getProperty("mongoDBPort"));
+			mongoDBname = prop.getProperty("mongoDBname");
+			mongoDBCollectionName = prop.getProperty("mongoDBProduitsCollectionName");
+
+		} catch (IOException ex) {
+			ex.printStackTrace();
+		} finally{
+			if(input!=null){
+				try {
+					input.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
 	/**
 	 * Generer l'historique ou le temps réel.
 	 */
@@ -186,13 +229,15 @@ public class GenMongoDBprogramme {
 			return ;
 		}
 
+		lectureDuFichierProperties();
+		
 		//Lecture de la liste de produits à partir de la base de données SQL
 		listeProductInMySQL = proxyProduct.getAllProduct();
 
 		log.info("Connection au serveur MongoDB");
 
 		try {
-			mongoClient = new MongoClient("localhost", 27017);
+			mongoClient = new MongoClient(mongoDBHostName, mongoDBPort);
 			afficheListeBases(mongoClient);
 			MongoDatabase db = mongoClient.getDatabase(mongoDBname);
 			if (db == null) {
