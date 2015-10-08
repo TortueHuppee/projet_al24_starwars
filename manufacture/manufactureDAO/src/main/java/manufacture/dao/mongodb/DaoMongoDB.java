@@ -49,8 +49,8 @@ public class DaoMongoDB implements IDaoMongoDB {
 		} catch (UnknownHostException e){
 			e.printStackTrace();
 		}
-		DB db = mongoClient.getDB("manufacture");
-		DBCollection coll = db.getCollection("produits");
+		DB db = mongoClient.getDB("startwars");
+		DBCollection coll = db.getCollection("products");
 		setDbCollection(coll);
 	}
 
@@ -59,7 +59,7 @@ public class DaoMongoDB implements IDaoMongoDB {
 
 		List<CategoryProduct> result = new ArrayList<>();
 
-		DBObject unwind = (DBObject) JSON.parse("{$unwind:'$produits'}");
+//		DBObject unwind = (DBObject) JSON.parse("{$unwind:'$produits'}");
 
 		Calendar calendar = Calendar.getInstance();
 		calendar.set(calendar.DATE,1);
@@ -72,14 +72,14 @@ public class DaoMongoDB implements IDaoMongoDB {
 				new BasicDBObject("dateAchat",
 				new BasicDBObject("$gte",calendar.getTime())));
 
-		DBObject project = (DBObject) JSON.parse("{$project:{'produits.quantite':1, "
-				+ "'produits.productRef.categorie':1,"
+		DBObject project = (DBObject) JSON.parse("{$project:{'quantite':1, "
+				+ "'categorie':1,"
 				+ "'_id':0}}");
-		DBObject group = (DBObject) JSON.parse("{$group:{'_id':'$produits.productRef.categorie',"
-				+ "'somme':{'$sum':'$produits.quantite'}}}");
+		DBObject group = (DBObject) JSON.parse("{$group:{'_id':'$categorie',"
+				+ "'somme':{'$sum':'$quantite'}}}");
 
 		List<DBObject> operations = new ArrayList<DBObject>();
-		operations.add(unwind);
+//		operations.add(unwind);
 		operations.add(match);
 		operations.add(project);
 		operations.add(group);
@@ -103,7 +103,7 @@ public class DaoMongoDB implements IDaoMongoDB {
 
 		List<CategoryProduct> result = new ArrayList<>();
 
-		DBObject unwind = (DBObject) JSON.parse("{$unwind:'$produits'}");
+//		DBObject unwind = (DBObject) JSON.parse("{$unwind:'$produits'}");
 
 		Calendar calendarStart = Calendar.getInstance();
 		Calendar calendarEnd = Calendar.getInstance();
@@ -125,14 +125,14 @@ public class DaoMongoDB implements IDaoMongoDB {
 				new BasicDBObject("$gte",calendarStart.getTime())
 				.append("$lte", calendarEnd.getTime())));
 
-		DBObject project = (DBObject) JSON.parse("{$project:{'produits.quantite':1, "
-				+ "'produits.productRef.categorie':1,"
+		DBObject project = (DBObject) JSON.parse("{$project:{'quantite':1, "
+				+ "'categorie':1,"
 				+ "'_id':0}}");
-		DBObject group = (DBObject) JSON.parse("{$group:{'_id':'$produits.productRef.categorie',"
-				+ "'somme':{'$sum':'$produits.quantite'}}}");
+		DBObject group = (DBObject) JSON.parse("{$group:{'_id':'$categorie',"
+				+ "'somme':{'$sum':'$quantite'}}}");
 
 		List<DBObject> operations = new ArrayList<DBObject>();
-		operations.add(unwind);
+//		operations.add(unwind);
 		operations.add(match);
 		operations.add(project);
 		operations.add(group);
@@ -156,7 +156,7 @@ public class DaoMongoDB implements IDaoMongoDB {
 
 		List<CategoryProduct> result = new ArrayList<>();
 
-		DBObject unwind = (DBObject) JSON.parse("{$unwind:'$produits'}");
+//		DBObject unwind = (DBObject) JSON.parse("{$unwind:'$produits'}");
 
 		Calendar calendarStart = Calendar.getInstance();
 		Calendar calendarEnd = Calendar.getInstance();
@@ -179,14 +179,14 @@ public class DaoMongoDB implements IDaoMongoDB {
 				new BasicDBObject("$gte",calendarStart.getTime())
 				.append("$lte", calendarEnd.getTime())));
 
-		DBObject project = (DBObject) JSON.parse("{$project:{'produits.quantite':1, "
-				+ "'produits.productRef.categorie':1,"
+		DBObject project = (DBObject) JSON.parse("{$project:{'quantite':1, "
+				+ "'categorie':1,"
 				+ "'_id':0}}");
-		DBObject group = (DBObject) JSON.parse("{$group:{'_id':'$produits.productRef.categorie',"
-				+ "'somme':{'$sum':'$produits.quantite'}}}");
+		DBObject group = (DBObject) JSON.parse("{$group:{'_id':'$categorie',"
+				+ "'somme':{'$sum':'$quantite'}}}");
 
 		List<DBObject> operations = new ArrayList<DBObject>();
-		operations.add(unwind);
+//		operations.add(unwind);
 		operations.add(match);
 		operations.add(project);
 		operations.add(group);
@@ -210,7 +210,7 @@ public class DaoMongoDB implements IDaoMongoDB {
 
 		List<CategoryProduct> result = new ArrayList<>();
 
-		DBObject unwind = (DBObject) JSON.parse("{$unwind:'$produits'}");
+//		DBObject unwind = (DBObject) JSON.parse("{$unwind:'$produits'}");
 
 		Calendar calendarStart = Calendar.getInstance();
 		Calendar calendarEnd = Calendar.getInstance();
@@ -233,14 +233,14 @@ public class DaoMongoDB implements IDaoMongoDB {
 				new BasicDBObject("$gte",calendarStart.getTime())
 				.append("$lte", calendarEnd.getTime())));
 
-		DBObject project = (DBObject) JSON.parse("{$project:{'produits.quantite':1, "
-				+ "'produits.productRef.categorie':1,"
+		DBObject project = (DBObject) JSON.parse("{$project:{'quantite':1, "
+				+ "'categorie':1,"
 				+ "'_id':0}}");
-		DBObject group = (DBObject) JSON.parse("{$group:{'_id':'$produits.productRef.categorie',"
-				+ "'somme':{'$sum':'$produits.quantite'}}}");
+		DBObject group = (DBObject) JSON.parse("{$group:{'_id':'$categorie',"
+				+ "'somme':{'$sum':'$quantite'}}}");
 
 		List<DBObject> operations = new ArrayList<DBObject>();
-		operations.add(unwind);
+//		operations.add(unwind);
 		operations.add(match);
 		operations.add(project);
 		operations.add(group);
@@ -259,13 +259,12 @@ public class DaoMongoDB implements IDaoMongoDB {
 		return result;
 	}
 
-
 	@Override
 	public List<CategoryProduct> productsSellByCategoryAndDay() {
 
 		List<CategoryProduct> result = new ArrayList<>();
 
-		DBObject unwind = (DBObject) JSON.parse("{$unwind:'$produits'}");
+//		DBObject unwind = (DBObject) JSON.parse("{$unwind:'$produits'}");
 
 		Calendar calendar = Calendar.getInstance();
 		calendar.set(Calendar.HOUR, 0);
@@ -277,14 +276,14 @@ public class DaoMongoDB implements IDaoMongoDB {
 				new BasicDBObject("dateAchat",
 				new BasicDBObject("$gte",calendar.getTime())));
 
-		DBObject project = (DBObject) JSON.parse("{$project:{'produits.quantite':1, "
-				+ "'produits.productRef.categorie':1,"
+		DBObject project = (DBObject) JSON.parse("{$project:{'quantite':1, "
+				+ "'categorie':1,"
 				+ "'_id':0}}");
-		DBObject group = (DBObject) JSON.parse("{$group:{'_id':'$produits.productRef.categorie',"
-				+ "'somme':{'$sum':'$produits.quantite'}}}");
+		DBObject group = (DBObject) JSON.parse("{$group:{'_id':'$categorie',"
+				+ "'somme':{'$sum':'$quantite'}}}");
 
 		List<DBObject> operations = new ArrayList<DBObject>();
-		operations.add(unwind);
+//		operations.add(unwind);
 		operations.add(match);
 		operations.add(project);
 		operations.add(group);
@@ -307,7 +306,7 @@ public class DaoMongoDB implements IDaoMongoDB {
 	public List<CategoryProduct> productsPublishedByCategoryAndDay() {
 		List<CategoryProduct> result = new ArrayList<>();
 
-		DBObject unwind = (DBObject) JSON.parse("{$unwind:'$produits'}");
+//		DBObject unwind = (DBObject) JSON.parse("{$unwind:'$produits'}");
 
 		Calendar calendar = Calendar.getInstance();
 		calendar.set(Calendar.HOUR, 0);
@@ -319,14 +318,14 @@ public class DaoMongoDB implements IDaoMongoDB {
 				new BasicDBObject("dateAchat",
 				new BasicDBObject("$gte",calendar.getTime())));
 
-		DBObject project = (DBObject) JSON.parse("{$project:{'produits.quantite':1, "
-				+ "'produits.productRef.categorie':1,"
+		DBObject project = (DBObject) JSON.parse("{$project:{'quantite':1, "
+				+ "'categorie':1,"
 				+ "'_id':0}}");
-		DBObject group = (DBObject) JSON.parse("{$group:{'_id':'$produits.productRef.categorie',"
-				+ "'somme':{'$sum':'$produits.quantite'}}}");
+		DBObject group = (DBObject) JSON.parse("{$group:{'_id':'$categorie',"
+				+ "'somme':{'$sum':'$quantite'}}}");
 
 		List<DBObject> operations = new ArrayList<DBObject>();
-		operations.add(unwind);
+//		operations.add(unwind);
 		operations.add(match);
 		operations.add(project);
 		operations.add(group);
@@ -349,7 +348,7 @@ public class DaoMongoDB implements IDaoMongoDB {
 	public List<TypeProductProduct> productsSellByTypeProductAndMonth() {
 		List<TypeProductProduct> result = new ArrayList<>();
 
-		DBObject unwind = (DBObject) JSON.parse("{$unwind:'$produits'}");
+//		DBObject unwind = (DBObject) JSON.parse("{$unwind:'$produits'}");
 
 		Calendar calendar = Calendar.getInstance();
 		calendar.set(calendar.DATE,1);
@@ -362,14 +361,14 @@ public class DaoMongoDB implements IDaoMongoDB {
 				new BasicDBObject("dateAchat",
 				new BasicDBObject("$gte",calendar.getTime())));
 
-		DBObject project = (DBObject) JSON.parse("{$project:{'produits.quantite':1, "
-				+ "'produits.type':1,"
+		DBObject project = (DBObject) JSON.parse("{$project:{'quantite':1, "
+				+ "'type':1,"
 				+ "'_id':0}}");
-		DBObject group = (DBObject) JSON.parse("{$group:{'_id':'$produits.type',"
-				+ "'somme':{'$sum':'$produits.quantite'}}}");
+		DBObject group = (DBObject) JSON.parse("{$group:{'_id':'$type',"
+				+ "'somme':{'$sum':'$quantite'}}}");
 
 		List<DBObject> operations = new ArrayList<DBObject>();
-		operations.add(unwind);
+//		operations.add(unwind);
 		operations.add(match);
 		operations.add(project);
 		operations.add(group);
@@ -413,15 +412,13 @@ public class DaoMongoDB implements IDaoMongoDB {
 	@Override
 	public BasicDBObject createProduct(CartProduct cartProduct) {
 		Product product = cartProduct.getProduct();
-		BasicDBObject doc = new BasicDBObject("product_id", product.getIdProduct())
-		.append("dateMiseEnVente", product.getDatePublication())
-		.append("prix", product.getPrice())
+		BasicDBObject doc = new BasicDBObject("prix", product.getPrice())
 		.append("type", product.getTypeProduct().getTypeProduct())
 		.append("quantite", cartProduct.getQuantity())
-		.append("productRef", new BasicDBObject("nom", product.getProductRef().getProductName())
+		.append("nom", product.getProductRef().getProductName())
 		.append("categorie", product.getProductRef().getCategory().getCategoryName())
-				);
-		//		dbCollection.insert(doc);
+		.append("dateAchat", cartProduct.getCart().getDateCommande());
+		dbCollection.insert(doc);
 		return doc;
 	}
 

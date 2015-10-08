@@ -15,7 +15,7 @@
 			function autoRefresh_div() {
 					$("#insertCharts").load("charts.jsf");
 				}
-			setInterval('autoRefresh_div()', 1000);
+			setInterval('autoRefresh_div()', 3000);
 		</script>
 	</ui:define>
 
@@ -56,19 +56,19 @@
 							<br />
 							</div>
 							
-							<p:poll interval="3" update="pieModel1, pieModel2, pieModel3" listener="#{mbMongo.init()}"/>
+<!-- 							<p:poll interval="3" update="pieModel1, pieModel2, pieModel3" listener="#{mbMongo.init()}"/> -->
 							
 							<h:outputLabel value="Nombre d'articles vendus ce mois-ci : "
 								class="chart-title" />
-							<p:chart type="pie" model="#{mbMongo.pieModelCategory}" id="pieModel1"
+							<p:chart type="pie" model="#{mbMAdmin.pieModelCategory}" id="pieModel1"
 								style="width:48%;height:200px;display:inline-block;" />
-							<p:chart type="pie" model="#{mbMongo.pieModelTypeProduct}" id="pieModel2"
+							<p:chart type="pie" model="#{mbAdmin.pieModelTypeProduct}" id="pieModel2"
 								style="width:48%;height:200px;display:inline-block;" />
 							
 							<h:outputLabel
 								value="Nombre d'articles vendus au cours des trois derniers mois : "
 								class="chart-title" />
-							<p:chart type="bar" model="#{mbMongo.barModel}" id="pieModel3"
+							<p:chart type="bar" model="#{mbAdmin.barModel}" id="pieModel3"
 								style="height:300px" />
 
 						</div>
@@ -111,78 +111,78 @@
 				<h:panelGroup class="infosPersonnelles"
 					rendered="#{mbAdmin.rubriqueChoisie eq 'Profil'}">
 
-					<div class="identity">
-						<h2>
-							Identité
-							<h:commandLink action="#{editBean.editionModePersonnel()}"
-								rendered="#{not editBean.editModePersonnel}">
-								<img src="../resources/images/icones_profil/modifier-defaut.png"
-									onmousedown="this.src='../resources/images/icones_profil/modifier-clic.png';"
-									onmouseout="this.src='../resources/images/icones_profil/modifier-defaut.png';" />
-							</h:commandLink>
+<!-- 					<div class="identity"> -->
+<!-- 						<h2> -->
+<!-- 							Identité -->
+<!-- 							<h:commandLink action="#{editBean.editionModePersonnel()}" -->
+<!-- 								rendered="#{not editBean.editModePersonnel}"> -->
+<!-- 								<img src="../resources/images/icones_profil/modifier-defaut.png" -->
+<!-- 									onmousedown="this.src='../resources/images/icones_profil/modifier-clic.png';" -->
+<!-- 									onmouseout="this.src='../resources/images/icones_profil/modifier-defaut.png';" /> -->
+<!-- 							</h:commandLink> -->
 
-							<h:commandLink action="#{editBean.saveUser()}"
-								rendered="#{editBean.editModePersonnel}">
-								<img src="../resources/images/icones_profil/valider-defaut.png"
-									onmousedown="this.src='../resources/images/icones_profil/valider-clic.png';"
-									onmouseout="this.src='../resources/images/icones_profil/valider-defaut.png';" />
-							</h:commandLink>
+<!-- 							<h:commandLink action="#{editBean.saveUser()}" -->
+<!-- 								rendered="#{editBean.editModePersonnel}"> -->
+<!-- 								<img src="../resources/images/icones_profil/valider-defaut.png" -->
+<!-- 									onmousedown="this.src='../resources/images/icones_profil/valider-clic.png';" -->
+<!-- 									onmouseout="this.src='../resources/images/icones_profil/valider-defaut.png';" /> -->
+<!-- 							</h:commandLink> -->
 
-							<h:commandLink action="#{editBean.cancelModePersonnel()}"
-								rendered="#{editBean.editModePersonnel}">
-								<img src="../resources/images/icones_profil/annuler-defaut.png"
-									onmousedown="this.src='../resources/images/icones_profil/annuler-clic.png';"
-									onmouseout="this.src='../resources/images/icones_profil/annuler-defaut.png';" />
-							</h:commandLink>
+<!-- 							<h:commandLink action="#{editBean.cancelModePersonnel()}" -->
+<!-- 								rendered="#{editBean.editModePersonnel}"> -->
+<!-- 								<img src="../resources/images/icones_profil/annuler-defaut.png" -->
+<!-- 									onmousedown="this.src='../resources/images/icones_profil/annuler-clic.png';" -->
+<!-- 									onmouseout="this.src='../resources/images/icones_profil/annuler-defaut.png';" /> -->
+<!-- 							</h:commandLink> -->
 
-						</h2>
+<!-- 						</h2> -->
 
-						<h:outputLabel value="Nom" />
-						:
-						<h:outputLabel value="#{userBean.user.userName}"
-							rendered="#{not editBean.editModePersonnel}" />
-						<h:inputText value="#{userBean.user.userName}"
-							rendered="#{editBean.editModePersonnel}" />
+<!-- 						<h:outputLabel value="Nom" /> -->
+<!-- 						: -->
+<!-- 						<h:outputLabel value="#{userBean.user.userName}" -->
+<!-- 							rendered="#{not editBean.editModePersonnel}" /> -->
+<!-- 						<h:inputText value="#{userBean.user.userName}" -->
+<!-- 							rendered="#{editBean.editModePersonnel}" /> -->
 
-						<h:outputLabel value="Prénom" />
-						:
-						<h:outputLabel value="#{userBean.user.userFirstName}"
-							rendered="#{not editBean.editModePersonnel}" />
-						<h:inputText value="#{userBean.user.userFirstName}"
-							rendered="#{editBean.editModePersonnel}" />
+<!-- 						<h:outputLabel value="Prénom" /> -->
+<!-- 						: -->
+<!-- 						<h:outputLabel value="#{userBean.user.userFirstName}" -->
+<!-- 							rendered="#{not editBean.editModePersonnel}" /> -->
+<!-- 						<h:inputText value="#{userBean.user.userFirstName}" -->
+<!-- 							rendered="#{editBean.editModePersonnel}" /> -->
 
-						<h:outputLabel value="Civilité" />
-						:
-						<h:outputLabel
-							value="#{profilBean.getCivilityById(userBean.user.civility.idCivility)}"
-							rendered="#{not editBean.editModePersonnel}" />
-						<p:selectOneRadio id="signup_civility"
-							rendered="#{editBean.editModePersonnel}"
-							value="#{userBean.user.civility.idCivility}">
-							<f:selectItem itemLabel="Mr" itemValue="1" />
-							<f:selectItem itemLabel="Mme" itemValue="2" />
-							<f:selectItem itemLabel="Mlle" itemValue="3" />
-						</p:selectOneRadio>
+<!-- 						<h:outputLabel value="Civilité" /> -->
+<!-- 						: -->
+<!-- 						<h:outputLabel -->
+<!-- 							value="#{profilBean.getCivilityById(userBean.user.civility.idCivility)}" -->
+<!-- 							rendered="#{not editBean.editModePersonnel}" /> -->
+<!-- 						<p:selectOneRadio id="signup_civility" -->
+<!-- 							rendered="#{editBean.editModePersonnel}" -->
+<!-- 							value="#{userBean.user.civility.idCivility}"> -->
+<!-- 							<f:selectItem itemLabel="Mr" itemValue="1" /> -->
+<!-- 							<f:selectItem itemLabel="Mme" itemValue="2" /> -->
+<!-- 							<f:selectItem itemLabel="Mlle" itemValue="3" /> -->
+<!-- 						</p:selectOneRadio> -->
 
-						<!-- Pour l'email et le login, la modification peut être autorisée à conditions qu'ils ne soient -->
-						<!-- pas déjà utilisés par un autre utilisateur et qu'ils sont valides. -->
-						<h:outputLabel value="Email" />
-						:
-						<h:outputLabel value="#{userBean.user.email}" />
-						<!-- 						<h:outputLabel value="#{userBean.user.email}" rendered="#{not editBean.editModePersonnel}" /> -->
-						<!-- 						<h:inputText value="#{userBean.user.email}" rendered="#{editBean.editModePersonnel}" /> -->
+<!-- 						Pour l'email et le login, la modification peut être autorisée à conditions qu'ils ne soient -->
+<!-- 						pas déjà utilisés par un autre utilisateur et qu'ils sont valides. -->
+<!-- 						<h:outputLabel value="Email" /> -->
+<!-- 						: -->
+<!-- 						<h:outputLabel value="#{userBean.user.email}" /> -->
+<!-- 												<h:outputLabel value="#{userBean.user.email}" rendered="#{not editBean.editModePersonnel}" /> -->
+<!-- 												<h:inputText value="#{userBean.user.email}" rendered="#{editBean.editModePersonnel}" /> -->
 
-						<h:outputLabel value="Login" />
-						:
-						<h:outputLabel value="#{userBean.user.login}" />
+<!-- 						<h:outputLabel value="Login" /> -->
+<!-- 						: -->
+<!-- 						<h:outputLabel value="#{userBean.user.login}" /> -->
 
-						<h:outputLabel value="Mot de passe" />
-						:
-						<h:outputLabel value="***********"
-							rendered="#{not editBean.editModePersonnel}" />
-						<h:inputSecret value="#{userBean.user.password}"
-							rendered="#{editBean.editModePersonnel}" />
-					</div>
+<!-- 						<h:outputLabel value="Mot de passe" /> -->
+<!-- 						: -->
+<!-- 						<h:outputLabel value="***********" -->
+<!-- 							rendered="#{not editBean.editModePersonnel}" /> -->
+<!-- 						<h:inputSecret value="#{userBean.user.password}" -->
+<!-- 							rendered="#{editBean.editModePersonnel}" /> -->
+<!-- 					</div> -->
 				</h:panelGroup>
 			</h:form>
 		</f:view>

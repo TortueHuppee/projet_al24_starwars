@@ -136,11 +136,13 @@ public class GenMongoDBprogramme {
 
 			//Date de mise en ligne depuis la base ?
 			//doc.append("dateMiseEnVente", new Date(p.getDatePublication().getTime()));
-			doc.append("dateMiseEnVente", dateMiseEnVente);
+//			doc.append("dateMiseEnVente", dateMiseEnVente);
 			doc.append("prix", p.getPrice());
 			doc.append("type", p.getTypeProduct().getTypeProduct());
 			doc.append("quantite", quantite);
-			doc.append("productRef", new Document("nom", p.getProductRef().getProductName()).append("categorie", p.getProductRef().getCategory().getCategoryName() ));
+			doc.append("nom", p.getProductRef().getProductName());
+			doc.append("categorie", p.getProductRef().getCategory().getCategoryName());
+//			doc.append("dateAchat", dateCommande);
 			listDocuments.add(doc);
 		}
 		return listDocuments;
@@ -152,14 +154,24 @@ public class GenMongoDBprogramme {
 	 * @return
 	 */
 	public static Document creerDocumentCommande(Date dateCommande) {
+		MongoDatabase db = mongoClient.getDatabase(mongoDBname);
+		if (db == null) {
+			log.info("La base de données MongoDB : " + mongoDBname + " n'existe pas");
+		}
+		MongoCollection<Document> collection = db.getCollection(mongoDBCollectionName);
 		//Creation d'un document Commande
-		Document commande = new Document();
-		commande.append("dateAchat", dateCommande);
+//		Document commande = new Document();
+//		commande.append("dateAchat", dateCommande);
 		//Ajoute des produits aléatoirement
 		List<Document> listeProduits = creerListProduits(listeProductInMySQL);
-		commande.put("produits", listeProduits);
+		for (Document doc : listeProduits)
+		{
+			doc.append("dateAchat", dateCommande);
+			insererDocumentCommande(collection, doc);
+		}
+//		commande.put("produits", listeProduits);
 
-		return commande;
+		return null;
 	}
 	/**
 	 * 
@@ -191,8 +203,8 @@ public class GenMongoDBprogramme {
 			}
 
 			for (long i = 0; i < nombreDocumentsAgenerer; i++) {
-				Document doc = creerDocumentCommande(dateCommande);
-				insererDocumentCommande(collection, doc);
+				creerDocumentCommande(dateCommande);
+//				insererDocumentCommande(collection, doc);
 				dateCommande.setTime(dateCommande.getTime() + intervalDateCommande);
 			}
 			c.stop();
@@ -212,7 +224,7 @@ public class GenMongoDBprogramme {
 
 			try {
 				Document doc = creerDocumentCommande(new Date());
-				insererDocumentCommande(collection, doc);
+//				insererDocumentCommande(collection, doc);
 				Thread.sleep(intervalMSentreDeuxCommandes);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
