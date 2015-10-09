@@ -17,7 +17,7 @@ import javax.xml.ws.WebServiceFeature;
  * Generated source version: 2.2
  * 
  */
-@WebServiceClient(name = "BPELBank", targetNamespace = "http://bpel.bank.al24.afcepf.fr", wsdlLocation = "http://192.168.20.110:8080/ode/processes/BPELBank?wsdl")
+@WebServiceClient(name = "BPELBank", targetNamespace = "http://bpel.bank.al24.afcepf.fr", wsdlLocation = "http://192.168.100.130:8080/ode/processes/BPELBank?wsdl")
 public class BPELBank
     extends Service
 {
@@ -30,7 +30,7 @@ public class BPELBank
         URL url = null;
         WebServiceException e = null;
         try {
-            url = new URL("http://192.168.20.110:8080/ode/processes/BPELBank?wsdl");
+            url = new URL("http://192.168.100.130:8080/ode/processes/BPELBank?wsdl");
         } catch (MalformedURLException ex) {
             e = new WebServiceException(ex);
         }

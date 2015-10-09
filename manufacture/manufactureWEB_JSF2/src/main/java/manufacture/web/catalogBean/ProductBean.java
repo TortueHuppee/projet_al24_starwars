@@ -1,5 +1,6 @@
 package manufacture.web.catalogBean;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,6 +28,7 @@ public class ProductBean {
 
 	@ManagedProperty(value="#{catalog}")
 	private ICatalog proxyCatalog;
+    private static DecimalFormat numberFormatter = new DecimalFormat("####0.00");
 
 	private static final Integer PRODUCT_PROFESSIONNEL_TYPE_ID = 1;
 	private static final Integer PRODUCT_ARTISAN_TYPE_ID = 2;
@@ -227,11 +229,7 @@ public class ProductBean {
 
 	public double DoubleFormat(double number)
 	{
-		number = number*100;
-		number = (double)((int) number);
-		number = number /100;
-
-		return number;
+        return Double.valueOf(numberFormatter.format(number).replace(",",".").replace(" ","")); 
 	}
 
 	public void filtrerListeProduitsParCouleur()

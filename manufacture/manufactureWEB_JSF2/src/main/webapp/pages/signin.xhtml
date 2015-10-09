@@ -14,6 +14,7 @@
 	</ui:define>
 
 	<ui:define name="main-body">
+		<f:view>
 		<h:form id="signinForm">
 			<div class="center-body">
 				<div class="creationCompte">
@@ -59,27 +60,22 @@
 						<f:selectItem itemLabel="professionnel" itemValue="2" />
 					</p:selectOneRadio>
 
-					<h:outputLabel value="Nom de la compagnie : "
-						rendered="#{signUpBean.role.idUserRole > 1}" class="signInLabel" />
-					<h:inputText value="#{signUpBean.companyName}" class="signInInput"
-						rendered="#{signUpBean.role.idUserRole > 1}" />
+					<h:outputLabel value="Nom de la compagnie : " class="signInLabel" />
+					<h:inputText value="#{signUpBean.companyName}" class="signInInput"/>
 					<h:outputLabel class="messageErreur"
-						value="#{signUpBean.messageErreurCompanyName}"
-						rendered="#{signUpBean.role.idUserRole > 1}" />
+						value="#{signUpBean.messageErreurCompanyName}"/>
 
-					<h:outputLabel value="Domaine d'activité : "
-						rendered="#{signUpBean.role.idUserRole > 1}" class="signInLabel" />
+					<h:outputLabel value="Domaine d'activité : " class="signInLabel" />
 					<h:inputText value="#{signUpBean.domaineActivite}"
-						class="signInInput" rendered="#{signUpBean.role.idUserRole > 1}" />
+						class="signInInput" />
 					<h:outputLabel class="messageErreur"
-						value="#{signUpBean.messageErreurDomaineActivite}"
-						rendered="#{signUpBean.role.idUserRole > 1}" />
+						value="#{signUpBean.messageErreurDomaineActivite}" />
 
-					<p:commandButton
-						actionListener="#{signUpBean.validationFormulaire()}"
-						value="S'inscrire" update="signinForm" />
+					<p:commandButton  action="#{signUpBean.validationFormulaire()}"
+						value="S'inscrire" />
 				</div>
 			</div>
 		</h:form>
+		</f:view>
 	</ui:define>
 </ui:composition>

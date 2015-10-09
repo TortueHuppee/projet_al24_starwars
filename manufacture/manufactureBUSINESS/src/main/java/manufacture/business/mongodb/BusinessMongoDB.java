@@ -10,6 +10,7 @@ import com.mongodb.BasicDBObject;
 import manufacture.entity.cart.Cart;
 import manufacture.entity.cart.CartProduct;
 import manufacture.entity.mongodb.CategoryProduct;
+import manufacture.entity.mongodb.TypeProductProduct;
 import manufacture.entity.product.Product;
 import manufacture.ibusiness.mongodb.IBusinessMongoDB;
 import manufacture.idao.cart.IDaoCart;
@@ -67,5 +68,10 @@ public class BusinessMongoDB implements IBusinessMongoDB {
 	@Override
 	public List<CategoryProduct> productsSellByCategoryAndThreeMonthAgo() {
 		return proxyMongo.productsSellByCategoryAndThreeMonthAgo();
+	}
+
+	@Override
+	public List<TypeProductProduct> productsSellByTypeProductAndMonth() {
+		return proxyMongo.productsSellByTypeProductAndMonth();
 	}
 }

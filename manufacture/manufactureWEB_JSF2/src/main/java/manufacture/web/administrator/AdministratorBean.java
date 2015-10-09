@@ -1,6 +1,8 @@
-package fr.afcepf.al24.web.administrator;
+package manufacture.web.administrator;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Random;
 
@@ -50,6 +52,7 @@ public class AdministratorBean {
 	@PostConstruct
 	public void init() {
 		listeProduitsVendusSurLeMoisParCategorie = proxyMongo.productsSellByCategoryAndMonth();
+		listeProduitsVendusSurLeMoisParType = proxyMongo.productsSellByTypeProductAndMonth();
 		listeProduitsVendusUnMoisAvantParCategorie = proxyMongo.productsSellByCategoryAndOneMonthAgo();
 		listeProduitsVendusDeuxMoisAvantParCategorie = proxyMongo.productsSellByCategoryAndTwoMonthAgo();
 		listeProduitsVendusTroisMoisAvantParCategorie = proxyMongo.productsSellByCategoryAndThreeMonthAgo();
@@ -68,31 +71,31 @@ public class AdministratorBean {
 		pieModelCategory = new PieChartModel();
 		pieModelTypeProduct = new PieChartModel();
 
-//		for (CategoryProduct cp : listeProduitsVendusSurLeMoisParCategorie)
-//		{
-//			pieModelCategory.set(cp.getCategory(), cp.getQuantity());
-//		}
-
-		for (int i = 0; i < 4; i++)
+		for (CategoryProduct cp : listeProduitsVendusSurLeMoisParCategorie)
 		{
-			Random rand = new Random();
-			int nombreAleatoire = rand.nextInt(200 - 10 + 1) + 10;
-			Random rand2 = new Random();
-			int nombreAleatoire2 = rand2.nextInt(200 - 10 + 1) + 10;
-			pieModelCategory.set("Catégorie" + i, nombreAleatoire);
-			pieModelTypeProduct.set("Type" + i, nombreAleatoire2);
-			log.info("Pie model 1 : " + nombreAleatoire);
+			pieModelCategory.set(cp.getCategory(), cp.getQuantity());
 		}
+
+//		for (int i = 0; i < 4; i++)
+//		{
+//			Random rand = new Random();
+//			int nombreAleatoire = rand.nextInt(200 - 10 + 1) + 10;
+//			Random rand2 = new Random();
+//			int nombreAleatoire2 = rand2.nextInt(200 - 10 + 1) + 10;
+//			pieModelCategory.set("Catégorie" + i, nombreAleatoire);
+//			pieModelTypeProduct.set("Type" + i, nombreAleatoire2);
+//			log.info("Pie model 1 : " + nombreAleatoire);
+//		}
 
 		pieModelCategory.setTitle("Par catégorie de produit");
 		pieModelCategory.setFill(true);
 		pieModelCategory.setLegendPosition("w");
 		pieModelCategory.setShowDataLabels(true);
 
-//		for (TypeProductProduct tpp : listeProduitsVendusSurLeMoisParType)
-//		{
-//			pieModelTypeProduct.set(tpp.getTypeProduct(), tpp.getQuantity());
-//		}
+		for (TypeProductProduct tpp : listeProduitsVendusSurLeMoisParType)
+		{
+			pieModelTypeProduct.set(tpp.getTypeProduct(), tpp.getQuantity());
+		}
 		pieModelTypeProduct.setTitle("Par type de fournisseur");
 		pieModelTypeProduct.setFill(true);
 		pieModelTypeProduct.setLegendPosition("w");
@@ -102,79 +105,83 @@ public class AdministratorBean {
 	public void createBarModel() {
 		barModel = new BarChartModel();
 
-		//		Calendar cal = Calendar.getInstance();
-		//		
-		//		SimpleDateFormat sdf = new SimpleDateFormat("MMMMMMMMMMMMMMMM");
-		//		
-		//		cal.add(cal.MONTH, -1);
-		//		String dateUne = sdf.format(cal.getTime());
-		//		dateUne = dateUne.substring(0, 1).toUpperCase() + dateUne.substring(1);
-		//		
-		//		cal.add(cal.MONTH, -1);
-		//		String dateDeux = sdf.format(cal.getTime());
-		//		dateDeux = dateDeux.substring(0, 1).toUpperCase() + dateDeux.substring(1);
-		//		
-		//		cal.add(cal.MONTH, -1);
-		//		String dateTrois = sdf.format(cal.getTime());
-		//		dateTrois = dateTrois.substring(0, 1).toUpperCase() + dateTrois.substring(1);
-		//		
-		//		List<String> listeMois = new ArrayList<>();
-		//		listeMois.add(dateUne);
-		//		listeMois.add(dateDeux);
-		//		listeMois.add(dateTrois);
-		//		
-		//		ChartSeries serieArme = new ChartSeries();
-		//		serieArme.setLabel("Armes et technologies");
-		//		ChartSeries serieAccessoire = new ChartSeries();
-		//		serieAccessoire.setLabel("Accessoires");
-		//		ChartSeries seriePiece = new ChartSeries();
-		//		seriePiece.setLabel("Pièces détachées");
-		//		ChartSeries serieFourniture = new ChartSeries();
-		//		serieFourniture.setLabel("Fournitures");
-		//
-		//		repartitProduitsDansCategorie();
-		//		for (int i = 0; i < 3; i++)
-		//		{
-		//			serieArme.set(listeMois.get(i), categorieArme.get(i).getQuantity());
-		//			serieAccessoire.set(listeMois.get(i), categorieAccessoire.get(i).getQuantity());
-		//			seriePiece.set(listeMois.get(i), categoriePieces.get(i).getQuantity());
-		//			serieFourniture.set(listeMois.get(i), categorieFournitures.get(i).getQuantity());
-		//		}
-		//		
-		//		barModel.addSeries(serieArme);
-		//		barModel.addSeries(serieAccessoire);
-		//		barModel.addSeries(seriePiece);
-		//		barModel.addSeries(serieFourniture);
+		Calendar cal = Calendar.getInstance();
 
-		ChartSeries boys = new ChartSeries();
-		boys.setLabel("Boys");
-		boys.set("2004", 120);
-		boys.set("2005", 100);
-		boys.set("2006", 44);
-		boys.set("2007", 150);
-		boys.set("2008", 25);
+		SimpleDateFormat sdf = new SimpleDateFormat("MMMMMMMMMMMMMMMM");
 
-		ChartSeries girls = new ChartSeries();
-		girls.setLabel("Girls");
-		girls.set("2004", 52);
-		girls.set("2005", 60);
-		girls.set("2006", 110);
-		girls.set("2007", 135);
-		girls.set("2008", 120);
+		cal.add(cal.MONTH, -1);
+		String dateUne = sdf.format(cal.getTime());
+		dateUne = dateUne.substring(0, 1).toUpperCase() + dateUne.substring(1);
 
-		barModel.addSeries(boys);
-		barModel.addSeries(girls);
+		cal.add(cal.MONTH, -1);
+		String dateDeux = sdf.format(cal.getTime());
+		dateDeux = dateDeux.substring(0, 1).toUpperCase() + dateDeux.substring(1);
+
+		cal.add(cal.MONTH, -1);
+		String dateTrois = sdf.format(cal.getTime());
+		dateTrois = dateTrois.substring(0, 1).toUpperCase() + dateTrois.substring(1);
+
+		List<String> listeMois = new ArrayList<>();
+		listeMois.add(dateUne);
+		listeMois.add(dateDeux);
+		listeMois.add(dateTrois);
+
+		ChartSeries serieArme = new ChartSeries();
+		serieArme.setLabel("Armes et technologies");
+		ChartSeries serieAccessoire = new ChartSeries();
+		serieAccessoire.setLabel("Accessoires");
+		ChartSeries seriePiece = new ChartSeries();
+		seriePiece.setLabel("Pièces détachées");
+		ChartSeries serieFourniture = new ChartSeries();
+		serieFourniture.setLabel("Fournitures");
+
+		repartitProduitsDansCategorie();
+		int maxArme = 0;
+		int maxAccessoire = 0;
+		int maxPiece = 0;
+		int maxFourniture = 0;
+		for (int i = 0; i < 3; i++)
+		{
+			serieArme.set(listeMois.get(i), categorieArme.get(i).getQuantity());
+			serieAccessoire.set(listeMois.get(i), categorieAccessoire.get(i).getQuantity());
+			seriePiece.set(listeMois.get(i), categoriePieces.get(i).getQuantity());
+			serieFourniture.set(listeMois.get(i), categorieFournitures.get(i).getQuantity());
+			
+			maxArme += categorieArme.get(i).getQuantity();
+			maxAccessoire += categorieAccessoire.get(i).getQuantity();
+			maxPiece += categoriePieces.get(i).getQuantity();
+			maxFourniture += categorieFournitures.get(i).getQuantity();
+		}
+
+		barModel.addSeries(serieArme);
+		barModel.addSeries(serieAccessoire);
+		barModel.addSeries(seriePiece);
+		barModel.addSeries(serieFourniture);
 
 		barModel.setTitle("");
 		barModel.setLegendPosition("ne");
 
 		Axis xAxis = barModel.getAxis(AxisType.X);
-		xAxis.setLabel("Gender");
+		xAxis.setLabel("Mois");
 
 		Axis yAxis = barModel.getAxis(AxisType.Y);
-		yAxis.setLabel("Births");
+		yAxis.setLabel("Quantité");
 		yAxis.setMin(0);
-		yAxis.setMax(200);
+		
+		int maxY = maxArme;
+		if (maxAccessoire > maxY)
+		{
+			maxY = maxAccessoire;
+		}
+		if (maxFourniture > maxY)
+		{
+			maxY = maxFourniture;
+		}
+		if (maxPiece > maxY)
+		{
+			maxY = maxPiece;
+		}
+		yAxis.setMax(maxY);
 	}
 
 	public void repartitProduitsDansCategorie() 

@@ -364,7 +364,7 @@ public class CatalogManagedBean {
         number = number*100;
         number = (double)((int) number);
         number = number /100;
-
+        Math.
         return number;
     }
     //Getters et Setters	

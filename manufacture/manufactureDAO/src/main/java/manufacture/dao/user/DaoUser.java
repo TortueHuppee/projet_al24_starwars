@@ -57,7 +57,9 @@ public class DaoUser implements IDaoUser {
 		Query hql = session.createQuery(requete);
 		hql.setParameter("email",email);
 		List<User> resultat = hql.list();
+		if(resultat.size() != 0 ){
 		LOGGER.info("*********** getUserByEmail dans dao fonctionne : user = "+ resultat.get(0).getUserName()+" ***********");
+		}
 		return resultat;
 	}
 	
@@ -105,9 +107,10 @@ public class DaoUser implements IDaoUser {
 	@Override
 	public List<User> getUserByUserName(String userName) {
 		Session session = sf.getCurrentSession();
-		String requete = "FROM User u WHERE u.userName = :username";
+		String requete = "SELECT u FROM User u WHERE u.login LIKE :username";
 		Query hql = session.createQuery(requete).setParameter("username",userName);
 		List<User> resultat = hql.list();
+		System.out.println("resultat.size() : " + resultat.size());
 		return resultat;
 	}
 	

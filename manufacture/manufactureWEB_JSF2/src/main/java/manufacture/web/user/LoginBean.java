@@ -68,7 +68,14 @@ public class LoginBean {
 
         if(redirect != null)
         {
-            toPage = redirect;
+        	if (userBean.getUser().getUserRole().getIdUserRole() == USER_ADMINISTRATEUR_ROLE_ID)
+        	{
+        		toPage = "administrator.xhtml?faces-redirect=true";
+        	}
+        	else
+        	{
+        		toPage = redirect;
+        	}
             redirect = null;
         }
         else

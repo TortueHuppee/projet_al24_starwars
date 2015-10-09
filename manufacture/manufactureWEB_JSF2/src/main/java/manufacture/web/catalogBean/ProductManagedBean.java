@@ -1,5 +1,6 @@
 package manufacture.web.catalogBean;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,6 +31,7 @@ public class ProductManagedBean {
     private static final Integer PRODUCT_PROFESSIONNEL_TYPE_ID = 1;
     private static final Integer PRODUCT_ARTISAN_TYPE_ID = 2;
     private static final Integer PRODUCT_OCCASION_TYPE_ID = 3;
+    private static DecimalFormat numberFormatter = new DecimalFormat("####0.00");
 
     private int idProduitAffiche;
     private ProductRef productRef;
@@ -252,11 +254,7 @@ public class ProductManagedBean {
 
     public double DoubleFormat(double number)
     {
-        number = number*100;
-        number = (double)((int) number);
-        number = number /100;
-
-        return number;
+        return Double.valueOf(numberFormatter.format(number).replace(",",".").replace(" ",""));
     }
 
     //Getters et Setters

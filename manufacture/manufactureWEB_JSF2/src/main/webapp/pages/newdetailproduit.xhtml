@@ -114,8 +114,10 @@
 
 					<h:outputLabel value="Prix total :" class="label-titre-ajouter"/>
 					<h:outputLabel class="label-prix-ajouter"
-						value="#{newmbProduct.DoubleFormat(newmbProduct.produitSelectionne.price)*mbCart.quantity} Crédits" />
-
+						value="#{(newmbProduct.produitSelectionne.price*mbCart.quantity)} Crédits">
+							<f:convertNumber maxFractionDigits="2"/> 
+						</h:outputLabel>
+ 
 					<h:outputLabel value="Disponibilité :" class="label-titre-ajouter"/>
 					<h:outputLabel value="Disponible" class="label-disponible-ajouter"
 						rendered="#{newmbProduct.produitSelectionne.stock > 10}" />

@@ -7,6 +7,7 @@ import com.mongodb.BasicDBObject;
 import manufacture.entity.cart.Cart;
 import manufacture.entity.cart.CartProduct;
 import manufacture.entity.mongodb.CategoryProduct;
+import manufacture.entity.mongodb.TypeProductProduct;
 import manufacture.entity.product.Product;
 
 public interface IMongoDB {
@@ -26,4 +27,6 @@ BasicDBObject createProduct(CartProduct cartProduct);
 	List<CategoryProduct> productsSellByCategoryAndTwoMonthAgo();
 	
 	List<CategoryProduct> productsSellByCategoryAndThreeMonthAgo();
+
+	List<TypeProductProduct> productsSellByTypeProductAndMonth();
 }

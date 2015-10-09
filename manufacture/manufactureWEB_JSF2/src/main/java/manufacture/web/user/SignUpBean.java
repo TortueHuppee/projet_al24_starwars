@@ -7,6 +7,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
 import manufacture.entity.user.Civility;
@@ -17,7 +18,7 @@ import manufacture.ifacade.user.IInscription;
 import org.apache.log4j.Logger;
 
 @ManagedBean(name="signUpBean")
-@RequestScoped
+@SessionScoped
 public class SignUpBean {
 	
 	private static Logger LOGGER = Logger.getLogger(SignUpBean.class);
@@ -116,15 +117,18 @@ public class SignUpBean {
         userBean.setUser(proxyInscription.createAccount(user));
         
 		if(userBean.getUser().getIdUser() != null){
-			//getUserBean().setUser(user); //Realise la connexion automatique au site
-			return "index.xhtml?faces-redirect=true"; 
+//			getUserBean().setUser(user); //Realise la connexion automatique au site
+			LOGGER.info("success");
+			return "signInSuccess.xhtml?faces-redirect=true"; 
 		} else {
 
 		    //Affiche un message d'erreur a l'utilisateur
 			FacesContext.getCurrentInstance(). 
 			addMessage(null,
 					new FacesMessage(FacesMessage.SEVERITY_WARN,
-							"Warning message...", null));        
+							"Warning message...", null));  
+			LOGGER.info("fail");
+//			return "signInSuccess.xhtml?faces-redirect=true"; 
 		}
 		
 		//Si il y a un probleme on retourne sur la page d'inscription
@@ -144,18 +148,18 @@ public class SignUpBean {
 		nombreErreur += validationNom();
 		nombreErreur += validationPrenom();
 		nombreErreur += validationMail();
-		
 		if (role.getIdUserRole() != 1)
 		{
-		    nombreErreur += validationCompanyName();
-		    nombreErreur += validationDomaineActivite();
+		    int i = validationCompanyName();
+		    int j = validationDomaineActivite();
 		}
-
 		if (nombreErreur == 0)
 		{
 			return createUser();
 		}
-		return "signInSucccess.xhtml?faces-redirect=true";
+		LOGGER.info("nombre erreur : " + nombreErreur);
+		LOGGER.info("fail or not fail ?");
+		return "signInSuccess.xhtml?faces-redirect=true";
 	}
 	
 	public int validationLogin()
@@ -169,7 +173,7 @@ public class SignUpBean {
 		{
 			if (proxyInscription.loginAlreadyExisting(login))
 			{
-				messageErreurLogin = "Ce login est d√©j√† utilis√©";
+				messageErreurLogin = "Ce login est dÈj‡ utilisÈ";
 				return 1;
 			}
 			else
@@ -212,7 +216,7 @@ public class SignUpBean {
 	{
 		if (prenom.equals(""))
 		{
-			messageErreurPrenom = "Veuillez indiquer un pr√©nom";
+			messageErreurPrenom = "Veuillez indiquer un prÈnom";
 			return 1;
 		}
 		else
@@ -233,19 +237,19 @@ public class SignUpBean {
 		{
 			if (!email.contains("@"))
 			{
-				messageErreurEmail = "Mail invalide, veuillez v√©rifier votre saisie";
+				messageErreurEmail = "Mail invalide, veuillez vÈrifier votre saisie";
 				return 1;
 			}
 			else
 			{
 				if (proxyInscription.emailAlreadyExisting(email))
 				{
-					messageErreurEmail = "Cet email est d√©j√† utilis√©";
+					messageErreurEmail = "Cet email est dÈj‡ utilisÈ";
 					return 1;
 				}
 				else
 				{
-					messageErreurPrenom = "";
+					messageErreurEmail = "";
 					return 0;
 				}
 			}
@@ -270,7 +274,7 @@ public class SignUpBean {
     {
         if (domaineActivite.equals(""))
         {
-            messageErreurDomaineActivite = "Veuillez indiquer votre domaine d'activit√©";
+            messageErreurDomaineActivite = "Veuillez indiquer votre domaine d'activitÈ";
             return 1;
         }
         else

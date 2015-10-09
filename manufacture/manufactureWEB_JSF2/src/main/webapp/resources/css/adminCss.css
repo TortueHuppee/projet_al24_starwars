@@ -131,22 +131,22 @@
 }
 
 /*couleur des cercles et des labels*/
-.descrition1
+.Accessoires
 {
   color:#FE2E2E;
 }
 
-.descrition2
+.Pièces
 {
   color:#5FB404;
 }
 
-.descrition3
+.Armes
 {
   color:#2E64FE;
 }
 
-.descrition4
+.Fournitures
 {
   color:#FACC2E;
 }
@@ -162,31 +162,31 @@
 .circle-chart.small
 {
   margin-top:15%;
-  font-size:small;
+  font-size:9px;
 }
 
 .circle-chart.smaller
 {
   margin-top:20%;
-  font-size:small;
+  font-size:10px;
 }
 
 .circle-chart.medium
 {
-  margin-top:20%;
-  font-size:20px;
+  margin-top:30%;
+  font-size:15px;
 }
 
 .circle-chart.mediumLarge
 {
-  margin-top:15%;
-  font-size:30px;
+  margin-top:30%;
+  font-size:20px;
 }
 
 .circle-chart.large
 {
   margin-top:10%;
-  font-size:60px;
+  font-size:30px;
 }
 
 /*articles*/

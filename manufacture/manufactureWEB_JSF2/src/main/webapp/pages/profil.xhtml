@@ -369,7 +369,7 @@
 									<f:facet name="header">
 										Prix de la commande
 									</f:facet>
-									<h:outputLabel value="#{mbProduct.DoubleFormat(mbCart.getTotalPrice(cart))}" />
+									<h:outputLabel value="#{mbProduct.DoubleFormat(mbCart.getTotalPrice(cart)+cart.delivery.deliveryPrice)}" />
 								</h:column>
 								
 								<h:column>

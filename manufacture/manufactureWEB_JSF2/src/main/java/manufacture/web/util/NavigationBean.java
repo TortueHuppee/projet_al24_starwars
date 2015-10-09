@@ -50,6 +50,7 @@ public class NavigationBean {
         }
     	else
     	{
+    		loginBean.setRedirect("administrator.xhtml?faces-redirect=true");
     		return "login.xhtml?faces-redirect=true";
     	}
     }
@@ -68,15 +69,8 @@ public class NavigationBean {
         } 
         else 
         {
-            if (userBean.getUser().getUserRole().getIdUserRole() == USER_ADMINISTRATEUR_ROLE_ID)
-            {
-            	loginBean.setRedirect("administrator.xhtml?faces-redirect=true");
-            }
-            else
-            {
-            	profilBean.setDate(new Date());
-            	loginBean.setRedirect("profil.xhtml?faces-redirect=true");
-            }
+        	profilBean.setDate(new Date());
+        	loginBean.setRedirect("profil.xhtml?faces-redirect=true");
             return "login.xhtml?faces-redirect=true";
         }
     }
@@ -98,30 +92,14 @@ public class NavigationBean {
             }
         }else{
             annonceBean.setDate(new Date());
-            if (userBean.getUser().getUserRole().getIdUserRole() == USER_ADMINISTRATEUR_ROLE_ID)
-            {
-            	loginBean.setRedirect("administrator.xhtml?faces-redirect=true");
-            }
-            else
-            {
-            	loginBean.setRedirect("annonce.xhtml?faces-redirect=true");
-            }
+            loginBean.setRedirect("annonce.xhtml?faces-redirect=true");
             return "login.xhtml?faces-redirect=true";
         }
     }
 
     public String accessVisualisationPanier(){
         if(!userBean.isLogged()){
-//            FacesMessage fm = new FacesMessage("Erreur", "Vous devez vous connecter pour continuer la commande");
-//            FacesContext.getCurrentInstance().addMessage(null, fm);
-        	if (userBean.getUser().getUserRole().getIdUserRole() == USER_ADMINISTRATEUR_ROLE_ID)
-        	{
-        		loginBean.setRedirect("administrator.xhtml?faces-redirect=true");
-        	} 
-        	else
-        	{
-        		loginBean.setRedirect("panierStep1.xhtml?faces-redirect=true");
-        	}
+        	loginBean.setRedirect("panierStep1.xhtml?faces-redirect=true");
             return "login.xhtml?faces-redirect=true";
         } 
         else 
@@ -132,7 +110,7 @@ public class NavigationBean {
         	} 
         	else
         	{
-        		 mbSteps.initialisationDonnees();
+        		mbSteps.initialisationDonnees();
         		return "panierStep1.xhtml?faces-redirect=true";
         	}
         }

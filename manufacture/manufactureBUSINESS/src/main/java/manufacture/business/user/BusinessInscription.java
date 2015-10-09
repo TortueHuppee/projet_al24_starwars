@@ -37,8 +37,8 @@ public class BusinessInscription implements IBusinessInscription {
 
     @Override
     public boolean userExists(User user) {
-        List<User> userFound = proxyUser.getUserByUserName(user.getUserName());
-        return userFound.size() == 0 ? false:true;
+        List<User> userFound = proxyUser.getUserByUserName(user.getLogin());
+        return (userFound.size() == 0) ? false:true;
     }
 
     @Override

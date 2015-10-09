@@ -81,10 +81,10 @@ public class PaymentBean {
     private static final int CRYPTOGRAMME_DEBIT = 111;
 
     //Informations de paiement du client
-    private long numeroDebit;
+    private long numeroDebit = 1234567891234567L;
     private XMLGregorianCalendar dateFinDebit ;
     private String dateStringDebit;
-    private int cryptoDebit ;
+    private int cryptoDebit = 666;
     private int dateStringDebitMois ;
     private int dateStringDebitAnnee ;
     
@@ -113,11 +113,11 @@ public class PaymentBean {
 		}
 		
 		//Informations de paiement du client
-		numeroDebit = 0;
+		numeroDebit = 1234567891234567L;
 		dateStringDebit = "";
-		dateStringDebitAnnee = 0;
-		dateStringDebitMois = 0;
-		cryptoDebit = 0;
+		dateStringDebitAnnee = 1;
+		dateStringDebitMois = 2017;
+		cryptoDebit = 666;
 
 		//Donnees chargees pour l'affichage
         listeIntMois = new ArrayList<>();
@@ -159,7 +159,7 @@ public class PaymentBean {
     	
     	BindingProvider bp = (BindingProvider)iBPELBank;
 		bp.getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY,
-				"http://192.168.20.110:8080/ode/processes/BPELBank?wsdl");
+				"http://192.168.100.130:8080/ode/processes/BPELBank?wsdl");
 		
 		//Preparation de la requete
 		BPELBankRequest bpelBankRequest = convertDataToBPELBankRequest();

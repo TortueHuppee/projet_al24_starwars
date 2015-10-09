@@ -258,9 +258,9 @@ public class GenMongoDBprogramme {
 
 			MongoCollection<Document> collection = db.getCollection(mongoDBCollectionName);
 
-			if (genererHistorique) {
-				genererHistoriqueCommandes(collection);
-			}
+//			if (genererHistorique) {
+//				genererHistoriqueCommandes(collection);
+//			}
 
 			log.info("Debut de génération temps réel des commandes");
 			genererTempsReelCommandes(collection, 1000);

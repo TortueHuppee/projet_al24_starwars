@@ -143,7 +143,7 @@ public class DaoProduct implements IDaoProduct {
         String requete = "SELECT p FROM Product p, SpaceshipProduct ssp "
                 +"WHERE p.productRef.idProductRef = ssp.productRef.idProductRef "
                 +"AND ssp.spaceshipRef.idSpaceshipRef = :paramId "
-                +"AND LOWER(p.productRef.productName) LIKE :paramName"
+                +"AND LOWER(p.productRef.productName) LIKE :paramName "
                 + "AND p.stock > 0";
         Query hql = session.createQuery(requete);        
         hql.setParameter("paramId", idSpaceShipSelected);

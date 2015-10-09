@@ -1,5 +1,7 @@
 package manufacture.web.catalogBean;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -29,7 +31,7 @@ import org.apache.log4j.Logger;
 public class CatalogManagedBean {
 
     private static Logger log = Logger.getLogger(CatalogManagedBean.class);
-
+    private static DecimalFormat numberFormatter = new DecimalFormat("####0.00");
     @ManagedProperty(value="#{catalog}")
     private ICatalog proxyCatalog;
     
@@ -355,11 +357,7 @@ public class CatalogManagedBean {
 
     private double DoubleFormat(double number)
     {
-        number = number*100;
-        number = (double)((int) number);
-        number = number /100;
-
-        return number;
+        return Double.valueOf(numberFormatter.format(number).replace(",",".").replace(" ","")); 
     }
     
     public String toLowerCase (String string)

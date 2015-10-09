@@ -1,7 +1,7 @@
 /**
  * 
  */
-package fr.afcepf.al24.web.administrator;
+package manufacture.web.administrator;
 
 import java.util.Date;
 

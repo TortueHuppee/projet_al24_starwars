@@ -7,6 +7,7 @@ import java.util.Random;
 
 import manufacture.entity.cart.Cart;
 import manufacture.entity.cart.CartProduct;
+import manufacture.entity.user.Address;
 import manufacture.entity.user.User;
 import manufacture.idao.cart.IDaoCart;
 
@@ -36,7 +37,7 @@ public class DaoCart implements IDaoCart {
 //        Random rand = new Random();
 //        int transactionNumber = rand.nextInt(999999999 - 100000000 + 1) + 100000000;
 //        cart.setTransactionNumber(transactionNumber);
-        session.update(cart);
+        session.merge(cart);
         return cart; 
     } 
     

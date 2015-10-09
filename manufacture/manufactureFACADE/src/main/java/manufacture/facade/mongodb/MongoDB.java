@@ -10,6 +10,7 @@ import com.mongodb.BasicDBObject;
 import manufacture.entity.cart.Cart;
 import manufacture.entity.cart.CartProduct;
 import manufacture.entity.mongodb.CategoryProduct;
+import manufacture.entity.mongodb.TypeProductProduct;
 import manufacture.entity.product.Product;
 import manufacture.ibusiness.mongodb.IBusinessMongoDB;
 import manufacture.ifacade.mongodb.IMongoDB;
@@ -66,5 +67,10 @@ public class MongoDB implements IMongoDB{
 	@Autowired
 	public void setProxyMongo(IBusinessMongoDB proxyMongo) {
 		this.proxyMongo = proxyMongo;
+	}
+
+	@Override
+	public List<TypeProductProduct> productsSellByTypeProductAndMonth() {
+		return proxyMongo.productsSellByTypeProductAndMonth();
 	}
 }

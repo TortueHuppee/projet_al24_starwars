@@ -1,74 +1,64 @@
-package fr.afcepf.al24.web.administrator;
+package manufacture.web.administrator;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 import java.util.Random;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.RequestScoped;
 import javax.faces.model.SelectItem;
 import javax.faces.model.SelectItemGroup;
 
 import manufacture.entity.mongodb.CategoryProduct;
-import manufacture.entity.mongodb.TypeProductProduct;
 import manufacture.ifacade.mongodb.IMongoDB;
 
 import org.apache.log4j.Logger;
-import org.primefaces.model.chart.Axis;
-import org.primefaces.model.chart.AxisType;
-import org.primefaces.model.chart.BarChartModel;
-import org.primefaces.model.chart.ChartSeries;
-import org.primefaces.model.chart.PieChartModel;
 
 @ManagedBean(name="mbMongo")
-@SessionScoped
+@RequestScoped
 public class DataBeanMongo {
 
 private static Logger log = Logger.getLogger(DataBeanMongo.class);
 	
 	private List<CategoryProduct> listeProduitsVendusSurLeJour = new ArrayList<>();
 
+	@ManagedProperty(value="#{mongoDB}")
+	private IMongoDB proxyMongo;
+	
 	private SelectItemGroup articlesVendus;
 
 	private final int MAX_WIDTH_CIRCLE = 100;
-	private final int MIN_WIDTH_CIRCLE = 20;
+	private final int MIN_WIDTH_CIRCLE = 40;
 	private int sommeArticlesVendus;
 
 	@PostConstruct
 	public void init()
 	{
-		log.info("Init()");
-		Chrono chrono = new Chrono();
-		chrono.start();
 		sommeArticlesVendus = 0;
 
-//		listeProduitsVendusSurLeJour = proxyMongo.productsSellByCategoryAndDay();
-		listeProduitsVendusSurLeJour = new ArrayList<>();
+		listeProduitsVendusSurLeJour = proxyMongo.productsSellByCategoryAndDay();
+//		listeProduitsVendusSurLeJour = new ArrayList<>();
 		articlesVendus = new SelectItemGroup();
 		SelectItem[] tableauArticleMisEnLigne = new SelectItem[4];
-		for (int i = 0; i < 4; i++)
-		{
-			Random rand = new Random();
-			int nombreAleatoire = rand.nextInt(200 - 10 + 1) + 10;
-			tableauArticleMisEnLigne[i] = new SelectItem(nombreAleatoire, "test", "descrition" + i);
-			sommeArticlesVendus += nombreAleatoire;
-			log.info("Liste articlesVendus : " + nombreAleatoire);
-		}
+//		for (int i = 0; i < 4; i++)
+//		{
+//			Random rand = new Random();
+//			int nombreAleatoire = rand.nextInt(200 - 10 + 1) + 10;
+//			tableauArticleMisEnLigne[i] = new SelectItem(nombreAleatoire, "test", "descrition" + i);
+//			sommeArticlesVendus += nombreAleatoire;
+//			log.info("Liste articlesVendus : " + nombreAleatoire);
+//		}
 		
 		for (int i = 0; i < listeProduitsVendusSurLeJour.size(); i++)
 		{
 			CategoryProduct cp = listeProduitsVendusSurLeJour.get(i);
-			tableauArticleMisEnLigne[i] = new SelectItem(cp.getQuantity(), cp.getCategory());
+			tableauArticleMisEnLigne[i] = new SelectItem(cp.getQuantity(), cp.getCategory(), cp.getCategory());
 			sommeArticlesVendus += cp.getQuantity();
 			
 		}
 		articlesVendus.setSelectItems(tableauArticleMisEnLigne);
-		chrono.stop();
-		log.info(chrono.tempsEcoule() + "ms");
 	}
 
 	//Méthodes
@@ -146,5 +136,13 @@ private static Logger log = Logger.getLogger(DataBeanMongo.class);
 
 	public static void setLog(Logger log) {
 		DataBeanMongo.log = log;
+	}
+
+	public IMongoDB getProxyMongo() {
+		return proxyMongo;
+	}
+
+	public void setProxyMongo(IMongoDB proxyMongo) {
+		this.proxyMongo = proxyMongo;
 	}
 }
